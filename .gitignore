@@ -1,5 +1,8 @@
 # Project
 
+web/**/*.css
+web/**/*.css.map
+
 # General
 
 .idea
