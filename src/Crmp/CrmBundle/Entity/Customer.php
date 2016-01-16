@@ -29,12 +29,9 @@ class Customer
     private $name;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="legalBasis", type="enum", length=company, private, government)
+     * @ORM\OneToMany(targetEntity="\Crmp\AcquisitionBundle\Entity\Inquiry", mappedBy="customer")
      */
-    private $legalBasis;
-
+    protected $inquiries;
 
     /**
      * Get id
@@ -44,6 +41,21 @@ class Customer
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    public function __toString()
+    {
+        return $this->getName() . ' (' . $this->getId() . ')';
     }
 
     /**
@@ -58,16 +70,6 @@ class Customer
         $this->name = $name;
 
         return $this;
-    }
-
-    /**
-     * Get name
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
     }
 }
 

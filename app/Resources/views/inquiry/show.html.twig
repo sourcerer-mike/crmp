@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Inquiry</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ inquiry.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ inquiry.title }}</td>
+            </tr>
+            <tr>
+                <th>Netvalue</th>
+                <td>{{ inquiry.netValue }}</td>
+            </tr>
+            <tr>
+                <th>Content</th>
+                <td>{{ inquiry.content }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('inquiry_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('inquiry_edit', { 'id': inquiry.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}
