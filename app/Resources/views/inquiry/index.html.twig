@@ -6,20 +6,16 @@
     <table>
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Title</th>
                 <th>Netvalue</th>
-                <th>Content</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for inquiry in inquiries %}
             <tr>
-                <td><a href="{{ path('inquiry_show', { 'id': inquiry.id }) }}">{{ inquiry.id }}</a></td>
                 <td>{{ inquiry.title }}</td>
-                <td>{{ inquiry.netValue }}</td>
-                <td>{{ inquiry.content }}</td>
+                <td>{{ inquiry.netValue|price }}</td>
                 <td>
                     <ul>
                         <li>
