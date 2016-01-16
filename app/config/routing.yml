@@ -1,3 +1,8 @@
+acquisition:
+    resource: "@AcquisitionBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 crm:
     resource: "@CrmBundle/Controller/"
     type:     annotation
