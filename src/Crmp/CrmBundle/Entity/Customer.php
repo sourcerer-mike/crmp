@@ -28,6 +28,13 @@ class Customer
      */
     private $name;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="legalBasis", type="enum", length=company, private, government)
+     */
+    private $legalBasis;
+
 
     /**
      * Get id
