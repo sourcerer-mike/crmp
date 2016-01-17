@@ -1,5 +1,34 @@
 {% extends 'base.html.twig' %}
 
+{% block related_nav %}
+    <ul class="nav nav-pills nav-stacked">
+        <li>
+            <a href="{{ path('inquiry_index') }}">
+                <i class="fa fa-list-ul"></i>
+                List all inquiries
+            </a>
+        </li>
+    </ul>
+{% endblock %}
+
+{% block breadcrumb %}
+    <ol class="breadcrumb">
+        <li>
+            <a href="/">
+                Dashboard
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('inquiry_index') }}">
+                Inquiries
+            </a>
+        </li>
+        <li class="active">
+            New
+        </li>
+    </ol>
+{% endblock %}
+
 {% block body %}
     <h1>New inquiry</h1>
 
@@ -8,16 +37,8 @@
         <button type="submit"
                 class="btn btn-primary">
             <i class="fa fa-floppy-o"></i>
-            Save
+            Create
         </button>
     {{ form_end(form) }}
-
-    <div class="well">
-        <a href="{{ path('inquiry_index') }}" title="Back to the list"
-                class="btn btn-default">
-            <i class="fa fa-list-ul"></i>
-        </a>
-
-    </div>
 
 {% endblock %}

@@ -17,9 +17,20 @@
     </ul>
 {% endblock %}
 
-{% block body %}
-    <h1>Customer list</h1>
+{% block breadcrumb %}
+    <ol class="breadcrumb">
+        <li>
+            <a href="/">
+                Dashboard
+            </a>
+        </li>
+        <li class="active">
+            Customers
+        </li>
+    </ol>
+{% endblock %}
 
+{% block body %}
     <table class="table table-striped table-hover">
         <thead>
         <tr>

@@ -1,5 +1,23 @@
 {% extends 'base.html.twig' %}
 
+{% block breadcrumb %}
+    <ol class="breadcrumb">
+        <li>
+            <a href="/">
+                Dashboard
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('inquiry_index') }}">
+                Inquiries
+            </a>
+        </li>
+        <li class="active">
+            {{ inquiry.title }}
+        </li>
+    </ol>
+{% endblock %}
+
 {% block related_nav %}
     <ul class="nav nav-pills nav-stacked">
         <li>

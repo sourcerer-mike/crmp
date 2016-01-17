@@ -11,11 +11,29 @@
     </ul>
 {% endblock %}
 
+{% block breadcrumb %}
+    <ol class="breadcrumb">
+        <li>
+            <a href="/">
+                Dashboard
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('customer_index') }}">
+                Customers
+            </a>
+        </li>
+        <li class="active">
+            New
+        </li>
+    </ol>
+{% endblock %}
+
 {% block body %}
     <h1>Customer creation</h1>
 
     {{ form_start(form) }}
     {{ form_widget(form) }}
-    <input type="submit" value="Create"/>
+    <input type="submit" value="Create" class="btn btn-primary"/>
     {{ form_end(form) }}
 {% endblock %}

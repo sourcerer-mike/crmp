@@ -17,6 +17,29 @@
     </ul>
 {% endblock %}
 
+{% block breadcrumb %}
+    <ol class="breadcrumb">
+        <li>
+            <a href="/">
+                Dashboard
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('customer_index') }}">
+                Customers
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('customer_show', {'id': customer.id}) }}">
+                {{ customer.name }}
+            </a>
+        </li>
+        <li class="active">
+            Edit
+        </li>
+    </ol>
+{% endblock %}
+
 {% block body %}
     <h1>Customer edit</h1>
 

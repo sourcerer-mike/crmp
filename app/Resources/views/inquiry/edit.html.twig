@@ -17,6 +17,28 @@
     </ul>
 {% endblock %}
 
+{% block breadcrumb %}
+    <ol class="breadcrumb">
+        <li>
+            <a href="/">
+                Dashboard
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('inquiry_index') }}">
+                Inquiries
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('inquiry_show', {'id': inquiry.id}) }}">
+                {{ inquiry.title }}
+            </a>
+        </li>
+        <li class="active">
+            Edit
+        </li>
+    </ol>
+{% endblock %}
 
 {% block body %}
     <h1>Inquiry edit</h1>
