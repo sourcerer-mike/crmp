@@ -25,13 +25,13 @@
 {% endblock %}
 
 {% block body %}
-    <h1>Offer list</h1>
+    <h1>{% trans %}Offers{% endtrans %}</h1>
 
     <table class="table table-striped table-hover">
         <thead>
             <tr>
-                <th>Title</th>
-                <th>Price</th>
+                <th>{% trans %}Title{% endtrans %}</th>
+                <th>{% trans %}Price{% endtrans %}</th>
                 <th></th>
             </tr>
         </thead>
@@ -43,7 +43,7 @@
                         {{ offer.title }}
                     </a>
                 </td>
-                <td>{{ offer.price }}</td>
+                <td>{{ offer.price|price }}</td>
                 <td>
                     <div class="btn-group">
                         <a href="{{ path('offer_show', { 'id': offer.id }) }}"

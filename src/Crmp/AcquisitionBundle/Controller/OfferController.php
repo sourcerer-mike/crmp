@@ -42,6 +42,14 @@ class OfferController extends Controller
     public function newAction(Request $request)
     {
         $offer = new Offer();
+
+        if ($request->get('inquiry')) {
+            // customer given: pre-fill form
+            $inquiry = $this->getDoctrine()->getRepository('AcquisitionBundle:Inquiry')->find($request->get('inquiry'));
+
+            $offer->setInquiry($inquiry);
+        }
+
         $form = $this->createForm('Crmp\AcquisitionBundle\Form\OfferType', $offer);
         $form->handleRequest($request);
 
