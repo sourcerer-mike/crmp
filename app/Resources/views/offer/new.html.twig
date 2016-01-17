@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block breadcrumb %}
+    <ol class="breadcrumb">
+        <li>
+            <a href="/">
+                Dashboard
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('offer_index') }}">
+                Offers
+            </a>
+        </li>
+        <li class="active">
+            {% trans %}New{% endtrans %}
+        </li>
+    </ol>
+{% endblock %}
+
+{% block related_nav %}
+    <ul class="nav nav-pills nav-stacked">
+        <li>
+            <a href="{{ path('offer_index') }}">
+                <i class="fa fa-list-ul"></i>
+                List all offers
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('offer_index') }}">
+                <i class="fa fa-ban"></i>
+                {% trans %}Abort{% endtrans %}
+            </a>
+        </li>
+    </ul>
+{% endblock %}
+
+
+{% block body %}
+    <h1>Offer creation</h1>
+
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <input type="submit" value="{% trans %}Create{% endtrans %}" class="btn btn-primary"/>
+    {{ form_end(form) }}
+{% endblock %}

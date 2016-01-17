@@ -48,6 +48,11 @@ class Inquiry
      */
     protected $customer;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Offer", mappedBy="inquiry")
+     */
+    protected $offers;
+
 
     /**
      * Get id
@@ -57,6 +62,11 @@ class Inquiry
     public function getId()
     {
         return $this->id;
+    }
+
+    public function __toString()
+    {
+        return $this->getTitle();
     }
 
     /**
@@ -153,5 +163,46 @@ class Inquiry
     public function getCustomer()
     {
         return $this->customer;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->offers = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add offer
+     *
+     * @param \Crmp\AcquisitionBundle\Entity\Offer $offer
+     *
+     * @return Inquiry
+     */
+    public function addOffer(\Crmp\AcquisitionBundle\Entity\Offer $offer)
+    {
+        $this->offers[] = $offer;
+
+        return $this;
+    }
+
+    /**
+     * Remove offer
+     *
+     * @param \Crmp\AcquisitionBundle\Entity\Offer $offer
+     */
+    public function removeOffer(\Crmp\AcquisitionBundle\Entity\Offer $offer)
+    {
+        $this->offers->removeElement($offer);
+    }
+
+    /**
+     * Get offers
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getOffers()
+    {
+        return $this->offers;
     }
 }
