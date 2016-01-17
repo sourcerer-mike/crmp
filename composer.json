@@ -17,10 +17,11 @@
         }
     },
     "require": {
+        "components/font-awesome": "~4",
         "components/jquery": "~2.2",
         "doctrine/orm": "^2.5",
         "doctrine/doctrine-bundle": "^1.6",
-        "doctrine/doctrine-cache-bundle":c "^1.2",
+        "doctrine/doctrine-cache-bundle": "^1.2",
         "friendsofsymfony/user-bundle": "~2.0@dev",
         "incenteev/composer-parameter-handler": "^2.0",
         "php": ">=5.5.9",

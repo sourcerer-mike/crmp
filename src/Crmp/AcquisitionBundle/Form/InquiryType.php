@@ -16,11 +16,11 @@ class InquiryType extends AbstractType
     {
         $builder
             ->add('title')
+            ->add('customer')
             ->add('netValue', null, [
                 'label' => 'Predicted value'
             ])
             ->add('content')
-            ->add('customer')
         ;
     }
     

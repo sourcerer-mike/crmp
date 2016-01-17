@@ -2,6 +2,8 @@
 
 namespace Crmp\CrmBundle\Controller;
 
+use Crmp\AcquisitionBundle\Form\InquiryType;
+use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -69,9 +71,12 @@ class CustomerController extends Controller
     {
         $deleteForm = $this->createDeleteForm($customer);
 
+        $inquiryType = new InquiryType();
+
         return $this->render('customer/show.html.twig', array(
             'customer' => $customer,
             'delete_form' => $deleteForm->createView(),
+            'inquiry_form' => $this->createFormBuilder()->getForm(),
         ));
     }
 
