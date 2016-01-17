@@ -4,15 +4,15 @@
     <ul class="nav nav-pills nav-stacked">
         <li>
             <a href="{{ path('customer_index') }}"
-               title="Back to the list">
+               title="{% trans %}Back to the list{% endtrans %}">
                 <i class="fa fa-list-ul"></i>
                 List all customer
             </a>
         </li>
         <li>
             <a href="{{ path('customer_edit', { 'id': customer.id }) }}"
-               title="Edit">
-                <i class="fa fa-pencil"></i> Edit
+               title="{% trans %}Edit{% endtrans %}">
+                <i class="fa fa-pencil"></i> {% trans %}Edit{% endtrans %}
             </a>
         </li>
     </ul>
@@ -20,7 +20,7 @@
     <ul class="nav nav-pills nav-stacked">
         <li>
             <a href="{{ path('inquiry_index', { 'customer': customer.id }) }}"
-               title="Edit">
+               title="{% trans %}Edit{% endtrans %}">
                 <i class="fa fa-question"></i>
                 Inquiries
             </a>

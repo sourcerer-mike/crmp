@@ -23,13 +23,13 @@
         <li>
             <a href="{{ path('inquiry_index') }}">
                 <i class="fa fa-list-ul"></i>
-                Back to the list
+                {% trans %}Back to the list{% endtrans %}
             </a>
         </li>
         <li>
             <a href="{{ path('inquiry_edit', { 'id': inquiry.id }) }}">
                 <i class="fa fa-pencil"></i>
-                Edit
+                {% trans %}Edit{% endtrans %}
             </a>
         </li>
     </ul>
@@ -45,7 +45,7 @@
                 <td>{{ inquiry.id }}</td>
             </tr>
             <tr>
-                <th>Title</th>
+                <th>{% trans %}Title{% endtrans %}</th>
                 <td>{{ inquiry.title }}</td>
             </tr>
             <tr>

@@ -11,7 +11,7 @@
         <li>
             <a href="{{ path('customer_show', { 'id': customer.id }) }}">
                 <i class="fa fa-ban"></i>
-                Abort editing
+                {% trans %}Abort{% endtrans %}
             </a>
         </li>
     </ul>
@@ -35,7 +35,7 @@
             </a>
         </li>
         <li class="active">
-            Edit
+            {% trans %}Edit{% endtrans %}
         </li>
     </ol>
 {% endblock %}
