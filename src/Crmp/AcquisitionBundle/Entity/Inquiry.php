@@ -43,7 +43,7 @@ class Inquiry
     private $content;
 
     /**
-     * @ORM\ManyToOne(targetEntity="\Crmp\CrmBundle\Entity\Customer", inversedBy="inquiry")
+     * @ORM\ManyToOne(targetEntity="\Crmp\CrmBundle\Entity\Customer", inversedBy="inquiries")
      * @ORM\JoinColumn(name="customer_id", referencedColumnName="id")
      */
     protected $customer;
