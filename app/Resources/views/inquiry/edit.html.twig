@@ -8,6 +8,12 @@
                 Back to the list
             </a>
         </li>
+        <li>
+            <a href="{{ path('inquiry_show', { 'id': inquiry.id }) }}">
+                <i class="fa fa-ban"></i>
+                Abort editing
+            </a>
+        </li>
     </ul>
 {% endblock %}
 

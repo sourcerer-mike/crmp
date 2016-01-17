@@ -26,7 +26,11 @@
         <tbody>
         {% for inquiry in inquiries %}
             <tr>
-                <td>{{ inquiry.title }}</td>
+                <td>
+                    <a href="{{ path('inquiry_show', { 'id': inquiry.id }) }}">
+                        {{ inquiry.title }}
+                    </a>
+                </td>
                 <td>{{ inquiry.netValue|price }}</td>
                 <td>
                     <div class="btn-group">
