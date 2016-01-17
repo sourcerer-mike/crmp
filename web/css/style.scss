@@ -4,3 +4,14 @@
 .crmp-body {
   padding-top: 70px;
 }
+
+ul.nav-stacked {
+  padding-bottom: 2em;
+
+  li {
+    a.btn {
+      display: inline-block;
+      float: right;
+    }
+  }
+}

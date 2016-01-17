@@ -1,9 +1,41 @@
 {% extends 'base.html.twig' %}
 
+{% block related_nav %}
+    <ul class="nav nav-pills nav-stacked">
+        <li>
+            <a href="{{ path('customer_index') }}"
+               title="Back to the list">
+                <i class="fa fa-list-ul"></i>
+                List all customer
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('customer_edit', { 'id': customer.id }) }}"
+               title="Edit">
+                <i class="fa fa-pencil"></i> Edit
+            </a>
+        </li>
+    </ul>
+
+    <ul class="nav nav-pills nav-stacked">
+        <li>
+            <a href="{{ path('inquiry_index', { 'customer': customer.id }) }}"
+               title="Edit">
+                <i class="fa fa-question"></i>
+                Inquiries
+            </a>
+            <a href="{{ path('inquiry_new', {'customer': customer.id}) }}" class="btn btn-success">
+                <i class="fa fa-plus"></i>
+            </a>
+        </li>
+    </ul>
+{% endblock %}
+
+
 {% block body %}
     <h1>{{ customer.name }}</h1>
 
-    <table class="table table-striped">
+    <table class="table table-striped table-hover table-bordered">
         <tbody>
         <tr>
             <th>Id</th>
@@ -11,41 +43,4 @@
         </tr>
         </tbody>
     </table>
-
-    <div class="well">
-        {{ form_start(delete_form) }}
-        <a href="{{ path('customer_index') }}"
-           title="Back to the list"
-           class="btn btn-default"
-           role="button">
-            <i class="fa fa-list-ul"></i>
-        </a>
-
-        <div class="btn-group">
-            <a href="{{ path('inquiry_index', { 'customer': customer.id }) }}"
-               title="Edit"
-               class="btn btn-default"
-               role="button">
-                <i class="fa fa-question"></i>
-                Inquiries
-            </a>
-            <a href="{{ path('inquiry_new', { 'customer': customer.id }) }}"
-               class="btn btn-success">
-                <i class="fa fa-plus"></i>
-            </a>
-        </div>
-
-        <div class="btn-group">
-            <a href="{{ path('customer_edit', { 'id': customer.id }) }}"
-               title="Edit"
-               class="btn btn-default"
-               role="button">
-                <i class="fa fa-pencil"></i>
-            </a>
-            <button type="submit" value="Delete" class="btn btn-danger">
-                <i class="fa fa-trash-o"></i>
-            </button>
-        </div>
-        {{ form_end(delete_form) }}
-    </div>
 {% endblock %}

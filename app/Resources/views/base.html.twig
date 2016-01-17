@@ -45,7 +45,9 @@
                        aria-expanded="false">Acquisition<span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a href="{{ path('inquiry_index') }}">Inquiry</a>
+                            <a href="{{ path('inquiry_index') }}">
+                                Inquiry
+                            </a>
                         </li>
                     </ul>
                 </li>
@@ -67,8 +69,16 @@
     </div>
     <!-- /.container-fluid -->
 </nav>
+
 <div class="container-fluid">
-    {% block body %}{% endblock %}
+    <div class="row">
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+            {% block related_nav %}{% endblock %}
+        </div>
+        <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+            {% block body %}{% endblock %}
+        </div>
+    </div>
 </div>
 
 {% block javascripts %}

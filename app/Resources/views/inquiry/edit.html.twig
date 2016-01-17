@@ -1,4 +1,16 @@
-{% extends 'base.html.twig' %}
+{% extends 'inquiry/show.html.twig' %}
+
+{% block related_nav %}
+    <ul class="nav nav-pills nav-stacked">
+        <li>
+            <a href="{{ path('inquiry_index') }}">
+                <i class="fa fa-list-ul"></i>
+                Back to the list
+            </a>
+        </li>
+    </ul>
+{% endblock %}
+
 
 {% block body %}
     <h1>Inquiry edit</h1>
@@ -7,15 +19,7 @@
         {{ form_widget(edit_form) }}
         <input type="submit" value="Save" class="btn btn-primary"/>
     {{ form_end(edit_form) }}
-
-    <ul>
-        <li>
-            <a href="{{ path('inquiry_index') }}" class="btn btn-default">Back to the list</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete" class="btn btn-danger">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+    {{ form_start(delete_form) }}
+    <input type="submit" value="Delete" class="btn btn-danger">
+    {{ form_end(delete_form) }}
 {% endblock %}

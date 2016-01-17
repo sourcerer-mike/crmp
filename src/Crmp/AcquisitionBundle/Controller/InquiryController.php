@@ -114,6 +114,8 @@ class InquiryController extends Controller
             return $this->redirectToRoute('inquiry_show', array('id' => $inquiry->getId()));
         }
 
+        $this->container;
+
         return $this->render(
             'inquiry/new.html.twig',
             array(

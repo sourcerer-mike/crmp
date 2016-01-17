@@ -1,14 +1,26 @@
 {% extends 'base.html.twig' %}
 
+{% block related_nav %}
+    <div class="btn-toolbar" role="toolbar">
+        <div class="btn-group">
+            <a href="{{ path('inquiry_new') }}" class="btn btn-success">
+                <i class="fa fa-plus"></i>
+                New inquiry
+            </a>
+        </div>
+    </div>
+{% endblock %}
+
+
 {% block body %}
     <h1>Inquiry list</h1>
 
-    <table>
+    <table class="table table-striped table-hover">
         <thead>
             <tr>
                 <th>Title</th>
                 <th>Predicted value</th>
-                <th>Actions</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -17,23 +29,19 @@
                 <td>{{ inquiry.title }}</td>
                 <td>{{ inquiry.netValue|price }}</td>
                 <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('inquiry_show', { 'id': inquiry.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('inquiry_edit', { 'id': inquiry.id }) }}">edit</a>
-                        </li>
-                    </ul>
+                    <div class="btn-group">
+                        <a href="{{ path('inquiry_show', { 'id': inquiry.id }) }}"
+                                class="btn btn-primary">
+                            <i class="fa fa-eye"></i>
+                        </a>
+                        <a href="{{ path('inquiry_edit', { 'id': inquiry.id }) }}"
+                                class="btn btn-default">
+                            <i class="fa fa-pencil"></i>
+                        </a>
+                    </div>
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('inquiry_new') }}">Create a new entry</a>
-        </li>
-    </ul>
 {% endblock %}

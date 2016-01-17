@@ -1,18 +1,24 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
-    <h1>Customer list</h1>
-
+{% block related_nav %}
     <div class="btn-toolbar" role="toolbar">
         <div class="btn-group">
             <a href="{{ path('customer_new') }}"
-                    title="Create a new entry"
-                    class="btn btn-success">
+               title="Create a new entry"
+               class="btn btn-success">
                 <i class="fa fa-plus"></i>
                 New customer
             </a>
         </div>
     </div>
+
+    <ul class="nav nav-pills nav-stacked">
+
+    </ul>
+{% endblock %}
+
+{% block body %}
+    <h1>Customer list</h1>
 
     <table class="table table-striped table-hover">
         <thead>
