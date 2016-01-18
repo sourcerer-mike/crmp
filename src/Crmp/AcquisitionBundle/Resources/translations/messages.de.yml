@@ -6,6 +6,7 @@ Content: Inhalt
 Create: Erstellen
 Customer: Kunde
 
+date_js: dd.mm.yy
 Delete: Löschen
 
 Edit: Bearbeiten
@@ -15,9 +16,12 @@ Goto inquiry: Zur Anfrage
 Inquiries: Anfragen
 Inquiry: Anfrage
 
-Price: Preis
+Logout: Abmelden
+
+Remember me: Eingeloggt bleiben
 
 Save: Speichern
+Sign in: Anmelden
 
 Name: Name
 New: Neu
@@ -26,6 +30,11 @@ New offer: Neues Angebot
 Offer: Angebot
 Offers: Angebote
 
+Password: Passwort
 Predicted value: Voraussichtlicher Wert
+Price: Preis
+Profile: Profil
 
 Title: Titel
+
+Username: Benutzer

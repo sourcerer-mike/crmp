@@ -42,3 +42,13 @@
     {{ form_end(form) }}
 
 {% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript">
+        $(function () {
+            $('.datepicker').datepicker({
+                dateFormat: '{% trans %}date_js{% endtrans %}'
+            });
+        });
+    </script>
+{% endblock %}

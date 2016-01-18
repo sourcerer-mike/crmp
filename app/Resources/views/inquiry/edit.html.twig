@@ -51,3 +51,13 @@
     <input type="submit" value="Delete" class="btn btn-danger">
     {{ form_end(delete_form) }}
 {% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript">
+        $(function () {
+            $('.datepicker').datepicker({
+                dateFormat: '{% trans %}date_js{% endtrans %}'
+            });
+        });
+    </script>
+{% endblock %}

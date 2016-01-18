@@ -43,6 +43,13 @@ class Inquiry
     private $content;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(type="datetime", name="inquired_at")
+     */
+    private $inquiredAt;
+
+    /**
      * @ORM\ManyToOne(targetEntity="\Crmp\CrmBundle\Entity\Customer", inversedBy="inquiries")
      * @ORM\JoinColumn(name="customer_id", referencedColumnName="id")
      */
@@ -204,5 +211,29 @@ class Inquiry
     public function getOffers()
     {
         return $this->offers;
+    }
+
+    /**
+     * Set inquiredAt
+     *
+     * @param \DateTime $inquiredAt
+     *
+     * @return Inquiry
+     */
+    public function setInquiredAt($inquiredAt)
+    {
+        $this->inquiredAt = $inquiredAt;
+
+        return $this;
+    }
+
+    /**
+     * Get inquiredAt
+     *
+     * @return \DateTime
+     */
+    public function getInquiredAt()
+    {
+        return $this->inquiredAt;
     }
 }
