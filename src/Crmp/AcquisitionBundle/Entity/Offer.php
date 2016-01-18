@@ -13,6 +13,21 @@ use Doctrine\ORM\Mapping as ORM;
 class Offer
 {
     /**
+     * @ORM\ManyToOne(targetEntity="Inquiry", inversedBy="offers")
+     * @ORM\JoinColumn(name="inquiry_id", referencedColumnName="id")
+     */
+    protected $inquiry;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="content", type="text")
+     */
+    private $content;
+    /**
+     * @ORM\OneToMany(targetEntity="Contract", mappedBy="offer")
+     */
+    private $contracts;
+    /**
      * @var int
      *
      * @ORM\Column(name="id", type="integer")
@@ -20,7 +35,12 @@ class Offer
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="price", type="decimal", precision=4, scale=0)
+     */
+    private $price;
     /**
      * @var string
      *
@@ -29,34 +49,26 @@ class Offer
     private $title;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="price", type="decimal", precision=4, scale=0)
+     * Constructor
      */
-    private $price;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="content", type="text")
-     */
-    private $content;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Inquiry", inversedBy="offers")
-     * @ORM\JoinColumn(name="inquiry_id", referencedColumnName="id")
-     */
-    protected $inquiry;
-
-
-    /**
-     * Get id
-     *
-     * @return int
-     */
-    public function getId()
+    public function __construct()
     {
-        return $this->id;
+        $this->contracts = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->getTitle();
+    }
+
+    /**
+     * Get title
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
     }
 
     /**
@@ -74,37 +86,27 @@ class Offer
     }
 
     /**
-     * Get title
+     * Add contract
      *
-     * @return string
-     */
-    public function getTitle()
-    {
-        return $this->title;
-    }
-
-    /**
-     * Set price
-     *
-     * @param string $price
+     * @param \Crmp\AcquisitionBundle\Entity\Contract $contract
      *
      * @return Offer
      */
-    public function setPrice($price)
+    public function addContract(\Crmp\AcquisitionBundle\Entity\Contract $contract)
     {
-        $this->price = $price;
+        $this->contracts[] = $contract;
 
         return $this;
     }
 
     /**
-     * Get price
+     * Get content
      *
      * @return string
      */
-    public function getPrice()
+    public function getContent()
     {
-        return $this->price;
+        return $this->content;
     }
 
     /**
@@ -122,13 +124,33 @@ class Offer
     }
 
     /**
-     * Get content
+     * Get contracts
      *
-     * @return string
+     * @return \Doctrine\Common\Collections\Collection
      */
-    public function getContent()
+    public function getContracts()
     {
-        return $this->content;
+        return $this->contracts;
+    }
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Get inquiry
+     *
+     * @return \Crmp\AcquisitionBundle\Entity\Inquiry
+     */
+    public function getInquiry()
+    {
+        return $this->inquiry;
     }
 
     /**
@@ -146,12 +168,36 @@ class Offer
     }
 
     /**
-     * Get inquiry
+     * Get price
      *
-     * @return \Crmp\AcquisitionBundle\Entity\Inquiry
+     * @return string
      */
-    public function getInquiry()
+    public function getPrice()
     {
-        return $this->inquiry;
+        return $this->price;
+    }
+
+    /**
+     * Set price
+     *
+     * @param string $price
+     *
+     * @return Offer
+     */
+    public function setPrice($price)
+    {
+        $this->price = $price;
+
+        return $this;
+    }
+
+    /**
+     * Remove contract
+     *
+     * @param \Crmp\AcquisitionBundle\Entity\Contract $contract
+     */
+    public function removeContract(\Crmp\AcquisitionBundle\Entity\Contract $contract)
+    {
+        $this->contracts->removeElement($contract);
     }
 }

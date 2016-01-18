@@ -42,6 +42,14 @@ class ContractController extends Controller
     public function newAction(Request $request)
     {
         $contract = new Contract();
+
+        if ($request->get('offer')) {
+            // customer given: pre-fill form
+            $offer = $this->getDoctrine()->getRepository('AcquisitionBundle:Offer')->find($request->get('offer'));
+
+            $contract->setOffer($offer);
+        }
+
         $form = $this->createForm('Crmp\AcquisitionBundle\Form\ContractType', $contract);
         $form->handleRequest($request);
 

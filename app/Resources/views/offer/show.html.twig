@@ -19,6 +19,13 @@
 {% endblock %}
 
 {% block related_nav %}
+    <div class="btn-group">
+        <a href="{{ path('contract_new', {offer: offer.id}) }}" class="btn btn-default">
+            <i class="fa fa-plus"></i>
+            {% trans %}Contract creation{% endtrans %}
+        </a>
+    </div>
+
     <ul class="nav nav-pills nav-stacked">
         <li>
             <a href="{{ path('offer_index') }}">
@@ -60,4 +67,7 @@
         </tr>
         </tbody>
     </table>
+
+    <h2>{% trans %}Contract list{% endtrans %}</h2>
+    {% include 'contract/_list.html.twig' with {'contracts': offer.contracts} %}
 {% endblock %}

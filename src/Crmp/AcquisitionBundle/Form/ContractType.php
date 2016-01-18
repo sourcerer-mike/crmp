@@ -10,24 +10,26 @@ class ContractType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('title')
+            ->add('offer')
             ->add('value')
-            ->add('content')
-        ;
+            ->add('content');
     }
-    
+
     /**
      * @param OptionsResolver $resolver
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Crmp\AcquisitionBundle\Entity\Contract'
-        ));
+        $resolver->setDefaults(
+            array(
+                'data_class' => 'Crmp\AcquisitionBundle\Entity\Contract',
+            )
+        );
     }
 }

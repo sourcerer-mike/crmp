@@ -42,6 +42,12 @@ class Contract
      */
     private $content;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Offer", inversedBy="contracts")
+     * @ORM\JoinColumn(name="contract_id", referencedColumnName="id")
+     */
+    private $offer;
+
 
     /**
      * Get id
@@ -124,5 +130,28 @@ class Contract
     {
         return $this->content;
     }
-}
 
+    /**
+     * Set offer
+     *
+     * @param \Crmp\AcquisitionBundle\Entity\Offer $offer
+     *
+     * @return Contract
+     */
+    public function setOffer(\Crmp\AcquisitionBundle\Entity\Offer $offer = null)
+    {
+        $this->offer = $offer;
+
+        return $this;
+    }
+
+    /**
+     * Get offer
+     *
+     * @return \Crmp\AcquisitionBundle\Entity\Offer
+     */
+    public function getOffer()
+    {
+        return $this->offer;
+    }
+}

@@ -1,7 +1,6 @@
 <table class="table table-hover table-striped">
     <thead>
     <tr>
-        <th>Id</th>
         <th>{% trans %}Title{% endtrans %}</th>
         <th>{% trans %}Value{% endtrans %}</th>
         <th></th>
@@ -11,9 +10,10 @@
     {% for contract in contracts %}
         <tr>
             <td>
-                <a href="{{ path('contract_show', { 'id': contract.id }) }}">{{ contract.id }}</a>
+                <a href="{{ path('contract_show', { 'id': contract.id }) }}">
+                    {{ contract.title }}
+                </a>
             </td>
-            <td>{{ contract.title }}</td>
             <td>{{ contract.value|price }}</td>
             <td>
                 <div class="btn-group">
