@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block breadcrumb %}
+    <ol class="breadcrumb">
+        <li>
+            <a href="/">
+                Dashboard
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('contract_index') }}">
+                {% trans %}Contract list{% endtrans %}
+            </a>
+        </li>
+        <li class="active">
+            {{ contract.title }}
+        </li>
+    </ol>
+{% endblock %}
+
+{% block related_nav %}
+    <div class="btn-group-vertical">
+        <a href="{{ path('offer_new', {'contract': contract.id}) }}" type="button" class="btn btn-success">
+            <i class="fa fa-plus"></i>
+            {% trans %}Attach offer{% endtrans %}
+        </a>
+    </div>
+
+    <ul class="nav nav-pills nav-stacked">
+        <li>
+            <a href="{{ path('contract_index') }}">
+                <i class="fa fa-list-ul"></i>
+                {% trans %}Back to the list{% endtrans %}
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('contract_edit', { 'id': contract.id }) }}">
+                <i class="fa fa-pencil"></i>
+                {% trans %}Edit{% endtrans %}
+            </a>
+        </li>
+    </ul>
+{% endblock %}
+
+{% block body %}
+    <h1>{{ contract.title }}</h1>
+
+    <table class="table table-bordered table-hover table-striped">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ contract.id }}</td>
+            </tr>
+            <tr>
+                <th>{% trans %}Value{% endtrans %}</th>
+                <td>{{ contract.value }}</td>
+            </tr>
+            <tr>
+                <th>{% trans %}Content{% endtrans %}</th>
+                <td>{{ contract.content|nl2br }}</td>
+            </tr>
+        </tbody>
+    </table>
+{% endblock %}

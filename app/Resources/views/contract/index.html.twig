@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block related_nav %}
+<div class="btn-toolbar" role="toolbar">
+    <div class="btn-group">
+        <a href="{{ path('contract_new') }}" class="btn btn-success">
+            <i class="fa fa-plus"></i>
+            {% trans %}New contract{% endtrans %}
+        </a>
+    </div>
+</div>
+{% endblock %}
+
+{% block breadcrumb %}
+    <ol class="breadcrumb">
+        <li>
+            <a href="/">
+                Dashboard
+            </a>
+        </li>
+        <li class="active">
+            {% trans %}Contract list{% endtrans %}
+        </li>
+    </ol>
+{% endblock %}
+
+{% block body %}
+    <h1>{% trans %}Contract list{% endtrans %}</h1>
+
+    {% include 'contract/_list.html.twig' %}
+{% endblock %}
