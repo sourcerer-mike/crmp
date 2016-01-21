@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}{% trans %}Customer creation{% endtrans %}{% endblock %}
+
 {% block related_nav %}
     <ul class="nav nav-pills nav-stacked">
         <li>
@@ -30,7 +32,7 @@
 {% endblock %}
 
 {% block body %}
-    <h1>Customer creation</h1>
+    <h1>{% trans %}Customer creation{% endtrans %}</h1>
 
     {{ form_start(form) }}
     {{ form_widget(form) }}

@@ -6,7 +6,10 @@ Content: Inhalt
 Contract creation: Neuer Auftrag
 Contract list: Aufträge
 Create: Erstellen
+
 Customer: Kunde
+Customer creation: Neuer Kunde
+Customer list: Kunden
 
 date_js: dd.mm.yy
 Delete: Löschen
@@ -16,6 +19,7 @@ Edit: Bearbeiten
 Goto inquiry: Zur Anfrage
 
 Inquiry: Anfrage
+Inquiry creation: Neue Anfrage
 Inquiry list: Anfragen
 
 Logout: Abmelden
@@ -30,6 +34,7 @@ New: Neu
 New offer: Neues Angebot
 
 Offer: Angebot
+Offer creation: Neues Angebot
 Offers: Angebote
 
 Password: Passwort
