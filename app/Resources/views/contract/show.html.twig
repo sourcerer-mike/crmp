@@ -19,13 +19,6 @@
 {% endblock %}
 
 {% block related_nav %}
-    <div class="btn-group-vertical">
-        <a href="{{ path('offer_new', {'contract': contract.id}) }}" type="button" class="btn btn-success">
-            <i class="fa fa-plus"></i>
-            {% trans %}Attach offer{% endtrans %}
-        </a>
-    </div>
-
     <ul class="nav nav-pills nav-stacked">
         <li>
             <a href="{{ path('contract_index') }}">
