@@ -41,27 +41,32 @@
                        aria-expanded="false">CRM<span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a href="{{ path('customer_index') }}">Customer</a>
+                            <a href="{{ path('customer_index') }}">
+                                {% trans %}Customer list{% endtrans %}
+                            </a>
                         </li>
                     </ul>
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false">Acquisition<span class="caret"></span></a>
+                       aria-expanded="false">
+                        {% trans %}Acquisition{% endtrans %}
+                        <span class="caret"></span>
+                    </a>
                     <ul class="dropdown-menu">
                         <li>
                             <a href="{{ path('inquiry_index') }}">
-                                Inquiry
+                                {% trans %}Inquiry list{% endtrans %}
                             </a>
                         </li>
                         <li>
                             <a href="{{ path('offer_index') }}">
-                                Offer
+                                {% trans %}Offer list{% endtrans %}
                             </a>
                         </li>
                         <li>
                             <a href="{{ path('contract_index') }}">
-                                {% trans %}Contract{% endtrans %}
+                                {% trans %}Contract list{% endtrans %}
                             </a>
                         </li>
                     </ul>
