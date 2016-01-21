@@ -60,4 +60,8 @@
         </tr>
         </tbody>
     </table>
+
+    <h2>{% trans %}Inquiry list{% endtrans %}</h2>
+
+    {% include 'inquiry/_list.html.twig' with {inquiries: customer.inquiries } %}
 {% endblock %}

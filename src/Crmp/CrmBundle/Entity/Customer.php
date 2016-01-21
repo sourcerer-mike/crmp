@@ -71,5 +71,45 @@ class Customer
 
         return $this;
     }
-}
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->inquiries = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
+    /**
+     * Add inquiry
+     *
+     * @param \Crmp\AcquisitionBundle\Entity\Inquiry $inquiry
+     *
+     * @return Customer
+     */
+    public function addInquiry(\Crmp\AcquisitionBundle\Entity\Inquiry $inquiry)
+    {
+        $this->inquiries[] = $inquiry;
+
+        return $this;
+    }
+
+    /**
+     * Remove inquiry
+     *
+     * @param \Crmp\AcquisitionBundle\Entity\Inquiry $inquiry
+     */
+    public function removeInquiry(\Crmp\AcquisitionBundle\Entity\Inquiry $inquiry)
+    {
+        $this->inquiries->removeElement($inquiry);
+    }
+
+    /**
+     * Get inquiries
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getInquiries()
+    {
+        return $this->inquiries;
+    }
+}
