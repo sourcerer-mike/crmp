@@ -8,7 +8,7 @@
             <a href="{{ path('customer_index') }}"
                title="{% trans %}Back to the list{% endtrans %}">
                 <i class="fa fa-list-ul"></i>
-                List all customer
+                {% trans %}Customer list{% endtrans %}
             </a>
         </li>
         <li>
@@ -19,18 +19,17 @@
         </li>
     </ul>
 
-    <ul class="nav nav-pills nav-stacked">
-        <li>
-            <a href="{{ path('inquiry_index', { 'customer': customer.id }) }}"
-               title="{% trans %}Edit{% endtrans %}">
-                <i class="fa fa-question"></i>
-                {% trans %}Inquiry list{% endtrans %}
-            </a>
-            <a href="{{ path('inquiry_new', {'customer': customer.id}) }}" class="btn btn-success">
-                <i class="fa fa-plus"></i>
-            </a>
-        </li>
-    </ul>
+    <div class="btn-group">
+        <a href="{{ path('inquiry_index', { 'customer': customer.id }) }}"
+           title="{% trans %}Edit{% endtrans %}"
+                class="btn btn-default">
+            <i class="fa fa-question"></i>
+            {% trans %}Inquiry list{% endtrans %}
+        </a>
+        <a href="{{ path('inquiry_new') }}" type="button" class="btn btn-success">
+            <i class="fa fa-plus"></i>
+        </a>
+    </div>
 {% endblock %}
 
 {% block breadcrumb %}
