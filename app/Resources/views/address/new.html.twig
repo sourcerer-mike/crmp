@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% trans %}Address creation{% endtrans %}{% endblock %}
+
+{% block related_nav %}
+    <ul class="nav nav-pills nav-stacked">
+        <li>
+            <a href="{{ path('address_index') }}">
+                <i class="fa fa-list-ul"></i>
+                {% trans %}Address list{% endtrans %}
+            </a>
+        </li>
+    </ul>
+{% endblock %}
+
+{% block body %}
+    <h1>Address creation</h1>
+
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+    <button class="btn btn-primary">
+        <i class="fa fa-floppy-o"></i>
+        {% trans %}Create{% endtrans %}
+    </button>
+    {{ form_end(form) }}
+{% endblock %}

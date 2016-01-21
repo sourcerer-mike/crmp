@@ -65,4 +65,14 @@
     <h2>{% trans %}Inquiry list{% endtrans %}</h2>
 
     {% include 'inquiry/_list.html.twig' with {inquiries: customer.inquiries } %}
+
+    <h2>{% trans %}Address list{% endtrans %}</h2>
+
+    {% include 'address/_list.html.twig' with {addresses: customer.addresses } %}
+
+    <a href="{{ path('address_new', {customer: customer.id}) }}"
+            class="btn btn-success">
+        <i class="fa fa-plus"></i>
+        {% trans %}Address creation{% endtrans %}
+    </a>
 {% endblock %}

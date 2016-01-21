@@ -1,6 +1,10 @@
 Abort: Abbrechen
 Acquisition: Akquise
 
+Address: Adresse
+Address creation: Neue Adresse
+Address list: Adressen
+
 Back to the list: Zurück zur Liste
 
 Content: Inhalt
@@ -28,6 +32,7 @@ Logout: Abmelden
 Remember me: Eingeloggt bleiben
 
 Save: Speichern
+Send mail: Mail senden
 Sign in: Anmelden
 
 Name: Name

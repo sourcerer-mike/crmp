@@ -33,6 +33,11 @@ class Customer
      */
     protected $inquiries;
 
+	/**
+	 * @ORM\OneToMany(targetEntity="Crmp\CrmBundle\Entity\Address", mappedBy="customer")
+	 */
+	private $addresses;
+
     /**
      * Get id
      *
@@ -111,5 +116,39 @@ class Customer
     public function getInquiries()
     {
         return $this->inquiries;
+    }
+
+    /**
+     * Add address
+     *
+     * @param \Crmp\CrmBundle\Entity\Address $address
+     *
+     * @return Customer
+     */
+    public function addAddress(\Crmp\CrmBundle\Entity\Address $address)
+    {
+        $this->addresses[] = $address;
+
+        return $this;
+    }
+
+    /**
+     * Remove address
+     *
+     * @param \Crmp\CrmBundle\Entity\Address $address
+     */
+    public function removeAddress(\Crmp\CrmBundle\Entity\Address $address)
+    {
+        $this->addresses->removeElement($address);
+    }
+
+    /**
+     * Get addresses
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAddresses()
+    {
+        return $this->addresses;
     }
 }

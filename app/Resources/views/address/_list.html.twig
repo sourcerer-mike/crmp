@@ -1,0 +1,33 @@
+<table class="table table-hover table-striped">
+    <thead>
+    <tr>
+        <th>{% trans %}Name{% endtrans %}</th>
+        <th>{% trans %}Mail{% endtrans %}</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for address in addresses %}
+        <tr>
+            <td>
+                <a href="{{ path('address_show', {'id': address.id}) }}">
+                    {{ address.name }}
+                </a>
+            </td>
+            <td>{{ address.mail }}</td>
+            <td>
+                <div class="btn-group">
+                    <a href="{{ path('address_show', { 'id': address.id }) }}"
+                            class="btn btn-default">
+                        <i class="fa fa-eye"></i>
+                    </a>
+                    <a href="{{ path('address_edit', { 'id': address.id }) }}"
+                            class="btn btn-default">
+                        <i class="fa fa-pencil"></i>
+                    </a>
+                </div>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
