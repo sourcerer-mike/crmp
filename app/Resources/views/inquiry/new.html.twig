@@ -7,7 +7,7 @@
         <li>
             <a href="{{ path('inquiry_index') }}">
                 <i class="fa fa-list-ul"></i>
-                List all inquiries
+                {% trans %}Inquiry list{% endtrans %}
             </a>
         </li>
     </ul>
@@ -22,17 +22,19 @@
         </li>
         <li>
             <a href="{{ path('inquiry_index') }}">
-                Inquiries
+                {% trans %}Inquiry list{% endtrans %}
             </a>
         </li>
         <li class="active">
-            New
+            {% trans %}Inquiry creation{% endtrans %}
         </li>
     </ol>
 {% endblock %}
 
 {% block body %}
-    <h1>New inquiry</h1>
+    <h1>
+        {% trans %}Inquiry creation{% endtrans %}
+    </h1>
 
     {{ form_start(form) }}
         {{ form_widget(form) }}
