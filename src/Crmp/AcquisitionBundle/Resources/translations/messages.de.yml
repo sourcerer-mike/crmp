@@ -22,6 +22,7 @@ Delete: Löschen
 Edit: Bearbeiten
 
 Goto inquiry: Zur Anfrage
+Goto offer: Zum Angebot
 
 Inquiry: Anfrage
 Inquiry creation: Neue Anfrage
@@ -43,6 +44,8 @@ Offer: Angebot
 Offer creation: Neues Angebot
 Offer list: Angebote
 Offers: Angebote
+
+Ordered: Beauftragt
 
 Password: Passwort
 Predicted value: Voraussichtlicher Wert

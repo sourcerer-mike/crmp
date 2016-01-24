@@ -1,7 +1,7 @@
-#crmp_acc:
-#    resource: "@CrmpAccBundle/Controller/"
-#    type:     annotation
-#    prefix:   /accounting/
+crmp_acc:
+    resource: "@CrmpAccBundle/Controller/"
+    type:     annotation
+    prefix:   /accounting/
 
 acquisition:
     resource: "@AcquisitionBundle/Controller/"
