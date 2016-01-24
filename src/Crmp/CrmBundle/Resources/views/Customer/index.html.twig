@@ -1,35 +1,26 @@
-{% extends 'base.html.twig' %}
+{% extends '@Crm/Customer/base.html.twig' %}
 
 {% block title %}{% trans %}Customer list{% endtrans %}{% endblock %}
 
 {% block related_nav %}
-    <div class="btn-toolbar" role="toolbar">
-        <div class="btn-group">
-            <a href="{{ path('customer_new') }}"
-               title="Create a new entry"
-               class="btn btn-success">
-                <i class="fa fa-plus"></i>
-                New customer
-            </a>
-        </div>
-    </div>
-
-    <ul class="nav nav-pills nav-stacked">
-
-    </ul>
+    <li>
+        <a href="{{ path('customer_new') }}"
+           title="Create a new entry">
+            <i class="fa fa-plus"></i>
+            New customer
+        </a>
+    </li>
 {% endblock %}
 
 {% block breadcrumb %}
-    <ol class="breadcrumb">
-        <li>
-            <a href="/">
-                Dashboard
-            </a>
-        </li>
-        <li class="active">
-            Customers
-        </li>
-    </ol>
+    <li>
+        <a href="/">
+            Dashboard
+        </a>
+    </li>
+    <li class="active">
+        Customers
+    </li>
 {% endblock %}
 
 {% block body %}

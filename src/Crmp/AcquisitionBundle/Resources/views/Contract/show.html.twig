@@ -21,28 +21,26 @@
 {% endblock %}
 
 {% block related_nav %}
-    <ul class="nav nav-pills nav-stacked">
-        <li>
-            <a href="{{ path('contract_index') }}">
-                <i class="fa fa-list-ul"></i>
-                {% trans %}Back to the list{% endtrans %}
-            </a>
-        </li>
-        {% if (contract.offer) %}
-        <li>
-            <a href="{{ path('offer_show', {id: contract.offer.id}) }}">
-                <i class="fa fa-sign-in"></i>
-                {% trans %}Goto offer{% endtrans %}
-            </a>
-        </li>
-        {% endif %}
-        <li>
-            <a href="{{ path('contract_edit', { 'id': contract.id }) }}">
-                <i class="fa fa-pencil"></i>
-                {% trans %}Edit{% endtrans %}
-            </a>
-        </li>
-    </ul>
+    <li>
+        <a href="{{ path('contract_index') }}">
+            <i class="fa fa-list-ul"></i>
+            {% trans %}Back to the list{% endtrans %}
+        </a>
+    </li>
+    {% if (contract.offer) %}
+    <li>
+        <a href="{{ path('offer_show', {id: contract.offer.id}) }}">
+            <i class="fa fa-sign-in"></i>
+            {% trans %}Goto offer{% endtrans %}
+        </a>
+    </li>
+    {% endif %}
+    <li>
+        <a href="{{ path('contract_edit', { 'id': contract.id }) }}">
+            <i class="fa fa-pencil"></i>
+            {% trans %}Edit{% endtrans %}
+        </a>
+    </li>
 {% endblock %}
 
 {% block body %}

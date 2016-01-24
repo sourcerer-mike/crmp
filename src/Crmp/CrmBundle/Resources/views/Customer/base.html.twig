@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block breadcrumb %}
+    {{ parent() }}
+    <li>
+        <a href="{{ path('customer_index') }}">
+            Customers
+        </a>
+    </li>
+{% endblock %}
+
+{% block related_nav %}
+    {{ parent() }}
+    <li>
+        <a href="{{ path('customer_index') }}">
+            <i class="fa fa-list-ul"></i>
+            {% trans %}Back to the list{% endtrans %}
+        </a>
+    </li>
+{% endblock %}

@@ -118,11 +118,21 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 crmp-related">
-            {% block related_nav %}{% endblock %}
+            <ul class="nav nav-pills nav-stacked">
+                {% block related_nav %}{% endblock %}
+            </ul>
         </div>
         <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
             <div>
-                {% block breadcrumb %}{% endblock %}
+                <ol class="breadcrumb">
+                    {% block breadcrumb %}
+                        <li>
+                            <a href="/">
+                                Dashboard
+                            </a>
+                        </li>
+                    {% endblock %}
+                </ol>
             </div>
             {% block body %}{% endblock %}
         </div>

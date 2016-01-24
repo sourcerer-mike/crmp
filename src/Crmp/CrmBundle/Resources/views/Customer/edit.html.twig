@@ -1,36 +1,19 @@
-{% extends 'base.html.twig' %}
+{% extends '@Crm/Customer/base.html.twig' %}
 
 {% block title %}{{ customer.name }}{% endblock %}
 
 {% block related_nav %}
-    <ul class="nav nav-pills nav-stacked">
-        <li>
-            <a href="{{ path('customer_index') }}">
-                <i class="fa fa-list-ul"></i>
-                List all customer
-            </a>
-        </li>
-        <li>
-            <a href="{{ path('customer_show', { 'id': customer.id }) }}">
-                <i class="fa fa-ban"></i>
-                {% trans %}Abort{% endtrans %}
-            </a>
-        </li>
-    </ul>
+    {{ parent() }}
+    <li>
+        <a href="{{ path('customer_show', { 'id': customer.id }) }}">
+            <i class="fa fa-ban"></i>
+            {% trans %}Abort{% endtrans %}
+        </a>
+    </li>
 {% endblock %}
 
 {% block breadcrumb %}
-    <ol class="breadcrumb">
-        <li>
-            <a href="/">
-                Dashboard
-            </a>
-        </li>
-        <li>
-            <a href="{{ path('customer_index') }}">
-                Customers
-            </a>
-        </li>
+    {{ parent() }}
         <li>
             <a href="{{ path('customer_show', {'id': customer.id}) }}">
                 {{ customer.name }}
@@ -43,7 +26,7 @@
 {% endblock %}
 
 {% block body %}
-    <h1>Customer edit</h1>
+    <h1>{% trans %}Customer edit{% endtrans %}</h1>
 
     {{ form_start(edit_form) }}
     {{ form_widget(edit_form) }}
