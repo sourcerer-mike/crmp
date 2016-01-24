@@ -1,17 +1,17 @@
-{% extends 'offer/new.html.twig' %}
+{% extends 'AcquisitionBundle:Inquiry:show.html.twig' %}
 
-{% block title %}{{ offer.title }}{% endblock %}
+{% block title %}{{ inquiry.title }}{% endblock %}
 
 {% block related_nav %}
     <ul class="nav nav-pills nav-stacked">
         <li>
-            <a href="{{ path('offer_index') }}">
+            <a href="{{ path('inquiry_index') }}">
                 <i class="fa fa-list-ul"></i>
                 {% trans %}Back to the list{% endtrans %}
             </a>
         </li>
         <li>
-            <a href="{{ path('offer_show', { 'id': offer.id }) }}">
+            <a href="{{ path('inquiry_show', { 'id': inquiry.id }) }}">
                 <i class="fa fa-ban"></i>
                 {% trans %}Abort{% endtrans %}
             </a>
@@ -27,13 +27,13 @@
             </a>
         </li>
         <li>
-            <a href="{{ path('offer_index') }}">
-                {% trans %}Offer{% endtrans %}
+            <a href="{{ path('inquiry_index') }}">
+                Inquiries
             </a>
         </li>
         <li>
-            <a href="{{ path('offer_show', {'id': offer.id}) }}">
-                {{ offer.title }}
+            <a href="{{ path('inquiry_show', {'id': inquiry.id}) }}">
+                {{ inquiry.title }}
             </a>
         </li>
         <li class="active">
@@ -43,14 +43,23 @@
 {% endblock %}
 
 {% block body %}
-    <h1>Offer edit</h1>
+    <h1>Inquiry edit</h1>
 
     {{ form_start(edit_form) }}
-    {{ form_widget(edit_form) }}
-    <input type="submit" value="{% trans %}Save{% endtrans %}" class="btn btn-primary"/>
+        {{ form_widget(edit_form) }}
+        <input type="submit" value="Save" class="btn btn-primary"/>
     {{ form_end(edit_form) }}
-
     {{ form_start(delete_form) }}
-    <input type="submit" value="{% trans %}Delete{% endtrans %}" class="btn btn-danger">
+    <input type="submit" value="Delete" class="btn btn-danger">
     {{ form_end(delete_form) }}
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript">
+        $(function () {
+            $('.datepicker').datepicker({
+                dateFormat: '{% trans %}date_js{% endtrans %}'
+            });
+        });
+    </script>
 {% endblock %}

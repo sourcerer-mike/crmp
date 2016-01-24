@@ -28,7 +28,7 @@ class ContractController extends Controller
 
         $contracts = $em->getRepository('AcquisitionBundle:Contract')->findAll();
 
-        return $this->render('contract/index.html.twig', array(
+        return $this->render('AcquisitionBundle:Contract:index.html.twig', array(
             'contracts' => $contracts,
         ));
     }
@@ -61,7 +61,7 @@ class ContractController extends Controller
             return $this->redirectToRoute('contract_show', array('id' => $contract->getId()));
         }
 
-        return $this->render('contract/new.html.twig', array(
+        return $this->render('AcquisitionBundle:Contract:new.html.twig', array(
             'contract' => $contract,
             'form' => $form->createView(),
         ));
@@ -77,7 +77,7 @@ class ContractController extends Controller
     {
         $deleteForm = $this->createDeleteForm($contract);
 
-        return $this->render('contract/show.html.twig', array(
+        return $this->render('AcquisitionBundle:Contract:show.html.twig', array(
             'contract' => $contract,
             'delete_form' => $deleteForm->createView(),
         ));
@@ -103,7 +103,7 @@ class ContractController extends Controller
             return $this->redirectToRoute('contract_edit', array('id' => $contract->getId()));
         }
 
-        return $this->render('contract/edit.html.twig', array(
+        return $this->render('AcquisitionBundle:Contract:edit.html.twig', array(
             'contract' => $contract,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),

@@ -30,7 +30,7 @@ class CustomerController extends Controller
 
         $customers = $em->getRepository('CrmBundle:Customer')->findAll();
 
-        return $this->render('customer/index.html.twig', array(
+        return $this->render('CrmBundle:Customer:index.html.twig', array(
             'customers' => $customers,
         ));
     }
@@ -55,7 +55,7 @@ class CustomerController extends Controller
             return $this->redirectToRoute('customer_show', array('id' => $customer->getId()));
         }
 
-        return $this->render('customer/new.html.twig', array(
+        return $this->render('CrmBundle:Customer:new.html.twig', array(
             'customer' => $customer,
             'form' => $form->createView(),
         ));
@@ -73,7 +73,7 @@ class CustomerController extends Controller
 
         $inquiryType = new InquiryType();
 
-        return $this->render('customer/show.html.twig', array(
+        return $this->render('CrmBundle:Customer:show.html.twig', array(
             'customer' => $customer,
             'delete_form' => $deleteForm->createView(),
             'inquiry_form' => $this->createFormBuilder()->getForm(),
@@ -100,7 +100,7 @@ class CustomerController extends Controller
             return $this->redirectToRoute('customer_edit', array('id' => $customer->getId()));
         }
 
-        return $this->render('customer/edit.html.twig', array(
+        return $this->render('CrmBundle:Customer:edit.html.twig', array(
             'customer' => $customer,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),

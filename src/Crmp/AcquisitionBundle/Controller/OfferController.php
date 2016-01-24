@@ -28,7 +28,7 @@ class OfferController extends Controller
 
         $offers = $em->getRepository('AcquisitionBundle:Offer')->findAll();
 
-        return $this->render('offer/index.html.twig', array(
+        return $this->render('AcquisitionBundle:Offer:index.html.twig', array(
             'offers' => $offers,
         ));
     }
@@ -61,7 +61,7 @@ class OfferController extends Controller
             return $this->redirectToRoute('offer_show', array('id' => $offer->getId()));
         }
 
-        return $this->render('offer/new.html.twig', array(
+        return $this->render('AcquisitionBundle:Offer:new.html.twig', array(
             'offer' => $offer,
             'form' => $form->createView(),
         ));
@@ -77,7 +77,7 @@ class OfferController extends Controller
     {
         $deleteForm = $this->createDeleteForm($offer);
 
-        return $this->render('offer/show.html.twig', array(
+        return $this->render('AcquisitionBundle:Offer:show.html.twig', array(
             'offer' => $offer,
             'delete_form' => $deleteForm->createView(),
         ));
@@ -103,7 +103,7 @@ class OfferController extends Controller
             return $this->redirectToRoute('offer_edit', array('id' => $offer->getId()));
         }
 
-        return $this->render('offer/edit.html.twig', array(
+        return $this->render('AcquisitionBundle:Offer:edit.html.twig', array(
             'offer' => $offer,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),

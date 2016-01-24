@@ -71,5 +71,5 @@
     </table>
 
     <h2>{% trans %}Contract list{% endtrans %}</h2>
-    {% include 'contract/_list.html.twig' with {'contracts': offer.contracts} %}
+    {% include 'AcquisitionBundle:Contract:_list.html.twig' with {'contracts': offer.contracts} %}
 {% endblock %}

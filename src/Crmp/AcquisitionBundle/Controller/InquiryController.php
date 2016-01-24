@@ -57,7 +57,7 @@ class InquiryController extends Controller
         }
 
         return $this->render(
-            'inquiry/edit.html.twig',
+            'AcquisitionBundle:Inquiry:edit.html.twig',
             array(
                 'inquiry'     => $inquiry,
                 'edit_form'   => $editForm->createView(),
@@ -79,7 +79,7 @@ class InquiryController extends Controller
         $inquiries = $em->getRepository('AcquisitionBundle:Inquiry')->findAll();
 
         return $this->render(
-            'inquiry/index.html.twig',
+            'AcquisitionBundle:Inquiry:index.html.twig',
             array(
                 'inquiries' => $inquiries,
             )
@@ -117,7 +117,7 @@ class InquiryController extends Controller
         $this->container;
 
         return $this->render(
-            'inquiry/new.html.twig',
+            'AcquisitionBundle:Inquiry:new.html.twig',
             array(
                 'inquiry' => $inquiry,
                 'form'    => $form->createView(),
@@ -136,7 +136,7 @@ class InquiryController extends Controller
         $deleteForm = $this->createDeleteForm($inquiry);
 
         return $this->render(
-            'inquiry/show.html.twig',
+            'AcquisitionBundle:Inquiry:show.html.twig',
             array(
                 'inquiry'     => $inquiry,
                 'delete_form' => $deleteForm->createView(),
