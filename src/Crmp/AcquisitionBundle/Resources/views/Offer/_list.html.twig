@@ -12,6 +12,11 @@
             <td>
                 <a href="{{ path('offer_show', { 'id': offer.id }) }}">
                     {{ offer.title }}
+                    {% if (offer.ordered) %}
+                        <span class="label label-success">
+                            <i class="fa fa-check"></i>
+                        </span>
+                    {% endif %}
                 </a>
             </td>
             <td>{{ offer.price|price }}</td>

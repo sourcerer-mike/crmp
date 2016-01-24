@@ -53,6 +53,15 @@
 {% block body %}
     <h1>{{ offer.title }}</h1>
 
+    <p>
+        {% if offer.ordered %}
+            <span class="label label-success">
+                <i class="fa fa-check"></i>
+                {% trans %}Ordered{% endtrans %}
+            </span>
+        {% endif %}
+    </p>
+
     <table class="table table-bordered table-hover table-striped">
         <tbody>
         <tr>

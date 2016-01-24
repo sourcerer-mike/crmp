@@ -191,7 +191,11 @@ class Offer
         return $this;
     }
 
-    /**
+	public function isOrdered() {
+		return ! $this->getContracts()->isEmpty();
+	}
+
+	/**
      * Remove contract
      *
      * @param \Crmp\AcquisitionBundle\Entity\Contract $contract

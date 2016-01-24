@@ -45,7 +45,19 @@
 {% endblock %}
 
 {% block body %}
-    <h1>{{ inquiry.title }}</h1>
+
+    <h1>
+        {{ inquiry.title }}
+    </h1>
+
+    <p>
+        {% if inquiry.ordered %}
+            <span class="label label-success">
+                <i class="fa fa-check"></i>
+                {% trans %}Ordered{% endtrans %}
+            </span>
+        {% endif %}
+    </p>
 
     <table class="table table-striped table-hover table-bordered">
         <tbody>
