@@ -1,19 +1,20 @@
 {% extends 'base.html.twig' %}
 
 {% block breadcrumb %}
-    <ol class="breadcrumb">
-        <li>
-            <a href="/">
-                Dashboard
-            </a>
-        </li>
-        <li>
-            <a href="{{ path('invoice_index') }}">
-                {% trans %}Invoice list{% endtrans %}
-            </a>
-        </li>
-    </ol>
+    {{ parent() }}
+    <li>
+        <a href="{{ path('invoice_index') }}">
+            Invoices
+        </a>
+    </li>
 {% endblock %}
 
 {% block related_nav %}
+    {{ parent() }}
+    <li>
+        <a href="{{ path('invoice_index') }}">
+            <i class="fa fa-list-ul"></i>
+            {% trans %}Back to the list{% endtrans %}
+        </a>
+    </li>
 {% endblock %}

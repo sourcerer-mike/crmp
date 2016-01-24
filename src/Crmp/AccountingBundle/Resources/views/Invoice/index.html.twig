@@ -1,39 +1,28 @@
 {% extends '@CrmpAcc/Invoice/base.html.twig' %}
 
+{% block title %}{% trans %}Invoice list{% endtrans %}{% endblock %}
+
+{% block related_nav %}
+    <li>
+        <a href="{{ path('invoice_new') }}"
+           title="Create a new entry">
+            <i class="fa fa-plus"></i>
+            New invoice
+        </a>
+    </li>
+{% endblock %}
+
+{% block breadcrumb %}
+    <li>
+        <a href="/">
+            Dashboard
+        </a>
+    </li>
+    <li class="active">
+        Invoices
+    </li>
+{% endblock %}
+
 {% block body %}
-    <h1>Invoice list</h1>
-
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Value</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for invoice in invoices %}
-            <tr>
-                <td><a href="{{ path('invoice_show', { 'id': invoice.id }) }}">{{ invoice.id }}</a></td>
-                <td>{{ invoice.value }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('invoice_show', { 'id': invoice.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('invoice_edit', { 'id': invoice.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('invoice_new') }}">Create a new entry</a>
-        </li>
-    </ul>
+    {%  include '@CrmpAcc/Invoice/_list.html.twig' %}
 {% endblock %}

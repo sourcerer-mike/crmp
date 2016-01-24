@@ -1,21 +1,30 @@
-{% extends 'base.html.twig' %}
+{% extends '@CrmpAcc/Invoice/base.html.twig' %}
+
+{% block title %}{{ invoice.value }}{% endblock %}
+
+{% block breadcrumb %}
+    {{ parent() }}
+    <li>
+        <a href="{{ path('invoice_show', {'id': invoice.id}) }}">
+            {{ invoice.value }}
+        </a>
+    </li>
+    <li class="active">
+        {% trans %}Edit{% endtrans %}
+    </li>
+{% endblock %}
 
 {% block body %}
-    <h1>Invoice edit</h1>
+    <h1>{% trans %}Invoice edit{% endtrans %}</h1>
 
     {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
+    {{ form_widget(edit_form) }}
+    <input type="submit" value="{% trans %}Save{% endtrans %}" class="btn btn-primary"/>
     {{ form_end(edit_form) }}
-
-    <ul>
-        <li>
-            <a href="{{ path('invoice_index') }}">Back to the list</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+    {{ form_start(delete_form) }}
+    <button type="submit" class="btn btn-danger">
+        <i class="fa fa-trash-o"></i>
+        {% trans %}Delete{% endtrans %}
+    </button>
+    {{ form_end(delete_form) }}
 {% endblock %}

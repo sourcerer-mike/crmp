@@ -1,4 +1,5 @@
 Abort: Abbrechen
+Accounting: Buchhaltung
 Acquisition: Akquise
 
 Address: Adresse
@@ -29,6 +30,11 @@ Inquiry: Anfrage
 Inquiry creation: Neue Anfrage
 Inquiry list: Anfragen
 
+Invoice: Rechnung
+Invoice edit: Rechnung bearbeiten
+Invoice creation: Rechnung erstellen
+Invoice list: Rechnungen
+
 Logout: Abmelden
 
 Remember me: Eingeloggt bleiben
@@ -36,6 +42,8 @@ Remember me: Eingeloggt bleiben
 Save: Speichern
 Send mail: Mail senden
 Sign in: Anmelden
+
+Mail: E-Mail
 
 Name: Name
 New: Neu
