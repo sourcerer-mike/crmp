@@ -19,6 +19,7 @@ class AppKernel extends Kernel
             new AppBundle\AppBundle(),
             new Crmp\CrmBundle\CrmBundle(),
             new Crmp\AcquisitionBundle\AcquisitionBundle(),
+            new Crmp\AccountingBundle\CrmpAccBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

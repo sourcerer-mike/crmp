@@ -1,3 +1,8 @@
+crmp_acc:
+    resource: "@CrmpAccBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 acquisition:
     resource: "@AcquisitionBundle/Controller/"
     type:     annotation
