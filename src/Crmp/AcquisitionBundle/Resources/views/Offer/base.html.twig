@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block breadcrumb %}
+    {{ parent() }}
+    <li>
+        <a href="{{ path('offer_index') }}">
+            {% trans %}Offer list{% endtrans %}
+        </a>
+    </li>
+{% endblock %}

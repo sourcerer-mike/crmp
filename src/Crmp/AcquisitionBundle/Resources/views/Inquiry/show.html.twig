@@ -1,47 +1,34 @@
-{% extends 'base.html.twig' %}
+{% extends '@Acquisition/Inquiry/base.html.twig' %}
 
 {% block title %}{{ inquiry.title }}{% endblock %}
 
 {% block breadcrumb %}
-    <ol class="breadcrumb">
-        <li>
-            <a href="/">
-                Dashboard
-            </a>
-        </li>
-        <li>
-            <a href="{{ path('inquiry_index') }}">
-                Inquiries
-            </a>
-        </li>
-        <li class="active">
-            {{ inquiry.title }}
-        </li>
-    </ol>
+    {{ parent() }}
+    <li class="active">
+        {{ inquiry.title }}
+    </li>
 {% endblock %}
 
 {% block related_nav %}
-    <div class="btn-group-vertical">
-        <a href="{{ path('offer_new', {'inquiry': inquiry.id}) }}" type="button" class="btn btn-success">
-            <i class="fa fa-plus"></i>
-            {% trans %}Attach offer{% endtrans %}
+    {{ parent() }}
+    <li>
+        <a href="{{ path('inquiry_index') }}">
+            <i class="fa fa-list-ul"></i>
+            {% trans %}Back to the list{% endtrans %}
         </a>
-    </div>
-
-    <ul class="nav nav-pills nav-stacked">
-        <li>
-            <a href="{{ path('inquiry_index') }}">
-                <i class="fa fa-list-ul"></i>
-                {% trans %}Back to the list{% endtrans %}
-            </a>
-        </li>
-        <li>
-            <a href="{{ path('inquiry_edit', { 'id': inquiry.id }) }}">
-                <i class="fa fa-pencil"></i>
-                {% trans %}Edit{% endtrans %}
-            </a>
-        </li>
-    </ul>
+    </li>
+    <li>
+        <a href="{{ path('inquiry_edit', { 'id': inquiry.id }) }}">
+            <i class="fa fa-pencil"></i>
+            {% trans %}Edit{% endtrans %}
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('offer_new', {'inquiry': inquiry.id}) }}">
+            <i class="fa fa-plus"></i>
+            {% trans %}Offer creation{% endtrans %}
+        </a>
+    </li>
 {% endblock %}
 
 {% block body %}

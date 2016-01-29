@@ -1,23 +1,12 @@
-{% extends 'base.html.twig' %}
+{% extends '@Acquisition/Offer/base.html.twig' %}
 
 {% block title %}{% trans %}Offer creation{% endtrans %}{% endblock %}
 
 {% block breadcrumb %}
-    <ol class="breadcrumb">
-        <li>
-            <a href="/">
-                Dashboard
-            </a>
-        </li>
-        <li>
-            <a href="{{ path('offer_index') }}">
-                Offers
-            </a>
-        </li>
-        <li class="active">
-            {% trans %}New{% endtrans %}
-        </li>
-    </ol>
+    {{ parent() }}
+    <li class="active">
+        {% trans %}New{% endtrans %}
+    </li>
 {% endblock %}
 
 {% block related_nav %}
