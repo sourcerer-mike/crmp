@@ -31,10 +31,10 @@
 {% endblock %}
 
 {% block breadcrumb %}
-        {{ parent() }}
-        <li class="active">
-            {{ customer.name }}
-        </li>
+    {{ parent() }}
+    <li class="active">
+        {{ customer.name }}
+    </li>
 {% endblock %}
 
 {% block body %}
@@ -49,15 +49,26 @@
         </tbody>
     </table>
 
-    <h2>{% trans %}Inquiry list{% endtrans %}</h2>
+    <h2>
+        <a href="{{ path('inquiry_index', {'customer': customer.id}) }}">
+            {% trans %}Inquiry list{% endtrans %}
+        </a>
+    </h2>
 
-    {% include 'AcquisitionBundle:Inquiry:_list.html.twig' with {inquiries: customer.inquiries } %}
+    {% include 'AcquisitionBundle:Inquiry:_list.html.twig' with {inquiries: customer.inquiries[0:9] } %}
+
+    {% if customer.inquiries.count > 10 %}
+        <a href="{{ path('inquiry_index', {'customer': customer.id}) }}" class="btn btn-block btn-default">
+            <i class="fa fa-list-ul"></i>
+            {% trans %}More{% endtrans %}
+        </a>
+    {% endif %}
 
     <h2>{% trans %}Address list{% endtrans %}</h2>
 
-    {% include 'CrmBundle:Address:_list.html.twig' with {addresses: customer.addresses } %}
+    {% include 'CrmBundle:Address:_list.html.twig' with {addresses: customer.addresses[0:9] } %}
 
     <h2>{% trans %}Invoice list{% endtrans %}</h2>
 
-    {% include 'CrmpAccBundle:Invoice:_list.html.twig' with {invoices: customer.invoices} %}
+    {% include 'CrmpAccBundle:Invoice:_list.html.twig' with {invoices: customer.invoices[0:9]} %}
 {% endblock %}

@@ -2,6 +2,7 @@
 
 namespace Crmp\AcquisitionBundle\Controller;
 
+use Doctrine\Common\Collections\Criteria;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -72,11 +73,18 @@ class InquiryController extends Controller
      * @Route("/", name="inquiry_index")
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $inquiries = $em->getRepository('AcquisitionBundle:Inquiry')->findAll();
+	    $criteria = Criteria::create();
+
+	    if ($request->get('customer')) {
+		    $customer = $this->getDoctrine()->getRepository('CrmBundle:Customer')->find($request->get('customer'));
+		    $criteria->andWhere(Criteria::expr()->eq('customer', $customer));
+	    }
+
+	    $inquiries = $em->getRepository( 'AcquisitionBundle:Inquiry' )->matching($criteria);
 
         return $this->render(
             'AcquisitionBundle:Inquiry:index.html.twig',
