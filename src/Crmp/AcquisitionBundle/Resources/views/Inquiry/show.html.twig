@@ -53,7 +53,8 @@
                     {{ inquiry.customer.name }}
                 </a>
                 <a href="{{ path('inquiry_index', {customer: inquiry.customer.id}) }}"
-                   class="btn btn-default btn-xs pull-right">
+                   class="btn btn-default btn-xs pull-right"
+                        title="{{ inquiry.customer.name }} {% trans %}Inquiry list{% endtrans %}">
                     <i class="fa fa-filter"></i>
                 </a>
             </td>
