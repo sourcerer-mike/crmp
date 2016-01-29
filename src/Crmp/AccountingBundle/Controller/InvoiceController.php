@@ -42,6 +42,13 @@ class InvoiceController extends Controller
     public function newAction(Request $request)
     {
         $invoice = new Invoice();
+
+	    if ($request->get('customer')) {
+		    $invoice->setCustomer(
+			    $this->getDoctrine()->getRepository('CrmBundle:Customer')->find($request->get('customer'))
+		    );
+	    }
+
         $form = $this->createForm('Crmp\AccountingBundle\Form\InvoiceType', $invoice);
         $form->handleRequest($request);
 

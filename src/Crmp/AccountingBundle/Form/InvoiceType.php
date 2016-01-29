@@ -16,6 +16,7 @@ class InvoiceType extends AbstractType
     {
         $builder
             ->add('value')
+	        ->add('customer')
         ;
     }
     

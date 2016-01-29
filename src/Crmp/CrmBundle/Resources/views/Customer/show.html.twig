@@ -11,15 +11,21 @@
         </a>
     </li>
     <li>
+        <a href="{{ path('address_new', {customer: customer.id}) }}">
+            <i class="fa fa-plus"></i>
+            {% trans %}Address creation{% endtrans %}
+        </a>
+    </li>
+    <li>
         <a href="{{ path('inquiry_new', {'id': customer.id}) }}">
             <i class="fa fa-plus"></i>
             {% trans %}Inquiry creation{% endtrans %}
         </a>
     </li>
     <li>
-        <a href="{{ path('address_new', {customer: customer.id}) }}">
+        <a href="{{ path('invoice_new', {'customer': customer.id}) }}">
             <i class="fa fa-plus"></i>
-            {% trans %}Address creation{% endtrans %}
+            {% trans %}Invoice creation{% endtrans %}
         </a>
     </li>
 {% endblock %}
