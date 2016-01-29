@@ -28,6 +28,22 @@
             <th>Id</th>
             <td>{{ invoice.id }}</td>
         </tr>
+        <tr>
+            <th>{% trans %}Customer{% endtrans %}</th>
+            <td>
+                <a href="{{ path('customer_show', {id: invoice.customer.id}) }}">
+                    {{ invoice.customer.name }}
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                {% trans %}Value{% endtrans %}
+            </th>
+            <td>
+                {{ invoice.value|price }}
+            </td>
+        </tr>
         </tbody>
     </table>
 {% endblock %}
