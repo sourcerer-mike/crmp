@@ -1,53 +1,34 @@
-{% extends 'base.html.twig' %}
+{% extends '@Acquisition/Offer/base.html.twig' %}
 
 {% block title %}{{ offer.title }}{% endblock %}
 
 {% block breadcrumb %}
-    <ol class="breadcrumb">
-        <li>
-            <a href="/">
-                Dashboard
-            </a>
-        </li>
-        <li>
-            <a href="{{ path('offer_index') }}">
-                Offers
-            </a>
-        </li>
-        <li class="active">
-            {{ offer.title }}
-        </li>
-    </ol>
+    {{ parent() }}
+    <li class="active">
+        {{ offer.title }}
+    </li>
 {% endblock %}
 
 {% block related_nav %}
-    <div class="btn-group">
-        <a href="{{ path('contract_new', {offer: offer.id}) }}" class="btn btn-default">
+    {{ parent() }}
+    <li>
+        <a href="{{ path('offer_index') }}">
+            <i class="fa fa-list-ul"></i>
+            {% trans %}Back to the list{% endtrans %}
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('offer_edit', { 'id': offer.id }) }}">
+            <i class="fa fa-pencil"></i>
+            {% trans %}Edit{% endtrans %}
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('contract_new', {offer: offer.id}) }}">
             <i class="fa fa-plus"></i>
             {% trans %}Contract creation{% endtrans %}
         </a>
-    </div>
-
-    <ul class="nav nav-pills nav-stacked">
-        <li>
-            <a href="{{ path('offer_index') }}">
-                <i class="fa fa-list-ul"></i>
-                {% trans %}Back to the list{% endtrans %}
-            </a>
-        </li>
-        <li>
-            <a href="{{ path('inquiry_show', {'id': offer.inquiry.id}) }}">
-                <i class="fa fa-sign-in"></i>
-                {% trans %}Goto inquiry{% endtrans %}
-            </a>
-        </li>
-        <li>
-            <a href="{{ path('offer_edit', { 'id': offer.id }) }}">
-                <i class="fa fa-pencil"></i>
-                {% trans %}Edit{% endtrans %}
-            </a>
-        </li>
-    </ul>
+    </li>
 {% endblock %}
 
 {% block body %}
@@ -75,6 +56,14 @@
         <tr>
             <th>{% trans %}Content{% endtrans %}</th>
             <td>{{ offer.content }}</td>
+        </tr>
+        <tr>
+            <th>{% trans %}Inquiry{% endtrans %}</th>
+            <td>
+                <a href="{{ path('inquiry_show', {id: offer.inquiry.id}) }}">
+                    {{ offer.inquiry.title }}
+                </a>
+            </td>
         </tr>
         </tbody>
     </table>

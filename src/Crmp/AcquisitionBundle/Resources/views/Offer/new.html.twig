@@ -14,7 +14,7 @@
         <li>
             <a href="{{ path('offer_index') }}">
                 <i class="fa fa-list-ul"></i>
-                List all offers
+                {% trans %}Offer list{% endtrans %}
             </a>
         </li>
         <li>
@@ -28,10 +28,12 @@
 
 
 {% block body %}
-    <h1>Offer creation</h1>
+    <h1>
+        {% trans %}Offer creation{% endtrans %}
+    </h1>
 
     {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="{% trans %}Create{% endtrans %}" class="btn btn-primary"/>
+    {{ form_widget(form) }}
+    <input type="submit" value="{% trans %}Create{% endtrans %}" class="btn btn-primary"/>
     {{ form_end(form) }}
 {% endblock %}

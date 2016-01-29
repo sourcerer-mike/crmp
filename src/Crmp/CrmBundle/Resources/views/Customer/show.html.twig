@@ -64,9 +64,20 @@
         </a>
     {% endif %}
 
-    <h2>{% trans %}Address list{% endtrans %}</h2>
+    <h2>
+        <a href="{{ path('address_index', {'customer': customer.id}) }}">
+            {% trans %}Address list{% endtrans %}
+        </a>
+    </h2>
 
     {% include 'CrmBundle:Address:_list.html.twig' with {addresses: customer.addresses[0:9] } %}
+
+    {% if customer.inquiries.count > 10 %}
+        <a href="{{ path('address_index', {'customer': customer.id}) }}" class="btn btn-block btn-default">
+            <i class="fa fa-list-ul"></i>
+            {% trans %}More{% endtrans %}
+        </a>
+    {% endif %}
 
     <h2>{% trans %}Invoice list{% endtrans %}</h2>
 
