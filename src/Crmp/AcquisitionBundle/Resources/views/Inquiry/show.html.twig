@@ -12,12 +12,6 @@
 {% block related_nav %}
     {{ parent() }}
     <li>
-        <a href="{{ path('inquiry_index') }}">
-            <i class="fa fa-list-ul"></i>
-            {% trans %}Back to the list{% endtrans %}
-        </a>
-    </li>
-    <li>
         <a href="{{ path('inquiry_edit', { 'id': inquiry.id }) }}">
             <i class="fa fa-pencil"></i>
             {% trans %}Edit{% endtrans %}
@@ -51,6 +45,18 @@
         <tr>
             <th>Id</th>
             <td>{{ inquiry.id }}</td>
+        </tr>
+        <tr>
+            <th>{% trans %}Customer{% endtrans %}</th>
+            <td>
+                <a href="{{ path('customer_show', {id: inquiry.customer.id}) }}">
+                    {{ inquiry.customer.name }}
+                </a>
+                <a href="{{ path('inquiry_index', {customer: inquiry.customer.id}) }}"
+                   class="btn btn-default btn-xs pull-right">
+                    <i class="fa fa-filter"></i>
+                </a>
+            </td>
         </tr>
         <tr>
             <th>{% trans %}Inquired at{% endtrans %}</th>
