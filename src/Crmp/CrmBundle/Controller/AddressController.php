@@ -38,7 +38,7 @@ class AddressController extends Controller
 		    );
 	    }
 
-        return $this->render('address/index.html.twig', array(
+        return $this->render('CrmBundle:Address:index.html.twig', array(
             'addresses' => $addresses,
         ));
     }
@@ -71,7 +71,7 @@ class AddressController extends Controller
             return $this->redirectToRoute('address_show', array('id' => $address->getId()));
         }
 
-        return $this->render('address/new.html.twig', array(
+        return $this->render('CrmBundle:Address:new.html.twig', array(
             'address' => $address,
             'form' => $form->createView(),
         ));
@@ -87,7 +87,7 @@ class AddressController extends Controller
     {
         $deleteForm = $this->createDeleteForm($address);
 
-        return $this->render('address/show.html.twig', array(
+        return $this->render('CrmBundle:Address:show.html.twig', array(
             'address' => $address,
             'delete_form' => $deleteForm->createView(),
         ));
@@ -113,7 +113,7 @@ class AddressController extends Controller
             return $this->redirectToRoute('address_show', array('id' => $address->getId()));
         }
 
-        return $this->render('address/edit.html.twig', array(
+        return $this->render('CrmBundle:Address:edit.html.twig', array(
             'address' => $address,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
