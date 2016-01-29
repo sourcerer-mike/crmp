@@ -2,6 +2,7 @@
 
 namespace Crmp\AccountingBundle\Controller;
 
+use Doctrine\Common\Collections\Criteria;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -22,11 +23,18 @@ class InvoiceController extends Controller
      * @Route("/", name="invoice_index")
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $invoices = $em->getRepository('CrmpAccBundle:Invoice')->findAll();
+	    $criteria = Criteria::create();
+
+	    if ($request->get('customer')) {
+		    $customer = $this->getDoctrine()->getRepository('CrmBundle:Customer')->find($request->get('customer'));
+		    $criteria->andWhere(Criteria::expr()->eq('customer', $customer));
+	    }
+
+        $invoices = $em->getRepository('CrmpAccBundle:Invoice')->matching($criteria);
 
         return $this->render('CrmpAccBundle:Invoice:index.html.twig', array(
             'invoices' => $invoices,
