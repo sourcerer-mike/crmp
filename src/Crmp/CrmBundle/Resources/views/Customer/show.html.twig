@@ -56,4 +56,8 @@
     <h2>{% trans %}Address list{% endtrans %}</h2>
 
     {% include 'CrmBundle:Address:_list.html.twig' with {addresses: customer.addresses } %}
+
+    <h2>{% trans %}Invoice list{% endtrans %}</h2>
+
+    {% include 'CrmpAccBundle:Invoice:_list.html.twig' with {invoices: customer.invoices} %}
 {% endblock %}

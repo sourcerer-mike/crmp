@@ -4,6 +4,7 @@
         <th>
             {% trans %}Value{% endtrans %}
         </th>
+        <th>{% trans %}Customer{% endtrans %}</th>
         <th></th>
     </tr>
     </thead>
@@ -12,6 +13,11 @@
         <tr>
             <td>
                 <a href="{{ path('invoice_show', { 'id': invoice.id }) }}">{{ invoice.value }}</a>
+            </td>
+            <td>
+                <a href="{{ path('customer_show', {'id': invoice.customer.id}) }}">
+                    {{ invoice.customer.name }}
+                </a>
             </td>
             <td>
                 <div class="btn-group">
