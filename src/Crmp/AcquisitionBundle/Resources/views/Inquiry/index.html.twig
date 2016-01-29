@@ -3,27 +3,24 @@
 {% block title %}{% trans %}Inquiry list{% endtrans %}{% endblock %}
 
 {% block related_nav %}
-    <div class="btn-toolbar" role="toolbar">
-        <div class="btn-group">
-            <a href="{{ path('inquiry_new') }}" class="btn btn-success">
-                <i class="fa fa-plus"></i>
-                New inquiry
-            </a>
-        </div>
-    </div>
+    {{ parent() }}
+    <li>
+        <a href="{{ path('inquiry_new') }}">
+            <i class="fa fa-plus"></i>
+            {% trans %}Inquiry creation{% endtrans %}
+        </a>
+    </li>
 {% endblock %}
 
 {% block breadcrumb %}
-    <ol class="breadcrumb">
-        <li>
-            <a href="/">
-                Dashboard
-            </a>
-        </li>
-        <li class="active">
-            {% trans %}Inquiry list{% endtrans %}
-        </li>
-    </ol>
+    <li>
+        <a href="/">
+            Dashboard
+        </a>
+    </li>
+    <li class="active">
+        {% trans %}Inquiry list{% endtrans %}
+    </li>
 {% endblock %}
 
 

@@ -55,9 +55,9 @@
         </a>
     </h2>
 
-    {% include 'AcquisitionBundle:Inquiry:_list.html.twig' with {inquiries: customer.inquiries[0:9] } %}
+    {% include 'AcquisitionBundle:Inquiry:_list.html.twig' with {inquiries: customer.inquiries[0:cfg_recent_amount] } %}
 
-    {% if customer.inquiries.count > 10 %}
+    {% if customer.inquiries.count > cfg_recent_amount %}
         <a href="{{ path('inquiry_index', {'customer': customer.id}) }}" class="btn btn-block btn-default">
             <i class="fa fa-list-ul"></i>
             {% trans %}More{% endtrans %}
@@ -70,16 +70,26 @@
         </a>
     </h2>
 
-    {% include 'CrmBundle:Address:_list.html.twig' with {addresses: customer.addresses[0:9] } %}
+    {% include 'CrmBundle:Address:_list.html.twig' with {addresses: customer.addresses[0:cfg_recent_amount] } %}
 
-    {% if customer.inquiries.count > 10 %}
+    {% if customer.inquiries.count > cfg_recent_amount %}
         <a href="{{ path('address_index', {'customer': customer.id}) }}" class="btn btn-block btn-default">
             <i class="fa fa-list-ul"></i>
             {% trans %}More{% endtrans %}
         </a>
     {% endif %}
 
-    <h2>{% trans %}Invoice list{% endtrans %}</h2>
+    <h2>
+        <a href="{{ path('invoice_index', {customer: customer.id}) }}">
+            {% trans %}Invoice list{% endtrans %}
+        </a>
+    </h2>
 
-    {% include 'CrmpAccBundle:Invoice:_list.html.twig' with {invoices: customer.invoices[0:9]} %}
+    {% include 'CrmpAccBundle:Invoice:_list.html.twig' with {invoices: customer.invoices[0:cfg_recent_amount]} %}
+    {% if customer.invoices.count > cfg_recent_amount %}
+        <a href="{{ path('invoice_index', {'customer': customer.id}) }}" class="btn btn-block btn-default">
+            <i class="fa fa-list-ul"></i>
+            {% trans %}More{% endtrans %} {% trans %}Invoices{% endtrans %}
+        </a>
+    {% endif %}
 {% endblock %}
