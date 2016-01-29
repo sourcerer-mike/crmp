@@ -38,6 +38,11 @@ class Customer
 	 */
 	private $addresses;
 
+	/**
+	 * @ORM\OneToMany(targetEntity="Crmp\AccountingBundle\Entity\Invoice", mappedBy="customer")
+	 */
+	private $invoices;
+
     /**
      * Get id
      *
@@ -150,5 +155,39 @@ class Customer
     public function getAddresses()
     {
         return $this->addresses;
+    }
+
+    /**
+     * Add invoice
+     *
+     * @param \Crmp\AccountingBundle\Entity\Invoice $invoice
+     *
+     * @return Customer
+     */
+    public function addInvoice(\Crmp\AccountingBundle\Entity\Invoice $invoice)
+    {
+        $this->invoices[] = $invoice;
+
+        return $this;
+    }
+
+    /**
+     * Remove invoice
+     *
+     * @param \Crmp\AccountingBundle\Entity\Invoice $invoice
+     */
+    public function removeInvoice(\Crmp\AccountingBundle\Entity\Invoice $invoice)
+    {
+        $this->invoices->removeElement($invoice);
+    }
+
+    /**
+     * Get invoices
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getInvoices()
+    {
+        return $this->invoices;
     }
 }

@@ -28,6 +28,10 @@ class Invoice
      */
     private $value;
 
+	/**
+	 * @ORM\ManyToOne(targetEntity="Crmp\CrmBundle\Entity\Customer", inversedBy="invoices")
+	 */
+	private $customer;
 
     /**
      * Get id
@@ -62,5 +66,28 @@ class Invoice
     {
         return $this->value;
     }
-}
 
+    /**
+     * Set customer
+     *
+     * @param \Crmp\CrmBundle\Entity\Customer $customer
+     *
+     * @return Invoice
+     */
+    public function setCustomer(\Crmp\CrmBundle\Entity\Customer $customer = null)
+    {
+        $this->customer = $customer;
+
+        return $this;
+    }
+
+    /**
+     * Get customer
+     *
+     * @return \Crmp\CrmBundle\Entity\Customer
+     */
+    public function getCustomer()
+    {
+        return $this->customer;
+    }
+}
