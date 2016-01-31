@@ -1,6 +1,10 @@
 Version 0.1
 
 - All views have the same capabilities
+    - ..._show sub-entities are shown
+        - As a user
+          I see only a button when the sub-list is empty
+          so that I can add a new sub-entity.
 - Nothing is messed up
 - Sample Data
 
@@ -21,6 +25,9 @@ Version 0.3
 
 - All delete Buttons are links
 - All delete actions are just a flag in the database
+- Duplicate entries (in ..._show)
+- Date to all entities
+- Order recent items by date desc
 - UnitTests for "showAction"
 
 Version 0.4
