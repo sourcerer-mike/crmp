@@ -1,0 +1,21 @@
+<h2>
+    <a href="{{ more_link }}">
+        {{ title }}
+    </a>
+</h2>
+
+{% if target.count > 0 %}
+    {% include template with subset %}
+{% else %}
+    <a href="{{ add_link }}" class="btn btn-block btn-default">
+        <i class="fa fa-plus"></i>
+        {{ add_label }}
+    </a>
+{% endif %}
+
+{% if target.count > cfg_recent_amount %}
+    <a href="{{ more_link }}" class="btn btn-block btn-default">
+        <i class="fa fa-list-ul"></i>
+        {% trans %}More{% endtrans %}
+    </a>
+{% endif %}

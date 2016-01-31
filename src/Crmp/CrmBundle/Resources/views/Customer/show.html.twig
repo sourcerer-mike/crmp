@@ -49,47 +49,33 @@
         </tbody>
     </table>
 
-    <h2>
-        <a href="{{ path('inquiry_index', {'customer': customer.id}) }}">
-            {% trans %}Inquiry list{% endtrans %}
-        </a>
-    </h2>
+    {% include 'CrmBundle::sub-list.html.twig' with {
+        title: 'Inquiry list'|trans,
+        template: 'AcquisitionBundle:Inquiry:_list.html.twig',
+        target: customer.inquiries,
+        subset: {inquiries: customer.inquiries[0:cfg_recent_amount] },
+        add_link: path('inquiry_new', {'customer': customer.id}),
+        add_label: 'Inquiry creation'|trans,
+        more_link: path('inquiry_index', {'customer': customer.id}),
+    } %}
 
-    {% include 'AcquisitionBundle:Inquiry:_list.html.twig' with {inquiries: customer.inquiries[0:cfg_recent_amount] } %}
+    {% include 'CrmBundle::sub-list.html.twig' with {
+    title: 'Address list'|trans,
+    template: 'CrmBundle:Address:_list.html.twig',
+    target: customer.addresses,
+    subset: {addresses: customer.addresses[0:cfg_recent_amount] },
+    add_link: path('address_new', {'customer': customer.id}),
+    add_label: 'Address creation'|trans,
+    more_link: path('address_index', {'customer': customer.id}),
+    } %}
 
-    {% if customer.inquiries.count > cfg_recent_amount %}
-        <a href="{{ path('inquiry_index', {'customer': customer.id}) }}" class="btn btn-block btn-default">
-            <i class="fa fa-list-ul"></i>
-            {% trans %}More{% endtrans %}
-        </a>
-    {% endif %}
-
-    <h2>
-        <a href="{{ path('address_index', {'customer': customer.id}) }}">
-            {% trans %}Address list{% endtrans %}
-        </a>
-    </h2>
-
-    {% include 'CrmBundle:Address:_list.html.twig' with {addresses: customer.addresses[0:cfg_recent_amount] } %}
-
-    {% if customer.inquiries.count > cfg_recent_amount %}
-        <a href="{{ path('address_index', {'customer': customer.id}) }}" class="btn btn-block btn-default">
-            <i class="fa fa-list-ul"></i>
-            {% trans %}More{% endtrans %}
-        </a>
-    {% endif %}
-
-    <h2>
-        <a href="{{ path('invoice_index', {customer: customer.id}) }}">
-            {% trans %}Invoice list{% endtrans %}
-        </a>
-    </h2>
-
-    {% include 'CrmpAccBundle:Invoice:_list.html.twig' with {invoices: customer.invoices[0:cfg_recent_amount]} %}
-    {% if customer.invoices.count > cfg_recent_amount %}
-        <a href="{{ path('invoice_index', {'customer': customer.id}) }}" class="btn btn-block btn-default">
-            <i class="fa fa-list-ul"></i>
-            {% trans %}More{% endtrans %} {% trans %}Invoices{% endtrans %}
-        </a>
-    {% endif %}
+    {% include 'CrmBundle::sub-list.html.twig' with {
+    title: 'Invoice list'|trans,
+    template: 'CrmpAccBundle:Invoice:_list.html.twig',
+    target: customer.invoices,
+    subset: {invoices: customer.invoices[0:cfg_recent_amount] },
+    add_link: path('invoice_new', {'customer': customer.id}),
+    add_label: 'Invoice creation'|trans,
+    more_link: path('invoice_index', {'customer': customer.id}),
+    } %}
 {% endblock %}
