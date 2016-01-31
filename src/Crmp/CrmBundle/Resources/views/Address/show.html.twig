@@ -36,6 +36,11 @@
                 <a href="{{ path('customer_show', {'id': address.customer.id}) }}">
                     {{ address.customer.name }}
                 </a>
+                <a href="{{ path('address_index', {customer: address.customer.id}) }}"
+                   class="btn btn-default btn-xs pull-right"
+                        title="{% trans %}Related addresses{% endtrans %}">
+                    <i class="fa fa-filter"></i>
+                </a>
             </td>
         </tr>
         <tr>
