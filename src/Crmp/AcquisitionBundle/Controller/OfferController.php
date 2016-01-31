@@ -2,6 +2,7 @@
 
 namespace Crmp\AcquisitionBundle\Controller;
 
+use Doctrine\Common\Collections\Criteria;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -22,11 +23,21 @@ class OfferController extends Controller
      * @Route("/", name="offer_index")
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $offers = $em->getRepository('AcquisitionBundle:Offer')->findAll();
+	    $criteria = Criteria::create();
+
+	    if ($request->get('inquiry')) {
+		    $inquiry = $this->getDoctrine()
+			                ->getRepository( 'AcquisitionBundle:Inquiry' )
+		                    ->find( $request->get( 'inquiry' ) );
+
+		    $criteria->andWhere(  $criteria->expr()->eq('inquiry', $inquiry ) );
+	    }
+
+        $offers = $em->getRepository('AcquisitionBundle:Offer')->matching($criteria);
 
         return $this->render('AcquisitionBundle:Offer:index.html.twig', array(
             'offers' => $offers,
