@@ -1,23 +1,25 @@
-{% extends 'base.html.twig' %}
+{% extends 'CrmBundle:Address:base.html.twig' %}
 
 {% block title %}{{ address.name }}{% endblock %}
 
-{% block related_nav %}
-    <ul class="nav nav-pills nav-stacked">
-        <li>
-            <a href="{{ path('address_index') }}">
-                <i class="fa fa-list-ul"></i>
-                {% trans %}Address list{% endtrans %}
-            </a>
-        </li>
-        <li>
-            <a href="{{ path('address_edit', {'id': address.id}) }}">
-                <i class="fa fa-pencil"></i>
-                {% trans %}Edit{% endtrans %}
-            </a>
-        </li>
-    </ul>
+{% block breadcrumb %}
+    {{ parent() }}
+    <li class="active">
+        {{ address.name }}
+    </li>
 {% endblock %}
+
+{% block related_nav %}
+    {{ parent() }}
+    <li>
+        <a href="{{ path('address_edit', {'id': address.id}) }}">
+            <i class="fa fa-pencil"></i>
+            {% trans %}Edit{% endtrans %}
+        </a>
+    </li>
+{% endblock %}
+
+
 
 {% block body %}
     <h1>{{ address.name }}</h1>

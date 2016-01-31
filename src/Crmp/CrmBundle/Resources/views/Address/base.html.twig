@@ -1,0 +1,10 @@
+{% extends '::base.html.twig' %}
+
+{% block breadcrumb %}
+    {{ parent() }}
+    <li>
+        <a href="{{ path('address_index') }}">
+            {% trans %}Address list{% endtrans %}
+        </a>
+    </li>
+{% endblock %}
