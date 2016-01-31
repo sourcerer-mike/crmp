@@ -1,28 +1,17 @@
-{% extends 'AcquisitionBundle:Contract:new.html.twig' %}
+{% extends 'AcquisitionBundle:Contract:base.html.twig' %}
 
 {% block title %}{{ contract.title }}{% endblock %}
 
 {% block breadcrumb %}
-    <ol class="breadcrumb">
-        <li>
-            <a href="/">
-                Dashboard
-            </a>
-        </li>
-        <li>
-            <a href="{{ path('contract_index') }}">
-                {% trans %}Contract list{% endtrans %}
-            </a>
-        </li>
-        <li>
-            <a href="{{ path('contract_show', {'id': contract.id}) }}">
-                {{ contract.title }}
-            </a>
-        </li>
-        <li class="active">
-            {% trans %}Edit{% endtrans %}
-        </li>
-    </ol>
+    {{ parent() }}
+    <li>
+        <a href="{{ path('contract_show', {'id': contract.id}) }}">
+            {{ contract.title }}
+        </a>
+    </li>
+    <li class="active">
+        {% trans %}Edit{% endtrans %}
+    </li>
 {% endblock %}
 
 {% block body %}
