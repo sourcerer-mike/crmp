@@ -1,10 +1,18 @@
 Version 0.1
 
 - All views have the same capabilities
+	- ..._show breadcrumbe
+		- As a user
+		  I always see where I am in the breadcrumb
+		  so that I can navigate to meta-views.
     - ..._show sub-entities are shown
         - As a user
           I see only a button when the sub-list is empty
           so that I can add a new sub-entity.
+	- ..._show filter are enabled
+		- As a user
+		  I can use filter via parent-entities
+		  so that I can see all entities related to that parent.
 - Nothing is messed up
 - Sample Data
 
