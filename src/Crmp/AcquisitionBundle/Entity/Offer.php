@@ -196,6 +196,13 @@ class Offer
 	}
 
 	/**
+	 * @return \Crmp\CrmBundle\Entity\Customer
+	 */
+	public function getCustomer() {
+		return $this->getInquiry()->getCustomer();
+	}
+
+	/**
      * Remove contract
      *
      * @param \Crmp\AcquisitionBundle\Entity\Contract $contract

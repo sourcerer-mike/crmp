@@ -48,6 +48,13 @@ class Contract
      */
     private $offer;
 
+	/**
+	 * @return \Crmp\CrmBundle\Entity\Customer
+	 */
+	public function getCustomer() {
+		return $this->getOffer()->getCustomer();
+	}
+
 
     /**
      * Get id
