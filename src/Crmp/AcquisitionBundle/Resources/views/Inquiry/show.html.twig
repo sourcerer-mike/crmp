@@ -74,7 +74,11 @@
         </tbody>
     </table>
 
-    <h2>{% trans %}Offers{% endtrans %}</h2>
+    <h2>
+        <a href="{{ path('offer_index', {inquiry: inquiry.id}) }}">
+            {% trans %}Offers{% endtrans %}
+        </a>
+    </h2>
 
     {% include "AcquisitionBundle:Offer:_list.html.twig" with {'offers': inquiry.offers} %}
 
