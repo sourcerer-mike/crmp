@@ -1,40 +1,15 @@
-{% extends 'base.html.twig' %}
+{% extends 'AcquisitionBundle:Contract:base.html.twig' %}
 
 {% block title %}{{ contract.title }}{% endblock %}
 
 {% block breadcrumb %}
-    <ol class="breadcrumb">
-        <li>
-            <a href="/">
-                Dashboard
-            </a>
-        </li>
-        <li>
-            <a href="{{ path('contract_index') }}">
-                {% trans %}Contract list{% endtrans %}
-            </a>
-        </li>
-        <li class="active">
-            {{ contract.title }}
-        </li>
-    </ol>
+    {{ parent() }}
+    <li class="active">
+        {{ contract.title }}
+    </li>
 {% endblock %}
 
 {% block related_nav %}
-    <li>
-        <a href="{{ path('contract_index') }}">
-            <i class="fa fa-list-ul"></i>
-            {% trans %}Back to the list{% endtrans %}
-        </a>
-    </li>
-    {% if (contract.offer) %}
-    <li>
-        <a href="{{ path('offer_show', {id: contract.offer.id}) }}">
-            <i class="fa fa-sign-in"></i>
-            {% trans %}Goto offer{% endtrans %}
-        </a>
-    </li>
-    {% endif %}
     <li>
         <a href="{{ path('contract_edit', { 'id': contract.id }) }}">
             <i class="fa fa-pencil"></i>
@@ -48,18 +23,28 @@
 
     <table class="table table-bordered table-hover table-striped">
         <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ contract.id }}</td>
-            </tr>
-            <tr>
-                <th>{% trans %}Value{% endtrans %}</th>
-                <td>{{ contract.value }}</td>
-            </tr>
-            <tr>
-                <th>{% trans %}Content{% endtrans %}</th>
-                <td>{{ contract.content|nl2br }}</td>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <td>{{ contract.id }}</td>
+        </tr>
+        <tr>
+            <th>
+                {% trans %}Offer{% endtrans %}
+            </th>
+            <td>
+                <a href="{{ path('offer_show', {id: contract.offer.id}) }}">
+                    {{ contract.offer.title }}
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <th>{% trans %}Value{% endtrans %}</th>
+            <td>{{ contract.value }}</td>
+        </tr>
+        <tr>
+            <th>{% trans %}Content{% endtrans %}</th>
+            <td>{{ contract.content|nl2br }}</td>
+        </tr>
         </tbody>
     </table>
 {% endblock %}

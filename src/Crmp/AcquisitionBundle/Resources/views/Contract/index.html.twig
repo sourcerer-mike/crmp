@@ -3,27 +3,25 @@
 {% block title %}{% trans %}Contract list{% endtrans %}{% endblock %}
 
 {% block related_nav %}
-<div class="btn-toolbar" role="toolbar">
-    <div class="btn-group">
-        <a href="{{ path('contract_new') }}" class="btn btn-success">
-            <i class="fa fa-plus"></i>
-            {% trans %}New contract{% endtrans %}
-        </a>
+    <div class="btn-toolbar" role="toolbar">
+        <div class="btn-group">
+            <a href="{{ path('contract_new') }}" class="btn btn-success">
+                <i class="fa fa-plus"></i>
+                {% trans %}New contract{% endtrans %}
+            </a>
+        </div>
     </div>
-</div>
 {% endblock %}
 
 {% block breadcrumb %}
-    <ol class="breadcrumb">
-        <li>
-            <a href="/">
-                Dashboard
-            </a>
-        </li>
-        <li class="active">
-            {% trans %}Contract list{% endtrans %}
-        </li>
-    </ol>
+    <li>
+        <a href="/">
+            Dashboard
+        </a>
+    </li>
+    <li class="active">
+        {% trans %}Contract list{% endtrans %}
+    </li>
 {% endblock %}
 
 {% block body %}

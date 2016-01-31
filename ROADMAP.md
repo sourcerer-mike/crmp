@@ -13,6 +13,10 @@ Version 0.1
 		- As a user
 		  I can use filter via parent-entities
 		  so that I can see all entities related to that parent.
+	- ..._show shows parent entries on top
+		- As a user
+		  I see the parent entities below the ID
+		  so that I quickly see what is related to that entry.
 - Nothing is messed up
 - Sample Data
 
