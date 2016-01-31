@@ -3,27 +3,18 @@
 {% block title %}{% trans %}Offer list{% endtrans %}{% endblock %}
 
 {% block breadcrumb %}
-    <ol class="breadcrumb">
-        <li>
-            <a href="/">
-                Dashboard
-            </a>
-        </li>
-        <li class="active">
-            {% trans %}Offers{% endtrans %}
-        </li>
-    </ol>
+    {{ parent() }}
+    <li class="active">
+        {% trans %}Offers{% endtrans %}
+    </li>
 {% endblock %}
 
 {% block related_nav %}
-    <div class="btn-toolbar" role="toolbar">
-        <div class="btn-group">
-            <a href="{{ path('offer_new') }}" class="btn btn-success">
-                <i class="fa fa-plus"></i>
-                {% trans %}New offer{% endtrans %}
-            </a>
-        </div>
-    </div>
+    {{ parent() }}
+    <a href="{{ path('offer_new') }}">
+        <i class="fa fa-plus"></i>
+        {% trans %}New offer{% endtrans %}
+    </a>
 {% endblock %}
 
 {% block body %}
