@@ -31,7 +31,7 @@ class Contract
     /**
      * @var string
      *
-     * @ORM\Column(name="value", type="decimal", precision=4, scale=0)
+     * @ORM\Column(name="value", type="decimal", precision=16, scale=4)
      */
     private $value;
 
