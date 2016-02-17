@@ -7,8 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Address
  *
- * @ORM\Table(name="address")
- * @ORM\Entity(repositoryClass="Crmp\CrmBundle\Repository\AddressRepository")
+ * @ORM\Table(name="config")
+ * @ORM\Entity(repositoryClass="Crmp\CrmBundle\Repository\ConfigRepository")
  */
 class Config
 {
