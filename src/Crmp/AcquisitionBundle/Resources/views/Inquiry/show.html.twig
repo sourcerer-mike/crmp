@@ -68,6 +68,10 @@
             <td>{{ inquiry.netValue|price }}</td>
         </tr>
         <tr>
+            <th>{% trans %}Status{% endtrans %}</th>
+            <td>{{ inquiry.statusLabel }}</td>
+        </tr>
+        <tr>
             <th>{% trans %}Content{% endtrans %}</th>
             <td>{{ inquiry.content|nl2br }}</td>
         </tr>

@@ -2,6 +2,7 @@
 
 namespace Crmp\AcquisitionBundle\Entity;
 
+use Crmp\CrmBundle\Entity\Config;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -275,5 +276,12 @@ class Inquiry
     public function getStatus()
     {
         return $this->status;
+    }
+
+    public function getStatusLabel()
+    {
+        $map = Config::getChoices('acquisition.inquiry.status');
+
+        return array_keys($map, $this->getStatus(), true);
     }
 }
