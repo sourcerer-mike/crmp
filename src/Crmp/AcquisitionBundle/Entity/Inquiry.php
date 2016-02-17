@@ -60,6 +60,11 @@ class Inquiry
      */
     protected $offers;
 
+    /**
+     * @ORM\Column(type="integer", name="status")
+     */
+    protected $status;
+
 
     /**
      * Get id
@@ -246,5 +251,29 @@ class Inquiry
     public function getInquiredAt()
     {
         return $this->inquiredAt;
+    }
+
+    /**
+     * Set status
+     *
+     * @param integer $status
+     *
+     * @return Inquiry
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return integer
+     */
+    public function getStatus()
+    {
+        return $this->status;
     }
 }
