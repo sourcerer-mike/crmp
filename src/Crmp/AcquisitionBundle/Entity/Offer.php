@@ -49,6 +49,11 @@ class Offer
     private $title;
 
     /**
+     * @ORM\Column(name="status", type="integer")
+     */
+    private $status;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -210,5 +215,29 @@ class Offer
     public function removeContract(\Crmp\AcquisitionBundle\Entity\Contract $contract)
     {
         $this->contracts->removeElement($contract);
+    }
+
+    /**
+     * Set status
+     *
+     * @param integer $status
+     *
+     * @return Offer
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return integer
+     */
+    public function getStatus()
+    {
+        return $this->status;
     }
 }
