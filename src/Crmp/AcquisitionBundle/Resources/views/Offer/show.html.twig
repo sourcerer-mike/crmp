@@ -46,9 +46,13 @@
         <tr>
             <th>{% trans %}Customer{% endtrans %}</th>
             <td>
-                <a href="{{ path('customer_show', {id: offer.customer.id}) }}">
-                    {{ offer.customer.name }}
-                </a>
+                {% if offer.customer %}
+                    <a href="{{ path('customer_show', {id: offer.customer.id}) }}">
+                        {{ offer.customer.name }}
+                    </a>
+                {% else %}
+                    &mdash;
+                {% endif %}
             </td>
         </tr>
         <tr>
