@@ -282,6 +282,6 @@ class Inquiry
     {
         $map = Config::getChoices('acquisition.inquiry.status');
 
-        return array_keys($map, $this->getStatus(), true);
+        return array_search($this->getStatus(), $map, true);
     }
 }
