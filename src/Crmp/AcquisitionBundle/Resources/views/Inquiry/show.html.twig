@@ -49,14 +49,18 @@
         <tr>
             <th>{% trans %}Customer{% endtrans %}</th>
             <td>
-                <a href="{{ path('customer_show', {id: inquiry.customer.id}) }}">
-                    {{ inquiry.customer.name }}
-                </a>
-                <a href="{{ path('inquiry_index', {customer: inquiry.customer.id}) }}"
-                   class="btn btn-default btn-xs pull-right"
-                        title="{{ inquiry.customer.name }} {% trans %}Inquiry list{% endtrans %}">
-                    <i class="fa fa-filter"></i>
-                </a>
+                {% if inquiry.customer %}
+                    <a href="{{ path('customer_show', {id: inquiry.customer.id}) }}">
+                        {{ inquiry.customer.name }}
+                    </a>
+                    <a href="{{ path('inquiry_index', {customer: inquiry.customer.id}) }}"
+                       class="btn btn-default btn-xs pull-right"
+                            title="{{ inquiry.customer.name }} {% trans %}Inquiry list{% endtrans %}">
+                        <i class="fa fa-filter"></i>
+                    </a>
+                {% else %}
+                    &mdash;
+                {% endif %}
             </td>
         </tr>
         <tr>
