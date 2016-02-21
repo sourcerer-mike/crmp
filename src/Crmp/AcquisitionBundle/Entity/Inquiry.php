@@ -2,6 +2,7 @@
 
 namespace Crmp\AcquisitionBundle\Entity;
 
+use Crmp\CrmBundle\Entity\Config;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -59,6 +60,11 @@ class Inquiry
      * @ORM\OneToMany(targetEntity="Offer", mappedBy="inquiry")
      */
     protected $offers;
+
+    /**
+     * @ORM\Column(type="integer", name="status")
+     */
+    protected $status;
 
 
     /**
@@ -246,5 +252,36 @@ class Inquiry
     public function getInquiredAt()
     {
         return $this->inquiredAt;
+    }
+
+    /**
+     * Set status
+     *
+     * @param integer $status
+     *
+     * @return Inquiry
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return integer
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    public function getStatusLabel()
+    {
+        $map = Config::getChoices('acquisition.inquiry.status');
+
+        return array_search($this->getStatus(), $map, true);
     }
 }

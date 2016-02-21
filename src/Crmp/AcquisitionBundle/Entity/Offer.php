@@ -2,6 +2,7 @@
 
 namespace Crmp\AcquisitionBundle\Entity;
 
+use Crmp\CrmBundle\Entity\Config;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -47,6 +48,11 @@ class Offer
      * @ORM\Column(name="title", type="string", length=255)
      */
     private $title;
+
+    /**
+     * @ORM\Column(name="status", type="integer")
+     */
+    private $status;
 
     /**
      * Constructor
@@ -210,5 +216,36 @@ class Offer
     public function removeContract(\Crmp\AcquisitionBundle\Entity\Contract $contract)
     {
         $this->contracts->removeElement($contract);
+    }
+
+    /**
+     * Set status
+     *
+     * @param integer $status
+     *
+     * @return Offer
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return integer
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    public function getStatusLabel()
+    {
+        $map = Config::getChoices('acquisition.offer.status');
+
+        return array_search($this->getStatus(), $map, true);
     }
 }

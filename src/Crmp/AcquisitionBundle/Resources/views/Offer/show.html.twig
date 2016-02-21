@@ -46,9 +46,13 @@
         <tr>
             <th>{% trans %}Customer{% endtrans %}</th>
             <td>
-                <a href="{{ path('customer_show', {id: offer.customer.id}) }}">
-                    {{ offer.customer.name }}
-                </a>
+                {% if offer.customer %}
+                    <a href="{{ path('customer_show', {id: offer.customer.id}) }}">
+                        {{ offer.customer.name }}
+                    </a>
+                {% else %}
+                    &mdash;
+                {% endif %}
             </td>
         </tr>
         <tr>
@@ -63,6 +67,10 @@
                     <i class="fa fa-filter"></i>
                 </a>
             </td>
+        </tr>
+        <tr>
+            <th>{% trans %}Status{% endtrans %}</th>
+            <td>{{ offer.statusLabel }}</td>
         </tr>
         <tr>
             <th>{% trans %}Price{% endtrans %}</th>

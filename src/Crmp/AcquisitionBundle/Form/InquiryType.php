@@ -2,8 +2,10 @@
 
 namespace Crmp\AcquisitionBundle\Form;
 
+use Crmp\CrmBundle\Entity\Config;
 use Doctrine\DBAL\Types\DateType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -37,6 +39,14 @@ class InquiryType extends AbstractType
                 null,
                 [
                     'label' => 'Predicted value',
+                ]
+            )
+            ->add(
+                'status',
+                ChoiceType::class,
+                [
+                    'choices' => Config::getChoices('acquisition.inquiry.status'),
+                    'expanded' => true,
                 ]
             )
             ->add('content');

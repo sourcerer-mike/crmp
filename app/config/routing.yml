@@ -1,3 +1,8 @@
+crmp_hr:
+    resource: "@CrmpHrBundle/Controller/"
+    type:     annotation
+    prefix:   /tasks/
+
 crmp_acc:
     resource: "@CrmpAccBundle/Controller/"
     type:     annotation

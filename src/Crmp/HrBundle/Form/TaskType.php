@@ -1,14 +1,12 @@
 <?php
 
-namespace Crmp\AcquisitionBundle\Form;
+namespace Crmp\HrBundle\Form;
 
-use Crmp\CrmBundle\Entity\Config;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class OfferType extends AbstractType
+class TaskType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -18,16 +16,7 @@ class OfferType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('inquiry')
-            ->add('price')
-            ->add('content')
-            ->add(
-                'status',
-                ChoiceType::class, [
-                    'choices'  => Config::getChoices('acquisition.offer.status'),
-                    'expanded' => true,
-                ]
-            );
+            ->add('description')
         ;
     }
     
@@ -37,7 +26,7 @@ class OfferType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Crmp\AcquisitionBundle\Entity\Offer'
+            'data_class' => 'Crmp\HrBundle\Entity\Task'
         ));
     }
 }
