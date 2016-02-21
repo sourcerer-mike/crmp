@@ -3,6 +3,7 @@
 namespace Crmp\CrmBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
  * Customer
@@ -14,14 +15,17 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Customer
 {
-	/**
-	 * @ORM\OneToMany(targetEntity="Crmp\CrmBundle\Entity\Address", mappedBy="customer")
-	 */
-	private $addresses;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Crmp\CrmBundle\Entity\Address", mappedBy="customer")
+     */
+    private $addresses;
+
     /**
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
+
     /**
      * @var int
      *
@@ -30,20 +34,28 @@ class Customer
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
     /**
      * @ORM\OneToMany(targetEntity="\Crmp\AcquisitionBundle\Entity\Inquiry", mappedBy="customer")
      */
     protected $inquiries;
-	/**
-	 * @ORM\OneToMany(targetEntity="Crmp\AccountingBundle\Entity\Invoice", mappedBy="customer")
-	 */
-	private $invoices;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Crmp\AccountingBundle\Entity\Invoice", mappedBy="customer")
+     */
+    private $invoices;
+
     /**
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255, unique=true)
      */
     private $name;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $updatedAt;
 
     /**
      * Constructor
@@ -55,7 +67,7 @@ class Customer
 
     public function __toString()
     {
-        return $this->getName() . ' (' . $this->getId() . ')';
+        return $this->getName().' ('.$this->getId().')';
     }
 
     /**
@@ -161,11 +173,31 @@ class Customer
     }
 
     /**
+     * Get updatedAt
+     *
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
      * @ORM\PrePersist
      */
     public function prePersist()
     {
         $this->setCreatedAt(new \DateTime());
+        $this->setUpdatedAt(new \DateTime());
+    }
+
+    /**
+     *
+     * @ORM\PreUpdate
+     */
+    public function preUpdate()
+    {
+        $this->setUpdatedAt(new \DateTime());
     }
 
     /**
@@ -222,6 +254,20 @@ class Customer
     public function setName($name)
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Set updatedAt
+     *
+     * @param \DateTime $updatedAt
+     *
+     * @return Customer
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }
