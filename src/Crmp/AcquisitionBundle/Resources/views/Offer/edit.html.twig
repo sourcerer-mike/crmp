@@ -2,22 +2,7 @@
 
 {% block title %}{{ offer.title }}{% endblock %}
 
-{% block related_nav %}
-    <ul class="nav nav-pills nav-stacked">
-        <li>
-            <a href="{{ path('offer_index') }}">
-                <i class="fa fa-list-ul"></i>
-                {% trans %}Back to the list{% endtrans %}
-            </a>
-        </li>
-        <li>
-            <a href="{{ path('offer_show', { 'id': offer.id }) }}">
-                <i class="fa fa-ban"></i>
-                {% trans %}Abort{% endtrans %}
-            </a>
-        </li>
-    </ul>
-{% endblock %}
+{% block related_nav %}{% endblock %}
 
 {% block breadcrumb %}
     <ol class="breadcrumb">
