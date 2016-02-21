@@ -46,6 +46,10 @@
             <th>Id</th>
             <td>{{ customer.id }}</td>
         </tr>
+        <tr>
+            <th>{% trans %}Created at{% endtrans %}</th>
+            <td>{{ customer.createdAt|date }}</td>
+        </tr>
         </tbody>
     </table>
 

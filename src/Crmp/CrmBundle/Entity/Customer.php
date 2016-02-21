@@ -9,9 +9,19 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="customer")
  * @ORM\Entity(repositoryClass="Crmp\CrmBundle\Repository\CustomerRepository")
+ *
+ * @ORM\HasLifecycleCallbacks
  */
 class Customer
 {
+	/**
+	 * @ORM\OneToMany(targetEntity="Crmp\CrmBundle\Entity\Address", mappedBy="customer")
+	 */
+	private $addresses;
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
     /**
      * @var int
      *
@@ -20,7 +30,14 @@ class Customer
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
+    /**
+     * @ORM\OneToMany(targetEntity="\Crmp\AcquisitionBundle\Entity\Inquiry", mappedBy="customer")
+     */
+    protected $inquiries;
+	/**
+	 * @ORM\OneToMany(targetEntity="Crmp\AccountingBundle\Entity\Invoice", mappedBy="customer")
+	 */
+	private $invoices;
     /**
      * @var string
      *
@@ -29,59 +46,6 @@ class Customer
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="\Crmp\AcquisitionBundle\Entity\Inquiry", mappedBy="customer")
-     */
-    protected $inquiries;
-
-	/**
-	 * @ORM\OneToMany(targetEntity="Crmp\CrmBundle\Entity\Address", mappedBy="customer")
-	 */
-	private $addresses;
-
-	/**
-	 * @ORM\OneToMany(targetEntity="Crmp\AccountingBundle\Entity\Invoice", mappedBy="customer")
-	 */
-	private $invoices;
-
-    /**
-     * Get id
-     *
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Get name
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    public function __toString()
-    {
-        return $this->getName() . ' (' . $this->getId() . ')';
-    }
-
-    /**
-     * Set name
-     *
-     * @param string $name
-     *
-     * @return Customer
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-    /**
      * Constructor
      */
     public function __construct()
@@ -89,38 +53,9 @@ class Customer
         $this->inquiries = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-    /**
-     * Add inquiry
-     *
-     * @param \Crmp\AcquisitionBundle\Entity\Inquiry $inquiry
-     *
-     * @return Customer
-     */
-    public function addInquiry(\Crmp\AcquisitionBundle\Entity\Inquiry $inquiry)
+    public function __toString()
     {
-        $this->inquiries[] = $inquiry;
-
-        return $this;
-    }
-
-    /**
-     * Remove inquiry
-     *
-     * @param \Crmp\AcquisitionBundle\Entity\Inquiry $inquiry
-     */
-    public function removeInquiry(\Crmp\AcquisitionBundle\Entity\Inquiry $inquiry)
-    {
-        $this->inquiries->removeElement($inquiry);
-    }
-
-    /**
-     * Get inquiries
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getInquiries()
-    {
-        return $this->inquiries;
+        return $this->getName() . ' (' . $this->getId() . ')';
     }
 
     /**
@@ -138,23 +73,17 @@ class Customer
     }
 
     /**
-     * Remove address
+     * Add inquiry
      *
-     * @param \Crmp\CrmBundle\Entity\Address $address
+     * @param \Crmp\AcquisitionBundle\Entity\Inquiry $inquiry
+     *
+     * @return Customer
      */
-    public function removeAddress(\Crmp\CrmBundle\Entity\Address $address)
+    public function addInquiry(\Crmp\AcquisitionBundle\Entity\Inquiry $inquiry)
     {
-        $this->addresses->removeElement($address);
-    }
+        $this->inquiries[] = $inquiry;
 
-    /**
-     * Get addresses
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getAddresses()
-    {
-        return $this->addresses;
+        return $this;
     }
 
     /**
@@ -172,13 +101,43 @@ class Customer
     }
 
     /**
-     * Remove invoice
+     * Get addresses
      *
-     * @param \Crmp\AccountingBundle\Entity\Invoice $invoice
+     * @return \Doctrine\Common\Collections\Collection
      */
-    public function removeInvoice(\Crmp\AccountingBundle\Entity\Invoice $invoice)
+    public function getAddresses()
     {
-        $this->invoices->removeElement($invoice);
+        return $this->addresses;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Get inquiries
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getInquiries()
+    {
+        return $this->inquiries;
     }
 
     /**
@@ -189,5 +148,81 @@ class Customer
     public function getInvoices()
     {
         return $this->invoices;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function prePersist()
+    {
+        $this->setCreatedAt(new \DateTime());
+    }
+
+    /**
+     * Remove address
+     *
+     * @param \Crmp\CrmBundle\Entity\Address $address
+     */
+    public function removeAddress(\Crmp\CrmBundle\Entity\Address $address)
+    {
+        $this->addresses->removeElement($address);
+    }
+
+    /**
+     * Remove inquiry
+     *
+     * @param \Crmp\AcquisitionBundle\Entity\Inquiry $inquiry
+     */
+    public function removeInquiry(\Crmp\AcquisitionBundle\Entity\Inquiry $inquiry)
+    {
+        $this->inquiries->removeElement($inquiry);
+    }
+
+    /**
+     * Remove invoice
+     *
+     * @param \Crmp\AccountingBundle\Entity\Invoice $invoice
+     */
+    public function removeInvoice(\Crmp\AccountingBundle\Entity\Invoice $invoice)
+    {
+        $this->invoices->removeElement($invoice);
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     *
+     * @return Customer
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return Customer
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
     }
 }
