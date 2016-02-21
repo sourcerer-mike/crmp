@@ -106,6 +106,8 @@ class AddressController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $address->setUpdatedBy($this->getUser());
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($address);
             $em->flush();

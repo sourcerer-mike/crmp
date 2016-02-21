@@ -2,6 +2,7 @@
 
 namespace Crmp\CrmBundle\Entity;
 
+use AppBundle\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -9,9 +10,20 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="address")
  * @ORM\Entity(repositoryClass="Crmp\CrmBundle\Repository\AddressRepository")
+ *
+ * @ORM\HasLifecycleCallbacks
  */
 class Address
 {
+
+    /**
+     * @var Customer
+     *
+     * @ORM\ManyToOne(targetEntity="Crmp\CrmBundle\Entity\Customer", inversedBy="addresses")
+     * @ORM\JoinColumn(fieldName="customer_id", referencedColumnName="id")
+     */
+    private $customer;
+
     /**
      * @var int
      *
@@ -24,25 +36,36 @@ class Address
     /**
      * @var string
      *
+     * @ORM\Column(name="mail", type="string", length=255, unique=true)
+     */
+    private $mail;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="mail", type="string", length=255, unique=true)
+     * @ORM\Column(type="datetime")
      */
-    private $mail;
+    private $updatedAt;
 
-	/**
-	 * @var Customer
-	 *
-	 * @ORM\ManyToOne(targetEntity="Crmp\CrmBundle\Entity\Customer", inversedBy="addresses")
-	 * @ORM\JoinColumn(fieldName="customer_id", referencedColumnName="id")
-	 */
-	private $customer;
+    /**
+     * @ORM\ManyToOne(targetEntity="\AppBundle\Entity\User")
+     */
+    private $updatedBy;
 
+    /**
+     * Get customer
+     *
+     * @return Customer
+     */
+    public function getCustomer()
+    {
+        return $this->customer;
+    }
 
     /**
      * Get id
@@ -55,17 +78,13 @@ class Address
     }
 
     /**
-     * Set name
+     * Get mail
      *
-     * @param string $name
-     *
-     * @return Address
+     * @return string
      */
-    public function setName($name)
+    public function getMail()
     {
-        $this->name = $name;
-
-        return $this;
+        return $this->mail;
     }
 
     /**
@@ -76,6 +95,46 @@ class Address
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Get updatedAt
+     *
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function prePersist()
+    {
+        $this->setUpdatedAt(new \DateTime());
+    }
+
+    /**
+     * @ORM\PreUpdate
+     */
+    public function preUpdate()
+    {
+        $this->setUpdatedAt(new \DateTime());
+    }
+
+    /**
+     * Set customer
+     *
+     * @param Customer $customer
+     *
+     * @return Address
+     */
+    public function setCustomer(Customer $customer = null)
+    {
+        $this->customer = $customer;
+
+        return $this;
     }
 
     /**
@@ -93,36 +152,54 @@ class Address
     }
 
     /**
-     * Get mail
+     * Set name
      *
-     * @return string
-     */
-    public function getMail()
-    {
-        return $this->mail;
-    }
-
-    /**
-     * Set customer
-     *
-     * @param \Crmp\CrmBundle\Entity\Customer $customer
+     * @param string $name
      *
      * @return Address
      */
-    public function setCustomer(\Crmp\CrmBundle\Entity\Customer $customer = null)
+    public function setName($name)
     {
-        $this->customer = $customer;
+        $this->name = $name;
 
         return $this;
     }
 
     /**
-     * Get customer
+     * Set updatedAt
      *
-     * @return \Crmp\CrmBundle\Entity\Customer
+     * @param \DateTime $updatedAt
+     *
+     * @return Address
      */
-    public function getCustomer()
+    public function setUpdatedAt($updatedAt)
     {
-        return $this->customer;
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Set updatedBy
+     *
+     * @param User $updatedBy
+     *
+     * @return Address
+     */
+    public function setUpdatedBy(User $updatedBy = null)
+    {
+        $this->updatedBy = $updatedBy;
+
+        return $this;
+    }
+
+    /**
+     * Get updatedBy
+     *
+     * @return User
+     */
+    public function getUpdatedBy()
+    {
+        return $this->updatedBy;
     }
 }
