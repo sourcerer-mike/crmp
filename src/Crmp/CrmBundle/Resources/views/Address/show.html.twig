@@ -24,44 +24,74 @@
 {% block body %}
     <h1>{{ address.name }}</h1>
 
-    <table class="table table-bordered table-hover table-striped">
-        <tbody>
-        <tr>
-            <th>Id</th>
-            <td>{{ address.id }}</td>
-        </tr>
-        <tr>
-            <th>{% trans %}Customer{% endtrans %}</th>
-            <td>
-                <a href="{{ path('customer_show', {'id': address.customer.id}) }}">
-                    {{ address.customer.name }}
-                </a>
-                <a href="{{ path('address_index', {customer: address.customer.id}) }}"
-                   class="btn btn-default btn-xs pull-right"
-                        title="{% trans %}Related addresses{% endtrans %}">
-                    <i class="fa fa-filter"></i>
-                </a>
-            </td>
-        </tr>
-        <tr>
-            <th>Mail</th>
-            <td>
-                <a href="mailto:{{ address.mail }}" title="{% trans %}Send mail{% endtrans %}">
-                    {{ address.mail }}
-                </a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+    <div class="panel panel-primary">
+        <!-- Default panel contents -->
+        <div class="panel-heading">
+            <h2 class="panel-title">{% trans %}General information{% endtrans %}</h2>
+        </div>
 
-    <table class="table table-bordered table-condensed table-striped">
-        <tr>
-            <th>{% trans %}Updated at{% endtrans %}</th>
-            <td>{{ address.updatedAt|date }}</td>
-        </tr>
-        <tr>
-            <th>{% trans %}Updated by{% endtrans %}</th>
-            <td>{{ address.updatedBy.username }}</td>
-        </tr>
-    </table>
+        <!-- Table -->
+        <table class="table table-bordered table-hover table-striped">
+            <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ address.id }}</td>
+            </tr>
+            <tr>
+                <th>{% trans %}Customer{% endtrans %}</th>
+                <td>
+                    <a href="{{ path('customer_show', {'id': address.customer.id}) }}">
+                        {{ address.customer.name }}
+                    </a>
+                    <a href="{{ path('address_index', {customer: address.customer.id}) }}"
+                       class="btn btn-default btn-xs pull-right"
+                       title="{% trans %}Related addresses{% endtrans %}">
+                        <i class="fa fa-filter"></i>
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <th>Mail</th>
+                <td>
+                    <a href="mailto:{{ address.mail }}" title="{% trans %}Send mail{% endtrans %}">
+                        {{ address.mail }}
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <a class="pull-right"
+               data-toggle="collapse"
+               href="#address-meta-content"
+               aria-expanded="false" aria-controls="address-meta-content">
+                <i class="fa fa-chevron-circle-down"></i>
+            </a>
+            <h2 class="panel-title">Meta</h2>
+        </div>
+
+        <div class="collapsing" id="address-meta-content">
+            <table class="table table-bordered table-condensed table-striped">
+                <tr>
+                    <th>{% trans %}Created at{% endtrans %}</th>
+                    <td>{{ address.createdAt|date }}</td>
+                </tr>
+                <tr>
+                    <th>{% trans %}Created by{% endtrans %}</th>
+                    <td>{{ address.createdBy.username }}</td>
+                </tr>
+                <tr>
+                    <th>{% trans %}Updated at{% endtrans %}</th>
+                    <td>{{ address.updatedAt|date }}</td>
+                </tr>
+                <tr>
+                    <th>{% trans %}Updated by{% endtrans %}</th>
+                    <td>{{ address.updatedBy.username }}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
 {% endblock %}

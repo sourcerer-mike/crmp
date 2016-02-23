@@ -64,6 +64,8 @@ class AddressController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+	        $this->updateLifecycle( $address );
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($address);
             $em->flush();
@@ -106,7 +108,7 @@ class AddressController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $address->setUpdatedBy($this->getUser());
+	        $this->updateLifecycle( $address );
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($address);
@@ -157,4 +159,15 @@ class AddressController extends Controller
             ->getForm()
         ;
     }
+
+	/**
+	 * @param Address $address
+	 */
+	private function updateLifecycle( Address $address ) {
+		$address->setUpdatedBy( $this->getUser() );
+
+		if ( ! $address->getCreatedBy() ) {
+			$address->setCreatedBy( $this->getUser() );
+		}
+	}
 }
