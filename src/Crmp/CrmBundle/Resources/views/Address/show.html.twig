@@ -19,15 +19,13 @@
     </li>
 {% endblock %}
 
-
-
 {% block body %}
     <h1>{{ address.name }}</h1>
 
     <div class="panel panel-primary">
         <!-- Default panel contents -->
         <div class="panel-heading">
-            <h2 class="panel-title">{% trans %}General information{% endtrans %}</h2>
+            <h2 class="panel-title" id="address-general">{% trans %}General information{% endtrans %}</h2>
         </div>
 
         <!-- Table -->
@@ -70,7 +68,7 @@
                aria-expanded="false" aria-controls="address-meta-content">
                 <i class="fa fa-chevron-circle-down"></i>
             </a>
-            <h2 class="panel-title">Meta</h2>
+            <h2 class="panel-title" id="address-meta">Meta</h2>
         </div>
 
         <div class="collapsing" id="address-meta-content">
