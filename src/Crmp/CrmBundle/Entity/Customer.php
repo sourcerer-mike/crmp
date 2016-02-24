@@ -26,6 +26,11 @@ class Customer
      */
     private $createdAt;
 
+	/**
+	 * @ORM\ManyToOne(targetEntity="\AppBundle\Entity\User")
+	 */
+	private $createdBy;
+
     /**
      * @var int
      *
@@ -56,6 +61,11 @@ class Customer
      * @ORM\Column(type="datetime")
      */
     private $updatedAt;
+
+	/**
+	 * @ORM\ManyToOne(targetEntity="\AppBundle\Entity\User")
+	 */
+	private $updatedBy;
 
     /**
      * Constructor
@@ -270,5 +280,53 @@ class Customer
         $this->updatedAt = $updatedAt;
 
         return $this;
+    }
+
+    /**
+     * Set createdBy
+     *
+     * @param \AppBundle\Entity\User $createdBy
+     *
+     * @return Customer
+     */
+    public function setCreatedBy(\AppBundle\Entity\User $createdBy = null)
+    {
+        $this->createdBy = $createdBy;
+
+        return $this;
+    }
+
+    /**
+     * Get createdBy
+     *
+     * @return \AppBundle\Entity\User
+     */
+    public function getCreatedBy()
+    {
+        return $this->createdBy;
+    }
+
+    /**
+     * Set updatedBy
+     *
+     * @param \AppBundle\Entity\User $updatedBy
+     *
+     * @return Customer
+     */
+    public function setUpdatedBy(\AppBundle\Entity\User $updatedBy = null)
+    {
+        $this->updatedBy = $updatedBy;
+
+        return $this;
+    }
+
+    /**
+     * Get updatedBy
+     *
+     * @return \AppBundle\Entity\User
+     */
+    public function getUpdatedBy()
+    {
+        return $this->updatedBy;
     }
 }

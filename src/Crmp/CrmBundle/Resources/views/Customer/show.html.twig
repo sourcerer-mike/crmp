@@ -57,6 +57,47 @@
         </tbody>
     </table>
 
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <a class="pull-right"
+               data-toggle="collapse"
+               href="#customer-meta-content"
+               aria-expanded="false" aria-controls="customer-meta-content">
+                <i class="fa fa-chevron-circle-down"></i>
+            </a>
+            <h2 class="panel-title" id="customer-meta">Meta</h2>
+        </div>
+
+        <div class="collapsing" id="customer-meta-content">
+            <table class="table table-bordered table-condensed table-striped">
+                {% if customer.createdAt.timestamp %}
+                    <tr>
+                        <th>{% trans %}Created at{% endtrans %}</th>
+                        <td>{{ customer.createdAt|date }}</td>
+                    </tr>
+                {% endif %}
+                {% if customer.createdBy %}
+                    <tr>
+                        <th>{% trans %}Created by{% endtrans %}</th>
+                        <td>{{ customer.createdBy.username }}</td>
+                    </tr>
+                {% endif %}
+                {% if customer.updatedAt.timestamp %}
+                    <tr>
+                        <th>{% trans %}Updated at{% endtrans %}</th>
+                        <td>{{ customer.updatedAt|date }}</td>
+                    </tr>
+                {% endif %}
+                {% if customer.updatedBy %}
+                    <tr>
+                        <th>{% trans %}Updated by{% endtrans %}</th>
+                        <td>{{ customer.updatedBy.username }}</td>
+                    </tr>
+                {% endif %}
+            </table>
+        </div>
+    </div>
+
     <h2>
         <a href="{{ path('address_index', {customer: customer.id}) }}">
             {% trans %}Address list{% endtrans %}

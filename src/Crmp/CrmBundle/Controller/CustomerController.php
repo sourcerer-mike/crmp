@@ -3,7 +3,6 @@
 namespace Crmp\CrmBundle\Controller;
 
 use Crmp\AcquisitionBundle\Form\InquiryType;
-use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -16,7 +15,7 @@ use Crmp\CrmBundle\Form\CustomerType;
  *
  * @Route("/customer")
  */
-class CustomerController extends Controller
+class CustomerController extends AbstractLifecycleController
 {
     /**
      * Lists all Customer entities.
@@ -48,6 +47,8 @@ class CustomerController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+	        $this->updateLifecycle($customer);
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($customer);
             $em->flush();
@@ -93,6 +94,8 @@ class CustomerController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+	        $this->updateLifecycle($customer);
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($customer);
             $em->flush();
