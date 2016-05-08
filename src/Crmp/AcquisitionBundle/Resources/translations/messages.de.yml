@@ -44,6 +44,7 @@ Logout: Abmelden
 More: Mehr
 
 Remember me: Eingeloggt bleiben
+registration.submit: Registrieren
 
 Save: Speichern
 Send mail: Mail senden
@@ -54,6 +55,7 @@ Mail: E-Mail
 Name: Name
 New: Neu
 New offer: Neues Angebot
+New registration: Neu registrieren
 
 Offer: Angebot
 Offer creation: Neues Angebot
@@ -71,7 +73,9 @@ Profile: Profil
 Related addresses: Zugehörige Adressen
 Related offers: Zugehörige Angebote
 
+security.login.remember_me: Erinnere dich an mich
 Status: Status
+Sign in: Anmelden
 
 Tasks: Aufgaben
 Title: Titel

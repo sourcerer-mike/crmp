@@ -1,6 +1,16 @@
-{% extends "base.html.twig" %}
+{% extends "::base.html.twig" %}
 
-{% trans_default_domain 'FOSUserBundle' %}
+{% block breadcrumb_wrapper %}{% endblock %}
+
+{% block related_nav %}
+    <li>
+        <a href="{{ path("fos_user_registration_register") }}">
+            <i class="fa fa-plus"></i>
+            {{ 'New registration'|trans }}
+        </a>
+    </li>
+{% endblock related_nav %}
+
 
 {% block body %}
     {% if error %}
@@ -43,7 +53,10 @@
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-default">Sign in</button>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa fa-sign-in"></i>
+                    {{ "Sign in"|trans }}
+                </button>
             </div>
         </div>
     </form>
