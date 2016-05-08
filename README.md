@@ -7,11 +7,12 @@ crmp
 ## Install your CRM
 
 Just do it!
+But please create the target database before installation.
 
     git clone https://github.com/sourcerer-mike/crmp.git
     
     # hump in and install dependencies
-    composer install
+    composer install --no-dev
 
 Easy as that.
 You will be asked for database credentials - this is important!
