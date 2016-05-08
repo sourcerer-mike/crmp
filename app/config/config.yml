@@ -1,3 +1,10 @@
+assetic:
+  debug:          '%kernel.debug%'
+  use_controller: '%kernel.debug%'
+  filters:
+    scssphp:
+      formatter: 'Leafo\ScssPhp\Formatter\Compressed'
+
 imports:
     - { resource: parameters.yml }
     - { resource: security.yml }

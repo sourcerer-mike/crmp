@@ -8,7 +8,14 @@
         - {% block title %}{% endblock %}
         {% endif %}
     </title>
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}"/>
+
+    {% stylesheets filter="scssphp" output="css/app.css"
+        "assets/scss/style.scss"
+        "assets/css/*.css"
+    %}
+        <link rel="stylesheet" type="text/css" href="{{ asset_url }}" />
+    {% endstylesheets %}
+
     <link rel="stylesheet" type="text/css" href="{{ asset('css/jquery-ui.css') }}"/>
 
     {% block stylesheets %}{% endblock %}
