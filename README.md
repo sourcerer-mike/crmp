@@ -7,7 +7,8 @@ crmp
 ## Install your CRM
 
 Just do it!
-But please create the target database before installation.
+But please create the target database before installation
+or as it still exists assert that there is no table in it.
 
     git clone https://github.com/sourcerer-mike/crmp.git
     
@@ -45,3 +46,7 @@ Call that in your favorite browser.
 **Note: The first call will take some time - leave him alone!**
 
 It will compile all the assets like SCSS or Coffee scripts etc.
+
+## Start working
+
+Create your own user on the register page: http://127.0.0.1:8000/register/
