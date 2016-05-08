@@ -18,6 +18,9 @@ or as it still exists assert that there is no table in it.
 Easy as that.
 You will be asked for database credentials - this is important!
 Besides that you will be asked for mail support - if you like.
+
+### When things didn't go well
+
 If you were **not asked** for database credentials, then you can still do it by hand:
     
     cp app/config/parameters.yml.dist app/config/parameters.yml
@@ -29,7 +32,7 @@ The database it built automagically too but if you like to rebuild it on your ow
 
 Now you're good to go.
 
-# Serve the CRM
+## Serve the CRM
 
 Let's see how cool you are. Newer PHP will eat this:
 
