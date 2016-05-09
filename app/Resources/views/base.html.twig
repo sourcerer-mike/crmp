@@ -5,15 +5,14 @@
     <title>
         crmp
         {% if block('title') %}
-        - {% block title %}{% endblock %}
+            - {% block title %}{% endblock %}
         {% endif %}
     </title>
 
     {% stylesheets filter="scssphp" output="css/app.css"
-        "assets/scss/style.scss"
-        "assets/css/*.css"
-    %}
-        <link rel="stylesheet" type="text/css" href="{{ asset_url }}" />
+    "assets/scss/style.scss"
+    "assets/css/*.css" %}
+    <link rel="stylesheet" type="text/css" href="{{ asset_url }}"/>
     {% endstylesheets %}
 
     <link rel="stylesheet" type="text/css" href="{{ asset('css/jquery-ui.css') }}"/>
@@ -42,79 +41,8 @@
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false">CRM<span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a href="{{ path('customer_index') }}">
-                                {% trans %}Customer list{% endtrans %}
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ path('address_index') }}">
-                                {% trans %}Address list{% endtrans %}
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+            {{ knp_menu_render('main') }}
 
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false">
-                        {% trans %}Acquisition{% endtrans %}
-                        <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a href="{{ path('inquiry_index') }}">
-                                {% trans %}Inquiry list{% endtrans %}
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ path('offer_index') }}">
-                                {% trans %}Offer list{% endtrans %}
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ path('contract_index') }}">
-                                {% trans %}Contract list{% endtrans %}
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false">
-                        {% trans %}Accounting{% endtrans %}
-                        <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a href="{{ path('invoice_index') }}">
-                                {% trans %}Invoice{% endtrans %}
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-
-                <li>
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false">
-                        {% trans %}Tasks{% endtrans %}
-                        <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a href="{{ path('task_index') }}">
-                                {% trans %}Tasks{% endtrans %}
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
             <!-- form#search -->
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
@@ -164,9 +92,9 @@
 </div>
 
 
-<script src="{{  asset('js/jquery.js') }}" type="text/javascript"></script>
-<script src="{{  asset('js/jquery-ui.js') }}" type="text/javascript"></script>
-<script src="{{  asset('js/bootstrap.js') }}" type="text/javascript"></script>
+<script src="{{ asset('js/jquery.js') }}" type="text/javascript"></script>
+<script src="{{ asset('js/jquery-ui.js') }}" type="text/javascript"></script>
+<script src="{{ asset('js/bootstrap.js') }}" type="text/javascript"></script>
 
 {% block javascripts %}{% endblock %}
 

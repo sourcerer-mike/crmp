@@ -12,3 +12,14 @@ services:
     public: false
     tags:
         - { name: twig.extension }
+
+  app.menu_builder:
+    class: AppBundle\Menu\MenuBuilder
+    arguments: ["@knp_menu.factory", "@service_container"]
+
+  app.main_menu:
+    class: Knp\Menu\MenuItem
+    factory: ["@app.menu_builder", createMainMenu]
+    arguments: ["@request_stack"]
+    tags:
+      - { name: knp_menu.menu, alias: main }
