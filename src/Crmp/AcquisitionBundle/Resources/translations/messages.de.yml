@@ -1,37 +1,12 @@
-Abort: Abbrechen
-Accounting: Buchhaltung
 Acquisition: Akquise
 
-Address: Adresse
-Address creation: Neue Adresse
-Address list: Adressen
-
-Back to the list: Zurück zur Liste
-
-Content: Inhalt
 Contract creation: Neuer Auftrag
 Contract list: Aufträge
-Create: Erstellen
-Created at: Erstellt am
 
 crmp.acquisition.menu: Vertrieb
 crmp.acquisition.menu.contract: Verträge
 crmp.acquisition.menu.inquiry: Anfragen
 crmp.acquisition.menu.offer: Angebote
-
-crmp.menu.crm: CRM
-crmp.menu.crm.customer: Kunden
-
-Customer: Kunde
-Customer edit: Kunde bearbeiten
-Customer creation: Neuer Kunde
-Customer list: Kunden
-
-Date: Datum
-date_js: dd.mm.yy
-Delete: Löschen
-
-Edit: Bearbeiten
 
 Goto inquiry: Zur Anfrage
 Goto offer: Zum Angebot
@@ -41,29 +16,7 @@ Inquiry: Anfrage
 Inquiry creation: Neue Anfrage
 Inquiry list: Anfragen
 
-Invoice: Rechnung
-Invoices: Rechnungen
-Invoice edit: Rechnung bearbeiten
-Invoice creation: Neue Rechnung
-Invoice list: Rechnungen
-
-Logout: Abmelden
-
-More: Mehr
-
-Remember me: Eingeloggt bleiben
-registration.submit: Registrieren
-
-Save: Speichern
-Send mail: Mail senden
-Sign in: Anmelden
-
-Mail: E-Mail
-
-Name: Name
-New: Neu
 New offer: Neues Angebot
-New registration: Neu registrieren
 
 Offer: Angebot
 Offer creation: Neues Angebot
@@ -72,23 +25,9 @@ Offers: Angebote
 
 Ordered: Beauftragt
 
-Password: Passwort
-Please choose something from the menu: Bitte wählen Sie einen Eintrag aus dem Menü
 Predicted value: Voraussichtlicher Wert
 Price: Preis
-Profile: Profil
 
-Related addresses: Zugehörige Adressen
 Related offers: Zugehörige Angebote
 
-security.login.remember_me: Erinnere dich an mich
-Status: Status
-Sign in: Anmelden
-
-Tasks: Aufgaben
-Title: Titel
-
 Value: Wert
-
-Updated at: Bearbeitet am
-Username: Benutzer
