@@ -38,7 +38,7 @@ class MenuSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            ConfigureMainMenuEvent::CONFIGURE => 'onConfigure',
+            ConfigureMainMenuEvent::NAME => 'onConfigure',
         ];
     }
 

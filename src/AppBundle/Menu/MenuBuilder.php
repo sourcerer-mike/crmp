@@ -9,7 +9,6 @@ use Knp\Menu\FactoryInterface;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\EventDispatcher\Debug\TraceableEventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpKernel\Debug\TraceableEventDispatcher;
 
 class MenuBuilder
 {
@@ -49,7 +48,7 @@ class MenuBuilder
         return $menu;
     }
 
-    public function createSidebarMenu(RequestStack $requestStack)
+    public function createRelatedMenu(RequestStack $requestStack)
     {
         $menu = $this->factory->createItem('root');
         $menu->setDisplay(false);

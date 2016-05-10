@@ -1,5 +1,7 @@
 Accounting: Buchhaltung
 
+crmp.accounting.invoice.create: Rechnung erstellen
+
 Invoice: Rechnung
 Invoices: Rechnungen
 Invoice edit: Rechnung bearbeiten

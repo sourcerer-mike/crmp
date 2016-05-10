@@ -16,9 +16,7 @@
 
 {% block root %}
     {% set listAttributes = item.childrenAttributes %}
-    <ul class="nav navbar-nav">
-        {{ block('list') -}}
-    </ul>
+    {{ block('list') -}}
 {% endblock %}
 
 {% block list %}

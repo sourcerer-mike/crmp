@@ -4,6 +4,7 @@ namespace Crmp\AccountingBundle\Event;
 
 
 use AppBundle\Event\Menu\ConfigureMainMenuEvent;
+use AppBundle\Event\Menu\ConfigureRelatedMenuEvent;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -38,14 +39,15 @@ class MenuSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            ConfigureMainMenuEvent::NAME => 'onConfigure',
+            ConfigureMainMenuEvent::NAME    => 'onMainConfigure',
+            ConfigureRelatedMenuEvent::NAME => 'onRelatedConfigure',
         ];
     }
 
     /**
      * @param ConfigureMainMenuEvent $menuEven
      */
-    public function onConfigure(ConfigureMainMenuEvent $menuEvent)
+    public function onMainConfigure(ConfigureMainMenuEvent $menuEvent)
     {
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
 
@@ -59,5 +61,29 @@ class MenuSubscriber implements EventSubscriberInterface
         $acquisition = $menu->addChild('Accounting');
 
         $acquisition->addChild('Invoice', ['route' => 'invoice_index']);
+    }
+
+    public function onRelatedConfigure(ConfigureRelatedMenuEvent $relatedEvent)
+    {
+        $route = $this->container->get('request_stack')->getCurrentRequest()->get('_route');
+        $menu  = $relatedEvent->getMenu();
+
+        switch ($route) {
+            case 'contract_show':
+                // Create invoice based on current contract
+                $menu->addChild(
+                    'crmp.accounting.invoice.create',
+                    [
+                        'route'     => 'invoice_new',
+                        'routeParameters' => [
+                            'customer' => 1,
+                        ],
+                        'labelAttributes' => [
+                            'icon' => 'fa fa-plus'
+                        ],
+                    ]
+                );
+                break;
+        }
     }
 }

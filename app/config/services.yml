@@ -17,16 +17,16 @@ services:
     class: AppBundle\Menu\MenuBuilder
     arguments: ["@knp_menu.factory", "@service_container"]
 
-  app.main_menu:
+  app.menu.main:
     class: Knp\Menu\MenuItem
     factory: ["@app.menu_builder", createMainMenu]
     arguments: ["@request_stack"]
     tags:
       - { name: knp_menu.menu, alias: main }
 
-  app.related_menu:
+  app.menu.related:
       class: Knp\Menu\MenuItem
-      factory: ["@app.menu_builder", createSidebarMenu]
+      factory: ["@app.menu_builder", createRelatedMenu]
       arguments: ["@request_stack"]
       tags:
-        - { name: knp_menu.related_menu, alias: related }
+        - { name: knp_menu.menu, alias: related }
