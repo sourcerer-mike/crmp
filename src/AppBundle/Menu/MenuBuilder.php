@@ -3,7 +3,8 @@
 namespace AppBundle\Menu;
 
 
-use AppBundle\Event\ConfigureMenuEvent;
+use AppBundle\Event\Menu\ConfigureMainMenuEvent;
+use AppBundle\Event\Menu\ConfigureRelatedMenuEvent;
 use Knp\Menu\FactoryInterface;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\EventDispatcher\Debug\TraceableEventDispatcherInterface;
@@ -41,8 +42,21 @@ class MenuBuilder
         $menu->setDisplay(false);
 
         $this->eventDispatcher->dispatch(
-            ConfigureMenuEvent::CONFIGURE,
-            new ConfigureMenuEvent($this->factory, $menu)
+            ConfigureMainMenuEvent::NAME,
+            new ConfigureMainMenuEvent($this->factory, $menu)
+        );
+
+        return $menu;
+    }
+
+    public function createSidebarMenu(RequestStack $requestStack)
+    {
+        $menu = $this->factory->createItem('root');
+        $menu->setDisplay(false);
+
+        $this->eventDispatcher->dispatch(
+            ConfigureRelatedMenuEvent::NAME,
+            new ConfigureRelatedMenuEvent($this->factory, $menu)
         );
 
         return $menu;

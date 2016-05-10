@@ -1,14 +1,14 @@
 <?php
 
-namespace AppBundle\Event;
+namespace AppBundle\Event\Menu;
 
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
 use Symfony\Component\EventDispatcher\Event;
 
-class ConfigureMenuEvent extends Event
+class ConfigureMainMenuEvent extends Event
 {
-    const CONFIGURE = 'crmp.menu.configure';
+    const NAME = 'crmp.menu.main.configure';
 
     private $factory;
     private $menu;

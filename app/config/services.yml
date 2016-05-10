@@ -23,3 +23,10 @@ services:
     arguments: ["@request_stack"]
     tags:
       - { name: knp_menu.menu, alias: main }
+
+  app.related_menu:
+      class: Knp\Menu\MenuItem
+      factory: ["@app.menu_builder", createSidebarMenu]
+      arguments: ["@request_stack"]
+      tags:
+        - { name: knp_menu.related_menu, alias: related }

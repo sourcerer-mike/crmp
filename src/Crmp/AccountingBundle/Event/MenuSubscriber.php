@@ -3,7 +3,7 @@
 namespace Crmp\AccountingBundle\Event;
 
 
-use AppBundle\Event\ConfigureMenuEvent;
+use AppBundle\Event\Menu\ConfigureMainMenuEvent;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -38,14 +38,14 @@ class MenuSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            ConfigureMenuEvent::CONFIGURE => 'onConfigure',
+            ConfigureMainMenuEvent::NAME => 'onConfigure',
         ];
     }
 
     /**
-     * @param ConfigureMenuEvent $configureMenuEvent
+     * @param ConfigureMainMenuEvent $menuEven
      */
-    public function onConfigure(ConfigureMenuEvent $configureMenuEvent)
+    public function onConfigure(ConfigureMainMenuEvent $menuEvent)
     {
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
 
@@ -54,7 +54,7 @@ class MenuSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $menu = $configureMenuEvent->getMenu();
+        $menu = $menuEvent->getMenu();
 
         $acquisition = $menu->addChild('Accounting');
 
