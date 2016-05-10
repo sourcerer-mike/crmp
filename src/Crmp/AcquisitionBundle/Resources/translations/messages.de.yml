@@ -14,6 +14,14 @@ Contract list: Aufträge
 Create: Erstellen
 Created at: Erstellt am
 
+crmp.acquisition.menu: Vertrieb
+crmp.acquisition.menu.contract: Verträge
+crmp.acquisition.menu.inquiry: Anfragen
+crmp.acquisition.menu.offer: Angebote
+
+crmp.menu.crm: CRM
+crmp.menu.crm.customer: Kunden
+
 Customer: Kunde
 Customer edit: Kunde bearbeiten
 Customer creation: Neuer Kunde

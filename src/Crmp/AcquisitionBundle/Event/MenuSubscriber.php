@@ -56,10 +56,10 @@ class MenuSubscriber implements EventSubscriberInterface
 
         $menu = $configureMenuEvent->getMenu();
 
-        $acquisition = $menu->addChild('Acquisition');
+        $acquisition = $menu->addChild('crmp.acquisition.menu');
 
-        $acquisition->addChild('Inquiry list', ['route' => 'inquiry_index']);
-        $acquisition->addChild('Offer list', ['route' => 'offer_index']);
-        $acquisition->addChild('Contract list', ['route' => 'contract_index']);
+        $acquisition->addChild('crmp.acquisition.menu.inquiry', ['route' => 'inquiry_index']);
+        $acquisition->addChild('crmp.acquisition.menu.offer', ['route' => 'offer_index']);
+        $acquisition->addChild('crmp.acquisition.menu.contract', ['route' => 'contract_index']);
     }
 }
