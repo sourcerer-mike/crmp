@@ -37,6 +37,21 @@ abstract class AbstractMenuDecorator implements MenuDecoratorInterface
 
     public function createRelatedMenu(RequestStack $requestStack)
     {
-        return $this->menuBuilder->createRelatedMenu($requestStack);
+        $menu = $this->menuBuilder->createRelatedMenu($requestStack);
+
+        $method = ucwords($requestStack->getCurrentRequest()->get('_route'), '_');
+        $method = 'build'.str_replace('_', '', $method).'RelatedMenu';
+
+        if (method_exists($this, $method)) {
+            $this->$method($menu);
+        }
+
+
+        return $menu;
+    }
+
+    protected function getRenderParams()
+    {
+        return $this->container->get('crmp.controller.render.parameters');
     }
 }

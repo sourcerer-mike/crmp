@@ -5,10 +5,60 @@ namespace Crmp\AccountingBundle\Menu;
 
 use AppBundle\Menu\AbstractMenuDecorator;
 use Crmp\AcquisitionBundle\Entity\Contract;
+use Knp\Menu\MenuItem;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 class MenuDecorator extends AbstractMenuDecorator
 {
+    public function buildContractShowRelatedMenu(MenuItem $menu)
+    {
+        $params = $this->container->get('crmp.controller.render.parameters');
+
+        // Create invoice based on current contract
+        $routeParameters = [];
+
+        if ($params && isset( $params['contract'] )) {
+            /** @var Contract $contract */
+            $contract = $params['contract'];
+
+            $routeParameters['customer'] = $contract->getCustomer()->getId();
+            $routeParameters['value']    = $contract->getValue();
+            $routeParameters['contract'] = $contract->getId();
+        }
+
+        $menu->addChild(
+            'crmp.accounting.invoice.create',
+            [
+                'route'           => 'invoice_new',
+                'routeParameters' => $routeParameters,
+                'labelAttributes' => [
+                    'icon' => 'fa fa-plus',
+                ],
+            ]
+        );
+    }
+
+    public function buildInvoiceNewRelatedMenu(MenuItem $menu)
+    {
+        // abort and go back to contract
+        $request = $this->container->get('request_stack')->getCurrentRequest();
+
+        $contract = $request->get('contract');
+        
+        if ($contract && is_numeric($contract)) {
+            $menu->addChild(
+                'crmp.accounting.invoice.toContract',
+                [
+                    'route'           => 'contract_show',
+                    'routeParameters' => ['id' => $contract],
+                    'labelAttributes' => [
+                        'icon' => 'fa fa-ban',
+                    ],
+                ]
+            );
+        }
+    }
+
     public function createMainMenu(RequestStack $requestStack)
     {
         $menu = parent::createMainMenu($requestStack);
@@ -26,38 +76,4 @@ class MenuDecorator extends AbstractMenuDecorator
 
         return $menu;
     }
-
-    public function createRelatedMenu(RequestStack $requestStack)
-    {
-        $menu   = parent::createRelatedMenu($requestStack);
-        $params = $this->container->get('crmp.controller.render.parameters');
-
-        if ('contract_show' == $requestStack->getCurrentRequest()->get('_route')) {
-            // Create invoice based on current contract
-            $routeParameters = [];
-
-            if ($params && isset( $params['contract'] )) {
-                /** @var Contract $contract */
-                $contract = $params['contract'];
-
-                $routeParameters['customer'] = $contract->getCustomer()->getId();
-                $routeParameters['value']    = $contract->getValue();
-            }
-
-            $menu->addChild(
-                'crmp.accounting.invoice.create',
-                [
-                    'route'           => 'invoice_new',
-                    'routeParameters' => $routeParameters,
-                    'labelAttributes' => [
-                        'icon' => 'fa fa-plus',
-                    ],
-                ]
-            );
-        }
-
-        return $menu;
-    }
-
-
 }

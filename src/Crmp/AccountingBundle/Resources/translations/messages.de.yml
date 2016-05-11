@@ -1,6 +1,7 @@
 Accounting: Buchhaltung
 
 crmp.accounting.invoice.create: Rechnung erstellen
+crmp.accounting.invoice.toContract: Abbrechen
 
 Invoice: Rechnung
 Invoices: Rechnungen
