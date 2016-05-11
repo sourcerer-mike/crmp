@@ -2,8 +2,8 @@ services:
 #    crmp_acc.example:
 #        class: Crmp\AccountingBundle\Example
 #        arguments: ["@service_id", "plain_value", %parameter%]
-  crmp.accounting.event.menu:
-    class: Crmp\AccountingBundle\Event\MenuSubscriber
-    arguments: ["@service_container"]
-    tags:
-      - { name: kernel.event_subscriber }
+  crmp.accounting.menu:
+    public: false
+    class: Crmp\AccountingBundle\Menu\MenuDecorator
+    decorates: app.menu_builder
+    arguments: ["@crmp.accounting.menu.inner", "@service_container"]
