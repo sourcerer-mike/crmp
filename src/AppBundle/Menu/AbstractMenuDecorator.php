@@ -4,13 +4,15 @@ namespace AppBundle\Menu;
 
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 
-abstract class AbstractMenuDecorator
+abstract class AbstractMenuDecorator implements MenuDecoratorInterface
 {
     /**
      * @var ContainerInterface
      */
     protected $container;
+
     /**
      * @var MenuBuilder
      */
@@ -19,17 +21,22 @@ abstract class AbstractMenuDecorator
     /**
      * MenuBuilder constructor.
      *
-     * @param MenuBuilder $menu The menu to decorate.
-     *
+     * @param MenuInterface      $menu The menu to decorate.
+     * @param ContainerInterface $container
      */
-    public function __construct(MenuBuilder $menu, $container)
+    public function __construct(MenuInterface $menu, ContainerInterface $container)
     {
         $this->menuBuilder = $menu;
         $this->container   = $container;
     }
 
-    public function __call($method, $arguments)
+    public function createMainMenu(RequestStack $requestStack)
     {
-        return call_user_func_array([$this->menuBuilder, $method], $arguments);
+        return $this->menuBuilder->createMainMenu($requestStack);
+    }
+
+    public function createRelatedMenu(RequestStack $requestStack)
+    {
+        return $this->menuBuilder->createRelatedMenu($requestStack);
     }
 }

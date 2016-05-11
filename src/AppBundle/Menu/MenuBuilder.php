@@ -7,10 +7,11 @@ use AppBundle\Event\Menu\ConfigureMainMenuEvent;
 use AppBundle\Event\Menu\ConfigureRelatedMenuEvent;
 use Knp\Menu\FactoryInterface;
 use Symfony\Component\DependencyInjection\Container;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\Debug\TraceableEventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
-class MenuBuilder
+class MenuBuilder implements MenuBuilderInterface
 {
     /**
      * @var TraceableEventDispatcherInterface
@@ -25,10 +26,10 @@ class MenuBuilder
     /**
      * MenuBuilder constructor.
      *
-     * @param FactoryInterface $factory
-     * @param Container        $serviceContainer
+     * @param FactoryInterface   $factory
+     * @param ContainerInterface $serviceContainer
      */
-    public function __construct(FactoryInterface $factory, $serviceContainer)
+    public function __construct(FactoryInterface $factory, ContainerInterface $serviceContainer)
     {
         $this->factory         = $factory;
         $this->container       = $serviceContainer;

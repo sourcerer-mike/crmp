@@ -10,7 +10,7 @@ class MenuDecorator extends AbstractMenuDecorator
 {
     public function createMainMenu(RequestStack $requestStack)
     {
-        $menu = $this->menuBuilder->createMainMenu($requestStack);
+        $menu = parent::createMainMenu($requestStack);
 
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
 
