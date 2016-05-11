@@ -57,6 +57,10 @@ class InvoiceController extends Controller
 		    );
 	    }
 
+        if ($request->get('value')) {
+            $invoice->setValue((float) $request->get('value'));
+        }
+
         $form = $this->createForm('Crmp\AccountingBundle\Form\InvoiceType', $invoice);
         $form->handleRequest($request);
 

@@ -2,8 +2,8 @@
 
 namespace Crmp\AcquisitionBundle\Controller;
 
+use AppBundle\Controller\CrmpController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Crmp\AcquisitionBundle\Entity\Contract;
@@ -14,7 +14,7 @@ use Crmp\AcquisitionBundle\Form\ContractType;
  *
  * @Route("/contract")
  */
-class ContractController extends Controller
+class ContractController extends CrmpController
 {
     /**
      * Lists all Contract entities.
