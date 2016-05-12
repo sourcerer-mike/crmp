@@ -14,12 +14,26 @@ class MenuDecorator extends AbstractMenuDecorator
         $menuItem->addChild(
             'crmp.crm.address.create',
             [
-                'route' => 'address_new',
+                'route'           => 'address_new',
                 'labelAttributes' => [
-                    'icon' => 'fa fa-plus'
-                ]
+                    'icon' => 'fa fa-plus',
+                ],
             ]
         );
+    }
+
+    public function buildAddressNewRelatedMenu(MenuItem $menuItem)
+    {
+        $abortParams = [
+            'route'           => 'address_index',
+            'labelAttributes' => [
+                'icon' => 'fa fa-ban',
+            ],
+        ];
+
+        if ($abortParams) {
+            $menuItem->addChild('crmp.abort', $abortParams);
+        }
     }
 
     public function createMainMenu(RequestStack $requestStack)
