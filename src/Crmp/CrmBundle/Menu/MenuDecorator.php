@@ -62,6 +62,13 @@ class MenuDecorator extends AbstractMenuDecorator
     {
         $menu = parent::createMainMenu($requestStack);
 
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+
+        if ('anon.' == $user) {
+            // not logged in, skip
+            return $menu;
+        }
+
         $crm = $menu->addChild('CRM');
 
         $crm->addChild('Address', ['route' => 'address_index']);
