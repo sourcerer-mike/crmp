@@ -32,6 +32,11 @@ Version 0.2
 - Admin-Panel to assign user groups
 - Admin-Panel to create accounts
 - UnitTests for all "indexAction"
+  - Write multiple documentations based on the tests.
+  - Write behat tests, comments with "aka:" replaces the part of the sentence.
+- Build plugin / Bundle logic and event hooks
+- Enable and disable plugins via admin interface
+- Check dependencies between bundles and warn
 
 Version 0.3
 

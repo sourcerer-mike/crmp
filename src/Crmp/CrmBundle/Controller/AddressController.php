@@ -2,8 +2,8 @@
 
 namespace Crmp\CrmBundle\Controller;
 
+use AppBundle\Controller\CrmpController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Crmp\CrmBundle\Entity\Address;
@@ -14,7 +14,7 @@ use Crmp\CrmBundle\Form\AddressType;
  *
  * @Route("/address")
  */
-class AddressController extends Controller
+class AddressController extends CrmpController
 {
     /**
      * Lists all Address entities.

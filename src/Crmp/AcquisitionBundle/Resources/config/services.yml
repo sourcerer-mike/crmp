@@ -2,3 +2,8 @@ services:
 #    acquisition.example:
 #        class: Crmp\AcquisitionBundle\Example
 #        arguments: ["@service_id", "plain_value", %parameter%]
+    crmp.acquisition.menu:
+        public: false
+        class: Crmp\AcquisitionBundle\Menu\MenuDecorator
+        decorates: app.menu_builder
+        arguments: ["@crmp.acquisition.menu.inner", "@service_container"]
