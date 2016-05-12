@@ -4,10 +4,24 @@ namespace Crmp\CrmBundle\Menu;
 
 
 use AppBundle\Menu\AbstractMenuDecorator;
+use Knp\Menu\MenuItem;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 class MenuDecorator extends AbstractMenuDecorator
 {
+    public function buildAddressIndexRelatedMenu(MenuItem $menuItem)
+    {
+        $menuItem->addChild(
+            'crmp.crm.address.create',
+            [
+                'route' => 'address_new',
+                'labelAttributes' => [
+                    'icon' => 'fa fa-plus'
+                ]
+            ]
+        );
+    }
+
     public function createMainMenu(RequestStack $requestStack)
     {
         $menu = parent::createMainMenu($requestStack);
