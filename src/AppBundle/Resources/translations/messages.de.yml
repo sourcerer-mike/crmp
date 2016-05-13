@@ -21,3 +21,8 @@ crmp:
   profile: Profil
   save: Speichern
   updatedAt: Aktualisiert am
+  user:
+    login: Anmelden
+    name: Benutzername
+    password: Passwort
+    register: Neu registrieren

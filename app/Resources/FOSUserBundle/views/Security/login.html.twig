@@ -1,12 +1,16 @@
 {% extends "::base.html.twig" %}
 
-{% block breadcrumb_wrapper %}{% endblock %}
+{% block breadcrumb %}
+    <li class="active">
+        {{ "crmp.user.login"|trans }}
+    </li>
+{% endblock %}
 
 {% block related_nav %}
     <li>
         <a href="{{ path("fos_user_registration_register") }}">
             <i class="fa fa-plus"></i>
-            {{ 'New registration'|trans }}
+            {{ 'crmp.user.register'|trans }}
         </a>
     </li>
 {% endblock related_nav %}
@@ -21,23 +25,23 @@
         <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
         <div class="form-group">
             <label for="username" class="col-sm-2 control-label">
-            {% trans %}Username{% endtrans %}
+            {{ "crmp.user.name"|trans }}
 </label>
             <div class="col-sm-3">
                 <input type="text" id="username" name="_username"
                        value="{{ last_username }}" required="required" class="form-control"
-                        placeholder="{% trans %}Username{% endtrans %}"/>
+                        placeholder="{{ "crmp.user.name"|trans }}"/>
             </div>
         </div>
 
         <div class="form-group">
             <label for="password" class="col-sm-2 control-label">
-                {% trans %}Password{% endtrans %}
+                {{ "crmp.user.password"|trans }}
             </label>
             <div class="col-sm-3">
                 <input type="password" id="password" name="_password"
                        required="required" class="form-control"
-                       placeholder="{% trans %}Password{% endtrans %}"/>
+                       placeholder="{{ "crmp.user.password"|trans }}"/>
             </div>
         </div>
 
@@ -55,7 +59,7 @@
             <div class="col-sm-offset-2 col-sm-10">
                 <button type="submit" class="btn btn-primary">
                     <i class="fa fa-sign-in"></i>
-                    {{ "Sign in"|trans }}
+                    {{ "crmp.user.login"|trans }}
                 </button>
             </div>
         </div>
