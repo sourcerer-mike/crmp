@@ -2,20 +2,19 @@
 
 namespace Crmp\AcquisitionBundle\Controller;
 
+use AppBundle\Controller\CrmpController;
 use Doctrine\Common\Collections\Criteria;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Crmp\AcquisitionBundle\Entity\Inquiry;
-use Crmp\CrmBundle\Repository\CustomerRepository;
 
 /**
  * Inquiry controller.
  *
  * @Route("/inquiry")
  */
-class InquiryController extends Controller
+class InquiryController extends CrmpController
 {
     /**
      * Deletes a Inquiry entity.

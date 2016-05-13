@@ -4,11 +4,14 @@ Contract creation: Neuer Auftrag
 Contract list: Aufträge
 
 crmp.acquisition.inquiry.new: Neue Anfrage
+crmp.acquisition.inquiry.edit: Anfrage bearbeiten
 
 crmp.acquisition.menu: Vertrieb
 crmp.acquisition.menu.contract: Verträge
 crmp.acquisition.menu.inquiry: Anfragen
 crmp.acquisition.menu.offer: Angebote
+
+crmp.acquisition.offer.new: Neues Angebot
 
 Goto inquiry: Zur Anfrage
 Goto offer: Zum Angebot

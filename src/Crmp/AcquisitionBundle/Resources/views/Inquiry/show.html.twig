@@ -9,22 +9,6 @@
     </li>
 {% endblock %}
 
-{% block related_nav %}
-    {{ parent() }}
-    <li>
-        <a href="{{ path('inquiry_edit', { 'id': inquiry.id }) }}">
-            <i class="fa fa-pencil"></i>
-            {% trans %}Edit{% endtrans %}
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('offer_new', {'inquiry': inquiry.id}) }}">
-            <i class="fa fa-plus"></i>
-            {% trans %}Offer creation{% endtrans %}
-        </a>
-    </li>
-{% endblock %}
-
 {% block body %}
 
     <h1>
