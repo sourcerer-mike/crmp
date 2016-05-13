@@ -21,7 +21,7 @@ class MenuDecorator extends AbstractMenuDecorator
                 [
                     'route'           => 'inquiry_new',
                     'routeParameters' => [
-                        'id' => $params['customer']->getId(),
+                        'customer' => $params['customer']->getId(),
                     ],
                     'labelAttributes' => [
                         'icon' => 'fa fa-plus',
