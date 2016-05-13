@@ -1,6 +1,6 @@
 {% extends '@CrmpAcc/Invoice/base.html.twig' %}
 
-{% block title %}{% trans %}Invoice list{% endtrans %}{% endblock %}
+{% block title %}{{ "crmp.accounting.invoice.plural"|trans }}{% endblock %}
 
 {% block breadcrumb %}
     <li>
@@ -9,7 +9,7 @@
         </a>
     </li>
     <li class="active">
-        Invoices
+        {{ block('title') }}
     </li>
 {% endblock %}
 

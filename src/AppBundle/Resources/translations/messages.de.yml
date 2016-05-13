@@ -28,3 +28,4 @@ crmp:
     name: Benutzername
     password: Passwort
     register: Neu registrieren
+  view: Anzeigen
