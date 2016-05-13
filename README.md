@@ -40,17 +40,19 @@ Now you're good to go.
 
 # Serve the CRM
 
-Let's see how cool you are. Newer PHP will eat this:
+Let's see how cool you are. Some PHP will eat this:
 
     bin/console server:start
 
-And it runs in the background.
-If that did not work you are not very cool and need old shoes:
+And then it runs in the background.
+If that did not work you are using some uncool system (maybe unmodified OSX/MAMP)
+and need old shoes:
 
     bin/console server:run
 
 The URL to the CRMP will be shown in the output.
 Call that in your favorite browser.
+Add an "&" at the end to run it in background.
 
 **Note: The first call will take some time - leave him alone!**
 
