@@ -2,16 +2,6 @@
 
 {% block title %}{{ invoice.value }}{% endblock %}
 
-{% block related_nav %}
-    {{ parent() }}
-    <li>
-        <a href="{{ path('invoice_edit', { 'id': invoice.id }) }}"
-           title="{% trans %}Edit{% endtrans %}">
-            <i class="fa fa-pencil"></i> {% trans %}Edit{% endtrans %}
-        </a>
-    </li>
-{% endblock %}
-
 {% block breadcrumb %}
         {{ parent() }}
         <li class="active">

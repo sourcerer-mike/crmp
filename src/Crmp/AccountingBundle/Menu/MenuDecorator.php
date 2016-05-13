@@ -4,6 +4,7 @@ namespace Crmp\AccountingBundle\Menu;
 
 
 use AppBundle\Menu\AbstractMenuDecorator;
+use Crmp\AccountingBundle\Entity\Invoice;
 use Crmp\AcquisitionBundle\Entity\Contract;
 use Crmp\CrmBundle\Entity\Customer;
 use Knp\Menu\MenuItem;
@@ -87,6 +88,26 @@ class MenuDecorator extends AbstractMenuDecorator
                     'routeParameters' => ['id' => $contract],
                     'labelAttributes' => [
                         'icon' => 'fa fa-ban',
+                    ],
+                ]
+            );
+        }
+    }
+
+    public function buildInvoiceShowRelatedMenu(MenuItem $menuItem)
+    {
+        $params = $this->container->get('crmp.controller.render.parameters');
+
+        if (isset( $params['invoice'] ) && $params['invoice'] instanceof Invoice) {
+            $menuItem->addChild(
+                'crmp.accounting.invoice.edit',
+                [
+                    'route'           => 'invoice_edit',
+                    'routeParameters' => [
+                        'id' => $params['invoice']->getId(),
+                    ],
+                    'labelAttributes' => [
+                        'icon' => 'fa fa-edit',
                     ],
                 ]
             );
