@@ -14,7 +14,11 @@
                     {{ address.name }}
                 </a>
             </td>
-            <td>{{ address.mail }}</td>
+            <td>
+                <a href="mailto:{{ address.mail }}" title="{{ "crmp.mail.send"|trans }}">
+                    {{ address.mail }}
+                </a>
+            </td>
             <td>
                 <div class="btn-group">
                     <a href="{{ path('address_show', { 'id': address.id }) }}"

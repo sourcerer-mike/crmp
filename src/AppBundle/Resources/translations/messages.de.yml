@@ -8,8 +8,12 @@ Create: Erstellen
 Created at: Erstellt am
 
 crm.menu.related.label: Aktionen
+
 crmp.abort: Abbrechen
 crmp.edit: Bearbeiten
+
+crmp.mail.send: Mail senden
+
 
 Date: Datum
 date_js: dd.mm.yy
