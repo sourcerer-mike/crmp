@@ -3,10 +3,10 @@
 {% block title %}{{ invoice.value|price }} {{ invoice.customer.name }}{% endblock %}
 
 {% block breadcrumb %}
-        {{ parent() }}
-        <li class="active">
-            {{ invoice.value|price }} {{ invoice.customer.name }}
-        </li>
+    {{ parent() }}
+    <li class="active">
+        {{ block('title') }}
+    </li>
 {% endblock %}
 
 {% block body %}
