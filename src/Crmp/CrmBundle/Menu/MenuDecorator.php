@@ -131,7 +131,7 @@ class MenuDecorator extends AbstractMenuDecorator
             return $menu;
         }
 
-        $crm = $menu->addChild('CRM');
+        $crm = $menu->addChild('crmp.crm.singular');
 
         $crm->addChild('crmp.crm.address.plural', ['route' => 'address_index']);
         $crm->addChild('crmp.crm.customer.plural', ['route' => 'customer_index']);

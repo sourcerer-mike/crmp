@@ -16,3 +16,4 @@ crmp:
       list: Kunden
       singular: Kunde
       plural: Kunden
+    singular: CRM
