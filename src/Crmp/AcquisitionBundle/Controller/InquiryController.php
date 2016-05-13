@@ -110,6 +110,8 @@ class InquiryController extends CrmpController
             $inquiry->setCustomer($customer);
         }
 
+        $inquiry->setInquiredAt(new \DateTime());
+
         $form = $this->createForm('Crmp\AcquisitionBundle\Form\InquiryType', $inquiry);
         $form->handleRequest($request);
 
