@@ -1,16 +1,16 @@
 {% extends 'AcquisitionBundle:Contract:base.html.twig' %}
 
-{% block title %}{% trans %}Contract creation{% endtrans %}{% endblock %}
+{% block title %}{{ "crmp.acquisition.contract.new"|trans }}{% endblock %}
 
 {% block breadcrumb %}
     {{ parent() }}
     <li class="active">
-        {% trans %}New{% endtrans %}
+        {{ block('title') }}
     </li>
 {% endblock %}
 
 {% block body %}
-    <h1>{% trans %}Contract creation{% endtrans %}</h1>
+    <h1>{{ block('title') }}</h1>
 
     {{ form_start(form) }}
     {{ form_widget(form) }}
