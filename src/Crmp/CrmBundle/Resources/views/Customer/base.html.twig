@@ -4,7 +4,7 @@
     {{ parent() }}
     <li>
         <a href="{{ path('customer_index') }}">
-            {% trans %}Customer list{% endtrans %}
+            {{ "crmp.crm.customer.singular"|trans }}
         </a>
     </li>
 {% endblock %}

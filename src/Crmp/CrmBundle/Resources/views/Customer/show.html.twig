@@ -15,11 +15,11 @@
     <table class="table table-striped table-hover table-bordered">
         <tbody>
         <tr>
-            <th>{% trans %}Created at{% endtrans %}</th>
+            <th>{% trans %}crmp.createdAt{% endtrans %}</th>
             <td>{{ customer.createdAt|date }}</td>
         </tr>
         <tr>
-            <th>{% trans %}Updated at{% endtrans %}</th>
+            <th>{% trans %}crmp.updatedAt{% endtrans %}</th>
             <td>{{ customer.updatedAt|date }}</td>
         </tr>
         </tbody>
@@ -27,7 +27,7 @@
 
     <h2>
         <a href="{{ path('address_index', {customer: customer.id}) }}">
-            {% trans %}Address list{% endtrans %}
+            {{ "crmp.crm.address.list"|trans }}
         </a>
     </h2>
 

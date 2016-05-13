@@ -19,18 +19,18 @@
         <button type="submit"
                 class="btn btn-primary">
             <i class="fa fa-floppy-o"></i>
-            {% trans %}Create{% endtrans %}
+            {{ "crmp.create"|trans }}
         </button>
     {{ form_end(form) }}
 
 {% endblock %}
 
 {% block javascripts %}
-    {{ parents() }}
+    {{ parent() }}
     <script type="text/javascript">
         $(function () {
             $('.datepicker').datepicker({
-                dateFormat: '{% trans %}date_js{% endtrans %}'
+                dateFormat: '{{ "crmp.crm.date_js"|trans }}'
             });
         });
     </script>

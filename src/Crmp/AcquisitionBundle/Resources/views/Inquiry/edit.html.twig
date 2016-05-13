@@ -19,7 +19,7 @@
         </a>
     </li>
     <li class="active">
-        {% trans %}Edit{% endtrans %}
+        {% trans %}crmp.edit{% endtrans %}
     </li>
 {% endblock %}
 
@@ -28,7 +28,7 @@
 
     {{ form_start(edit_form) }}
         {{ form_widget(edit_form) }}
-        <input type="submit" value="Save" class="btn btn-primary"/>
+        <input type="submit" value="crmp.save" class="btn btn-primary"/>
     {{ form_end(edit_form) }}
     {{ form_start(delete_form) }}
     <input type="submit" value="Delete" class="btn btn-danger">
@@ -40,7 +40,7 @@
     <script type="text/javascript">
         $(function () {
             $('.datepicker').datepicker({
-                dateFormat: '{% trans %}date_js{% endtrans %}'
+                dateFormat: '{{ "crmp.crm.date_js"|trans }}'
             });
         });
     </script>

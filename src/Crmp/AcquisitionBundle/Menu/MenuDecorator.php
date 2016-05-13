@@ -123,7 +123,7 @@ class MenuDecorator extends AbstractMenuDecorator
             return $menu;
         }
 
-        $acquisition = $menu->addChild('crmp.acquisition.menu');
+        $acquisition = $menu->addChild('crmp.acquisition.menu.label');
 
         $acquisition->addChild('crmp.acquisition.menu.inquiry', ['route' => 'inquiry_index']);
         $acquisition->addChild('crmp.acquisition.menu.offer', ['route' => 'offer_index']);

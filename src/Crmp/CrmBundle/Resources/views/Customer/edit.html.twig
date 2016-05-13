@@ -7,7 +7,7 @@
     <li>
         <a href="{{ path('customer_show', { 'id': customer.id }) }}">
             <i class="fa fa-ban"></i>
-            {% trans %}Abort{% endtrans %}
+            {% trans %}crmp.abort{% endtrans %}
         </a>
     </li>
 {% endblock %}
@@ -20,17 +20,21 @@
             </a>
         </li>
         <li class="active">
-            {% trans %}Edit{% endtrans %}
+            {% trans %}crmp.edit{% endtrans %}
         </li>
     </ol>
 {% endblock %}
 
 {% block body %}
-    <h1>{% trans %}Customer edit{% endtrans %}</h1>
+    <h1>{{ "crmp.crm.customer.edit"|trans }}</h1>
 
     {{ form_start(edit_form) }}
     {{ form_widget(edit_form) }}
-    <input type="submit" value="Save" class="btn btn-primary"/>
+    <button type="submit" class="btn btn-primary">
+        <i class="fa fa-floppy-o"></i>
+        {{ "crmp.save"|trans }}
+    </button>
+    <input type="submit" value="crmp.save" class="btn btn-primary"/>
     {{ form_end(edit_form) }}
 
     {{ form_start(delete_form) }}

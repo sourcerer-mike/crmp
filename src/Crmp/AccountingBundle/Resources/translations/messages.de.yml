@@ -1,11 +1,12 @@
-Accounting: Buchhaltung
-
-crmp.accounting.invoice.edit: Rechnung bearbeiten
-crmp.accounting.invoice.new: Rechnung erstellen
-crmp.accounting.invoice.toContract: Abbrechen
-
-Invoice: Rechnung
-Invoices: Rechnungen
-Invoice edit: Rechnung bearbeiten
-Invoice creation: Neue Rechnung
-Invoice list: Rechnungen
+crmp:
+  accounting:
+    invoice:
+      edit: Rechnung bearbeiten
+      new: Rechnung erstellen
+      plural: Rechnungen
+      singular: Rechnung
+    menu:
+      label: Buchhaltung
+  acquisition:
+    inquiry:
+      list: Anfragen

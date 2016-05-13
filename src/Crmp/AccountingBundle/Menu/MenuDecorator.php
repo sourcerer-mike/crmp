@@ -82,7 +82,7 @@ class MenuDecorator extends AbstractMenuDecorator
 
         if ($contract && is_numeric($contract)) {
             $menu->addChild(
-                'crmp.accounting.invoice.toContract',
+                'crmp.abort',
                 [
                     'route'           => 'contract_show',
                     'routeParameters' => ['id' => $contract],
@@ -125,9 +125,9 @@ class MenuDecorator extends AbstractMenuDecorator
             return $menu;
         }
 
-        $acquisition = $menu->addChild('Accounting');
+        $acquisition = $menu->addChild('crmp.accounting.menu.label');
 
-        $acquisition->addChild('Invoice', ['route' => 'invoice_index']);
+        $acquisition->addChild('crmp.accounting.invoice.plural', ['route' => 'invoice_index']);
 
         return $menu;
     }

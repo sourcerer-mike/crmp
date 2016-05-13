@@ -1,17 +1,18 @@
-Address: Adresse
-Address creation: Neue Adresse
-Address list: Adressen
-
-crmp.menu.crm: CRM
-crmp.menu.crm.customer: Kunden
-
-crmp.crm.address.create: Neue Adresse
-
-crmp.crm.customer.create: Neuer Kunde
-crmp.crm.customer.edit: Kunde bearbeiten
-
-Customer: Kunde
-Customer edit: Kunde bearbeiten
-Customer list: Kunden
-
-Related addresses: Zugehörige Adressen
+crmp:
+  crm:
+    date_js: dd.mm.yy
+    address:
+      create: Neue Adresse
+      list: Adressen
+      mail: Mail
+      name: Name
+      new: Neue Adresse
+      plural: Addressen
+      related: Zugehörige Adressen
+      singular: Adresse
+    customer:
+      create: Neuer Kunde
+      edit: Kunde bearbeiten
+      list: Kunden
+      singular: Kunde
+      plural: Kunden

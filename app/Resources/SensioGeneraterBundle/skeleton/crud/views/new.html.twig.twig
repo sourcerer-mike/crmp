@@ -2,13 +2,18 @@
 {{ "{% extends 'base.html.twig' %}" }}
 {% endblock extends %}
 
+{{ '{% block title %}{{ "crmp.create"|trans }}{% endblock %}' }}
+
 {% block body %}
 {{ "{% block body %}" }}
-    <h1>{{ entity }} creation</h1>
+    <h1>{{ entity }}</h1>
 
     {{ '{{ form_start(form) }}' }}
         {{ '{{ form_widget(form) }}' }}
-        <input type="submit" value="Create" />
+        <button type="submit" class="btn btn-primary">
+            <i class="fa fa-floppy-o"></i>
+            {{ "crmp.create"|trans }}
+        </button>
     {{ '{{ form_end(form) }}' }}
 
 {% set hide_edit, hide_delete = true, true %}

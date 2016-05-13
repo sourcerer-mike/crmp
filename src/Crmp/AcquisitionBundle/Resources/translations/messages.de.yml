@@ -1,42 +1,16 @@
-Acquisition: Akquise
-
-Contract creation: Neuer Auftrag
-Contract list: Aufträge
-
-crmp.acquisition.contract.edit: Anfrage bearbeiten
-crmp.acquisition.contract.new: Neuer Auftrag
-
-crmp.acquisition.inquiry.edit: Anfrage bearbeiten
-crmp.acquisition.inquiry.new: Neue Anfrage
-
-crmp.acquisition.menu: Vertrieb
-crmp.acquisition.menu.contract: Verträge
-crmp.acquisition.menu.inquiry: Anfragen
-crmp.acquisition.menu.offer: Angebote
-
-crmp.acquisition.offer.new: Neues Angebot
-
-
-Goto inquiry: Zur Anfrage
-Goto offer: Zum Angebot
-
-Inquired at: Angefragt am
-Inquiry: Anfrage
-Inquiry creation: Neue Anfrage
-Inquiry list: Anfragen
-
-New offer: Neues Angebot
-
-Offer: Angebot
-Offer creation: Neues Angebot
-Offer list: Angebote
-Offers: Angebote
-
-Ordered: Beauftragt
-
-Predicted value: Voraussichtlicher Wert
-Price: Preis
-
-Related offers: Zugehörige Angebote
-
-Value: Wert
+crmp:
+  acquisition:
+    contract:
+      edit: Anfrage bearbeiten
+      new: Neuer Auftrag
+    inquiry:
+      edit: Anfrage bearbeiten
+      new: Neue Anfrage
+    menu:
+      contract: Verträge
+      inquiry: Anfragen
+      offer: Angebote
+      label: Vertrieb
+    offer:
+      new: Neues Angebot
+      content: Inhalt

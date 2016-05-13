@@ -54,11 +54,11 @@
                             <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a href="{{ path('fos_user_profile_edit') }}">{% trans %}Profile{% endtrans %}</a>
+                                <a href="{{ path('fos_user_profile_edit') }}">{% trans %}crmp.profile{% endtrans %}</a>
                             </li>
                             <li role="separator" class="divider"></li>
                             <li>
-                                <a href="{{ path('fos_user_security_logout') }}">{% trans %}Logout{% endtrans %}</a>
+                                <a href="{{ path('fos_user_security_logout') }}">{% trans %}crmp.logout{% endtrans %}</a>
                             </li>
                         </ul>
                     </li>
@@ -85,7 +85,7 @@
 
             <ul class="nav nav-pills nav-stacked">
                 {% block related_nav %}
-                    <li class="nav-header">{{ "crm.menu.related.label"|trans }}</li>
+                    <li class="nav-header">{{ "crmp.menu.related.label"|trans }}</li>
                     {{ knp_menu_render('related', {'template': 'CrmBundle::menu-related.html.twig'}) }}
                 {% endblock %}
             </ul>

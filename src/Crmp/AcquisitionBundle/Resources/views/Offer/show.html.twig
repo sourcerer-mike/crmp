@@ -14,7 +14,7 @@
     <li>
         <a href="{{ path('offer_edit', { 'id': offer.id }) }}">
             <i class="fa fa-pencil"></i>
-            {% trans %}Edit{% endtrans %}
+            {% trans %}crmp.edit{% endtrans %}
         </a>
     </li>
     <li>
@@ -40,7 +40,7 @@
     <table class="table table-bordered table-hover table-striped">
         <tbody>
         <tr>
-            <th>{% trans %}Customer{% endtrans %}</th>
+            <th>{{ "crmp.crm.customer.singular"|trans }}</th>
             <td>
                 {% if offer.customer %}
                     <a href="{{ path('customer_show', {id: offer.customer.id}) }}">
@@ -73,7 +73,7 @@
             <td>{{ offer.price|price }}</td>
         </tr>
         <tr>
-            <th>{% trans %}Content{% endtrans %}</th>
+            <th>{% trans %}crmp.acquisition.offer.content{% endtrans %}</th>
             <td>{{ offer.content|nl2br }}</td>
         </tr>
         </tbody>

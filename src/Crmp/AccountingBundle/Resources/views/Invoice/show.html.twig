@@ -15,7 +15,7 @@
     <table class="table table-striped table-hover table-bordered">
         <tbody>
         <tr>
-            <th>{% trans %}Customer{% endtrans %}</th>
+            <th>{{ "crmp.crm.customer.singular"|trans }}</th>
             <td>
                 <a href="{{ path('customer_show', {id: invoice.customer.id}) }}">
                     {{ invoice.customer.name }}

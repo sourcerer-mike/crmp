@@ -1,6 +1,6 @@
 {% extends 'CrmBundle:Customer:base.html.twig' %}
 
-{% block title %}{% trans %}Customer list{% endtrans %}{% endblock %}
+{% block title %}{{ "crmp.crm.customer.list"|trans }}{% endblock %}
 
 {% block breadcrumb %}
     <li>
@@ -9,12 +9,12 @@
         </a>
     </li>
     <li class="active">
-        Customers
+        {{ "crmp.crm.customer.list"|trans }}
     </li>
 {% endblock %}
 
 {% block body %}
-    <h2>{% trans %}Customer list{% endtrans %}</h2>
+    <h2>{{ "crmp.crm.customer.list"|trans }}</h2>
 
     {% include 'CrmBundle:Customer:_list.html.twig' %}
 {% endblock %}

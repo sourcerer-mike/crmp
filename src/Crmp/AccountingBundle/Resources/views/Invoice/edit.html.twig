@@ -10,7 +10,7 @@
         </a>
     </li>
     <li class="active">
-        {% trans %}Edit{% endtrans %}
+        {% trans %}crmp.edit{% endtrans %}
     </li>
 {% endblock %}
 
@@ -19,7 +19,7 @@
 
     {{ form_start(edit_form) }}
     {{ form_widget(edit_form) }}
-    <input type="submit" value="{% trans %}Save{% endtrans %}" class="btn btn-primary"/>
+    <input type="submit" value="{% trans %}crmp.save{% endtrans %}" class="btn btn-primary"/>
     {{ form_end(edit_form) }}
     {{ form_start(delete_form) }}
     <button type="submit" class="btn btn-danger">

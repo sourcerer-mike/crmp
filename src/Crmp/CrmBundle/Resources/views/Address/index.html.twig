@@ -1,16 +1,16 @@
 {% extends '::base.html.twig' %}
 
-{% block title %}{% trans %}Address list{% endtrans %}{% endblock %}
+{% block title %}{{ "crmp.crm.address.list"|trans }}{% endblock %}
 
 {% block breadcrumb %}
     {{ parent() }}
     <li class="active">
-        {% trans %}Address list{% endtrans %}
+        {{ "crmp.crm.address.singular"|trans }}
     </li>
 {% endblock %}
 
 {% block body %}
-    <h1>Address list</h1>
+    <h1>{{ "crmp.crm.address.list"|trans }}</h1>
 
     {% include 'CrmBundle:Address:_list.html.twig' %}
 {% endblock %}

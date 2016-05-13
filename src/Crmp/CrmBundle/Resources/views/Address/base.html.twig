@@ -4,7 +4,7 @@
     {{ parent() }}
     <li>
         <a href="{{ path('address_index') }}">
-            {% trans %}Address list{% endtrans %}
+            {{ "crmp.crm.address.singular"|trans }}
         </a>
     </li>
 {% endblock %}
