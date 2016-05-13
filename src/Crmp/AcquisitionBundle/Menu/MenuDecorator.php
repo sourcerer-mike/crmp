@@ -14,8 +14,7 @@ class MenuDecorator extends AbstractMenuDecorator
     {
         $params = $this->container->get('crmp.controller.render.parameters');
 
-        if (isset($params['customer']) && $params['customer'] instanceof Customer)
-        {
+        if (isset( $params['customer'] ) && $params['customer'] instanceof Customer) {
             $menuItem->addChild(
                 'crmp.acquisition.inquiry.new',
                 [
@@ -29,6 +28,19 @@ class MenuDecorator extends AbstractMenuDecorator
                 ]
             );
         }
+    }
+
+    public function buildInquiryIndexRelatedMenu(MenuItem $menuItem)
+    {
+        $menuItem->addChild(
+            'crmp.acquisition.inquiry.new',
+            [
+                'route'           => 'inquiry_new',
+                'labelAttributes' => [
+                    'icon' => 'fa fa-plus',
+                ],
+            ]
+        );
     }
 
 
