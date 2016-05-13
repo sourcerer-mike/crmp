@@ -1,16 +1,16 @@
 {% extends '::base.html.twig' %}
 
-{% block title %}{% trans %}Contract list{% endtrans %}{% endblock %}
+{% block title %}{{ "crmp.acquisition.contract.plural"|trans }}{% endblock %}
 
 {% block breadcrumb %}
     {{ parent() }}
     <li class="active">
-        {% trans %}Contract list{% endtrans %}
+        {{ block('title') }}
     </li>
 {% endblock %}
 
 {% block body %}
-    <h1>{% trans %}Contract list{% endtrans %}</h1>
+    <h1>{{ block('title') }}</h1>
 
     {% include 'AcquisitionBundle:Contract:_list.html.twig' %}
 {% endblock %}

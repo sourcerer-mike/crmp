@@ -1,8 +1,12 @@
 crmp:
   acquisition:
     contract:
-      edit: Anfrage bearbeiten
+      edit: Auftrag bearbeiten
       new: Neuer Auftrag
+      plural: Aufträge
+      singular: Auftrag
+      title: Titel
+      value: Auftragswert
     inquiry:
       content: Inhalt
       date: Angefragt am
