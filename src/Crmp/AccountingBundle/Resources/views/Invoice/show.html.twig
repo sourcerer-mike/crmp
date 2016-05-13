@@ -15,10 +15,6 @@
     <table class="table table-striped table-hover table-bordered">
         <tbody>
         <tr>
-            <th>Id</th>
-            <td>{{ invoice.id }}</td>
-        </tr>
-        <tr>
             <th>{% trans %}Customer{% endtrans %}</th>
             <td>
                 <a href="{{ path('customer_show', {id: invoice.customer.id}) }}">

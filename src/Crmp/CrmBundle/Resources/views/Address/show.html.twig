@@ -16,10 +16,6 @@
     <table class="table table-bordered table-hover table-striped">
         <tbody>
         <tr>
-            <th>Id</th>
-            <td>{{ address.id }}</td>
-        </tr>
-        <tr>
             <th>{% trans %}Customer{% endtrans %}</th>
             <td>
                 <a href="{{ path('customer_show', {'id': address.customer.id}) }}">
