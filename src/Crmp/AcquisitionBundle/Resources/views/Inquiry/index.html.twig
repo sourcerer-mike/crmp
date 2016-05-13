@@ -1,17 +1,17 @@
 {% extends '::base.html.twig' %}
 
-{% block title %}{% trans %}Inquiry list{% endtrans %}{% endblock %}
+{% block title %}{{ "crmp.acquisition.inquiry.plural"|trans }}{% endblock %}
 
 {% block breadcrumb %}
     {{ parent() }}
     <li class="active">
-        {% trans %}Inquiry list{% endtrans %}
+        {{ block('title') }}
     </li>
 {% endblock %}
 
 
 {% block body %}
-    <h1>{% trans %}Inquiry list{% endtrans %}</h1>
+    <h1>{{ block('title') }}</h1>
 
     {% include 'AcquisitionBundle:Inquiry:_list.html.twig' %}
 {% endblock %}
