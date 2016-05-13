@@ -6,45 +6,13 @@ namespace Crmp\AcquisitionBundle\Menu;
 use AppBundle\Menu\AbstractMenuDecorator;
 use Crmp\AcquisitionBundle\Entity\Contract;
 use Crmp\AcquisitionBundle\Entity\Inquiry;
+use Crmp\AcquisitionBundle\Entity\Offer;
 use Crmp\CrmBundle\Entity\Customer;
 use Knp\Menu\MenuItem;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 class MenuDecorator extends AbstractMenuDecorator
 {
-    public function buildCustomerShowRelatedMenu(MenuItem $menuItem)
-    {
-        $params = $this->container->get('crmp.controller.render.parameters');
-
-        if (isset( $params['customer'] ) && $params['customer'] instanceof Customer) {
-            $menuItem->addChild(
-                'crmp.acquisition.inquiry.new',
-                [
-                    'route'           => 'inquiry_new',
-                    'routeParameters' => [
-                        'customer' => $params['customer']->getId(),
-                    ],
-                    'labelAttributes' => [
-                        'icon' => 'fa fa-plus',
-                    ],
-                ]
-            );
-        }
-    }
-
-    public function buildInquiryIndexRelatedMenu(MenuItem $menuItem)
-    {
-        $menuItem->addChild(
-            'crmp.acquisition.inquiry.new',
-            [
-                'route'           => 'inquiry_new',
-                'labelAttributes' => [
-                    'icon' => 'fa fa-plus',
-                ],
-            ]
-        );
-    }
-
     public function buildContractIndexRelatedMenu(MenuItem $menuItem)
     {
         $menuItem->addChild(
@@ -76,6 +44,39 @@ class MenuDecorator extends AbstractMenuDecorator
                 ]
             );
         }
+    }
+
+    public function buildCustomerShowRelatedMenu(MenuItem $menuItem)
+    {
+        $params = $this->container->get('crmp.controller.render.parameters');
+
+        if (isset( $params['customer'] ) && $params['customer'] instanceof Customer) {
+            $menuItem->addChild(
+                'crmp.acquisition.inquiry.new',
+                [
+                    'route'           => 'inquiry_new',
+                    'routeParameters' => [
+                        'customer' => $params['customer']->getId(),
+                    ],
+                    'labelAttributes' => [
+                        'icon' => 'fa fa-plus',
+                    ],
+                ]
+            );
+        }
+    }
+
+    public function buildInquiryIndexRelatedMenu(MenuItem $menuItem)
+    {
+        $menuItem->addChild(
+            'crmp.acquisition.inquiry.new',
+            [
+                'route'           => 'inquiry_new',
+                'labelAttributes' => [
+                    'icon' => 'fa fa-plus',
+                ],
+            ]
+        );
     }
 
     public function buildInquiryShowRelatedMenu(MenuItem $menuItem)
@@ -111,6 +112,38 @@ class MenuDecorator extends AbstractMenuDecorator
         }
     }
 
+    public function buildOfferShowRelatedMenu(MenuItem $menuItem)
+    {
+        $params = $this->container->get('crmp.controller.render.parameters');
+
+        if (isset( $params['offer'] ) && $params['offer'] instanceof Offer) {
+            $menuItem->addChild(
+                'crmp.acquisition.offer.edit',
+                [
+                    'route'           => 'offer_edit',
+                    'routeParameters' => [
+                        'id' => $params['offer']->getId(),
+                    ],
+                    'labelAttributes' => [
+                        'icon' => 'fa fa-edit',
+                    ],
+                ]
+            );
+
+            $menuItem->addChild(
+                'crmp.acquisition.contract.new',
+                [
+                    'route'           => 'contract_new',
+                    'routeParameters' => [
+                        'offer' => $params['offer']->getId(),
+                    ],
+                    'labelAttributes' => [
+                        'icon' => 'fa fa-plus',
+                    ],
+                ]
+            );
+        }
+    }
 
     public function createMainMenu(RequestStack $requestStack)
     {

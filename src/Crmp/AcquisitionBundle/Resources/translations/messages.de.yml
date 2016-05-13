@@ -28,9 +28,12 @@ crmp:
       offer: Angebote
       label: Vertrieb
     offer:
-      new: Neues Angebot
       content: Inhalt
+      edit: Angebot bearbeiten
+      new: Neues Angebot
       plural: Angebote
       price: Preis
+      related: Zugehörige Angebote
       singular: Angebot
       title: Titel
+      ordered: Angebot angenommen

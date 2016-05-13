@@ -9,33 +9,8 @@
     </li>
 {% endblock %}
 
-{% block related_nav %}
-    {{ parent() }}
-    <li>
-        <a href="{{ path('offer_edit', { 'id': offer.id }) }}">
-            <i class="fa fa-pencil"></i>
-            {% trans %}crmp.edit{% endtrans %}
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('contract_new', {offer: offer.id}) }}">
-            <i class="fa fa-plus"></i>
-            {% trans %}Contract creation{% endtrans %}
-        </a>
-    </li>
-{% endblock %}
-
 {% block body %}
     <h1>{{ offer.title }}</h1>
-
-    <p>
-        {% if offer.ordered %}
-            <span class="label label-success">
-                <i class="fa fa-check"></i>
-                {% trans %}Ordered{% endtrans %}
-            </span>
-        {% endif %}
-    </p>
 
     <table class="table table-bordered table-hover table-striped">
         <tbody>
@@ -52,24 +27,34 @@
             </td>
         </tr>
         <tr>
-            <th>{% trans %}Inquiry{% endtrans %}</th>
+            <th>{{ "crmp.acquisition.inquiry.singular"|trans }}</th>
             <td>
                 <a href="{{ path('inquiry_show', {id: offer.inquiry.id}) }}">
                     {{ offer.inquiry.title }}
                 </a>
                 <a href="{{ path('offer_index', {inquiry: offer.inquiry.id}) }}"
                    class="btn btn-default btn-xs pull-right"
-                   title="{% trans %}Related offers{% endtrans %}">
+                   title="{{ "crmp.acquisition.offer.related"|trans }}">
                     <i class="fa fa-filter"></i>
                 </a>
             </td>
         </tr>
         <tr>
-            <th>{% trans %}Status{% endtrans %}</th>
-            <td>{{ offer.statusLabel }}</td>
+            <th>{{ "crmp.acquisition.inquiry.statusLabel"|trans }}</th>
+            <td>
+                {% if offer.ordered %}
+                    <span class="label label-success">
+                        <i class="fa fa-check"></i>
+                        {{ "crmp.acquisition.offer.ordered"|trans }}
+                    </span>
+                {% else %}
+                    {{ offer.statusLabel|trans }}
+                {% endif %}
+
+            </td>
         </tr>
         <tr>
-            <th>{% trans %}Price{% endtrans %}</th>
+            <th>{{ "crmp.acquisition.offer.price"|trans }}</th>
             <td>{{ offer.price|price }}</td>
         </tr>
         <tr>
@@ -79,6 +64,6 @@
         </tbody>
     </table>
 
-    <h2>{% trans %}Contract list{% endtrans %}</h2>
+    <h2>{{ "crmp.acquisition.contract.plural"|trans }}</h2>
     {% include 'AcquisitionBundle:Contract:_list.html.twig' with {'contracts': offer.contracts} %}
 {% endblock %}

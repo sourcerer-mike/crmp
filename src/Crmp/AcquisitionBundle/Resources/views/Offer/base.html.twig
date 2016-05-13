@@ -4,7 +4,7 @@
     {{ parent() }}
     <li>
         <a href="{{ path('offer_index') }}">
-            {% trans %}Offer list{% endtrans %}
+            {{ "crmp.acquisition.offer.plural"|trans }}
         </a>
     </li>
 {% endblock %}

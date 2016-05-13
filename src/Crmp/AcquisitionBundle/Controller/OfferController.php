@@ -2,9 +2,9 @@
 
 namespace Crmp\AcquisitionBundle\Controller;
 
+use AppBundle\Controller\CrmpController;
 use Doctrine\Common\Collections\Criteria;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Crmp\AcquisitionBundle\Entity\Offer;
@@ -15,7 +15,7 @@ use Crmp\AcquisitionBundle\Form\OfferType;
  *
  * @Route("/offer")
  */
-class OfferController extends Controller
+class OfferController extends CrmpController
 {
     /**
      * Lists all Offer entities.
