@@ -4,6 +4,7 @@ namespace Crmp\AcquisitionBundle\Menu;
 
 
 use AppBundle\Menu\AbstractMenuDecorator;
+use Crmp\AcquisitionBundle\Entity\Contract;
 use Crmp\AcquisitionBundle\Entity\Inquiry;
 use Crmp\CrmBundle\Entity\Customer;
 use Knp\Menu\MenuItem;
@@ -55,6 +56,26 @@ class MenuDecorator extends AbstractMenuDecorator
                 ],
             ]
         );
+    }
+
+    public function buildContractShowRelatedMenu(MenuItem $menuItem)
+    {
+        $params = $this->container->get('crmp.controller.render.parameters');
+
+        if (isset( $params['contract'] ) && $params['contract'] instanceof Contract) {
+            $menuItem->addChild(
+                'crmp.acquisition.contract.edit',
+                [
+                    'route'           => 'contract_edit',
+                    'routeParameters' => [
+                        'id' => $params['contract']->getId(),
+                    ],
+                    'labelAttributes' => [
+                        'icon' => 'fa fa-edit',
+                    ],
+                ]
+            );
+        }
     }
 
     public function buildInquiryShowRelatedMenu(MenuItem $menuItem)

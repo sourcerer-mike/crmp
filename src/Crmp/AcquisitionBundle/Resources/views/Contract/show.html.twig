@@ -9,17 +9,6 @@
     </li>
 {% endblock %}
 
-{% block related_nav %}
-    <li>
-        <a href="{{ path('contract_edit', { 'id': contract.id }) }}">
-            <i class="fa fa-pencil"></i>
-            {% trans %}Edit{% endtrans %}
-        </a>
-    </li>
-
-    {{ parent() }}
-{% endblock %}
-
 {% block body %}
     <h1>{{ contract.title }}</h1>
 
