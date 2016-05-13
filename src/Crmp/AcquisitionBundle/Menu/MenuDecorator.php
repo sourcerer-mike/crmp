@@ -44,6 +44,19 @@ class MenuDecorator extends AbstractMenuDecorator
         );
     }
 
+    public function buildContractIndexRelatedMenu(MenuItem $menuItem)
+    {
+        $menuItem->addChild(
+            'crmp.acquisition.contract.new',
+            [
+                'route'           => 'contract_new',
+                'labelAttributes' => [
+                    'icon' => 'fa fa-plus',
+                ],
+            ]
+        );
+    }
+
     public function buildInquiryShowRelatedMenu(MenuItem $menuItem)
     {
         $params = $this->container->get('crmp.controller.render.parameters');

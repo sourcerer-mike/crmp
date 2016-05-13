@@ -2,16 +2,6 @@
 
 {% block title %}{% trans %}Contract list{% endtrans %}{% endblock %}
 
-{% block related_nav %}
-    {{ parent() }}
-    <li>
-        <a href="{{ path('contract_new') }}">
-            <i class="fa fa-plus"></i>
-            {% trans %}Contract creation{% endtrans %}
-        </a>
-    </li>
-{% endblock %}
-
 {% block breadcrumb %}
     {{ parent() }}
     <li class="active">
