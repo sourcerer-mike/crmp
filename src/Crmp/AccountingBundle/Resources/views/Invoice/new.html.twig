@@ -1,17 +1,16 @@
 {% extends '@CrmpAcc/Invoice/base.html.twig' %}
 
-{% block title %}{% trans %}Invoice creation{% endtrans %}{% endblock %}
+{% block title %}{{ "crmp.accounting.invoice.new"|trans }}{% endblock %}
 
 {% block breadcrumb %}
     {{ parent() }}
-        <li class="active">
-            New
-        </li>
-    </ol>
+    <li class="active">
+        {{ block('title') }}
+    </li>
 {% endblock %}
 
 {% block body %}
-    <h1>{% trans %}Invoice creation{% endtrans %}</h1>
+    <h1>{{ block('title') }}</h1>
 
     {{ form_start(form) }}
     {{ form_widget(form) }}
