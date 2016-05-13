@@ -54,11 +54,11 @@
                             <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a href="/profile">{% trans %}Profile{% endtrans %}</a>
+                                <a href="{{ path('fos_user_profile_edit') }}">{% trans %}Profile{% endtrans %}</a>
                             </li>
                             <li role="separator" class="divider"></li>
                             <li>
-                                <a href="/logout">{% trans %}Logout{% endtrans %}</a>
+                                <a href="{{ path('fos_user_security_logout') }}">{% trans %}Logout{% endtrans %}</a>
                             </li>
                         </ul>
                     </li>
