@@ -2,9 +2,9 @@
 
 namespace Crmp\AccountingBundle\Controller;
 
+use AppBundle\Controller\CrmpController;
 use Doctrine\Common\Collections\Criteria;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Crmp\AccountingBundle\Entity\Invoice;
@@ -15,7 +15,7 @@ use Crmp\AccountingBundle\Form\InvoiceType;
  *
  * @Route("/invoice")
  */
-class InvoiceController extends Controller
+class InvoiceController extends CrmpController
 {
     /**
      * Lists all Invoice entities.

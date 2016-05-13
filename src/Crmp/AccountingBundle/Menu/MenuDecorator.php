@@ -59,6 +59,19 @@ class MenuDecorator extends AbstractMenuDecorator
         }
     }
 
+    public function buildInvoiceIndexRelatedMenu(MenuItem $menuItem)
+    {
+        $menuItem->addChild(
+            'crmp.accounting.invoice.new',
+            [
+                'route'           => 'invoice_new',
+                'labelAttributes' => [
+                    'icon' => 'fa fa-plus',
+                ],
+            ]
+        );
+    }
+
     public function buildInvoiceNewRelatedMenu(MenuItem $menu)
     {
         // abort and go back to contract
