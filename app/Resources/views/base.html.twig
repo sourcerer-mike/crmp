@@ -73,6 +73,16 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 crmp-related">
+            <ol class="breadcrumb visible-xs visible-sm">
+                {% block breadcrumb %}
+                    <li>
+                        <a href="/">
+                            Dashboard
+                        </a>
+                    </li>
+                {% endblock %}
+            </ol>
+
             <ul class="nav nav-pills nav-stacked">
                 {% block related_nav %}
                     <li class="nav-header">{{ "crm.menu.related.label"|trans }}</li>
@@ -82,17 +92,9 @@
         </div>
         <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
             <div>
-                {% block breadcrumb_wrapper %}
-                    <ol class="breadcrumb">
-                        {% block breadcrumb %}
-                            <li>
-                                <a href="/">
-                                    Dashboard
-                                </a>
-                            </li>
-                        {% endblock %}
+                    <ol class="breadcrumb visible-md visible-lg">
+                        {{ block('breadcrumb') }}
                     </ol>
-                {% endblock breadcrumb_wrapper %}
             </div>
             {% block body %}{% endblock %}
         </div>
