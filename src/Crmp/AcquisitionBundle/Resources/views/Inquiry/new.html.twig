@@ -26,6 +26,7 @@
 {% endblock %}
 
 {% block javascripts %}
+    {{ parents() }}
     <script type="text/javascript">
         $(function () {
             $('.datepicker').datepicker({
