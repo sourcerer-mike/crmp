@@ -1,18 +1,16 @@
 {% extends 'AcquisitionBundle:Inquiry:base.html.twig' %}
 
-{% block title %}{% trans %}Inquiry creation{% endtrans %}{% endblock %}
+{% block title %}{{ "crmp.acquisition.inquiry.new"|trans }}{% endblock %}
 
 {% block breadcrumb %}
     {{ parent() }}
     <li class="active">
-        {% trans %}Inquiry creation{% endtrans %}
+        {{ block('title') }}
     </li>
 {% endblock %}
 
 {% block body %}
-    <h1>
-        {% trans %}Inquiry creation{% endtrans %}
-    </h1>
+    <h1>{{ block('title') }}</h1>
 
     {{ form_start(form) }}
         {{ form_widget(form) }}

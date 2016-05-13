@@ -4,11 +4,18 @@ crmp:
       edit: Anfrage bearbeiten
       new: Neuer Auftrag
     inquiry:
+      content: Inhalt
+      date: Angefragt am
       edit: Anfrage bearbeiten
       new: Neue Anfrage
       plural: Anfragen
       predictedValue: Voraussichtlicher Wert
       singular: Anfrage
+      statusLabel: Status
+      status:
+        open: Ausstehend
+        done: Erledigt
+        canceled: Abgelehnt
       title: Titel
     menu:
       contract: Verträge

@@ -13,6 +13,12 @@ use Doctrine\ORM\Mapping as ORM;
 class Config
 {
     /**
+     * @var string
+     *
+     * @ORM\Column(name="path", type="string", length=255, unique=true)
+     */
+    private $bundle;
+    /**
      * @var int
      *
      * @ORM\Column(name="id", type="integer")
@@ -20,21 +26,12 @@ class Config
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
     /**
      * @var string
      *
      * @ORM\Column(name="user", type="string", length=255)
      */
     private $userId;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="path", type="string", length=255, unique=true)
-     */
-    private $bundle;
-
     /**
      * @var string
      *
@@ -45,9 +42,9 @@ class Config
     public static function getChoices($path)
     {
         return [
-            'open'     => 0,
-            'done'  => 1,
-            'canceled' => 2,
+            'crmp.acquisition.inquiry.status.open'     => 0,
+            'crmp.acquisition.inquiry.status.done'     => 1,
+            'crmp.acquisition.inquiry.status.canceled' => 2,
         ];
     }
 }
