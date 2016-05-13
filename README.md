@@ -3,6 +3,15 @@ crmp
 
 > An CRM tool written with Symfony 3.
 
+<div style="padding: 0.5em; background-color: #FA8072">
+    <strong>Warning!</strong>
+    Neither this branch nor one of the others is ment for production use!
+    <br />
+    Either you are a pro in PHP/Symfony and can handle that,
+    or you come back later.
+    Thanks ;)
+</div>
+
 
 ## Install your CRM
 
