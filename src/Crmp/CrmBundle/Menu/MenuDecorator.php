@@ -23,6 +23,34 @@ class MenuDecorator extends AbstractMenuDecorator
         );
     }
 
+    public function buildCustomerIndexRelatedMenu(MenuItem $menuItem)
+    {
+        $menuItem->addChild(
+            'crmp.crm.customer.create',
+            [
+                'route'           => 'customer_new',
+                'labelAttributes' => [
+                    'icon' => 'fa fa-plus',
+                ],
+            ]
+        );
+    }
+
+    public function buildCustomerNewRelatedMenu(MenuItem $menuItem)
+    {
+        $abortParams = [
+            'route'           => 'customer_index',
+            'labelAttributes' => [
+                'icon' => 'fa fa-ban',
+            ],
+        ];
+
+        if ($abortParams) {
+            $menuItem->addChild('crmp.abort', $abortParams);
+        }
+    }
+
+
     public function buildAddressNewRelatedMenu(MenuItem $menuItem)
     {
         $abortParams = [

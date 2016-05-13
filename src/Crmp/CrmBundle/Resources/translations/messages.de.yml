@@ -7,9 +7,10 @@ crmp.menu.crm.customer: Kunden
 
 crmp.crm.address.create: Neue Adresse
 
+crmp.crm.customer.create: Neuer Kunde
+
 Customer: Kunde
 Customer edit: Kunde bearbeiten
-Customer creation: Neuer Kunde
 Customer list: Kunden
 
 Related addresses: Zugehörige Adressen
