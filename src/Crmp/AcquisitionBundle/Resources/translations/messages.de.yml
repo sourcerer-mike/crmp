@@ -25,3 +25,7 @@ crmp:
     offer:
       new: Neues Angebot
       content: Inhalt
+      plural: Angebote
+      price: Preis
+      singular: Angebot
+      title: Titel
