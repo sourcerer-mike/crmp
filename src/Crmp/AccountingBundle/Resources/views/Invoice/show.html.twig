@@ -1,16 +1,16 @@
 {% extends '@CrmpAcc/Invoice/base.html.twig' %}
 
-{% block title %}{{ invoice.value }}{% endblock %}
+{% block title %}{{ invoice.value|price }} {{ invoice.customer.name }}{% endblock %}
 
 {% block breadcrumb %}
         {{ parent() }}
         <li class="active">
-            {{ invoice.value }}
+            {{ invoice.value|price }} {{ invoice.customer.name }}
         </li>
 {% endblock %}
 
 {% block body %}
-    <h1>{{ invoice.value }}</h1>
+    <h1>{{ invoice.value|price }} {{ invoice.customer.name }}</h1>
 
     <table class="table table-striped table-hover table-bordered">
         <tbody>
