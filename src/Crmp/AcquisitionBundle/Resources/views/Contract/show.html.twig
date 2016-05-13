@@ -15,9 +15,7 @@
     <table class="table table-bordered table-hover table-striped">
         <tbody>
         <tr>
-            <th>
-                {% trans %}Offer{% endtrans %}
-            </th>
+            <th>{{ "crmp.acquisition.offer.singular"|trans }}</th>
             <td>
                 <a href="{{ path('offer_show', {id: contract.offer.id}) }}">
                     {{ contract.offer.title }}
@@ -25,11 +23,11 @@
             </td>
         </tr>
         <tr>
-            <th>{% trans %}Value{% endtrans %}</th>
+            <th>{{ "crmp.acquisition.contract.value"|trans }}</th>
             <td>{{ contract.value|price }}</td>
         </tr>
         <tr>
-            <th>{% trans %}Content{% endtrans %}</th>
+            <th>{{ "crmp.acquisition.contract.content"|trans }}</th>
             <td>{{ contract.content|nl2br }}</td>
         </tr>
         </tbody>
