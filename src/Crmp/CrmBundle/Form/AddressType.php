@@ -15,9 +15,9 @@ class AddressType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
-            ->add('customer')
-            ->add('mail')
+            ->add('name', null, ['label' => 'crmp.crm.address.name'])
+            ->add('customer', null, ['label' => 'crmp.crm.customer.singular'])
+            ->add('mail', null, ['label' => 'crmp.crm.address.mail'])
         ;
     }
     
