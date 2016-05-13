@@ -35,7 +35,7 @@
 
     <h2>
         <a href="{{ path('inquiry_index', {customer: customer.id}) }}">
-            {% trans %}Inquiry list{% endtrans %}
+            {{ "crmp.acquisition.inquiry.plural"|trans }}
         </a>
     </h2>
 
@@ -43,7 +43,7 @@
 
     <h2>
         <a href="{{ path('invoice_index', {customer: customer.id}) }}">
-            {% trans %}Invoice list{% endtrans %}
+            {{ "crmp.accounting.invoice.plural"|trans }}
         </a>
     </h2>
 

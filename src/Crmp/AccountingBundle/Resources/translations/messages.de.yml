@@ -5,6 +5,7 @@ crmp:
       new: Rechnung erstellen
       plural: Rechnungen
       singular: Rechnung
+      total: Rechnungsbetrag
     menu:
       label: Buchhaltung
   acquisition:

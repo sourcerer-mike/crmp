@@ -41,11 +41,11 @@
 
     <table class="table table-bordered table-condensed table-striped">
         <tr>
-            <th>{% trans %}Updated at{% endtrans %}</th>
+            <th>{{ "crmp.updatedAt"|trans }}</th>
             <td>{{ address.updatedAt|date }}</td>
         </tr>
         <tr>
-            <th>{% trans %}Updated by{% endtrans %}</th>
+            <th>{{ "crmp.updatedBy"|trans }}</th>
             <td>{{ address.updatedBy.username }}</td>
         </tr>
     </table>

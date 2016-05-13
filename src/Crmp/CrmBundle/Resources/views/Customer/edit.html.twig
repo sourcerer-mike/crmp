@@ -14,15 +14,14 @@
 
 {% block breadcrumb %}
     {{ parent() }}
-        <li>
-            <a href="{{ path('customer_show', {'id': customer.id}) }}">
-                {{ customer.name }}
-            </a>
-        </li>
-        <li class="active">
-            {% trans %}crmp.edit{% endtrans %}
-        </li>
-    </ol>
+    <li>
+        <a href="{{ path('customer_show', {'id': customer.id}) }}">
+            {{ customer.name }}
+        </a>
+    </li>
+    <li class="active">
+        {% trans %}crmp.edit{% endtrans %}
+    </li>
 {% endblock %}
 
 {% block body %}
@@ -34,10 +33,12 @@
         <i class="fa fa-floppy-o"></i>
         {{ "crmp.save"|trans }}
     </button>
-    <input type="submit" value="crmp.save" class="btn btn-primary"/>
     {{ form_end(edit_form) }}
 
     {{ form_start(delete_form) }}
-    <input type="submit" value="Delete" class="btn btn-danger">
+    <button type="submit" class="btn btn-danger pull-right">
+        {{ "crmp.delete"|trans }}
+    </button>
     {{ form_end(delete_form) }}
+
 {% endblock %}

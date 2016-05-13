@@ -6,6 +6,10 @@ crmp:
     inquiry:
       edit: Anfrage bearbeiten
       new: Neue Anfrage
+      plural: Anfragen
+      predictedValue: Voraussichtlicher Wert
+      singular: Anfrage
+      title: Titel
     menu:
       contract: Verträge
       inquiry: Anfragen
