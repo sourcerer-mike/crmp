@@ -3,6 +3,8 @@ Acquisition: Akquise
 Contract creation: Neuer Auftrag
 Contract list: Aufträge
 
+crmp.acquisition.inquiry.new: Neue Anfrage
+
 crmp.acquisition.menu: Vertrieb
 crmp.acquisition.menu.contract: Verträge
 crmp.acquisition.menu.inquiry: Anfragen

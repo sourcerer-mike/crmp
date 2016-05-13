@@ -5,6 +5,7 @@ namespace Crmp\AccountingBundle\Menu;
 
 use AppBundle\Menu\AbstractMenuDecorator;
 use Crmp\AcquisitionBundle\Entity\Contract;
+use Crmp\CrmBundle\Entity\Customer;
 use Knp\Menu\MenuItem;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -27,7 +28,7 @@ class MenuDecorator extends AbstractMenuDecorator
         }
 
         $menu->addChild(
-            'crmp.accounting.invoice.create',
+            'crmp.accounting.invoice.new',
             [
                 'route'           => 'invoice_new',
                 'routeParameters' => $routeParameters,
@@ -38,13 +39,33 @@ class MenuDecorator extends AbstractMenuDecorator
         );
     }
 
+    public function buildCustomerShowRelatedMenu(MenuItem $menuItem)
+    {
+        $params = $this->container->get('crmp.controller.render.parameters');
+
+        if (isset( $params['customer'] ) && $params['customer'] instanceof Customer) {
+            $menuItem->addChild(
+                'crmp.accounting.invoice.new',
+                [
+                    'route'           => 'invoice_new',
+                    'routeParameters' => [
+                        'customer' => $params['customer']->getId(),
+                    ],
+                    'labelAttributes' => [
+                        'icon' => 'fa fa-plus',
+                    ],
+                ]
+            );
+        }
+    }
+
     public function buildInvoiceNewRelatedMenu(MenuItem $menu)
     {
         // abort and go back to contract
         $request = $this->container->get('request_stack')->getCurrentRequest();
 
         $contract = $request->get('contract');
-        
+
         if ($contract && is_numeric($contract)) {
             $menu->addChild(
                 'crmp.accounting.invoice.toContract',

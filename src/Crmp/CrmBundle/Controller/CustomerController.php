@@ -2,6 +2,7 @@
 
 namespace Crmp\CrmBundle\Controller;
 
+use AppBundle\Controller\CrmpController;
 use Crmp\AcquisitionBundle\Form\InquiryType;
 use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,7 +17,7 @@ use Crmp\CrmBundle\Form\CustomerType;
  *
  * @Route("/customer")
  */
-class CustomerController extends Controller
+class CustomerController extends CrmpController
 {
     /**
      * Lists all Customer entities.

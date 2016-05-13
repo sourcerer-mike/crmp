@@ -2,34 +2,6 @@
 
 {% block title %}{{ customer.name }}{% endblock %}
 
-{% block related_nav %}
-    {{ parent() }}
-    <li>
-        <a href="{{ path('customer_edit', { 'id': customer.id }) }}"
-           title="{% trans %}Edit{% endtrans %}">
-            <i class="fa fa-pencil"></i> {% trans %}Customer edit{% endtrans %}
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('address_new', {customer: customer.id}) }}">
-            <i class="fa fa-plus"></i>
-            {% trans %}Address creation{% endtrans %}
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('inquiry_new', {'id': customer.id}) }}">
-            <i class="fa fa-plus"></i>
-            {% trans %}Inquiry creation{% endtrans %}
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('invoice_new', {'customer': customer.id}) }}">
-            <i class="fa fa-plus"></i>
-            {% trans %}Invoice creation{% endtrans %}
-        </a>
-    </li>
-{% endblock %}
-
 {% block breadcrumb %}
     {{ parent() }}
     <li class="active">

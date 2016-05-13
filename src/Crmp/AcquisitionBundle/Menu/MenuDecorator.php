@@ -4,10 +4,34 @@ namespace Crmp\AcquisitionBundle\Menu;
 
 
 use AppBundle\Menu\AbstractMenuDecorator;
+use Crmp\CrmBundle\Entity\Customer;
+use Knp\Menu\MenuItem;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 class MenuDecorator extends AbstractMenuDecorator
 {
+    public function buildCustomerShowRelatedMenu(MenuItem $menuItem)
+    {
+        $params = $this->container->get('crmp.controller.render.parameters');
+
+        if (isset($params['customer']) && $params['customer'] instanceof Customer)
+        {
+            $menuItem->addChild(
+                'crmp.acquisition.inquiry.new',
+                [
+                    'route'           => 'inquiry_new',
+                    'routeParameters' => [
+                        'id' => $params['customer']->getId(),
+                    ],
+                    'labelAttributes' => [
+                        'icon' => 'fa fa-plus',
+                    ],
+                ]
+            );
+        }
+    }
+
+
     public function createMainMenu(RequestStack $requestStack)
     {
         $menu = parent::createMainMenu($requestStack);
