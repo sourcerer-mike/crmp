@@ -35,5 +35,6 @@ crmp:
       price: Preis
       related: Zugehörige Angebote
       singular: Angebot
+      status: Status vom Angebot
       title: Titel
       ordered: Angebot angenommen

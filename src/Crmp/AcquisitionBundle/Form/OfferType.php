@@ -17,15 +17,17 @@ class OfferType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title')
-            ->add('inquiry')
-            ->add('price')
-            ->add('content')
+            ->add('title', null, ['label' => 'crmp.acquisition.offer.title'])
+            ->add('inquiry', null, ['label' => 'crmp.acquisition.inquiry.singular'])
+            ->add('price', null, ['label' => 'crmp.acquisition.offer.price'])
+            ->add('content', null, ['label' => 'crmp.acquisition.offer.content'])
             ->add(
                 'status',
-                ChoiceType::class, [
+                ChoiceType::class,
+                [
                     'choices'  => Config::getChoices('acquisition.offer.status'),
                     'expanded' => true,
+                    'label' => 'crmp.acquisition.offer.status',
                 ]
             );
         ;

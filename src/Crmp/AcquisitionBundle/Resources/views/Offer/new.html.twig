@@ -1,35 +1,17 @@
 {% extends '@Acquisition/Offer/base.html.twig' %}
 
-{% block title %}{% trans %}Offer creation{% endtrans %}{% endblock %}
+{% block title %}{{ "crmp.acquisition.offer.new"|trans }}{% endblock %}
 
 {% block breadcrumb %}
     {{ parent() }}
     <li class="active">
-        {% trans %}New{% endtrans %}
+        {{ block('title') }}
     </li>
 {% endblock %}
 
-{% block related_nav %}
-    <ul class="nav nav-pills nav-stacked">
-        <li>
-            <a href="{{ path('offer_index') }}">
-                <i class="fa fa-list-ul"></i>
-                {% trans %}Offer list{% endtrans %}
-            </a>
-        </li>
-        <li>
-            <a href="{{ path('offer_index') }}">
-                <i class="fa fa-ban"></i>
-                {% trans %}crmp.abort{% endtrans %}
-            </a>
-        </li>
-    </ul>
-{% endblock %}
-
-
 {% block body %}
     <h1>
-        {% trans %}Offer creation{% endtrans %}
+        {{ block('title') }}
     </h1>
 
     {{ form_start(form) }}
