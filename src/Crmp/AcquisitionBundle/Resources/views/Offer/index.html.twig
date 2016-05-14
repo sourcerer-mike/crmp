@@ -1,24 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{% trans %}Offer list{% endtrans %}{% endblock %}
+{% block title %}{{ "crmp.acquisition.offer.plural"|trans}}{% endblock %}
 
 {% block breadcrumb %}
     {{ parent() }}
     <li class="active">
-        {% trans %}Offers{% endtrans %}
+        {{ block('title') }}
     </li>
 {% endblock %}
 
-{% block related_nav %}
-    {{ parent() }}
-    <a href="{{ path('offer_new') }}">
-        <i class="fa fa-plus"></i>
-        {% trans %}New offer{% endtrans %}
-    </a>
-{% endblock %}
-
 {% block body %}
-    <h1>{% trans %}Offers{% endtrans %}</h1>
+
+    <h1>{{ block('title') }}</h1>
 
     {% include 'AcquisitionBundle:Offer:_list.html.twig' %}
 {% endblock %}

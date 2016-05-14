@@ -112,6 +112,19 @@ class MenuDecorator extends AbstractMenuDecorator
         }
     }
 
+    public function buildOfferIndexRelatedMenu(MenuItem $menuItem)
+    {
+        $menuItem->addChild(
+            'crmp.acquisition.offer.new',
+            [
+                'route'           => 'offer_new',
+                'labelAttributes' => [
+                    'icon' => 'fa fa-plus',
+                ],
+            ]
+        );
+    }
+
     public function buildOfferShowRelatedMenu(MenuItem $menuItem)
     {
         $params = $this->container->get('crmp.controller.render.parameters');
