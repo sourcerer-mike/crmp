@@ -5,11 +5,15 @@ namespace Crmp\AcquisitionBundle\Form;
 use Crmp\CrmBundle\Entity\Config;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class OfferType extends AbstractType
 {
+    const DEFAULT_TEXTAREA_HEIGHT = 20;
+
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -20,7 +24,17 @@ class OfferType extends AbstractType
             ->add('title', null, ['label' => 'crmp.acquisition.offer.title'])
             ->add('inquiry', null, ['label' => 'crmp.acquisition.inquiry.singular'])
             ->add('price', null, ['label' => 'crmp.acquisition.offer.price'])
-            ->add('content', null, ['label' => 'crmp.acquisition.offer.content'])
+            ->add(
+                'content',
+                TextareaType::class,
+                [
+                    'label' => 'crmp.acquisition.offer.content',
+                    'trim' => true,
+                    'attr' => [
+                        'rows' => self::DEFAULT_TEXTAREA_HEIGHT,
+                    ]
+                ]
+            )
             ->add(
                 'status',
                 ChoiceType::class,
