@@ -11,6 +11,8 @@ crmp:
   dashboard: Dashboard
   delete: Löschen
   edit: Bearbeiten
+  entity:
+    metaInformation: Meta-Informationen
   helloWorld: Bitte wählen Sie etwas aus dem Menü.
   logout: Abmelden
   mail:
@@ -19,6 +21,8 @@ crmp:
     related:
       label: Aktionen
   more: Mehr
+  panel:
+    collapse: Auf-/Zuklappen
   profile: Profil
   save: Speichern
   updatedAt: Aktualisiert am

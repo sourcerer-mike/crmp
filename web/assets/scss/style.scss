@@ -18,3 +18,10 @@
   }
 }
 
+div.panel div.panel-heading[data-toggle="collapse"] {
+  cursor: s-resize;
+}
+
+div.panel > div > table {
+  margin-bottom: 0;
+}
