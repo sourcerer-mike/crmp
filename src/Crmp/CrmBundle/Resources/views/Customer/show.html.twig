@@ -12,6 +12,8 @@
 {% block body %}
     <h1>{{ customer.name }}</h1>
 
+    <h2>{{ "crmp.entity.relatedInformations"|trans }}</h2>
+
     <div class="panel panel-info">
         {% set entity = customer %}
 
@@ -44,13 +46,26 @@
         </div>
     </div>
 
-    <h2>
-        <a href="{{ path('address_index', {customer: customer.id}) }}">
-            {{ "crmp.crm.address.list"|trans }}
-        </a>
-    </h2>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                {{ "crmp.crm.address.list"|trans }}
+            </h3>
+        </div>
 
-    {% include 'CrmBundle:Address:_list.html.twig' with {addresses: customer.addresses[0:cfg_recent_amount]} %}
+        {% include 'CrmBundle:Address:_list.html.twig' with {addresses: customer.addresses[0:cfg_recent_amount]} %}
+
+        <div class="panel-footer">
+            <a href="{{ path('address_index', {customer: customer.id}) }}" class="btn btn-default">
+                <i class="fa fa-table"></i>
+                {{ "crmp.entity.related.more"|trans }}
+            </a>
+            <a href="{{ path('address_new', {customer: customer.id}) }}" class="btn btn-default">
+                <i class="fa fa-plus"></i>
+                {{ "crmp.crm.address.create"|trans }}
+            </a>
+        </div>
+    </div>
 
     <h2>
         <a href="{{ path('inquiry_index', {customer: customer.id}) }}">

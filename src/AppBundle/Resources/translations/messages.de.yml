@@ -13,6 +13,9 @@ crmp:
   edit: Bearbeiten
   entity:
     metaInformation: Meta-Informationen
+    related:
+      more: Gesamte Liste anzeigen
+    relatedInformations: Weitere Informationen
   helloWorld: Bitte wählen Sie etwas aus dem Menü.
   logout: Abmelden
   mail:
