@@ -4,3 +4,19 @@ services:
     class: Crmp\CrmBundle\Menu\MenuDecorator
     decorates: app.menu_builder
     arguments: ["@crmp.menu.crm.inner", "@service_container"]
+  crmp.panels:
+      class: Crmp\CrmBundle\Twig\PanelsRenderer
+      tags:
+        - {name: 'twig.extension' }
+
+  crmp.panels.related_entities:
+    class: Crmp\CrmBundle\Twig\PanelGroup
+    tags:
+      - { name: 'crmp.panel_group', alias: 'related_entities' }
+  crmp.panels.test_panel:
+    class: Crmp\CrmBundle\Twig\TestPanel
+    tags:
+      - {name: 'crmp.panel', target: 'related_entities' }
+twig:
+  globals:
+    container: '@service_container'
