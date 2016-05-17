@@ -3,11 +3,38 @@
 namespace Crmp\CrmBundle\Twig;
 
 
+use Symfony\Component\DependencyInjection\ContainerInterface;
+
 abstract class AbstractPanel
 {
-    public function getTemplate()
+    /**
+     * @var ContainerInterface
+     */
+    protected $container;
+
+    protected $data = null;
+
+    public function getBody()
     {
-        return 'CrmBundle::panel.html.twig';
+        return '';
+    }
+
+    /**
+     * @param ContainerInterface $container
+     */
+    public function setContainer(ContainerInterface $container)
+    {
+        $this->container = $container;
+    }
+
+    /**
+     * By default it sends no data to the template.
+     *
+     * @return array
+     */
+    public function getData()
+    {
+        return (array) $this->data;
     }
 
     /**
@@ -20,13 +47,8 @@ abstract class AbstractPanel
         return 'default';
     }
 
-    /**
-     * By default it sends no data to the template.
-     * 
-     * @return array
-     */
-    public function getData()
+    public function getTemplate()
     {
-        return [];
+        return 'CrmBundle::panel.html.twig';
     }
 }

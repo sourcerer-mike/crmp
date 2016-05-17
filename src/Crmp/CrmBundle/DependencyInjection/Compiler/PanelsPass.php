@@ -45,9 +45,10 @@ class PanelsPass implements CompilerPassInterface
                     $targetDefinition = $container->getDefinition($id);
 
                     foreach ($mapServices[$alias] as $eachMapServiceId) {
+                        $targetDefinition->addMethodCall('setContainer', [new Reference('service_container')]);
                         $targetDefinition->addMethodCall(
                             $this->getTargetMethod(),
-                            $this->getArguments($eachMapServiceId, $container)
+                            $this->getArguments($eachMapServiceId)
                         );
                     }
                 }
@@ -73,8 +74,7 @@ class PanelsPass implements CompilerPassInterface
     /**
      * Return the argument list on the target method for a single service.
      *
-     * @param string           $id
-     * @param ContainerBuilder $container
+     * @param string $id
      *
      * @return array
      */

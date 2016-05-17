@@ -3,6 +3,8 @@
 namespace Crmp\CrmBundle\Twig;
 
 
+use Symfony\Component\DependencyInjection\ContainerInterface;
+
 interface PanelInterface
 {
     /**
@@ -59,4 +61,11 @@ interface PanelInterface
      * @return mixed
      */
     public function getStyle();
+
+    /**
+     * @param ContainerInterface $container
+     *
+     * @return PanelInterface
+     */
+    public function setContainer(ContainerInterface $container);
 }
