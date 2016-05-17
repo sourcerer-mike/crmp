@@ -1,0 +1,19 @@
+{% extends 'CrmBundle::panel.html.twig' %}
+
+{% block information %}
+    {% if addresses %}
+        {% include 'CrmBundle:Address:_list.html.twig' with {addresses: addresses} %}
+    {% endif %}
+{% endblock %}
+
+
+{% block panel_footer %}
+    <a href="{{ path('address_index', {customer: customer.id}) }}" class="btn btn-default">
+        <i class="fa fa-table"></i>
+        {{ "crmp.entity.related.more"|trans }}
+    </a>
+    <a href="{{ path('address_new', {customer: customer.id}) }}" class="btn btn-default">
+        <i class="fa fa-plus"></i>
+        {{ "crmp.crm.address.create"|trans }}
+    </a>
+{% endblock %}

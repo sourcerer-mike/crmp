@@ -80,6 +80,6 @@ class PanelsPass implements CompilerPassInterface
      */
     protected function getArguments($id)
     {
-        return array(new Reference($id));
+        return [new Reference($id)];
     }
 }

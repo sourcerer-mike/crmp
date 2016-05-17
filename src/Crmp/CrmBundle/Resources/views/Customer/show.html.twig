@@ -46,28 +46,7 @@
         </div>
     </div>
 
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h3 class="panel-title">
-                {{ "crmp.crm.address.list"|trans }}
-            </h3>
-        </div>
-
-        {% include 'CrmBundle:Address:_list.html.twig' with {addresses: customer.addresses[0:cfg_recent_amount]} %}
-
-        <div class="panel-footer">
-            <a href="{{ path('address_index', {customer: customer.id}) }}" class="btn btn-default">
-                <i class="fa fa-table"></i>
-                {{ "crmp.entity.related.more"|trans }}
-            </a>
-            <a href="{{ path('address_new', {customer: customer.id}) }}" class="btn btn-default">
-                <i class="fa fa-plus"></i>
-                {{ "crmp.crm.address.create"|trans }}
-            </a>
-        </div>
-    </div>
-
-    {{ crmp_panels(container.get('crmp.panels.related_entities')) }}
+    {{ crmp_panels(container.get('crmp.customer.panels')) }}
 
     <h2>
         <a href="{{ path('inquiry_index', {customer: customer.id}) }}">

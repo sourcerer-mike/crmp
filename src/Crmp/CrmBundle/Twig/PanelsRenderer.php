@@ -7,6 +7,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class PanelsRenderer extends \Twig_Extension
 {
+    protected $container;
+
     /**
      * Register the crmp_panels function for Twig.
      * 
@@ -43,14 +45,14 @@ class PanelsRenderer extends \Twig_Extension
      * The template will have a "panel" variable referencing the single PanelInterface instance.
      * 
      * @param \Twig_Environment $twig
-     * @param PanelGroup        $panel
+     * @param PanelGroup        $panelGroup
      *
      * @return string
      */
-    public function render(\Twig_Environment $twig, PanelGroup $panel)
+    public function render(\Twig_Environment $twig, PanelGroup $panelGroup)
     {
         $out = '';
-        foreach ($panel->getIterator() as $item) {
+        foreach ($panelGroup->getIterator() as $item) {
             $context = array_merge(['panel' => $item], (array) $item->getData());
             $out .= $twig->render($item->getTemplate(), $context);
         }
