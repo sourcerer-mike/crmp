@@ -7,18 +7,23 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class PanelsRenderer extends \Twig_Extension
 {
+    /**
+     * Register the crmp_panels function for Twig.
+     * 
+     * @return array
+     */
     public function getFunctions()
     {
         return [
-            new \Twig_SimpleFunction('crmp_panels', [$this, 'render']),
+            new \Twig_SimpleFunction(
+                'crmp_panels',
+                [$this, 'render'],
+                [
+                    'is_safe' => ['html'],          // to not escape html entities
+                    'needs_environment' => true,    // for access to the twig template
+                ]
+            ),
         ];
-    }
-
-    public function render(PanelGroup $panel)
-    {
-        foreach ($panel->getIterator() as $item) {
-            var_dump($item->getBody(), $item->getId());
-        }
     }
 
     /**
@@ -29,5 +34,27 @@ class PanelsRenderer extends \Twig_Extension
     public function getName()
     {
         return 'crmp';
+    }
+
+    /**
+     * Render all registered panels.
+     * 
+     * Iterates over all registered panels and renders them.
+     * The template will have a "panel" variable referencing the single PanelInterface instance.
+     * 
+     * @param \Twig_Environment $twig
+     * @param PanelGroup        $panel
+     *
+     * @return string
+     */
+    public function render(\Twig_Environment $twig, PanelGroup $panel)
+    {
+        $out = '';
+        foreach ($panel->getIterator() as $item) {
+            $context = array_merge(['panel' => $item], (array) $item->getData());
+            $out .= $twig->render($item->getTemplate(), $context);
+        }
+
+        return $out;
     }
 }

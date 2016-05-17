@@ -1,0 +1,16 @@
+<div class="panel panel-{{ panel.style }}">
+	{% block heading %}
+        <div class="panel-heading">{{ panel.title }}</div>
+    {% endblock %}
+
+    {% block body %}
+        {% if panel.body %}
+            <div class="panel-body">
+                {{ panel.body }}
+            </div>
+        {% endif %}
+    {% endblock %}
+
+    {% block table %}{% endblock %}
+    {% block footer %}{% endblock %}
+</div>

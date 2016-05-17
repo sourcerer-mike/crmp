@@ -3,7 +3,7 @@
 namespace Crmp\CrmBundle\Twig;
 
 
-class TestPanel implements PanelInterface
+class TestPanel extends AbstractPanel implements PanelInterface
 {
 
     /**
