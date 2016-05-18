@@ -23,7 +23,12 @@ class MenuDecorator extends AbstractMenuDecorator
             /** @var Contract $contract */
             $contract = $params['contract'];
 
-            $routeParameters['customer'] = $contract->getCustomer()->getId();
+            $customer                    = $contract->getCustomer();
+
+            if ($customer) {
+                $routeParameters['customer'] = $customer->getId();
+            }
+
             $routeParameters['value']    = $contract->getValue();
             $routeParameters['contract'] = $contract->getId();
         }
