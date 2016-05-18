@@ -26,6 +26,6 @@ services:
       - {name: 'crmp.panel', target: 'customer_related' }
 
   crmp.customer.panel.offer:
-      class: Crmp\AcquisitionBundle\Panel\Customer\OfferPanel
-      tags:
-        - {name: 'crmp.panel', target: 'customer_related' }
+    class: Crmp\AcquisitionBundle\Panel\Customer\OfferPanel
+    tags:
+      - {name: 'crmp.panel', target: 'customer_related' }
