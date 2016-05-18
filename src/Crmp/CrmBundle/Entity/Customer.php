@@ -36,11 +36,6 @@ class Customer
     private $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="\Crmp\AcquisitionBundle\Entity\Inquiry", mappedBy="customer")
-     */
-    protected $inquiries;
-
-    /**
      * @ORM\OneToMany(targetEntity="Crmp\AccountingBundle\Entity\Invoice", mappedBy="customer")
      */
     private $invoices;
