@@ -6,6 +6,11 @@ services:
     arguments: ["@crmp.acquisition.menu.inner", "@service_container"]
 
   crmp.customer.panel.inquiry:
-    class: Crmp\AcquisitionBundle\Panel\InquiryPanel
+    class: Crmp\AcquisitionBundle\Panel\Customer\InquiryPanel
     tags:
       - {name: 'crmp.panel', target: 'customer_related' }
+
+  crmp.customer.panel.offer:
+      class: Crmp\AcquisitionBundle\Panel\Customer\OfferPanel
+      tags:
+        - {name: 'crmp.panel', target: 'customer_related' }

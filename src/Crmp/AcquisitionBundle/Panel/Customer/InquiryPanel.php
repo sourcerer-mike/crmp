@@ -1,6 +1,6 @@
 <?php
 
-namespace Crmp\AcquisitionBundle\Panel;
+namespace Crmp\AcquisitionBundle\Panel\Customer;
 
 
 use Crmp\CrmBundle\Entity\Customer;
@@ -36,7 +36,7 @@ class InquiryPanel extends AbstractPanel implements PanelInterface
         }
 
         $this->data = $this->container->get('crmp.controller.render.parameters');
-        $this->data['inquiries'] = [1];
+        $this->data['inquiries'] = [];
 
         if ( ! isset( $this->data['customer'] ) || false == ($this->data['customer'] instanceof Customer)) {
             return $this->data;

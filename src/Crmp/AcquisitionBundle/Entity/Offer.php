@@ -28,6 +28,13 @@ class Offer
      * @ORM\OneToMany(targetEntity="Contract", mappedBy="offer")
      */
     private $contracts;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Crmp\CrmBundle\Entity\Customer")
+     * @ORM\JoinColumn(name="customer_id", referencedColumnName="id")
+     */
+    private $customer;
+
     /**
      * @var int
      *

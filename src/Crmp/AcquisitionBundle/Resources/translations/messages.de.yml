@@ -30,6 +30,7 @@ crmp:
     offer:
       content: Inhalt
       edit: Angebot bearbeiten
+      empty: Bisher sind keine Angebote hinterlegt.
       new: Neues Angebot
       plural: Angebote
       price: Preis
