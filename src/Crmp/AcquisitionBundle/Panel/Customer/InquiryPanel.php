@@ -47,11 +47,6 @@ class InquiryPanel extends AbstractPanel implements PanelInterface
         return 'acquisition_inquiry_list';
     }
 
-    public function getStyle()
-    {
-        return 'info';
-    }
-
     public function getTemplate()
     {
         return 'AcquisitionBundle:Customer:_panel-inquiry.html.twig';

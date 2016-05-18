@@ -47,11 +47,6 @@ class OfferPanel extends AbstractPanel implements PanelInterface
         return 'acquisition_offer_list';
     }
 
-    public function getStyle()
-    {
-        return 'info';
-    }
-
     public function getTemplate()
     {
         return 'AcquisitionBundle:Customer:_panel-offer.html.twig';
