@@ -49,14 +49,6 @@
     {{ crmp_panels(container.get('crmp.customer.panels')) }}
 
     <h2>
-        <a href="{{ path('inquiry_index', {customer: customer.id}) }}">
-            {{ "crmp.acquisition.inquiry.plural"|trans }}
-        </a>
-    </h2>
-
-    {#{% include 'AcquisitionBundle:Inquiry:_list.html.twig' with {inquiries: customer.inquiries[0:cfg_recent_amount]} %}#}
-
-    <h2>
         <a href="{{ path('invoice_index', {customer: customer.id}) }}">
             {{ "crmp.accounting.invoice.plural"|trans }}
         </a>

@@ -1,0 +1,19 @@
+{% extends 'CrmBundle::panel.html.twig' %}
+
+{% block information %}
+    {% if inquiries %}
+        {% include 'AcquisitionBundle:Inquiry:_list.html.twig' with {inquiries: inquiries} %}
+    {% endif %}
+{% endblock %}
+
+
+{% block panel_footer %}
+    <a href="{{ path('inquiry_index', {customer: customer.id}) }}" class="btn btn-default">
+        <i class="fa fa-table"></i>
+        {{ "crmp.entity.related.more"|trans }}
+    </a>
+    <a href="{{ path('inquiry_new', {customer: customer.id}) }}" class="btn btn-default">
+        <i class="fa fa-plus"></i>
+        {{ "crmp.acquisition.inquiry.new"|trans }}
+    </a>
+{% endblock %}

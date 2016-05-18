@@ -52,14 +52,6 @@ class Customer
      */
     private $updatedAt;
 
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->inquiries = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
     public function __toString()
     {
         return $this->getName().' ('.$this->getId().')';
@@ -75,20 +67,6 @@ class Customer
     public function addAddress(\Crmp\CrmBundle\Entity\Address $address)
     {
         $this->addresses[] = $address;
-
-        return $this;
-    }
-
-    /**
-     * Add inquiry
-     *
-     * @param \Crmp\AcquisitionBundle\Entity\Inquiry $inquiry
-     *
-     * @return Customer
-     */
-    public function addInquiry(\Crmp\AcquisitionBundle\Entity\Inquiry $inquiry)
-    {
-        $this->inquiries[] = $inquiry;
 
         return $this;
     }
@@ -135,16 +113,6 @@ class Customer
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Get inquiries
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getInquiries()
-    {
-        return $this->inquiries;
     }
 
     /**
@@ -203,16 +171,6 @@ class Customer
     public function removeAddress(\Crmp\CrmBundle\Entity\Address $address)
     {
         $this->addresses->removeElement($address);
-    }
-
-    /**
-     * Remove inquiry
-     *
-     * @param \Crmp\AcquisitionBundle\Entity\Inquiry $inquiry
-     */
-    public function removeInquiry(\Crmp\AcquisitionBundle\Entity\Inquiry $inquiry)
-    {
-        $this->inquiries->removeElement($inquiry);
     }
 
     /**
