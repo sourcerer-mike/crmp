@@ -8,12 +8,20 @@
 
 
 {% block panel_footer %}
-    <a href="{{ path('inquiry_index', {customer: customer.id}) }}" class="btn btn-default">
+    <a href="{{ path('inquiry_index', {customer: customer.id}) }}"
+       class="btn btn-default"
+       title="{{ "crmp.entity.related.more"|trans }}">
         <i class="fa fa-table"></i>
-        {{ "crmp.entity.related.more"|trans }}
+        <span class="hidden-xs">
+            {{ "crmp.entity.related.more"|trans }}
+        </span>
     </a>
-    <a href="{{ path('inquiry_new', {customer: customer.id}) }}" class="btn btn-default">
+    <a href="{{ path('inquiry_new', {customer: customer.id}) }}"
+       class="btn btn-success"
+       title="{{ "crmp.acquisition.inquiry.new"|trans }}">
         <i class="fa fa-plus"></i>
-        {{ "crmp.acquisition.inquiry.new"|trans }}
+        <span class="hidden-xs">
+            {{ "crmp.acquisition.inquiry.new"|trans }}
+        </span>
     </a>
 {% endblock %}

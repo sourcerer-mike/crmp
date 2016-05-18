@@ -35,6 +35,12 @@ class AddressPanel extends AbstractPanel implements PanelInterface
         return $this->data;
     }
 
+    public function getStyle()
+    {
+        return static::STYLE_INFO;
+    }
+
+
     /**
      * Return a unique identifier among all known boardlets.
      *

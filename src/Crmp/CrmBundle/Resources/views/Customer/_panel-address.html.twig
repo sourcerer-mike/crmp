@@ -8,12 +8,19 @@
 
 
 {% block panel_footer %}
-    <a href="{{ path('address_index', {customer: customer.id}) }}" class="btn btn-default">
+    <a href="{{ path('address_index', {customer: customer.id}) }}" class="btn btn-default"
+       title="{{ "crmp.entity.related.more"|trans }}">
         <i class="fa fa-table"></i>
-        {{ "crmp.entity.related.more"|trans }}
+        <span class="hidden-xs">
+            {{ "crmp.entity.related.more"|trans }}
+        </span>
     </a>
-    <a href="{{ path('address_new', {customer: customer.id}) }}" class="btn btn-default">
+    <a href="{{ path('address_new', {customer: customer.id}) }}"
+       class="btn btn-success"
+       title="{{ "crmp.crm.address.create"|trans }}">
         <i class="fa fa-plus"></i>
-        {{ "crmp.crm.address.create"|trans }}
+        <span class="hidden-xs">
+            {{ "crmp.crm.address.create"|trans }}
+        </span>
     </a>
 {% endblock %}

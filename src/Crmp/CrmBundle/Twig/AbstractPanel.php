@@ -7,24 +7,21 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 abstract class AbstractPanel
 {
+    const STYLE_DANGER  = 'danger';
+    const STYLE_DEFAULT = 'default';
+    const STYLE_INFO    = 'info';
+    const STYLE_PRIMARY = 'primary';
+    const STYLE_SUCCESS = 'success';
+    const STYLE_WARNING = 'warning';
     /**
      * @var ContainerInterface
      */
     protected $container;
-
     protected $data = null;
 
     public function getBody()
     {
         return '';
-    }
-
-    /**
-     * @param ContainerInterface $container
-     */
-    public function setContainer(ContainerInterface $container)
-    {
-        $this->container = $container;
     }
 
     /**
@@ -50,5 +47,13 @@ abstract class AbstractPanel
     public function getTemplate()
     {
         return 'CrmBundle::panel.html.twig';
+    }
+
+    /**
+     * @param ContainerInterface $container
+     */
+    public function setContainer(ContainerInterface $container)
+    {
+        $this->container = $container;
     }
 }
