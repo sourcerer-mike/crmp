@@ -16,7 +16,7 @@ class ContractPanel extends AbstractPanel implements PanelInterface
         }
 
         $this->data           = $this->container->get('crmp.controller.render.parameters');
-        $this->data['offers'] = [];
+        $this->data['contracts'] = [];
 
         if ( ! isset( $this->data['customer'] ) || false == ( $this->data['customer'] instanceof Customer )) {
             return $this->data;
@@ -26,7 +26,7 @@ class ContractPanel extends AbstractPanel implements PanelInterface
         $customer    = $this->data['customer'];
         $addressRepo = $this->container->get('doctrine')->getRepository('AcquisitionBundle:Contract');
 
-        $this->data['offers'] = $addressRepo->findBy(
+        $this->data['contracts'] = $addressRepo->findBy(
             [
                 'customer' => $customer,
             ],

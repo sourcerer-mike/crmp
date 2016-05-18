@@ -1,22 +1,22 @@
 {% extends 'CrmBundle::panel.html.twig' %}
 
 {% block information %}
-    {% if offers %}
-        {% include 'AcquisitionBundle:Offer:_list.html.twig' with {offers: offers} %}
+    {% if contracts %}
+        {% include 'AcquisitionBundle:Contract:_list.html.twig' with {contracts: contracts} %}
     {% endif %}
 {% endblock %}
 
 {% block body %}
-    <div class="panel-body">
-        {% if not offers %}
+    {% if not contracts %}
+        <div class="panel-body">
             {{ "crmp.empty"|trans }}
-        {% endif %}
-    </div>
+        </div>
+    {% endif %}
 {% endblock %}
 
 
 {% block panel_footer %}
-    <a href="{{ path('offer_index', {customer: customer.id}) }}"
+    <a href="{{ path('contract_index', {customer: customer.id}) }}"
        class="btn btn-default"
        title="{{ "crmp.entity.related.more"|trans }}">
         <i class="fa fa-table"></i>
@@ -24,7 +24,7 @@
             {{ "crmp.entity.related.more"|trans }}
         </span>
     </a>
-    <a href="{{ path('offer_new', {customer: customer.id}) }}"
+    <a href="{{ path('contract_new', {customer: customer.id}) }}"
        class="btn btn-success"
        title="{{ "crmp.acquisition.contract.new"|trans }}">
         <i class="fa fa-plus"></i>
