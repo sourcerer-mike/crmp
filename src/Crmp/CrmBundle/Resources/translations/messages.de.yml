@@ -1,4 +1,5 @@
 crmp:
+  empty: Keine Einträge vorhanden.
   crm:
     date_js: dd.mm.yy
     address:
