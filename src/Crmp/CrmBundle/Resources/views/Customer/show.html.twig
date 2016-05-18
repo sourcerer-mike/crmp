@@ -48,11 +48,4 @@
 
     {{ crmp_panels(container.get('crmp.customer.panels')) }}
 
-    <h2>
-        <a href="{{ path('invoice_index', {customer: customer.id}) }}">
-            {{ "crmp.accounting.invoice.plural"|trans }}
-        </a>
-    </h2>
-
-    {% include 'CrmpAccBundle:Invoice:_list.html.twig' with {invoices: customer.invoices[0:cfg_recent_amount]} %}
 {% endblock %}

@@ -5,6 +5,21 @@ services:
     decorates: app.menu_builder
     arguments: ["@crmp.acquisition.menu.inner", "@service_container"]
 
+  crmp.inquiry.panels:
+    class: Crmp\CrmBundle\Twig\PanelGroup
+    tags:
+      - { name: 'crmp.panel_group', alias: 'inquiry_related' }
+
+  crmp.offer.panels:
+    class: Crmp\CrmBundle\Twig\PanelGroup
+    tags:
+      - { name: 'crmp.panel_group', alias: 'offer_related' }
+
+  crmp.contract.panels:
+    class: Crmp\CrmBundle\Twig\PanelGroup
+    tags:
+      - { name: 'crmp.panel_group', alias: 'contract_related' }
+
   crmp.customer.panel.inquiry:
     class: Crmp\AcquisitionBundle\Panel\Customer\InquiryPanel
     tags:

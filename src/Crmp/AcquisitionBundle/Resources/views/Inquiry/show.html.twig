@@ -53,12 +53,6 @@
         </tbody>
     </table>
 
-    <h2>
-        <a href="{{ path('offer_index', {inquiry: inquiry.id}) }}">
-            {{ "crmp.acquisition.offer.plural"|trans }}
-        </a>
-    </h2>
-
-    {% include "AcquisitionBundle:Offer:_list.html.twig" with {'offers': inquiry.offers} %}
+    {{ crmp_panels(container.get('crmp.inquiry.panels')) }}
 
 {% endblock %}

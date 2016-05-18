@@ -64,6 +64,6 @@
         </tbody>
     </table>
 
-    <h2>{{ "crmp.acquisition.contract.plural"|trans }}</h2>
-    {% include 'AcquisitionBundle:Contract:_list.html.twig' with {'contracts': offer.contracts} %}
+    {{ crmp_panels(container.get('crmp.offer.panels')) }}
+
 {% endblock %}
