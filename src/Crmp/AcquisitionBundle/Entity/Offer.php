@@ -212,7 +212,7 @@ class Offer
 	 * @return \Crmp\CrmBundle\Entity\Customer
 	 */
 	public function getCustomer() {
-		return $this->getInquiry()->getCustomer();
+		return $this->customer;
 	}
 
 	/**
@@ -254,5 +254,19 @@ class Offer
         $map = Config::getChoices('acquisition.offer.status');
 
         return array_search($this->getStatus(), $map, true);
+    }
+
+    /**
+     * Set customer
+     *
+     * @param \Crmp\CrmBundle\Entity\Customer $customer
+     *
+     * @return Offer
+     */
+    public function setCustomer(\Crmp\CrmBundle\Entity\Customer $customer = null)
+    {
+        $this->customer = $customer;
+
+        return $this;
     }
 }

@@ -48,11 +48,17 @@ class Contract
      */
     private $offer;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Crmp\CrmBundle\Entity\Customer")
+     * @ORM\JoinColumn(name="customer_id", referencedColumnName="id")
+     */
+    private $customer;
+
 	/**
 	 * @return \Crmp\CrmBundle\Entity\Customer
 	 */
 	public function getCustomer() {
-		return $this->getOffer()->getCustomer();
+		return $this->customer;
 	}
 
 
@@ -160,5 +166,19 @@ class Contract
     public function getOffer()
     {
         return $this->offer;
+    }
+
+    /**
+     * Set customer
+     *
+     * @param \Crmp\CrmBundle\Entity\Customer $customer
+     *
+     * @return Contract
+     */
+    public function setCustomer(\Crmp\CrmBundle\Entity\Customer $customer = null)
+    {
+        $this->customer = $customer;
+
+        return $this;
     }
 }
