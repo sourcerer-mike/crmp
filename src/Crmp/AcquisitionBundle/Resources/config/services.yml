@@ -39,3 +39,8 @@ services:
       class: Crmp\AcquisitionBundle\Panel\Inquiry\OfferPanel
       tags:
         - {name: 'crmp.panel', target: 'inquiry_related' }
+
+  crmp.offer.panel.contract:
+    class: Crmp\AcquisitionBundle\Panel\Offer\ContractPanel
+    tags:
+      - { name: 'crmp.panel', target: 'offer_related' }

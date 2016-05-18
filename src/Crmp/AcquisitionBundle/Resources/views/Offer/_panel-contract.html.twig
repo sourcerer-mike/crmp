@@ -1,0 +1,35 @@
+{% extends 'CrmBundle::panel.html.twig' %}
+
+{% block information %}
+    {% if contracts %}
+        {% include 'AcquisitionBundle:Contract:_list.html.twig' with {contracts: contracts} %}
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+    {% if not contracts %}
+        <div class="panel-body">
+            {{ "crmp.empty"|trans }}
+        </div>
+    {% endif %}
+{% endblock %}
+
+
+{% block panel_footer %}
+    <a href="{{ path('contract_index', {offer: offer.id}) }}"
+       class="btn btn-default"
+       title="{{ "crmp.entity.related.more"|trans }}">
+        <i class="fa fa-table"></i>
+        <span class="hidden-xs">
+            {{ "crmp.entity.related.more"|trans }}
+        </span>
+    </a>
+    <a href="{{ path('contract_new', {offer: offer.id}) }}"
+       class="btn btn-success"
+       title="{{ "crmp.acquisition.contract.new"|trans }}">
+        <i class="fa fa-plus"></i>
+        <span class="hidden-xs">
+            {{ "crmp.acquisition.contract.new"|trans }}
+        </span>
+    </a>
+{% endblock %}
