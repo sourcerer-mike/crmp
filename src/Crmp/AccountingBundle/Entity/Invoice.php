@@ -34,6 +34,11 @@ class Invoice
 	private $customer;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Crmp\AcquisitionBundle\Entity\Contract")
+     */
+    private $contract;
+
+    /**
      * Get id
      *
      * @return int
@@ -89,5 +94,29 @@ class Invoice
     public function getCustomer()
     {
         return $this->customer;
+    }
+
+    /**
+     * Set contract
+     *
+     * @param \Crmp\AcquisitionBundle\Entity\Contract $contract
+     *
+     * @return Invoice
+     */
+    public function setContract(\Crmp\AcquisitionBundle\Entity\Contract $contract = null)
+    {
+        $this->contract = $contract;
+
+        return $this;
+    }
+
+    /**
+     * Get contract
+     *
+     * @return \Crmp\AcquisitionBundle\Entity\Contract
+     */
+    public function getContract()
+    {
+        return $this->contract;
     }
 }

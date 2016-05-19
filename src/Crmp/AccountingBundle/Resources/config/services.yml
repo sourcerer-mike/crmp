@@ -12,3 +12,8 @@ services:
     class: Crmp\AccountingBundle\Panel\Customer\InvoicePanel
     tags:
       - { name: 'crmp.panel', target: 'customer_related' }
+
+  crmp.contract.panel.invoices:
+    class: Crmp\AccountingBundle\Panel\Contract\InvoicePanel
+    tags:
+      - { name: 'crmp.panel', target: 'contract_related' }
