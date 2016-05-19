@@ -29,7 +29,7 @@ class Invoice
     private $value;
 
 	/**
-	 * @ORM\ManyToOne(targetEntity="Crmp\CrmBundle\Entity\Customer", inversedBy="invoices")
+	 * @ORM\ManyToOne(targetEntity="Crmp\CrmBundle\Entity\Customer")
 	 */
 	private $customer;
 

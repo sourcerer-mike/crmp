@@ -7,3 +7,8 @@ services:
     class: Crmp\AccountingBundle\Menu\MenuDecorator
     decorates: app.menu_builder
     arguments: ["@crmp.accounting.menu.inner", "@service_container"]
+
+  crmp.customer.panel.invoices:
+    class: Crmp\AccountingBundle\Panel\Customer\InvoicePanel
+    tags:
+      - { name: 'crmp.panel', target: 'customer_related' }
