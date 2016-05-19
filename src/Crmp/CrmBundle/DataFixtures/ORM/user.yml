@@ -1,0 +1,9 @@
+AppBundle\Entity\User:
+  admin_1:
+    username: Mike
+    usernameCanonical: mike
+    email: idonttrustyou@codebook.cc
+    emailCanonical: idonttrustyou@codebook.cc
+    enabled: true
+    salt: sugar
+    plainPassword: letmein

@@ -38,6 +38,8 @@
         "knplabs/knp-menu-bundle": "^2.1"
     },
     "require-dev": {
+        "doctrine/data-fixtures": "^1.1",
+        "hautelook/alice-bundle": "^1.2",
         "symfony/phpunit-bridge": "^2.7"
     },
     "scripts": {

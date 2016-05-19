@@ -1,0 +1,6 @@
+Crmp\CrmBundle\Entity\Address:
+  address{1..5}:
+    mail: <email()>
+    name: <name()>
+    customer: '@customer*'
+    updatedBy: '@admin_1'
