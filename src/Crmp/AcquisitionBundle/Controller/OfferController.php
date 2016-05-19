@@ -61,6 +61,15 @@ class OfferController extends CrmpController
             $offer->setInquiry($inquiry);
         }
 
+        if ($request->get('customer')) {
+            // customer given: pre-fill form
+            $customer = $this->getDoctrine()->getRepository('CrmBundle:Customer')->find($request->get('customer'));
+
+            $offer->setCustomer($customer);
+        }
+
+        $offer->setStatus(0);
+
         $form = $this->createForm('Crmp\AcquisitionBundle\Form\OfferType', $offer);
         $form->handleRequest($request);
 

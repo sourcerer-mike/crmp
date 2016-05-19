@@ -22,6 +22,7 @@ class OfferType extends AbstractType
     {
         $builder
             ->add('title', null, ['label' => 'crmp.acquisition.offer.title'])
+            ->add('customer', null, ['label' => 'crmp.crm.customer.singular'])
             ->add('inquiry', null, ['label' => 'crmp.acquisition.inquiry.singular'])
             ->add('price', null, ['label' => 'crmp.acquisition.offer.price'])
             ->add(

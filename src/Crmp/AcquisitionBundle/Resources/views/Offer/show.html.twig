@@ -29,14 +29,16 @@
         <tr>
             <th>{{ "crmp.acquisition.inquiry.singular"|trans }}</th>
             <td>
-                <a href="{{ path('inquiry_show', {id: offer.inquiry.id}) }}">
-                    {{ offer.inquiry.title }}
-                </a>
-                <a href="{{ path('offer_index', {inquiry: offer.inquiry.id}) }}"
-                   class="btn btn-default btn-xs pull-right"
-                   title="{{ "crmp.acquisition.offer.related"|trans }}">
-                    <i class="fa fa-filter"></i>
-                </a>
+                {% if offer.inquiry %}
+                    <a href="{{ path('inquiry_show', {id: offer.inquiry.id}) }}">
+                        {{ offer.inquiry.title }}
+                    </a>
+                    <a href="{{ path('offer_index', {inquiry: offer.inquiry.id}) }}"
+                       class="btn btn-default btn-xs pull-right"
+                       title="{{ "crmp.acquisition.offer.related"|trans }}">
+                        <i class="fa fa-filter"></i>
+                    </a>
+                {% endif %}
             </td>
         </tr>
         <tr>
