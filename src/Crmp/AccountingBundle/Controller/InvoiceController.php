@@ -34,9 +34,9 @@ class InvoiceController extends CrmpController
 		    $criteria->andWhere(Criteria::expr()->eq('customer', $customer));
 	    }
 
-        $invoices = $em->getRepository('CrmpAccBundle:Invoice')->matching($criteria);
+        $invoices = $em->getRepository('CrmpAccountingBundle:Invoice')->matching($criteria);
 
-        return $this->render('CrmpAccBundle:Invoice:index.html.twig', array(
+        return $this->render('CrmpAccountingBundle:Invoice:index.html.twig', array(
             'invoices' => $invoices,
         ));
     }
@@ -72,7 +72,7 @@ class InvoiceController extends CrmpController
             return $this->redirectToRoute('invoice_show', array('id' => $invoice->getId()));
         }
 
-        return $this->render('CrmpAccBundle:Invoice:new.html.twig', array(
+        return $this->render('CrmpAccountingBundle:Invoice:new.html.twig', array(
             'invoice' => $invoice,
             'form' => $form->createView(),
         ));
@@ -88,7 +88,7 @@ class InvoiceController extends CrmpController
     {
         $deleteForm = $this->createDeleteForm($invoice);
 
-        return $this->render('CrmpAccBundle:Invoice:show.html.twig', array(
+        return $this->render('CrmpAccountingBundle:Invoice:show.html.twig', array(
             'invoice' => $invoice,
             'delete_form' => $deleteForm->createView(),
         ));
@@ -114,7 +114,7 @@ class InvoiceController extends CrmpController
             return $this->redirectToRoute('invoice_edit', array('id' => $invoice->getId()));
         }
 
-        return $this->render('CrmpAccBundle:Invoice:edit.html.twig', array(
+        return $this->render('CrmpAccountingBundle:Invoice:edit.html.twig', array(
             'invoice' => $invoice,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),

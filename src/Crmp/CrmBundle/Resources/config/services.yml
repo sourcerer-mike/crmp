@@ -10,17 +10,17 @@ services:
       tags:
         - {name: 'twig.extension' }
 
-  crmp.customer.panels:
+  crmp_crm.customer.panels:
     class: Crmp\CrmBundle\Twig\PanelGroup
     tags:
       - { name: 'crmp.panel_group', alias: 'customer_related' }
 
-  crmp.address.panels:
+  crmp_crm.address.panels:
       class: Crmp\CrmBundle\Twig\PanelGroup
       tags:
         - { name: 'crmp.panel_group', alias: 'address_related' }
 
-  crmp.customer.panel.address:
+  crmp_crm.customer.panel.address:
     class: Crmp\CrmBundle\Twig\AddressPanel
     tags:
       - {name: 'crmp.panel', target: 'customer_related' }

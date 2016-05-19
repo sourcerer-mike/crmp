@@ -42,7 +42,7 @@ class AddressPanel extends AbstractPanel implements PanelInterface
      */
     public function getId()
     {
-        return 'unique_id';
+        return 'crmp_crm.customer.panel.address';
     }
 
     public function getTemplate()

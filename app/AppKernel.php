@@ -21,7 +21,7 @@ class AppKernel extends Kernel
             new \Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new Crmp\CrmBundle\CrmBundle(),
             new Crmp\AcquisitionBundle\CrmpAcquisitionBundle(),
-            new Crmp\AccountingBundle\CrmpAccBundle(),
+            new Crmp\AccountingBundle\CrmpAccountingBundle(),
             new Crmp\HrBundle\CrmpHrBundle(),
         ];
 

@@ -4,7 +4,7 @@ crmp_hr:
     prefix:   /tasks/
 
 crmp_acc:
-    resource: "@CrmpAccBundle/Controller/"
+    resource: "@CrmpAccountingBundle/Controller/"
     type:     annotation
     prefix:   /accounting/
 

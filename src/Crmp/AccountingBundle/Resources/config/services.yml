@@ -2,11 +2,11 @@ services:
 #    crmp_acc.example:
 #        class: Crmp\AccountingBundle\Example
 #        arguments: ["@service_id", "plain_value", %parameter%]
-  crmp.accounting.menu:
+  crmp_accounting.menu:
     public: false
     class: Crmp\AccountingBundle\Menu\MenuDecorator
     decorates: app.menu_builder
-    arguments: ["@crmp.accounting.menu.inner", "@service_container"]
+    arguments: ["@crmp_accounting.menu.inner", "@service_container"]
 
   crmp.customer.panel.invoices:
     class: Crmp\AccountingBundle\Panel\Customer\InvoicePanel

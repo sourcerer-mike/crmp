@@ -25,7 +25,7 @@ class InvoicePanel extends AbstractPanel implements PanelInterface
 
         /** @var Contract $contract */
         $contract    = $this->data['contract'];
-        $addressRepo = $this->container->get('doctrine')->getRepository('CrmpAccBundle:Invoice');
+        $addressRepo = $this->container->get('doctrine')->getRepository('CrmpAccountingBundle:Invoice');
 
         $this->data['invoices'] = $addressRepo->findBy(
             [
@@ -50,7 +50,7 @@ class InvoicePanel extends AbstractPanel implements PanelInterface
 
     public function getTemplate()
     {
-        return 'CrmpAccBundle:Contract:_panel-invoice.html.twig';
+        return 'CrmpAccountingBundle:Contract:_panel-invoice.html.twig';
     }
 
     /**
