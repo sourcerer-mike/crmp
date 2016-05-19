@@ -19,8 +19,9 @@ The following is some documentation about the processes for CRMP if you are inte
 
 ### Labels
 
-People feel comfortable with lists that have at most five options to choose from.
-To support you writing a good issue we choose these labels:
+People feel comfortable with lists that have five to nine options to choose from
+as this is the measured limit of chunks our short-term memory can handle at once.
+To support you writing good issues we choose at most five labels:
 
 - **bug** - as simple as that.
   Something went wrong, data loss or other mistakes that the software makes.
