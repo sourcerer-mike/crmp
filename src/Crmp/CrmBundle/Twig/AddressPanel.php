@@ -22,7 +22,7 @@ class AddressPanel extends AbstractPanel implements PanelInterface
 
         /** @var Customer $customer */
         $customer = $this->data['customer'];
-        $addressRepo = $this->container->get('doctrine')->getRepository('CrmBundle:Address');
+        $addressRepo = $this->container->get('doctrine')->getRepository('CrmpCrmBundle:Address');
 
         $this->data['addresses'] = $addressRepo->findBy(
             [
@@ -47,7 +47,7 @@ class AddressPanel extends AbstractPanel implements PanelInterface
 
     public function getTemplate()
     {
-        return 'CrmBundle::Customer/_panel-address.html.twig';
+        return 'CrmpCrmBundle::Customer/_panel-address.html.twig';
     }
 
     /**

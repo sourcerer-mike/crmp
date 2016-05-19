@@ -6,7 +6,7 @@ use Crmp\CrmBundle\DependencyInjection\Compiler\PanelsPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class CrmBundle extends Bundle
+class CrmpCrmBundle extends Bundle
 {
     public function build(ContainerBuilder $container)
     {

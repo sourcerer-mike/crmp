@@ -3,18 +3,18 @@ crmp_hr:
     type:     annotation
     prefix:   /tasks/
 
-crmp_acc:
+crmp_accounting:
     resource: "@CrmpAccountingBundle/Controller/"
     type:     annotation
     prefix:   /accounting/
 
-acquisition:
+crmp_acquisition:
     resource: "@CrmpAcquisitionBundle/Controller/"
     type:     annotation
     prefix:   /
 
-crm:
-    resource: "@CrmBundle/Controller/"
+crmp_crm:
+    resource: "@CrmpCrmBundle/Controller/"
     type:     annotation
     prefix:   /
 

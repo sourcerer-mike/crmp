@@ -39,7 +39,7 @@ class OfferController extends CrmpController
 
         if ($request->get('customer')) {
             $customer = $this->getDoctrine()
-                             ->getRepository('CrmBundle:Customer')
+                             ->getRepository('CrmpCrmBundle:Customer')
                              ->find($request->get('customer'));
 
             $criteria->andWhere($criteria->expr()->eq('customer', $customer));
@@ -71,7 +71,7 @@ class OfferController extends CrmpController
 
         if ($request->get('customer')) {
             // customer given: pre-fill form
-            $customer = $this->getDoctrine()->getRepository('CrmBundle:Customer')->find($request->get('customer'));
+            $customer = $this->getDoctrine()->getRepository('CrmpCrmBundle:Customer')->find($request->get('customer'));
 
             $offer->setCustomer($customer);
         }

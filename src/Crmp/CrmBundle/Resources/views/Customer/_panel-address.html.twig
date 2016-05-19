@@ -1,8 +1,8 @@
-{% extends 'CrmBundle::panel.html.twig' %}
+{% extends 'CrmpCrmBundle::panel.html.twig' %}
 
 {% block information %}
     {% if addresses %}
-        {% include 'CrmBundle:Address:_list.html.twig' with {addresses: addresses} %}
+        {% include 'CrmpCrmBundle:Address:_list.html.twig' with {addresses: addresses} %}
     {% endif %}
 {% endblock %}
 

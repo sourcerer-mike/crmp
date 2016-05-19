@@ -26,7 +26,7 @@ class AddressController extends CrmpController
     {
         $em = $this->getDoctrine()->getManager();
 
-	    $addressRepository = $em->getRepository( 'CrmBundle:Address' );
+	    $addressRepository = $em->getRepository( 'CrmpCrmBundle:Address' );
 
 	    $addresses = $addressRepository->findAll();
 
@@ -38,7 +38,7 @@ class AddressController extends CrmpController
 		    );
 	    }
 
-        return $this->render('CrmBundle:Address:index.html.twig', array(
+        return $this->render('CrmpCrmBundle:Address:index.html.twig', array(
             'addresses' => $addresses,
         ));
     }
@@ -55,7 +55,7 @@ class AddressController extends CrmpController
 
 	    if ($request->get('customer')) {
 		    // customer given: pre-fill form
-		    $customer = $this->getDoctrine()->getRepository('CrmBundle:Customer')->find($request->get('customer'));
+		    $customer = $this->getDoctrine()->getRepository('CrmpCrmBundle:Customer')->find($request->get('customer'));
 
 		    $address->setCustomer($customer);
 	    }
@@ -71,7 +71,7 @@ class AddressController extends CrmpController
             return $this->redirectToRoute('address_show', array('id' => $address->getId()));
         }
 
-        return $this->render('CrmBundle:Address:new.html.twig', array(
+        return $this->render('CrmpCrmBundle:Address:new.html.twig', array(
             'address' => $address,
             'form' => $form->createView(),
         ));
@@ -87,7 +87,7 @@ class AddressController extends CrmpController
     {
         $deleteForm = $this->createDeleteForm($address);
 
-        return $this->render('CrmBundle:Address:show.html.twig', array(
+        return $this->render('CrmpCrmBundle:Address:show.html.twig', array(
             'address' => $address,
             'delete_form' => $deleteForm->createView(),
         ));
@@ -115,7 +115,7 @@ class AddressController extends CrmpController
             return $this->redirectToRoute('address_show', array('id' => $address->getId()));
         }
 
-        return $this->render('CrmBundle:Address:edit.html.twig', array(
+        return $this->render('CrmpCrmBundle:Address:edit.html.twig', array(
             'address' => $address,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),

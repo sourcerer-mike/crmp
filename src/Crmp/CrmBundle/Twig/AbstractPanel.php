@@ -46,7 +46,7 @@ abstract class AbstractPanel
 
     public function getTemplate()
     {
-        return 'CrmBundle::panel.html.twig';
+        return 'CrmpCrmBundle::panel.html.twig';
     }
 
     /**

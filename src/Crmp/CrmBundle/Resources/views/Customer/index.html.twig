@@ -1,4 +1,4 @@
-{% extends 'CrmBundle:Customer:base.html.twig' %}
+{% extends 'CrmpCrmBundle:Customer:base.html.twig' %}
 
 {% block title %}{{ "crmp.crm.customer.list"|trans }}{% endblock %}
 
@@ -16,5 +16,5 @@
 {% block body %}
     <h2>{{ "crmp.crm.customer.list"|trans }}</h2>
 
-    {% include 'CrmBundle:Customer:_list.html.twig' %}
+    {% include 'CrmpCrmBundle:Customer:_list.html.twig' %}
 {% endblock %}

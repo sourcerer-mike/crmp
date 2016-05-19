@@ -79,7 +79,7 @@ class InquiryController extends CrmpController
 	    $criteria = Criteria::create();
 
 	    if ($request->get('customer')) {
-		    $customer = $this->getDoctrine()->getRepository('CrmBundle:Customer')->find($request->get('customer'));
+		    $customer = $this->getDoctrine()->getRepository('CrmpCrmBundle:Customer')->find($request->get('customer'));
 		    $criteria->andWhere(Criteria::expr()->eq('customer', $customer));
 	    }
 
@@ -105,7 +105,7 @@ class InquiryController extends CrmpController
 
         if ($request->get('customer')) {
             // customer given: pre-fill form
-            $customer = $this->getDoctrine()->getRepository('CrmBundle:Customer')->find($request->get('customer'));
+            $customer = $this->getDoctrine()->getRepository('CrmpCrmBundle:Customer')->find($request->get('customer'));
 
             $inquiry->setCustomer($customer);
         }

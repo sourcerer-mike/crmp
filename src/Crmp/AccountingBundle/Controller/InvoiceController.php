@@ -30,7 +30,7 @@ class InvoiceController extends CrmpController
 	    $criteria = Criteria::create();
 
 	    if ($request->get('customer')) {
-		    $customer = $this->getDoctrine()->getRepository('CrmBundle:Customer')->find($request->get('customer'));
+		    $customer = $this->getDoctrine()->getRepository('CrmpCrmBundle:Customer')->find($request->get('customer'));
 		    $criteria->andWhere(Criteria::expr()->eq('customer', $customer));
 	    }
 
@@ -53,7 +53,7 @@ class InvoiceController extends CrmpController
 
 	    if ($request->get('customer')) {
 		    $invoice->setCustomer(
-			    $this->getDoctrine()->getRepository('CrmBundle:Customer')->find($request->get('customer'))
+			    $this->getDoctrine()->getRepository('CrmpCrmBundle:Customer')->find($request->get('customer'))
 		    );
 	    }
 

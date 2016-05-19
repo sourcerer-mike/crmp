@@ -31,7 +31,7 @@ interface PanelInterface
     /**
      * Path to the twig template that shall be used.
      * 
-     * Default: 'CrmBundle::panel.html.twig
+     * Default: 'CrmpCrmBundle::panel.html.twig
      * 
      * @return mixed
      */
