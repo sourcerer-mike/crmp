@@ -24,7 +24,7 @@ class OfferPanel extends AbstractPanel implements PanelInterface
 
         /** @var Inquiry $inquiry */
         $inquiry    = $this->data['inquiry'];
-        $addressRepo = $this->container->get('doctrine')->getRepository('AcquisitionBundle:Offer');
+        $addressRepo = $this->container->get('doctrine')->getRepository('CrmpAcquisitionBundle:Offer');
 
         $this->data['offers'] = $addressRepo->findBy(
             [
@@ -49,7 +49,7 @@ class OfferPanel extends AbstractPanel implements PanelInterface
 
     public function getTemplate()
     {
-        return 'AcquisitionBundle:Inquiry:_panel-offer.html.twig';
+        return 'CrmpAcquisitionBundle:Inquiry:_panel-offer.html.twig';
     }
 
     /**

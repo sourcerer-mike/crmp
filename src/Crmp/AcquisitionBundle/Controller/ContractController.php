@@ -26,9 +26,9 @@ class ContractController extends CrmpController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $contracts = $em->getRepository('AcquisitionBundle:Contract')->findAll();
+        $contracts = $em->getRepository('CrmpAcquisitionBundle:Contract')->findAll();
 
-        return $this->render('AcquisitionBundle:Contract:index.html.twig', array(
+        return $this->render('CrmpAcquisitionBundle:Contract:index.html.twig', array(
             'contracts' => $contracts,
         ));
     }
@@ -45,7 +45,7 @@ class ContractController extends CrmpController
 
         if ($request->get('offer')) {
             // customer given: pre-fill form
-            $offer = $this->getDoctrine()->getRepository('AcquisitionBundle:Offer')->find($request->get('offer'));
+            $offer = $this->getDoctrine()->getRepository('CrmpAcquisitionBundle:Offer')->find($request->get('offer'));
 
             $contract->setOffer($offer);
         }
@@ -61,7 +61,7 @@ class ContractController extends CrmpController
             return $this->redirectToRoute('contract_show', array('id' => $contract->getId()));
         }
 
-        return $this->render('AcquisitionBundle:Contract:new.html.twig', array(
+        return $this->render('CrmpAcquisitionBundle:Contract:new.html.twig', array(
             'contract' => $contract,
             'form' => $form->createView(),
         ));
@@ -77,7 +77,7 @@ class ContractController extends CrmpController
     {
         $deleteForm = $this->createDeleteForm($contract);
 
-        return $this->render('AcquisitionBundle:Contract:show.html.twig', array(
+        return $this->render('CrmpAcquisitionBundle:Contract:show.html.twig', array(
             'contract' => $contract,
             'delete_form' => $deleteForm->createView(),
         ));
@@ -103,7 +103,7 @@ class ContractController extends CrmpController
             return $this->redirectToRoute('contract_edit', array('id' => $contract->getId()));
         }
 
-        return $this->render('AcquisitionBundle:Contract:edit.html.twig', array(
+        return $this->render('CrmpAcquisitionBundle:Contract:edit.html.twig', array(
             'contract' => $contract,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),

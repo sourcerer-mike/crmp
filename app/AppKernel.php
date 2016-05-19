@@ -20,7 +20,7 @@ class AppKernel extends Kernel
 	        new \Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new \Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new Crmp\CrmBundle\CrmBundle(),
-            new Crmp\AcquisitionBundle\AcquisitionBundle(),
+            new Crmp\AcquisitionBundle\CrmpAcquisitionBundle(),
             new Crmp\AccountingBundle\CrmpAccBundle(),
             new Crmp\HrBundle\CrmpHrBundle(),
         ];

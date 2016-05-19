@@ -24,7 +24,7 @@ class ContractPanel extends AbstractPanel implements PanelInterface
 
         /** @var Customer $customer */
         $customer    = $this->data['customer'];
-        $addressRepo = $this->container->get('doctrine')->getRepository('AcquisitionBundle:Contract');
+        $addressRepo = $this->container->get('doctrine')->getRepository('CrmpAcquisitionBundle:Contract');
 
         $this->data['contracts'] = $addressRepo->findBy(
             [
@@ -49,7 +49,7 @@ class ContractPanel extends AbstractPanel implements PanelInterface
 
     public function getTemplate()
     {
-        return 'AcquisitionBundle:Customer:_panel-contract.html.twig';
+        return 'CrmpAcquisitionBundle:Customer:_panel-contract.html.twig';
     }
 
     /**

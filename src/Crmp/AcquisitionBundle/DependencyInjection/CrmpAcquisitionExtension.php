@@ -12,7 +12,7 @@ use Symfony\Component\DependencyInjection\Loader;
  *
  * @link http://symfony.com/doc/current/cookbook/bundles/extension.html
  */
-class AcquisitionExtension extends Extension
+class CrmpAcquisitionExtension extends Extension
 {
     /**
      * {@inheritdoc}

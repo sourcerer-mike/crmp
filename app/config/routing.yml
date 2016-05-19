@@ -9,7 +9,7 @@ crmp_acc:
     prefix:   /accounting/
 
 acquisition:
-    resource: "@AcquisitionBundle/Controller/"
+    resource: "@CrmpAcquisitionBundle/Controller/"
     type:     annotation
     prefix:   /
 

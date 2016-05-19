@@ -31,7 +31,7 @@ class OfferController extends CrmpController
 
 	    if ($request->get('inquiry')) {
 		    $inquiry = $this->getDoctrine()
-			                ->getRepository( 'AcquisitionBundle:Inquiry' )
+			                ->getRepository( 'CrmpAcquisitionBundle:Inquiry' )
 		                    ->find( $request->get( 'inquiry' ) );
 
 		    $criteria->andWhere(  $criteria->expr()->eq('inquiry', $inquiry ) );
@@ -45,9 +45,9 @@ class OfferController extends CrmpController
             $criteria->andWhere($criteria->expr()->eq('customer', $customer));
         }
 
-        $offers = $em->getRepository('AcquisitionBundle:Offer')->matching($criteria);
+        $offers = $em->getRepository('CrmpAcquisitionBundle:Offer')->matching($criteria);
 
-        return $this->render('AcquisitionBundle:Offer:index.html.twig', array(
+        return $this->render('CrmpAcquisitionBundle:Offer:index.html.twig', array(
             'offers' => $offers,
         ));
     }
@@ -64,7 +64,7 @@ class OfferController extends CrmpController
 
         if ($request->get('inquiry')) {
             // customer given: pre-fill form
-            $inquiry = $this->getDoctrine()->getRepository('AcquisitionBundle:Inquiry')->find($request->get('inquiry'));
+            $inquiry = $this->getDoctrine()->getRepository('CrmpAcquisitionBundle:Inquiry')->find($request->get('inquiry'));
 
             $offer->setInquiry($inquiry);
         }
@@ -89,7 +89,7 @@ class OfferController extends CrmpController
             return $this->redirectToRoute('offer_show', array('id' => $offer->getId()));
         }
 
-        return $this->render('AcquisitionBundle:Offer:new.html.twig', array(
+        return $this->render('CrmpAcquisitionBundle:Offer:new.html.twig', array(
             'offer' => $offer,
             'form' => $form->createView(),
         ));
@@ -105,7 +105,7 @@ class OfferController extends CrmpController
     {
         $deleteForm = $this->createDeleteForm($offer);
 
-        return $this->render('AcquisitionBundle:Offer:show.html.twig', array(
+        return $this->render('CrmpAcquisitionBundle:Offer:show.html.twig', array(
             'offer' => $offer,
             'delete_form' => $deleteForm->createView(),
         ));
@@ -131,7 +131,7 @@ class OfferController extends CrmpController
             return $this->redirectToRoute('offer_edit', array('id' => $offer->getId()));
         }
 
-        return $this->render('AcquisitionBundle:Offer:edit.html.twig', array(
+        return $this->render('CrmpAcquisitionBundle:Offer:edit.html.twig', array(
             'offer' => $offer,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),

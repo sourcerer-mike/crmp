@@ -24,7 +24,7 @@ class InquiryPanel extends AbstractPanel implements PanelInterface
 
         /** @var Customer $customer */
         $customer    = $this->data['customer'];
-        $addressRepo = $this->container->get('doctrine')->getRepository('AcquisitionBundle:Inquiry');
+        $addressRepo = $this->container->get('doctrine')->getRepository('CrmpAcquisitionBundle:Inquiry');
 
         $this->data['inquiries'] = $addressRepo->findBy(
             [
@@ -49,7 +49,7 @@ class InquiryPanel extends AbstractPanel implements PanelInterface
 
     public function getTemplate()
     {
-        return 'AcquisitionBundle:Customer:_panel-inquiry.html.twig';
+        return 'CrmpAcquisitionBundle:Customer:_panel-inquiry.html.twig';
     }
 
     /**

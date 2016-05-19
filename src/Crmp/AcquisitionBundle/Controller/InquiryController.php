@@ -57,7 +57,7 @@ class InquiryController extends CrmpController
         }
 
         return $this->render(
-            'AcquisitionBundle:Inquiry:edit.html.twig',
+            'CrmpAcquisitionBundle:Inquiry:edit.html.twig',
             array(
                 'inquiry'     => $inquiry,
                 'edit_form'   => $editForm->createView(),
@@ -83,10 +83,10 @@ class InquiryController extends CrmpController
 		    $criteria->andWhere(Criteria::expr()->eq('customer', $customer));
 	    }
 
-	    $inquiries = $em->getRepository( 'AcquisitionBundle:Inquiry' )->matching($criteria);
+	    $inquiries = $em->getRepository( 'CrmpAcquisitionBundle:Inquiry' )->matching($criteria);
 
         return $this->render(
-            'AcquisitionBundle:Inquiry:index.html.twig',
+            'CrmpAcquisitionBundle:Inquiry:index.html.twig',
             array(
                 'inquiries' => $inquiries,
             )
@@ -126,7 +126,7 @@ class InquiryController extends CrmpController
         $this->container;
 
         return $this->render(
-            'AcquisitionBundle:Inquiry:new.html.twig',
+            'CrmpAcquisitionBundle:Inquiry:new.html.twig',
             array(
                 'inquiry' => $inquiry,
                 'form'    => $form->createView(),
@@ -145,7 +145,7 @@ class InquiryController extends CrmpController
         $deleteForm = $this->createDeleteForm($inquiry);
 
         return $this->render(
-            'AcquisitionBundle:Inquiry:show.html.twig',
+            'CrmpAcquisitionBundle:Inquiry:show.html.twig',
             array(
                 'inquiry'     => $inquiry,
                 'delete_form' => $deleteForm->createView(),
