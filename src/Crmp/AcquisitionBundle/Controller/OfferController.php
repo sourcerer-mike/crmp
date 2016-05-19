@@ -37,6 +37,14 @@ class OfferController extends CrmpController
 		    $criteria->andWhere(  $criteria->expr()->eq('inquiry', $inquiry ) );
 	    }
 
+        if ($request->get('customer')) {
+            $customer = $this->getDoctrine()
+                             ->getRepository('CrmBundle:Customer')
+                             ->find($request->get('customer'));
+
+            $criteria->andWhere($criteria->expr()->eq('customer', $customer));
+        }
+
         $offers = $em->getRepository('AcquisitionBundle:Offer')->matching($criteria);
 
         return $this->render('AcquisitionBundle:Offer:index.html.twig', array(
