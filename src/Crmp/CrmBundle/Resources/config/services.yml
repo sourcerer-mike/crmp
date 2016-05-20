@@ -10,6 +10,12 @@ services:
       tags:
         - {name: 'twig.extension' }
 
+  crmp_crm.twig.register_globals:
+    class: Crmp\CrmBundle\Twig\RegisterGlobals
+    arguments: ['@service_container']
+    tags:
+      - {name: 'twig.extension' }
+
   crmp_crm.customer.panels:
     class: Crmp\CrmBundle\Twig\PanelGroup
     tags:
@@ -24,3 +30,6 @@ services:
     class: Crmp\CrmBundle\Twig\AddressPanel
     tags:
       - {name: 'crmp.panel', target: 'customer_related' }
+twig:
+  globals:
+    container: "@service_container"
