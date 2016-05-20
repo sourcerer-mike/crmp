@@ -4,8 +4,9 @@ namespace Crmp\CrmBundle\Twig;
 
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Twig_Extension_GlobalsInterface;
 
-class RegisterGlobals extends \Twig_Extension
+class RegisterGlobals extends \Twig_Extension implements Twig_Extension_GlobalsInterface
 {
     public function __construct(ContainerInterface $container)
     {
