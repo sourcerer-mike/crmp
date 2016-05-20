@@ -10,6 +10,9 @@ services:
       tags:
         - {name: 'twig.extension' }
 
+  crmp.controller.render.parameters:
+    class: ArrayObject
+
   crmp_crm.twig.register_globals:
     class: Crmp\CrmBundle\Twig\RegisterGlobals
     arguments: ['@service_container']

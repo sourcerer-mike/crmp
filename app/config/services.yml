@@ -30,6 +30,3 @@ services:
       arguments: ["@request_stack"]
       tags:
         - { name: knp_menu.menu, alias: related }
-
-  crmp.controller.render.parameters:
-    class: ArrayObject
