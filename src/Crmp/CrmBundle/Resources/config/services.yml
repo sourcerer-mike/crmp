@@ -30,6 +30,3 @@ services:
     class: Crmp\CrmBundle\Twig\AddressPanel
     tags:
       - {name: 'crmp.panel', target: 'customer_related' }
-twig:
-  globals:
-    container: "@service_container"
