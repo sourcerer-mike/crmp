@@ -1,0 +1,4 @@
+crmp_acquisition:
+  resource: "@CrmpAcquisitionBundle/Controller/"
+  type:     annotation
+  prefix:   /acquisition/

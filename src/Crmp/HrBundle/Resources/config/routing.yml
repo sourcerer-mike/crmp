@@ -1,0 +1,4 @@
+crmp_hr:
+  resource: "@CrmpHrBundle/Controller/"
+  type:     annotation
+  prefix:   /settlement/
