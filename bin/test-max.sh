@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+finalStatus=0
+
 function assert() {
     echo "$@"
     echo ""
@@ -11,7 +13,7 @@ function assert() {
         echo "error with $1" >&2
     fi
 
-    return $status
+    finalStatus+=$status
 }
 
 # create dummy data
@@ -22,3 +24,5 @@ assert vendor/bin/phpunit --colors=never
 
 # behat tests
 assert vendor/bin/behat --no-colors
+
+exit $finalStatus
