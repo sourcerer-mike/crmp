@@ -2,6 +2,7 @@
     <thead>
     <tr>
         <th>{% trans %}crmp.acquisition.inquiry.title{% endtrans %}</th>
+        <th>{{ "crmp.crm.customer.singular"|trans }}</th>
         <th>{% trans %}crmp.acquisition.inquiry.predictedValue{% endtrans %}</th>
         <th></th>
     </tr>
@@ -13,6 +14,14 @@
                 <a href="{{ path('inquiry_show', { 'id': inquiry.id }) }}">
                     {{ inquiry.title }}
                 </a>
+            </td>
+            <td>
+                {% if inquiry.customer %}
+                    <a href="{{ path('customer_show', {id: inquiry.customer.id}) }}"
+                       title="{{ "crmp.common.show"|trans({'%name%': inquiry.customer.name}) }}">
+                        {{ inquiry.customer.name }}
+                    </a>
+                {% endif %}
             </td>
             <td>{{ inquiry.netValue|price }}</td>
             <td>

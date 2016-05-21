@@ -19,3 +19,5 @@ crmp:
       singular: Kunde
       plural: Kunden
     singular: CRM
+  common:
+    show: Zeige %name%

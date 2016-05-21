@@ -1,12 +1,14 @@
 Crmp\AcquisitionBundle\Entity\Offer:
-  offer{1..2}:
+  offerWithCustomer{1..10}:
     title: <domainName()>
     content: <paragraphs(3, true)>
     price: <numberBetween(10,200)>00
     status: <numberBetween(0,2)>
-  offerWithCustomer{1..10}:
-      title: <domainName()>
-      content: <paragraphs(3, true)>
-      price: <numberBetween(10,200)>00
-      status: <numberBetween(0,2)>
-      customer: '@customer*'
+    customer: '@customer*'
+  offerWithInquiry{1..5}:
+    inquiry: '@inquiryWithOffer<current()>'
+    title: '@inquiryWithOffer<current()>->title'
+    content: <paragraphs(3, true)>
+    price: '@inquiryWithOffer<current()>->netValue'
+    status: <numberBetween(0,2)>
+    customer: '@inquiryWithOffer<current()>->customer'
