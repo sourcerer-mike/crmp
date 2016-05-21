@@ -11,8 +11,6 @@ before_script:
   - cp app/config/parameters.yml.travis app/config/parameters.yml
   - mysql -e 'create database crmp;'
   - composer install
-  - bin/console doctrine:database:drop -n --if-exists --force
-  - bin/console doctrine:database:create --env=test
   - bin/console doctrine:schema:create --env=test
   - bin/console doctrine:fixtures:load -n --env=test
   - bin/console server:run 127.0.0.1:8000 &
