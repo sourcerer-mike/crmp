@@ -20,7 +20,7 @@ function assert() {
 assert bin/console hautelook_alice:doctrine:fixtures:load -n
 
 # unit tests
-assert vendor/bin/phpunit --colors=never --coverage-xml=var/phpunit/coverage.xml
+assert vendor/bin/phpunit --colors=never --coverage-clover var/phpunit/coverage.xml
 
 # behat tests
 assert vendor/bin/behat --no-colors
