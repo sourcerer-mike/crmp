@@ -1,5 +1,5 @@
 AppBundle\Entity\User:
-  admin_1:
+  user_1:
     username: Mike
     usernameCanonical: mike
     email: idonttrustyou@codebook.cc

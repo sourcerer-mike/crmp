@@ -3,4 +3,8 @@ Crmp\CrmBundle\Entity\Address:
     mail: <email()>
     name: <name()>
     customer: '@customer*'
-    updatedBy: '@admin_1'
+    updatedBy: '@user_1'
+  address10:
+    mail: 'allons-y@tardis.time'
+    name: Who
+    updatedBy: '@user_1'

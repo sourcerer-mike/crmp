@@ -16,6 +16,9 @@
             "Tests\\": "tests/"
         }
     },
+    "config": {
+        "bin-dir": "bin"
+    },
     "require": {
         "components/font-awesome": "~4",
         "components/jqueryui": "~1.11",
@@ -38,9 +41,13 @@
         "knplabs/knp-menu-bundle": "^2.1"
     },
     "require-dev": {
+        "behat/mink-extension": "~2",
+        "behat/mink-goutte-driver": "*",
         "doctrine/data-fixtures": "^1.1",
         "hautelook/alice-bundle": "^1.2",
-        "symfony/phpunit-bridge": "^2.7"
+        "phpunit/phpunit": "~5",
+        "symfony/phpunit-bridge": "^2.7",
+        "behat/symfony2-extension": "^2.1"
     },
     "scripts": {
         "post-install-cmd": [

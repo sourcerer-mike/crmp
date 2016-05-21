@@ -1,0 +1,13 @@
+default:
+  suites:
+    default:
+      contexts:
+        - FeatureContext:
+            session: '@session'
+  extensions:
+    Behat\Symfony2Extension: ~
+    Behat\MinkExtension:
+      base_url:  'http://127.0.0.1:8000'
+      sessions:
+        my_session:
+            symfony2: ~
