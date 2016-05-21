@@ -1,4 +1,22 @@
 #!/usr/bin/env bash
 
-bin/console hautelook_alice:doctrine:fixtures:load -n
-vendor/bin/phpunit --group small
+finalStatus=0
+
+function assert() {
+    echo "$@"
+    echo ""
+    "$@"
+
+    local status=$?
+
+    if [ $status -ne 0 ]; then
+        echo "error with $1" >&2
+    fi
+
+    finalStatus+=$status
+}
+
+# unit tests
+assert vendor/bin/phpunit --colors=never
+
+exit $finalStatus
