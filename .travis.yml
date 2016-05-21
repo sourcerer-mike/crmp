@@ -16,3 +16,10 @@ before_script:
 
 script:
   - bin/test-max.sh
+
+notifications:
+  email:
+    recipients:
+      - pretzlaw@gmail.com
+    on_success: never
+    on_failure: change
