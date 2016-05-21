@@ -1,6 +1,5 @@
 language: php
 php:
-  - '5.5'
   - '5.6'
   - '7.0'
   - hhvm
@@ -8,15 +7,14 @@ php:
 services:
   - mysql
 
-install:
-  - composer install
-  - bin/console server:run 127.0.0.1:8000 &
-
 before_script:
   - cp app/config/parameters.yml.travis app/config/parameters.yml
+  - mysql -e 'create database crmp;'
+  - composer install
   - bin/console doctrine:database:create --env=test
   - bin/console doctrine:schema:create --env=test
   - bin/console doctrine:fixtures:load -n --env=test
+  - bin/console server:run 127.0.0.1:8000 &
 
 script:
   - bin/test-max.sh
