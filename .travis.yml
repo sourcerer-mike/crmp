@@ -16,6 +16,9 @@ before_script:
 script:
   - bin/test-max.sh
 
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+
 notifications:
   email:
     recipients:
