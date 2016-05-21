@@ -16,9 +16,6 @@
             "Tests\\": "tests/"
         }
     },
-    "config": {
-        "bin-dir": "bin"
-    },
     "require": {
         "components/font-awesome": "~4",
         "components/jqueryui": "~1.11",

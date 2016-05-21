@@ -11,5 +11,5 @@ Feature: Menu
     When I click on "Neue Adresse"
 
     Then I am on "/crm/address/new"
-    And I should see "Neue Addresse"
+    And I should see "Neue Adresse"
     And I should see "Erstellen"
