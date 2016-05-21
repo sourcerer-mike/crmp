@@ -17,7 +17,7 @@ function assert() {
 }
 
 # create dummy data
-assert bin/console hautelook_alice:doctrine:fixtures:load -n
+assert bin/populate.sh
 
 # unit tests
 assert vendor/bin/phpunit --colors=never --coverage-clover var/phpunit/coverage.xml
