@@ -7,6 +7,21 @@ use Symfony\Component\BrowserKit\Cookie;
 
 class AuthTestCase extends WebTestCase
 {
+    /**
+     * @param string $route
+     * @param array  $parameters
+     */
+    public function assertAvailableForUsers($route, $parameters = [])
+    {
+        $client = $this->createAuthorizedUserClient();
+        $uri    = $client->getContainer()->get('router')->generate($route, $parameters);
+
+        $client->request('GET', $uri);
+        $response = $client->getResponse();
+
+        $this->assertTrue($response->isSuccessful(), $response->getStatusCode().' '.$uri);
+    }
+
     protected function createAuthorizedUserClient()
     {
         return $this->createAuthorizedClient('Mike');
@@ -39,5 +54,4 @@ class AuthTestCase extends WebTestCase
 
         return $client;
     }
-
 }
