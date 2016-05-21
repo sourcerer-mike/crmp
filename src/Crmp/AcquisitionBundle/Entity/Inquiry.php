@@ -32,7 +32,7 @@ class Inquiry
     /**
      * @var string
      *
-     * @ORM\Column(name="netValue", type="decimal", precision=5, scale=0)
+     * @ORM\Column(name="netValue", type="decimal", precision=5, scale=0, nullable=true)
      */
     private $netValue;
 
