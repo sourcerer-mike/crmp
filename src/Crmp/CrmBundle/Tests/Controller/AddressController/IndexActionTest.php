@@ -7,8 +7,10 @@ use Crmp\CrmBundle\Tests\Controller\AuthTestCase;
 
 class IndexActionTest extends AuthTestCase
 {
-    public function testLinksToNewAddress()
+    public function testUserCanAccessTheList()
     {
-        $client = $this->createAuthorizedUserClient();
+        $client = $this->createAuthorizedUserClient('GET', 'address_index');
+
+        $this->assertTrue($client->getResponse()->isSuccessful());
     }
 }

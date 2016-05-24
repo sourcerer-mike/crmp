@@ -2,29 +2,54 @@
 
 namespace Crmp\CrmBundle\Tests\Controller;
 
+use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\BrowserKit\Cookie;
 
 class AuthTestCase extends WebTestCase
 {
+    protected function assertResponseOkay(Client $client)
+    {
+        $response = $client->getResponse();
+
+        $this->assertTrue($response->isSuccessful(), $response->getStatusCode().' '.$client->getRequest()->getUri());
+    }
+
     /**
      * @param string $route
      * @param array  $parameters
      */
     public function assertAvailableForUsers($route, $parameters = [])
     {
-        $client = $this->createAuthorizedUserClient();
-        $uri    = $client->getContainer()->get('router')->generate($route, $parameters);
+        $client = $this->createAuthClient('GET', $route, $parameters);
 
-        $client->request('GET', $uri);
-        $response = $client->getResponse();
-
-        $this->assertTrue($response->isSuccessful(), $response->getStatusCode().' '.$uri);
+        $this->assertResponseOkay($client);
     }
 
-    protected function createAuthorizedUserClient()
+    protected function createAuthClient($request = 'GET', $route = '', $parameters = [])
     {
-        return $this->createAuthorizedClient('Mike');
+        $client = $this->createAuthorizedUserClient();
+
+        if ($route) {
+            $uri = $client->getContainer()->get('router')->generate($route, $parameters);
+
+            $client->request($request, $uri);
+        }
+
+        return $client;
+    }
+
+    protected function createAuthorizedUserClient($method = 'GET', $route = '', $parameters = [])
+    {
+        $client = $this->createAuthorizedClient('Mike');
+
+        if ($method && $route) {
+            $uri = $client->getContainer()->get('router')->generate($route, $parameters);
+
+            $client->request($method, $uri);
+        }
+
+        return $client;
     }
 
     protected function createAuthorizedClient($username)
