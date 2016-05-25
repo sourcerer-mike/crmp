@@ -10,5 +10,5 @@ Crmp\AcquisitionBundle\Entity\Offer:
     title: '@inquiryWithOffer<current()>->title'
     content: <paragraphs(3, true)>
     price: '@inquiryWithOffer<current()>->netValue'
-    status: <numberBetween(0,2)>
+    status: <numberBetween(1)>
     customer: '@inquiryWithOffer<current()>->customer'
