@@ -6,19 +6,22 @@ namespace Crmp\CrmBundle\Tests\Controller\AddressController;
 use Crmp\CrmBundle\Entity\Address;
 use Crmp\CrmBundle\Tests\Controller\AuthTestCase;
 
-class ShowActionTest extends AuthTestCase
+class EditActionTest extends AuthTestCase
 {
-    public function testUserCanAccessTheList()
+    public function testUserCanEditAnAddress()
     {
         /** @var Address $someAddress */
         $someAddress = $this->getRandomEntity('CrmpCrmBundle:Address');
 
         $this->assertInstanceOf('\\Crmp\\CrmBundle\\Entity\\Address', $someAddress);
 
-        $client   = $this->createAuthorizedUserClient('GET', 'address_show', ['id' => $someAddress->getId()]);
-        $response = $client->getResponse();
+        $routeParameters = ['id' => $someAddress->getId()];
+        $client          = $this->createAuthorizedUserClient('GET', 'address_edit', $routeParameters);
+        $response        = $client->getResponse();
 
         $this->assertTrue($response->isSuccessful());
         $this->assertContains($someAddress->getName(), $response->getContent());
+
+        $this->assertRoute($client, 'address_edit', $routeParameters);
     }
 }

@@ -8,13 +8,6 @@ use Symfony\Component\BrowserKit\Cookie;
 
 class AuthTestCase extends WebTestCase
 {
-    protected function assertResponseOkay(Client $client)
-    {
-        $response = $client->getResponse();
-
-        $this->assertTrue($response->isSuccessful(), $response->getStatusCode().' '.$client->getRequest()->getUri());
-    }
-
     /**
      * @param string $route
      * @param array  $parameters
@@ -78,5 +71,31 @@ class AuthTestCase extends WebTestCase
         $client->getCookieJar()->set(new Cookie($session->getName(), $session->getId()));
 
         return $client;
+    }
+
+    protected function assertResponseOkay(Client $client)
+    {
+        $response = $client->getResponse();
+
+        $this->assertTrue($response->isSuccessful(), $response->getStatusCode().' '.$client->getRequest()->getUri());
+    }
+
+    protected function getRandomEntity($alias)
+    {
+        $client        = static::createClient();
+        $entityManager = $client->getContainer()->get('doctrine.orm.entity_manager');
+
+        $query  = $entityManager->getRepository($alias)->createQueryBuilder($alias);
+        $result = $query->getQuery()->setMaxResults(5)->getResult();
+        $key    = array_rand($result, 1);
+
+        return $result[$key];
+    }
+
+    protected function assertRoute(Client $client, $route, $routeParameters = [])
+    {
+        $uri = $client->getContainer()->get('router')->generate($route, $routeParameters);
+
+        $this->assertContains($uri, $client->getRequest()->getUri());
     }
 }
