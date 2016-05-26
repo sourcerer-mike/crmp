@@ -8,7 +8,7 @@ use Crmp\CrmBundle\Tests\Controller\AuthTestCase;
 
 class ShowActionTest extends AuthTestCase
 {
-    public function testUserCanAccessTheList()
+    public function testUserCanLookAtACustomer()
     {
         /** @var Customer $someCustomer */
         $someCustomer = $this->getRandomEntity('CrmpCrmBundle:Customer');
