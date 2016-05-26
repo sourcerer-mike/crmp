@@ -1,7 +1,25 @@
 {
-    "name": "mike/crm",
+    "name": "crmp/crm",
+    "description": "An CRM tool especially for Web- and Marketing-Agencies written with Symfony 3.",
+    "homepage": "https://github.com/sourcerer-mike/crmp",
+    "version": "0.1.0",
     "license": "proprietary",
     "type": "project",
+    "authors": [
+        {
+            "name": "Mike Pretzlaw",
+            "email": "pretzlaw@gmail.com",
+            "role": "Product Owner"
+        }
+    ],
+    "support": {
+        "docs": "https://github.com/sourcerer-mike/crmp/tree/develop/src/Crmp/CrmBundle/Resources/docs",
+        "issues": "https://github.com/sourcerer-mike/crmp/issues",
+        "source": "https://github.com/sourcerer-mike/crmp"
+    },
+    "config": {
+        "bin-dir": "bin"
+    },
     "autoload": {
         "psr-4": {
             "": "src/"
