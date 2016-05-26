@@ -13,7 +13,6 @@ before_script:
   - bin/console doctrine:schema:create --env=test
   - bin/console cache:warmup
   - bin/console server:run 127.0.0.1:8000 &
-  - curl http://127.0.0.1:8000
 
 script:
   - bin/test-max.sh
