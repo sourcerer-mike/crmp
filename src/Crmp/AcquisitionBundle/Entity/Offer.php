@@ -8,6 +8,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Offer
  *
+ * An entity to manage your quotes and track them for each customer.
+ *
  * @ORM\Table(name="offer")
  * @ORM\Entity(repositoryClass="Crmp\AcquisitionBundle\Repository\OfferRepository")
  */
@@ -18,7 +20,14 @@ class Offer
      * @ORM\JoinColumn(name="inquiry_id", referencedColumnName="id")
      */
     protected $inquiry;
+
     /**
+     * Quotation text.
+     *
+     * Every offer shall be described in a large quotation text to let everyone (esp. the customer)
+     * know what it's all about.
+     * It can be a large text as large as your database can bare.
+     *
      * @var string
      *
      * @ORM\Column(name="content", type="text")
@@ -43,13 +52,26 @@ class Offer
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
     /**
+     * Value of the offer.
+     *
+     * The price or quote value is given without taxes for a better internal workflow.
+     * It can be any number with four digits and up to 16 decimals in total.
+     *
      * @var string
      *
      * @ORM\Column(name="price", type="decimal", precision=16, scale=4)
      */
     private $price;
+
     /**
+     * Subject of the offer.
+     *
+     * The offer subject is a title for the whole document
+     * and reduces all it's content to a small text.
+     * The text can be 255 characters long but should be short for a better understanding.
+     *
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255)
@@ -57,6 +79,14 @@ class Offer
     private $title;
 
     /**
+     * Approval status.
+     *
+     * The status shows in which step the offer is.
+     * It shall be extended via configuration at later time.
+     * For now it only covers some common states.
+     *
+     * @todo Make it extensible.
+     *
      * @ORM\Column(name="status", type="integer")
      */
     private $status;
