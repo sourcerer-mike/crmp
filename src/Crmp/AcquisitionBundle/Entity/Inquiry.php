@@ -6,7 +6,11 @@ use Crmp\CrmBundle\Entity\Config;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Inquiry
+ * Inquiries
+ *
+ * When a customer comes into your rooms or sends you a mail,
+ * then every one in your business likes to keep track of that or delegate it.
+ * CRMP offers a pool where you can just throw the inquiry in, keep track of them and generate offers or contracts.
  *
  * @ORM\Table(name="inquiry")
  * @ORM\Entity(repositoryClass="Crmp\AcquisitionBundle\Repository\InquiryRepository")
@@ -23,6 +27,12 @@ class Inquiry
     private $id;
 
     /**
+     * Subject of the inquiry.
+     *
+     * Reduce everything the customer wants in one sentence and less
+     * to let others in your team quickly see what the topic is.
+     * Make it any phrase shorter than 255 characters.
+     *
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255)
@@ -30,13 +40,28 @@ class Inquiry
     private $title;
 
     /**
+     * Estimated value.
+     *
+     * Estimate the value of the project / inquiry that the customer made,
+     * so that all salesmen can sort them and make decisions based on that estimation.
+     * Treat it as an really vague approximation
+     * or something that is already said to the customer
+     * for a better workflow.
+     * It can be any value with four digits.
+     * This is a mandatory information.
+     *
      * @var string
      *
-     * @ORM\Column(name="netValue", type="decimal", precision=5, scale=0, nullable=true)
+     * @ORM\Column(name="netValue", type="decimal", precision=4, scale=0, nullable=true)
      */
     private $netValue;
 
     /**
+     * Description what the customer wants.
+     *
+     * Explain briefly what the customer wants
+     * so that the salesmen or project executive can create an offer.
+     *
      * @var string
      *
      * @ORM\Column(name="content", type="text", nullable=true)
@@ -44,6 +69,11 @@ class Inquiry
     private $content;
 
     /**
+     * Date when the inquiry came in.
+     *
+     * Keep track of your oldest and youngest inquiries by setting a date,
+     * so that salesmen can establish a workflow to achieve satisfied customers and/or thrifty projects.
+     *
      * @var string
      *
      * @ORM\Column(type="datetime", name="inquired_at")
@@ -62,7 +92,15 @@ class Inquiry
     protected $offers;
 
     /**
-     * @ORM\Column(type="integer", name="status")
+     * Inquiry status.
+     *
+     * The status shows in which step the inquiry is.
+     * It shall be extended via configuration at later time.
+     * For now it only covers some common states.
+     *
+     * @todo Make it extensible.
+     *
+     * @ORM\Column(name="status", type="integer")
      */
     protected $status;
 

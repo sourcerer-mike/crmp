@@ -7,6 +7,9 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Contract
  *
+ * A customer may contract you with or without an offer.
+ * This part helps you to keep track of your duties and apply some controlling.
+ *
  * @ORM\Table(name="contract")
  * @ORM\Entity(repositoryClass="Crmp\AcquisitionBundle\Repository\ContractRepository")
  */
@@ -22,6 +25,12 @@ class Contract
     private $id;
 
     /**
+     * Subject of the contract.
+     *
+     * The subject shall explain it's content within one sentence
+     * to provide a better and simple overview in lists.
+     * It is at most 255 characters long.
+     *
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255)
@@ -29,6 +38,13 @@ class Contract
     private $title;
 
     /**
+     * Contract value.
+     *
+     * The total amount of money without taxes is stored
+     * to enable some controlling in CRMP
+     * or create invoices and more.
+     * It can be a number with four decimals and a total of 16 digits.
+     *
      * @var string
      *
      * @ORM\Column(name="value", type="decimal", precision=16, scale=4)
@@ -36,6 +52,12 @@ class Contract
     private $value;
 
     /**
+     * Agreement about deliverable.
+     *
+     * What shall be delivered is written down in the content,
+     * so that customer and contractor know what they have to do.
+     * It can be a long text as long as your database can bare.
+     *
      * @var string
      *
      * @ORM\Column(name="content", type="text")
