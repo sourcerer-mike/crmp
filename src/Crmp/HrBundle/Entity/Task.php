@@ -7,12 +7,19 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Task
  *
+ * In order to give every employee a mission
+ * an entity for tasks has been introduced.
+ * It will help you store
+ * and manage all tasks / jobs / stint.
+ *
  * @ORM\Table(name="task")
  * @ORM\Entity(repositoryClass="Crmp\HrBundle\Repository\TaskRepository")
  */
 class Task
 {
     /**
+     * Identifier.
+     *
      * @var int
      *
      * @ORM\Column(name="id", type="integer")
@@ -22,6 +29,11 @@ class Task
     private $id;
 
     /**
+     * Title of the task.
+     *
+     * The title of the task is mend for overviews / lists.
+     * It can be anything up to 255 characters.
+     *
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255)
@@ -29,6 +41,11 @@ class Task
     private $title;
 
     /**
+     * Detailed description.
+     *
+     * A detailed description of the things that need to be done.
+     * This description can be a large text.
+     *
      * @var string
      *
      * @ORM\Column(name="description", type="text")
@@ -37,7 +54,7 @@ class Task
 
 
     /**
-     * Get id
+     * Get id.
      *
      * @return int
      */
