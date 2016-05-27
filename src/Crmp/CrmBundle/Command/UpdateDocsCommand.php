@@ -14,6 +14,8 @@ use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 
 class UpdateDocsCommand extends Command implements ContainerAwareInterface
 {
+    protected $exitCode = 0;
+
     /**
      * @var ContainerInterface
      */
@@ -61,7 +63,7 @@ class UpdateDocsCommand extends Command implements ContainerAwareInterface
             }
         }
 
-        return;
+        return $this->exitCode;
     }
 
     private function parseBundle(BundleInterface $bundle, OutputInterface $output)
@@ -151,6 +153,7 @@ class UpdateDocsCommand extends Command implements ContainerAwareInterface
             $field = $reflectionClass->getProperty($fieldName);
 
             if ( ! $field) {
+                $this->exitCode++;
                 $output->writeln('<error>Unresolvable field "'.$fieldName.'"</error>');
             }
 
@@ -185,6 +188,7 @@ class UpdateDocsCommand extends Command implements ContainerAwareInterface
         }
 
         if ( ! $fieldData['heading'] || 0 === strpos($fieldData['heading'], '@')) {
+            $this->exitCode++;
             $output->writeln(sprintf('<error>%s has no heading.</error>', $slug));
         }
 
@@ -196,6 +200,7 @@ class UpdateDocsCommand extends Command implements ContainerAwareInterface
         }
 
         if ( ! $fieldData['content']) {
+            $this->exitCode++;
             $output->writeln(sprintf('<error>%s has no content.</error>', $slug));
         }
 
