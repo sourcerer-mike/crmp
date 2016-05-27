@@ -8,6 +8,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Address
  *
+ * Addresses are important to contact someone, write invoices or know who is responsible for what.
+ *
  * @ORM\Table(name="address")
  * @ORM\Entity(repositoryClass="Crmp\CrmBundle\Repository\AddressRepository")
  *
@@ -34,6 +36,13 @@ class Address
     private $id;
 
     /**
+     * E-Mail address.
+     *
+     * Everyone has a mail address nowadays which makes it easier for salesmen to send offers
+     * or ask something about the current project.
+     * A mail address can take up to 255 characters in total.
+     * It is unique so that one mail address can only be taken by one contact.
+     *
      * @var string
      *
      * @ORM\Column(name="mail", type="string", length=255, unique=true)
@@ -41,6 +50,12 @@ class Address
     private $mail;
 
     /**
+     * Name of the contact.
+     *
+     * The full name of the other person helps you search it in the database
+     * or write letters to them.
+     * It can be any name up to 255 characters.
+     *
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
@@ -48,11 +63,23 @@ class Address
     private $name;
 
     /**
+     * Timestamp when the address has been edited.
+     *
+     * You might want to track when the latest change has happened,
+     * to keep your data up-to-date or filter out old contacts.
+     * The date and time is stored every time the address is changed.
+     *
      * @ORM\Column(type="datetime")
      */
     private $updatedAt;
 
     /**
+     * The last person who edited.
+     *
+     * When you see that data has changed,
+     * you might want to ask a person why and what has changed.
+     * To have someone responsible or keep a history of changes the last person is stored on every change.
+     *
      * @ORM\ManyToOne(targetEntity="\AppBundle\Entity\User")
      */
     private $updatedBy;
@@ -65,6 +92,20 @@ class Address
     public function getCustomer()
     {
         return $this->customer;
+    }
+
+    /**
+     * Set customer
+     *
+     * @param Customer $customer
+     *
+     * @return Address
+     */
+    public function setCustomer(Customer $customer = null)
+    {
+        $this->customer = $customer;
+
+        return $this;
     }
 
     /**
@@ -88,56 +129,6 @@ class Address
     }
 
     /**
-     * Get name
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * Get updatedAt
-     *
-     * @return \DateTime
-     */
-    public function getUpdatedAt()
-    {
-        return $this->updatedAt;
-    }
-
-    /**
-     * @ORM\PrePersist
-     */
-    public function prePersist()
-    {
-        $this->setUpdatedAt(new \DateTime());
-    }
-
-    /**
-     * @ORM\PreUpdate
-     */
-    public function preUpdate()
-    {
-        $this->setUpdatedAt(new \DateTime());
-    }
-
-    /**
-     * Set customer
-     *
-     * @param Customer $customer
-     *
-     * @return Address
-     */
-    public function setCustomer(Customer $customer = null)
-    {
-        $this->customer = $customer;
-
-        return $this;
-    }
-
-    /**
      * Set mail
      *
      * @param string $mail
@@ -149,6 +140,16 @@ class Address
         $this->mail = $mail;
 
         return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
     }
 
     /**
@@ -166,6 +167,16 @@ class Address
     }
 
     /**
+     * Get updatedAt
+     *
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
      * Set updatedAt
      *
      * @param \DateTime $updatedAt
@@ -177,6 +188,16 @@ class Address
         $this->updatedAt = $updatedAt;
 
         return $this;
+    }
+
+    /**
+     * Get updatedBy
+     *
+     * @return User
+     */
+    public function getUpdatedBy()
+    {
+        return $this->updatedBy;
     }
 
     /**
@@ -194,12 +215,18 @@ class Address
     }
 
     /**
-     * Get updatedBy
-     *
-     * @return User
+     * @ORM\PrePersist
      */
-    public function getUpdatedBy()
+    public function prePersist()
     {
-        return $this->updatedBy;
+        $this->setUpdatedAt(new \DateTime());
+    }
+
+    /**
+     * @ORM\PreUpdate
+     */
+    public function preUpdate()
+    {
+        $this->setUpdatedAt(new \DateTime());
     }
 }

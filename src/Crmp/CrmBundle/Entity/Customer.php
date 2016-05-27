@@ -8,6 +8,8 @@ use Symfony\Component\Validator\Constraints\DateTime;
 /**
  * Customer
  *
+ * The mostly used entity referring to plenty others is the customer itself.
+ *
  * @ORM\Table(name="customer")
  * @ORM\Entity(repositoryClass="Crmp\CrmBundle\Repository\CustomerRepository")
  *
@@ -17,11 +19,23 @@ class Customer
 {
 
     /**
+     * Related addresses.
+     *
+     * Each customer can have none or more addresses attached to them.
+     * The address itself refer to a single customer.
+     * Thus it is not possible for an address to match on two customers at once.
+     * It might become handy for a person working for two or more companies.
+     * In this case please create the single address multiple times or only once for the one major customer.
+     *
      * @ORM\OneToMany(targetEntity="Crmp\CrmBundle\Entity\Address", mappedBy="customer")
      */
     private $addresses;
 
     /**
+     * Timestamp when this customer has been created.
+     *
+     * When the customer is created the "created at" field will be filled automatically with the current date and time.
+     *
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
@@ -36,6 +50,13 @@ class Customer
     private $id;
 
     /**
+     * Firm of the company.
+     *
+     * Companies usually have a title/name/firm that they are known by.
+     * The "name" field is mend for the full title of a company as registered by the state.
+     * A name can be 255 chars long and are treated as unique.
+     * So when you try to store a company that already exists an error might be thrown.
+     *
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255, unique=true)
@@ -43,6 +64,13 @@ class Customer
     private $name;
 
     /**
+     * Timestamp when the customer has been edited.
+     *
+     * You might want to track when the latest change has happened,
+     * to keep your data up-to-date or filter out old customer.
+     * Every time a customer information is changed,
+     * the date and time is stored.
+     *
      * @ORM\Column(type="datetime")
      */
     private $updatedAt;
@@ -50,6 +78,40 @@ class Customer
     public function __toString()
     {
         return $this->getName().' ('.$this->getId().')';
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return Customer
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 
     /**
@@ -101,13 +163,17 @@ class Customer
     }
 
     /**
-     * Get id
+     * Set createdAt
      *
-     * @return int
+     * @param \DateTime $createdAt
+     *
+     * @return Customer
      */
-    public function getId()
+    public function setCreatedAt($createdAt)
     {
-        return $this->id;
+        $this->createdAt = $createdAt;
+
+        return $this;
     }
 
     /**
@@ -121,16 +187,6 @@ class Customer
     }
 
     /**
-     * Get name
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
      * Get updatedAt
      *
      * @return \DateTime
@@ -138,6 +194,20 @@ class Customer
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+
+    /**
+     * Set updatedAt
+     *
+     * @param \DateTime $updatedAt
+     *
+     * @return Customer
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
     }
 
     /**
@@ -176,47 +246,5 @@ class Customer
     public function removeInvoice(\Crmp\AccountingBundle\Entity\Invoice $invoice)
     {
         $this->invoices->removeElement($invoice);
-    }
-
-    /**
-     * Set createdAt
-     *
-     * @param \DateTime $createdAt
-     *
-     * @return Customer
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    /**
-     * Set name
-     *
-     * @param string $name
-     *
-     * @return Customer
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * Set updatedAt
-     *
-     * @param \DateTime $updatedAt
-     *
-     * @return Customer
-     */
-    public function setUpdatedAt($updatedAt)
-    {
-        $this->updatedAt = $updatedAt;
-
-        return $this;
     }
 }
