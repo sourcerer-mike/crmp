@@ -1,4 +1,9 @@
 services:
+  crmp.command.update_docs:
+    class: Crmp\CrmBundle\Command\UpdateDocsCommand
+    tags:
+      - { name: console.command }
+
   crmp.menu.crm:
     public: false
     class: Crmp\CrmBundle\Menu\MenuDecorator
@@ -6,9 +11,9 @@ services:
     arguments: ["@crmp.menu.crm.inner", "@service_container"]
 
   crmp.twig.panels:
-      class: Crmp\CrmBundle\Twig\PanelsRenderer
-      tags:
-        - {name: 'twig.extension' }
+    class: Crmp\CrmBundle\Twig\PanelsRenderer
+    tags:
+      - {name: 'twig.extension' }
 
   crmp_crm.twig.register_globals:
     class: Crmp\CrmBundle\Twig\RegisterGlobals
@@ -22,11 +27,11 @@ services:
       - { name: 'crmp.panel_group', alias: 'customer_related' }
 
   crmp_crm.address.panels:
-      class: Crmp\CrmBundle\Twig\PanelGroup
-      tags:
-        - { name: 'crmp.panel_group', alias: 'address_related' }
+    class: Crmp\CrmBundle\Twig\PanelGroup
+    tags:
+      - { name: 'crmp.panel_group', alias: 'address_related' }
 
   crmp_crm.customer.panel.address:
     class: Crmp\CrmBundle\Twig\AddressPanel
     tags:
-      - {name: 'crmp.panel', target: 'customer_related' }
+      - { name: 'crmp.panel', target: 'customer_related' }
