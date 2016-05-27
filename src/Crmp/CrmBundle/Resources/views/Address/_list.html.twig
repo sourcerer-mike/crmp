@@ -2,6 +2,7 @@
     <thead>
     <tr>
         <th>{% trans %}crmp.crm.address.name{% endtrans %}</th>
+        <th>{{ "crmp.crm.customer.singular"|trans }}</th>
         <th>{% trans %}crmp.crm.address.mail{% endtrans %}</th>
         <th></th>
     </tr>
@@ -13,6 +14,15 @@
                 <a href="{{ path('address_show', {'id': address.id}) }}">
                     {{ address.name }}
                 </a>
+            </td>
+            <td>
+                {% if address.customer %}
+                    <a href="{{ path('customer_show', {'id': address.customer.id }) }}">
+                        {{ address.customer.name }}
+                    </a>
+                {% else %}
+                    &mdash;
+                {% endif %}
             </td>
             <td>
                 <a href="mailto:{{ address.mail }}" title="{{ "crmp.mail.send"|trans }}">
