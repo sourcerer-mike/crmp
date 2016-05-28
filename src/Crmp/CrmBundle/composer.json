@@ -1,6 +1,5 @@
 {
     "name": "crmp/crm",
-    "version": "0.1.0",
     "description": "An CRM tool especially for Web- and Marketing-Agencies written with Symfony 3.",
     "keywords": ["CRM", "crmp", "Customer", "Address"],
     "homepage": "https://github.com/sourcerer-mike/crmp",
@@ -19,7 +18,7 @@
         "source": "https://github.com/sourcerer-mike/crmp"
     },
     "autoload": {
-        "psr-4": { "CRMP\\CrmBundle\\": "" }
+        "psr-4": { "Crmp\\CrmBundle\\": "" }
     },
     "require": {
         "components/font-awesome": "~4",
@@ -32,7 +31,7 @@
         "leafo/scssphp": "0.6.*",
         "php": ">=5.5.9",
         "symfony/assetic-bundle": "~2",
-        "symfony/event-dispatcher": "*",
+        "symfony/event-dispatcher": "~3",
         "symfony/symfony": "3.0.*",
         "symfony/swiftmailer-bundle": "^2.3",
         "symfony/monolog-bundle": "^2.8",
@@ -44,7 +43,7 @@
     },
     "require-dev": {
         "behat/mink-extension": "~2",
-        "behat/mink-goutte-driver": "*",
+        "behat/mink-goutte-driver": "~1",
         "doctrine/data-fixtures": "^1.1",
         "hautelook/alice-bundle": "^1.2",
         "phpunit/phpunit": "~5",

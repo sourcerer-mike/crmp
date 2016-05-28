@@ -16,10 +16,15 @@ function assert() {
     finalStatus+=$status
 }
 
+for composerFile in $(ls -1 src/Crmp/*/composer.json); do
+    assert composer validate --strict ${composerFile}
+done
+
 # unit tests
 assert vendor/bin/phpunit
 
 # behat tests
 assert vendor/bin/behat
+
 
 exit ${finalStatus}
