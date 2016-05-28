@@ -11,13 +11,13 @@
     {% for address in addresses %}
         <tr>
             <td>
-                <a href="{{ path('address_show', {'id': address.id}) }}">
+                <a href="{{ path('crmp_crm_address_show', {'id': address.id}) }}">
                     {{ address.name }}
                 </a>
             </td>
             <td>
                 {% if address.customer %}
-                    <a href="{{ path('customer_show', {'id': address.customer.id }) }}">
+                    <a href="{{ path('crmp_crm_customer_show', {'id': address.customer.id }) }}">
                         {{ address.customer.name }}
                     </a>
                 {% else %}
@@ -31,11 +31,11 @@
             </td>
             <td>
                 <div class="btn-group">
-                    <a href="{{ path('address_show', { 'id': address.id }) }}"
+                    <a href="{{ path('crmp_crm_address_show', { 'id': address.id }) }}"
                             class="btn btn-default">
                         <i class="fa fa-eye"></i>
                     </a>
-                    <a href="{{ path('address_edit', { 'id': address.id }) }}"
+                    <a href="{{ path('crmp_crm_address_edit', { 'id': address.id }) }}"
                             class="btn btn-default">
                         <i class="fa fa-pencil"></i>
                     </a>

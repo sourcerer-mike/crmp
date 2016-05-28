@@ -6,6 +6,6 @@ class AddressControllerTest extends AuthTestCase
 {
     public function testUserCanAccessTheList()
     {
-        $this->assertAvailableForUsers('address_index');
+        $this->assertAvailableForUsers('crmp_crm_address_index');
     }
 }

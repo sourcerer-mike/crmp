@@ -5,7 +5,7 @@
 {% block related_nav %}
     {{ parent() }}
     <li>
-        <a href="{{ path('customer_show', { 'id': customer.id }) }}">
+        <a href="{{ path('crmp_crm_customer_show', { 'id': customer.id }) }}">
             <i class="fa fa-ban"></i>
             {% trans %}crmp.abort{% endtrans %}
         </a>
@@ -15,7 +15,7 @@
 {% block breadcrumb %}
     {{ parent() }}
     <li>
-        <a href="{{ path('customer_show', {'id': customer.id}) }}">
+        <a href="{{ path('crmp_crm_customer_show', {'id': customer.id}) }}">
             {{ customer.name }}
         </a>
     </li>

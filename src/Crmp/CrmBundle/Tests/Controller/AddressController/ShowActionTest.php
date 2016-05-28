@@ -15,7 +15,7 @@ class ShowActionTest extends AuthTestCase
 
         $this->assertInstanceOf('\\Crmp\\CrmBundle\\Entity\\Address', $someAddress);
 
-        $client   = $this->createAuthorizedUserClient('GET', 'address_show', ['id' => $someAddress->getId()]);
+        $client   = $this->createAuthorizedUserClient('GET', 'crmp_crm_address_show', ['id' => $someAddress->getId()]);
         $response = $client->getResponse();
 
         $this->assertTrue($response->isSuccessful());

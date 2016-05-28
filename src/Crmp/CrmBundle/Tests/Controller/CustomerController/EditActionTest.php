@@ -16,12 +16,12 @@ class EditActionTest extends AuthTestCase
         $this->assertInstanceOf('\\Crmp\\CrmBundle\\Entity\\Customer', $someCustomer);
 
         $routeParameters = ['id' => $someCustomer->getId()];
-        $client          = $this->createAuthorizedUserClient('GET', 'customer_edit', $routeParameters);
+        $client          = $this->createAuthorizedUserClient('GET', 'crmp_crm_customer_edit', $routeParameters);
         $response        = $client->getResponse();
 
         $this->assertTrue($response->isSuccessful());
         $this->assertContains($someCustomer->getName(), $response->getContent());
 
-        $this->assertRoute($client, 'customer_edit', $routeParameters);
+        $this->assertRoute($client, 'crmp_crm_customer_edit', $routeParameters);
     }
 }

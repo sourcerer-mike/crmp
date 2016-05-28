@@ -18,7 +18,7 @@
             <th>{{ "crmp.crm.customer.singular"|trans }}</th>
             <td>
                 {% if offer.customer %}
-                    <a href="{{ path('customer_show', {id: offer.customer.id}) }}">
+                    <a href="{{ path('crmp_crm_customer_show', {id: offer.customer.id}) }}">
                         {{ offer.customer.name }}
                     </a>
                 {% else %}

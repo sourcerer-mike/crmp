@@ -6,6 +6,6 @@ class CustomerControllerTest extends AuthTestCase
 {
     public function testUserCanAccessTheList()
     {
-        $this->assertAvailableForUsers('customer_index');
+        $this->assertAvailableForUsers('crmp_crm_customer_index');
     }
 }

@@ -22,7 +22,7 @@ class CustomerController extends CrmpController
     /**
      * Lists all Customer entities.
      *
-     * @Route("/", name="customer_index")
+     * @Route("/", name="crmp_crm_customer_index")
      * @Method("GET")
      */
     public function indexAction()
@@ -39,7 +39,7 @@ class CustomerController extends CrmpController
     /**
      * Creates a new Customer entity.
      *
-     * @Route("/new", name="customer_new")
+     * @Route("/new", name="crmp_crm_customer_new")
      * @Method({"GET", "POST"})
      */
     public function newAction(Request $request)
@@ -53,7 +53,7 @@ class CustomerController extends CrmpController
             $em->persist($customer);
             $em->flush();
 
-            return $this->redirectToRoute('customer_show', array('id' => $customer->getId()));
+            return $this->redirectToRoute('crmp_crm_customer_show', array('id' => $customer->getId()));
         }
 
         return $this->render('CrmpCrmBundle:Customer:new.html.twig', array(
@@ -65,7 +65,7 @@ class CustomerController extends CrmpController
     /**
      * Finds and displays a Customer entity.
      *
-     * @Route("/{id}", name="customer_show")
+     * @Route("/{id}", name="crmp_crm_customer_show")
      * @Method("GET")
      */
     public function showAction(Customer $customer)
@@ -84,7 +84,7 @@ class CustomerController extends CrmpController
     /**
      * Displays a form to edit an existing Customer entity.
      *
-     * @Route("/{id}/edit", name="customer_edit")
+     * @Route("/{id}/edit", name="crmp_crm_customer_edit")
      * @Method({"GET", "POST"})
      */
     public function editAction(Request $request, Customer $customer)
@@ -98,7 +98,7 @@ class CustomerController extends CrmpController
             $em->persist($customer);
             $em->flush();
 
-            return $this->redirectToRoute('customer_edit', array('id' => $customer->getId()));
+            return $this->redirectToRoute('crmp_crm_customer_edit', array('id' => $customer->getId()));
         }
 
         return $this->render('CrmpCrmBundle:Customer:edit.html.twig', array(
@@ -111,7 +111,7 @@ class CustomerController extends CrmpController
     /**
      * Deletes a Customer entity.
      *
-     * @Route("/{id}", name="customer_delete")
+     * @Route("/{id}", name="crmp_crm_customer_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, Customer $customer)
@@ -125,7 +125,7 @@ class CustomerController extends CrmpController
             $em->flush();
         }
 
-        return $this->redirectToRoute('customer_index');
+        return $this->redirectToRoute('crmp_crm_customer_index');
     }
 
     /**
@@ -138,7 +138,7 @@ class CustomerController extends CrmpController
     private function createDeleteForm(Customer $customer)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('customer_delete', array('id' => $customer->getId())))
+            ->setAction($this->generateUrl('crmp_crm_customer_delete', array('id' => $customer->getId())))
             ->setMethod('DELETE')
             ->getForm()
         ;

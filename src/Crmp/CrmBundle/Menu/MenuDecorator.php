@@ -16,7 +16,7 @@ class MenuDecorator extends AbstractMenuDecorator
         $menuItem->addChild(
             'crmp.crm.address.create',
             [
-                'route'           => 'address_new',
+                'route'           => 'crmp_crm_address_new',
                 'labelAttributes' => [
                     'icon' => 'fa fa-plus',
                 ],
@@ -27,7 +27,7 @@ class MenuDecorator extends AbstractMenuDecorator
     public function buildAddressNewRelatedMenu(MenuItem $menuItem)
     {
         $abortParams = [
-            'route'           => 'address_index',
+            'route'           => 'crmp_crm_address_index',
             'labelAttributes' => [
                 'icon' => 'fa fa-ban',
             ],
@@ -46,7 +46,7 @@ class MenuDecorator extends AbstractMenuDecorator
             $menuItem->addChild(
                 'crmp.edit',
                 [
-                    'route'           => 'address_edit',
+                    'route'           => 'crmp_crm_address_edit',
                     'routeParameters' => [
                         'id' => $params['address']->getId(),
                     ],
@@ -64,7 +64,7 @@ class MenuDecorator extends AbstractMenuDecorator
         $menuItem->addChild(
             'crmp.crm.customer.create',
             [
-                'route'           => 'customer_new',
+                'route'           => 'crmp_crm_customer_new',
                 'labelAttributes' => [
                     'icon' => 'fa fa-plus',
                 ],
@@ -81,7 +81,7 @@ class MenuDecorator extends AbstractMenuDecorator
             $menuItem->addChild(
                 'crmp.crm.customer.edit',
                 [
-                    'route'           => 'customer_edit',
+                    'route'           => 'crmp_crm_customer_edit',
                     'routeParameters' => [
                         'id' => $params['customer']->getId(),
                     ],
@@ -94,7 +94,7 @@ class MenuDecorator extends AbstractMenuDecorator
             $menuItem->addChild(
                 'crmp.crm.address.create',
                 [
-                    'route'           => 'address_new',
+                    'route'           => 'crmp_crm_address_new',
                     'routeParameters' => [
                         'customer' => $params['customer']->getId(),
                     ],
@@ -109,7 +109,7 @@ class MenuDecorator extends AbstractMenuDecorator
     public function buildCustomerNewRelatedMenu(MenuItem $menuItem)
     {
         $abortParams = [
-            'route'           => 'customer_index',
+            'route'           => 'crmp_crm_customer_index',
             'labelAttributes' => [
                 'icon' => 'fa fa-ban',
             ],
@@ -133,8 +133,8 @@ class MenuDecorator extends AbstractMenuDecorator
 
         $crm = $menu->addChild('crmp.crm.singular');
 
-        $crm->addChild('crmp.crm.address.plural', ['route' => 'address_index']);
-        $crm->addChild('crmp.crm.customer.plural', ['route' => 'customer_index']);
+        $crm->addChild('crmp.crm.address.plural', ['route' => 'crmp_crm_address_index']);
+        $crm->addChild('crmp.crm.customer.plural', ['route' => 'crmp_crm_customer_index']);
 
         return $menu;
     }

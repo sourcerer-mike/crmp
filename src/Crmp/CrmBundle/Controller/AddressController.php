@@ -19,7 +19,7 @@ class AddressController extends CrmpController
     /**
      * Lists all Address entities.
      *
-     * @Route("/", name="address_index")
+     * @Route("/", name="crmp_crm_address_index")
      * @Method("GET")
      */
     public function indexAction(Request $request)
@@ -46,7 +46,7 @@ class AddressController extends CrmpController
     /**
      * Creates a new Address entity.
      *
-     * @Route("/new", name="address_new")
+     * @Route("/new", name="crmp_crm_address_new")
      * @Method({"GET", "POST"})
      */
     public function newAction(Request $request)
@@ -68,7 +68,7 @@ class AddressController extends CrmpController
             $em->persist($address);
             $em->flush();
 
-            return $this->redirectToRoute('address_show', array('id' => $address->getId()));
+            return $this->redirectToRoute('crmp_crm_address_show', array('id' => $address->getId()));
         }
 
         return $this->render('CrmpCrmBundle:Address:new.html.twig', array(
@@ -80,7 +80,7 @@ class AddressController extends CrmpController
     /**
      * Finds and displays a Address entity.
      *
-     * @Route("/{id}", name="address_show")
+     * @Route("/{id}", name="crmp_crm_address_show")
      * @Method("GET")
      */
     public function showAction(Address $address)
@@ -96,7 +96,7 @@ class AddressController extends CrmpController
     /**
      * Displays a form to edit an existing Address entity.
      *
-     * @Route("/{id}/edit", name="address_edit")
+     * @Route("/{id}/edit", name="crmp_crm_address_edit")
      * @Method({"GET", "POST"})
      */
     public function editAction(Request $request, Address $address)
@@ -112,7 +112,7 @@ class AddressController extends CrmpController
             $em->persist($address);
             $em->flush();
 
-            return $this->redirectToRoute('address_show', array('id' => $address->getId()));
+            return $this->redirectToRoute('crmp_crm_address_show', array('id' => $address->getId()));
         }
 
         return $this->render('CrmpCrmBundle:Address:edit.html.twig', array(
@@ -125,7 +125,7 @@ class AddressController extends CrmpController
     /**
      * Deletes a Address entity.
      *
-     * @Route("/{id}", name="address_delete")
+     * @Route("/{id}", name="crmp_crm_address_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, Address $address)
@@ -139,7 +139,7 @@ class AddressController extends CrmpController
             $em->flush();
         }
 
-        return $this->redirectToRoute('address_index');
+        return $this->redirectToRoute('crmp_crm_address_index');
     }
 
     /**
@@ -152,7 +152,7 @@ class AddressController extends CrmpController
     private function createDeleteForm(Address $address)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('address_delete', array('id' => $address->getId())))
+            ->setAction($this->generateUrl('crmp_crm_address_delete', array('id' => $address->getId())))
             ->setMethod('DELETE')
             ->getForm()
         ;

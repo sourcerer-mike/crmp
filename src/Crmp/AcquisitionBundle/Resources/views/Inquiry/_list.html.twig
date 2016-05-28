@@ -17,7 +17,7 @@
             </td>
             <td>
                 {% if inquiry.customer %}
-                    <a href="{{ path('customer_show', {id: inquiry.customer.id}) }}"
+                    <a href="{{ path('crmp_crm_customer_show', {id: inquiry.customer.id}) }}"
                        title="{{ "crmp.common.show"|trans({'%name%': inquiry.customer.name}) }}">
                         {{ inquiry.customer.name }}
                     </a>

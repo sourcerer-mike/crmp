@@ -17,7 +17,7 @@
         <tr>
             <th>{{ "crmp.crm.customer.singular"|trans }}</th>
             <td>
-                <a href="{{ path('customer_show', {id: invoice.customer.id}) }}">
+                <a href="{{ path('crmp_crm_customer_show', {id: invoice.customer.id}) }}">
                     {{ invoice.customer.name }}
                 </a>
             </td>

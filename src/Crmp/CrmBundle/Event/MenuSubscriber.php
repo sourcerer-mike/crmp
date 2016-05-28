@@ -55,7 +55,7 @@ class MenuSubscriber implements EventSubscriberInterface
 
         $crm = $menu->addChild('CRM');
 
-        $crm->addChild('Address', ['route' => 'address_index']);
-        $crm->addChild('Customer', ['route' => 'customer_index']);
+        $crm->addChild('Address', ['route' => 'crmp_crm_address_index']);
+        $crm->addChild('Customer', ['route' => 'crmp_crm_customer_index']);
     }
 }
