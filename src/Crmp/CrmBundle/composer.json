@@ -1,10 +1,11 @@
 {
     "name": "crmp/crm",
-    "description": "An CRM tool especially for Web- and Marketing-Agencies written with Symfony 3.",
-    "homepage": "https://github.com/sourcerer-mike/crmp",
     "version": "0.1.0",
-    "license": "proprietary",
-    "type": "project",
+    "description": "An CRM tool especially for Web- and Marketing-Agencies written with Symfony 3.",
+    "keywords": ["CRM", "crmp", "Customer", "Address"],
+    "homepage": "https://github.com/sourcerer-mike/crmp",
+    "license": "MIT",
+    "type": "symfony-bundle",
     "authors": [
         {
             "name": "Mike Pretzlaw",
@@ -18,18 +19,7 @@
         "source": "https://github.com/sourcerer-mike/crmp"
     },
     "autoload": {
-        "psr-4": {
-            "": "src/"
-        },
-        "classmap": [
-            "app/AppKernel.php",
-            "app/AppCache.php"
-        ]
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Tests\\": "tests/"
-        }
+        "psr-4": { "CRMP\\CrmBundle\\": "" }
     },
     "require": {
         "components/font-awesome": "~4",
@@ -60,34 +50,5 @@
         "phpunit/phpunit": "~5",
         "symfony/phpunit-bridge": "^2.7",
         "behat/symfony2-extension": "^2.1"
-    },
-    "scripts": {
-        "post-install-cmd": [
-            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
-        ],
-        "post-update-cmd": [
-            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
-        ]
-    },
-    "extra": {
-        "symfony-app-dir": "app",
-        "symfony-bin-dir": "bin",
-        "symfony-var-dir": "var",
-        "symfony-web-dir": "web",
-        "symfony-tests-dir": "tests",
-        "symfony-assets-install": "relative",
-        "incenteev-parameters": {
-            "file": "app/config/parameters.yml"
-        }
     }
 }
