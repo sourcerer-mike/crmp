@@ -59,7 +59,7 @@ class InquiryPanel extends AbstractPanel implements PanelInterface
      */
     public function getTitle()
     {
-        return $this->container->get('translator')->trans('crmp.acquisition.inquiry.plural');
+        return $this->container->get('translator')->trans('crmp_acquisition.inquiry.plural');
     }
 
 

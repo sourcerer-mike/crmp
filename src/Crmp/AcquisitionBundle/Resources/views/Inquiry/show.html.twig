@@ -26,7 +26,7 @@
                     </a>
                     <a href="{{ path('crmp_acquisition_inquiry_index', {customer: inquiry.customer.id}) }}"
                        class="btn btn-default btn-xs pull-right"
-                            title="{{ inquiry.customer.name }} {{ "crmp.acquisition.inquiry.list"|trans }}">
+                            title="{{ inquiry.customer.name }} {{ "crmp_acquisition.inquiry.list"|trans }}">
                         <i class="fa fa-filter"></i>
                     </a>
                 {% else %}
@@ -35,19 +35,19 @@
             </td>
         </tr>
         <tr>
-            <th>{{ "crmp.acquisition.inquiry.date"|trans }}</th>
+            <th>{{ "crmp_acquisition.inquiry.date"|trans }}</th>
             <td>{{ inquiry.inquiredAt|date('l M j, Y') }}</td>
         </tr>
         <tr>
-            <th>{{ "crmp.acquisition.inquiry.predictedValue"|trans }}</th>
+            <th>{{ "crmp_acquisition.inquiry.predictedValue"|trans }}</th>
             <td>{{ inquiry.netValue|price }}</td>
         </tr>
         <tr>
-            <th>{{ "crmp.acquisition.inquiry.statusLabel"|trans }}</th>
+            <th>{{ "crmp_acquisition.inquiry.statusLabel"|trans }}</th>
             <td>{{ inquiry.statusLabel }}</td>
         </tr>
         <tr>
-            <th>{{ "crmp.acquisition.inquiry.content"|trans }}</th>
+            <th>{{ "crmp_acquisition.inquiry.content"|trans }}</th>
             <td>{{ inquiry.content|nl2br }}</td>
         </tr>
         </tbody>

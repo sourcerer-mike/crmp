@@ -21,15 +21,15 @@ class OfferType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title', null, ['label' => 'crmp.acquisition.offer.title'])
+            ->add('title', null, ['label' => 'crmp_acquisition.offer.title'])
             ->add('customer', null, ['label' => 'crmp.crm.customer.singular'])
-            ->add('inquiry', null, ['label' => 'crmp.acquisition.inquiry.singular'])
-            ->add('price', null, ['label' => 'crmp.acquisition.offer.price'])
+            ->add('inquiry', null, ['label' => 'crmp_acquisition.inquiry.singular'])
+            ->add('price', null, ['label' => 'crmp_acquisition.offer.price'])
             ->add(
                 'content',
                 TextareaType::class,
                 [
-                    'label' => 'crmp.acquisition.offer.content',
+                    'label' => 'crmp_acquisition.offer.content',
                     'trim' => true,
                     'attr' => [
                         'rows' => self::DEFAULT_TEXTAREA_HEIGHT,
@@ -42,7 +42,7 @@ class OfferType extends AbstractType
                 [
                     'choices'  => Config::getChoices('acquisition.offer.status'),
                     'expanded' => true,
-                    'label' => 'crmp.acquisition.offer.status',
+                    'label' => 'crmp_acquisition.offer.status',
                 ]
             );
         ;

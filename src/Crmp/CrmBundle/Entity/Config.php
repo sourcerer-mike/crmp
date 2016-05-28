@@ -69,9 +69,9 @@ class Config
     public static function getChoices($path)
     {
         return [
-            'crmp.acquisition.inquiry.status.open'     => 0,
-            'crmp.acquisition.inquiry.status.done'     => 1,
-            'crmp.acquisition.inquiry.status.canceled' => 2,
+            'crmp_acquisition.inquiry.status.open'     => 0,
+            'crmp_acquisition.inquiry.status.done'     => 1,
+            'crmp_acquisition.inquiry.status.canceled' => 2,
         ];
     }
 }

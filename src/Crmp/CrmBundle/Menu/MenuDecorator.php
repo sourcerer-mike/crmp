@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 
 class MenuDecorator extends AbstractMenuDecorator
 {
-    public function buildAddressIndexRelatedMenu(MenuItem $menuItem)
+    public function buildCrmAddressIndexRelatedMenu(MenuItem $menuItem)
     {
         $menuItem->addChild(
             'crmp.crm.address.create',
@@ -24,7 +24,7 @@ class MenuDecorator extends AbstractMenuDecorator
         );
     }
 
-    public function buildAddressNewRelatedMenu(MenuItem $menuItem)
+    public function buildCrmAddressNewRelatedMenu(MenuItem $menuItem)
     {
         $abortParams = [
             'route'           => 'crmp_crm_address_index',
@@ -38,7 +38,7 @@ class MenuDecorator extends AbstractMenuDecorator
         }
     }
 
-    public function buildAddressShowRelatedMenu(MenuItem $menuItem)
+    public function buildCrmAddressShowRelatedMenu(MenuItem $menuItem)
     {
         $params = $this->container->get('crmp.controller.render.parameters');
 
@@ -59,7 +59,7 @@ class MenuDecorator extends AbstractMenuDecorator
 
     }
 
-    public function buildCustomerIndexRelatedMenu(MenuItem $menuItem)
+    public function buildCrmCustomerIndexRelatedMenu(MenuItem $menuItem)
     {
         $menuItem->addChild(
             'crmp.crm.customer.create',
@@ -72,7 +72,7 @@ class MenuDecorator extends AbstractMenuDecorator
         );
     }
 
-    public function buildCustomerShowRelatedMenu(MenuItem $menuItem)
+    public function buildCrmCustomerShowRelatedMenu(MenuItem $menuItem)
     {
         $params = $this->container->get('crmp.controller.render.parameters');
 
@@ -106,7 +106,7 @@ class MenuDecorator extends AbstractMenuDecorator
         }
     }
 
-    public function buildCustomerNewRelatedMenu(MenuItem $menuItem)
+    public function buildCrmCustomerNewRelatedMenu(MenuItem $menuItem)
     {
         $abortParams = [
             'route'           => 'crmp_crm_customer_index',

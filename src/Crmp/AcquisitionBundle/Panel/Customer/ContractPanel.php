@@ -59,7 +59,7 @@ class ContractPanel extends AbstractPanel implements PanelInterface
      */
     public function getTitle()
     {
-        return $this->container->get('translator')->trans('crmp.acquisition.contract.plural');
+        return $this->container->get('translator')->trans('crmp_acquisition.contract.plural');
     }
 
 

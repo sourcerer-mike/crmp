@@ -18,13 +18,13 @@ class InquiryType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title', null, ['label' => 'crmp.acquisition.inquiry.title'])
+            ->add('title', null, ['label' => 'crmp_acquisition.inquiry.title'])
             ->add('customer', null, ['label' => 'crmp.crm.customer.singular'])
             ->add(
                 'inquiredAt',
                 \Symfony\Component\Form\Extension\Core\Type\DateType::class,
                 [
-	                'label' => 'crmp.acquisition.inquiry.date',
+	                'label' => 'crmp_acquisition.inquiry.date',
                     'widget' => 'single_text',
                     'format' => 'dd.MM.yyyy',
                     'attr'   => [
@@ -38,7 +38,7 @@ class InquiryType extends AbstractType
                 'netValue',
                 null,
                 [
-                    'label' => 'crmp.acquisition.inquiry.predictedValue',
+                    'label' => 'crmp_acquisition.inquiry.predictedValue',
                 ]
             )
             ->add(
@@ -47,10 +47,10 @@ class InquiryType extends AbstractType
                 [
                     'choices' => Config::getChoices('acquisition.inquiry.status'),
                     'expanded' => true,
-                    'label' => 'crmp.acquisition.inquiry.statusLabel',
+                    'label' => 'crmp_acquisition.inquiry.statusLabel',
                 ]
             )
-            ->add('content', null, ['label' => 'crmp.acquisition.inquiry.content']);
+            ->add('content', null, ['label' => 'crmp_acquisition.inquiry.content']);
     }
 
     /**

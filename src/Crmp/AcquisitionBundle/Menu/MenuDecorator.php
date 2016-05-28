@@ -13,10 +13,10 @@ use Symfony\Component\HttpFoundation\RequestStack;
 
 class MenuDecorator extends AbstractMenuDecorator
 {
-    public function buildContractIndexRelatedMenu(MenuItem $menuItem)
+    public function buildAcquisitionContractIndexRelatedMenu(MenuItem $menuItem)
     {
         $menuItem->addChild(
-            'crmp.acquisition.contract.new',
+            'crmp_acquisition.contract.new',
             [
                 'route'           => 'crmp_acquisition_contract_new',
                 'labelAttributes' => [
@@ -26,13 +26,13 @@ class MenuDecorator extends AbstractMenuDecorator
         );
     }
 
-    public function buildContractShowRelatedMenu(MenuItem $menuItem)
+    public function buildAcquisitionContractShowRelatedMenu(MenuItem $menuItem)
     {
         $params = $this->container->get('crmp.controller.render.parameters');
 
         if (isset( $params['contract'] ) && $params['contract'] instanceof Contract) {
             $menuItem->addChild(
-                'crmp.acquisition.contract.edit',
+                'crmp_acquisition.contract.edit',
                 [
                     'route'           => 'crmp_acquisition_contract_edit',
                     'routeParameters' => [
@@ -46,13 +46,13 @@ class MenuDecorator extends AbstractMenuDecorator
         }
     }
 
-    public function buildCustomerShowRelatedMenu(MenuItem $menuItem)
+    public function buildCrmCustomerShowRelatedMenu(MenuItem $menuItem)
     {
         $params = $this->container->get('crmp.controller.render.parameters');
 
         if (isset( $params['customer'] ) && $params['customer'] instanceof Customer) {
             $menuItem->addChild(
-                'crmp.acquisition.inquiry.new',
+                'crmp_acquisition.inquiry.new',
                 [
                     'route'           => 'crmp_acquisition_inquiry_new',
                     'routeParameters' => [
@@ -66,10 +66,10 @@ class MenuDecorator extends AbstractMenuDecorator
         }
     }
 
-    public function buildInquiryIndexRelatedMenu(MenuItem $menuItem)
+    public function buildAccountingInquiryIndexRelatedMenu(MenuItem $menuItem)
     {
         $menuItem->addChild(
-            'crmp.acquisition.inquiry.new',
+            'crmp_acquisition.inquiry.new',
             [
                 'route'           => 'crmp_acquisition_inquiry_new',
                 'labelAttributes' => [
@@ -79,13 +79,13 @@ class MenuDecorator extends AbstractMenuDecorator
         );
     }
 
-    public function buildInquiryShowRelatedMenu(MenuItem $menuItem)
+    public function buildAccountingInquiryShowRelatedMenu(MenuItem $menuItem)
     {
         $params = $this->container->get('crmp.controller.render.parameters');
 
         if (isset( $params['inquiry'] ) && $params['inquiry'] instanceof Inquiry) {
             $menuItem->addChild(
-                'crmp.acquisition.inquiry.edit',
+                'crmp_acquisition.inquiry.edit',
                 [
                     'route'           => 'crmp_acquisition_inquiry_edit',
                     'routeParameters' => [
@@ -98,7 +98,7 @@ class MenuDecorator extends AbstractMenuDecorator
             );
 
             $menuItem->addChild(
-                'crmp.acquisition.offer.new',
+                'crmp_acquisition.offer.new',
                 [
                     'route'           => 'crmp_acquisition_offer_new',
                     'routeParameters' => [
@@ -112,10 +112,10 @@ class MenuDecorator extends AbstractMenuDecorator
         }
     }
 
-    public function buildOfferIndexRelatedMenu(MenuItem $menuItem)
+    public function buildAcquisitionOfferIndexRelatedMenu(MenuItem $menuItem)
     {
         $menuItem->addChild(
-            'crmp.acquisition.offer.new',
+            'crmp_acquisition.offer.new',
             [
                 'route'           => 'crmp_acquisition_offer_new',
                 'labelAttributes' => [
@@ -125,13 +125,13 @@ class MenuDecorator extends AbstractMenuDecorator
         );
     }
 
-    public function buildOfferShowRelatedMenu(MenuItem $menuItem)
+    public function buildAcquisitionOfferShowRelatedMenu(MenuItem $menuItem)
     {
         $params = $this->container->get('crmp.controller.render.parameters');
 
         if (isset( $params['offer'] ) && $params['offer'] instanceof Offer) {
             $menuItem->addChild(
-                'crmp.acquisition.offer.edit',
+                'crmp_acquisition.offer.edit',
                 [
                     'route'           => 'crmp_acquisition_offer_edit',
                     'routeParameters' => [
@@ -144,7 +144,7 @@ class MenuDecorator extends AbstractMenuDecorator
             );
 
             $menuItem->addChild(
-                'crmp.acquisition.contract.new',
+                'crmp_acquisition.contract.new',
                 [
                     'route'           => 'crmp_acquisition_contract_new',
                     'routeParameters' => [
@@ -169,11 +169,11 @@ class MenuDecorator extends AbstractMenuDecorator
             return $menu;
         }
 
-        $acquisition = $menu->addChild('crmp.acquisition.menu.label');
+        $acquisition = $menu->addChild('crmp_acquisition.menu.label');
 
-        $acquisition->addChild('crmp.acquisition.menu.inquiry', ['route' => 'crmp_acquisition_inquiry_index']);
-        $acquisition->addChild('crmp.acquisition.menu.offer', ['route' => 'crmp_acquisition_offer_index']);
-        $acquisition->addChild('crmp.acquisition.menu.contract', ['route' => 'crmp_acquisition_contract_index']);
+        $acquisition->addChild('crmp_acquisition.menu.inquiry', ['route' => 'crmp_acquisition_inquiry_index']);
+        $acquisition->addChild('crmp_acquisition.menu.offer', ['route' => 'crmp_acquisition_offer_index']);
+        $acquisition->addChild('crmp_acquisition.menu.contract', ['route' => 'crmp_acquisition_contract_index']);
 
         return $menu;
     }

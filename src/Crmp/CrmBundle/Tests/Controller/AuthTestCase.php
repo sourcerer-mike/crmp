@@ -5,6 +5,8 @@ namespace Crmp\CrmBundle\Tests\Controller;
 use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\BrowserKit\Cookie;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class AuthTestCase extends WebTestCase
 {
@@ -80,6 +82,25 @@ class AuthTestCase extends WebTestCase
         $this->assertTrue($response->isSuccessful(), $response->getStatusCode().' '.$client->getRequest()->getUri());
     }
 
+    protected function assertTranslationsFound(Client $client)
+    {
+        $this->assertInstanceOf(Client::class, $client);
+
+        $translationDataCollector = $client->getContainer()->get('data_collector.translation');
+        $this->assertEquals(
+            0,
+            (int) $translationDataCollector->getCountMissings(),
+            'Missing translations on '.$client->getRequest()->getUri()
+        );
+    }
+
+    protected function assertRoute(Client $client, $route, $routeParameters = [])
+    {
+        $uri = $client->getContainer()->get('router')->generate($route, $routeParameters);
+
+        $this->assertContains($uri, $client->getRequest()->getUri());
+    }
+
     protected function getRandomEntity($alias)
     {
         $client        = static::createClient();
@@ -90,12 +111,5 @@ class AuthTestCase extends WebTestCase
         $key    = array_rand($result, 1);
 
         return $result[$key];
-    }
-
-    protected function assertRoute(Client $client, $route, $routeParameters = [])
-    {
-        $uri = $client->getContainer()->get('router')->generate($route, $routeParameters);
-
-        $this->assertContains($uri, $client->getRequest()->getUri());
     }
 }

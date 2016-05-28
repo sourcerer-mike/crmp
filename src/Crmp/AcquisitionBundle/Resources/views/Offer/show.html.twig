@@ -27,7 +27,7 @@
             </td>
         </tr>
         <tr>
-            <th>{{ "crmp.acquisition.inquiry.singular"|trans }}</th>
+            <th>{{ "crmp_acquisition.inquiry.singular"|trans }}</th>
             <td>
                 {% if offer.inquiry %}
                     <a href="{{ path('crmp_acquisition_inquiry_show', {id: offer.inquiry.id}) }}">
@@ -35,19 +35,19 @@
                     </a>
                     <a href="{{ path('crmp_acquisition_offer_index', {inquiry: offer.inquiry.id}) }}"
                        class="btn btn-default btn-xs pull-right"
-                       title="{{ "crmp.acquisition.offer.related"|trans }}">
+                       title="{{ "crmp_acquisition.offer.related"|trans }}">
                         <i class="fa fa-filter"></i>
                     </a>
                 {% endif %}
             </td>
         </tr>
         <tr>
-            <th>{{ "crmp.acquisition.inquiry.statusLabel"|trans }}</th>
+            <th>{{ "crmp_acquisition.inquiry.statusLabel"|trans }}</th>
             <td>
                 {% if offer.ordered %}
                     <span class="label label-success">
                         <i class="fa fa-check"></i>
-                        {{ "crmp.acquisition.offer.ordered"|trans }}
+                        {{ "crmp_acquisition.offer.ordered"|trans }}
                     </span>
                 {% else %}
                     {{ offer.statusLabel|trans }}
@@ -56,11 +56,11 @@
             </td>
         </tr>
         <tr>
-            <th>{{ "crmp.acquisition.offer.price"|trans }}</th>
+            <th>{{ "crmp_acquisition.offer.price"|trans }}</th>
             <td>{{ offer.price|price }}</td>
         </tr>
         <tr>
-            <th>{% trans %}crmp.acquisition.offer.content{% endtrans %}</th>
+            <th>{% trans %}crmp_acquisition.offer.content{% endtrans %}</th>
             <td>{{ offer.content|nl2br }}</td>
         </tr>
         </tbody>

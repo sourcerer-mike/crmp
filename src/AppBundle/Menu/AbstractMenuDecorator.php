@@ -40,6 +40,7 @@ abstract class AbstractMenuDecorator implements MenuDecoratorInterface
         $menu = $this->menuBuilder->createRelatedMenu($requestStack);
 
         $method = ucwords($requestStack->getCurrentRequest()->get('_route'), '_');
+        $method = substr($method, 4); // cut off "Crmp" from the bundle name
         $method = 'build'.str_replace('_', '', $method).'RelatedMenu';
 
         if (method_exists($this, $method)) {

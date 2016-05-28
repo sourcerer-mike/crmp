@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 
 class MenuDecorator extends AbstractMenuDecorator
 {
-    public function buildContractShowRelatedMenu(MenuItem $menu)
+    public function buildAcquisitionContractShowRelatedMenu(MenuItem $menu)
     {
         $params = $this->container->get('crmp.controller.render.parameters');
 
@@ -45,7 +45,7 @@ class MenuDecorator extends AbstractMenuDecorator
         );
     }
 
-    public function buildCustomerShowRelatedMenu(MenuItem $menuItem)
+    public function buildCrmCustomerShowRelatedMenu(MenuItem $menuItem)
     {
         $params = $this->container->get('crmp.controller.render.parameters');
 
@@ -65,7 +65,7 @@ class MenuDecorator extends AbstractMenuDecorator
         }
     }
 
-    public function buildInvoiceIndexRelatedMenu(MenuItem $menuItem)
+    public function buildAccountingInvoiceIndexRelatedMenu(MenuItem $menuItem)
     {
         $menuItem->addChild(
             'crmp.accounting.invoice.new',
@@ -78,7 +78,7 @@ class MenuDecorator extends AbstractMenuDecorator
         );
     }
 
-    public function buildInvoiceNewRelatedMenu(MenuItem $menu)
+    public function buildAccountingInvoiceNewRelatedMenu(MenuItem $menu)
     {
         // abort and go back to contract
         $request = $this->container->get('request_stack')->getCurrentRequest();
@@ -99,7 +99,7 @@ class MenuDecorator extends AbstractMenuDecorator
         }
     }
 
-    public function buildInvoiceShowRelatedMenu(MenuItem $menuItem)
+    public function buildAccountingInvoiceShowRelatedMenu(MenuItem $menuItem)
     {
         $params = $this->container->get('crmp.controller.render.parameters');
 

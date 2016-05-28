@@ -59,7 +59,7 @@ class OfferPanel extends AbstractPanel implements PanelInterface
      */
     public function getTitle()
     {
-        return $this->container->get('translator')->trans('crmp.acquisition.offer.plural');
+        return $this->container->get('translator')->trans('crmp_acquisition.offer.plural');
     }
 
 

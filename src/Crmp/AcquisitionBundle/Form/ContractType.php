@@ -15,10 +15,10 @@ class ContractType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title', null, ['label' => 'crmp.acquisition.contract.title'])
-            ->add('offer', null, ['label' => 'crmp.acquisition.offer.singular'])
-            ->add('value', null, ['label' => 'crmp.acquisition.contract.value'])
-            ->add('content', null, ['label' => 'crmp.acquisition.contract.content']);
+            ->add('title', null, ['label' => 'crmp_acquisition.contract.title'])
+            ->add('offer', null, ['label' => 'crmp_acquisition.offer.singular'])
+            ->add('value', null, ['label' => 'crmp_acquisition.contract.value'])
+            ->add('content', null, ['label' => 'crmp_acquisition.contract.content']);
     }
 
     /**
