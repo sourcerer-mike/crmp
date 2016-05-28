@@ -18,7 +18,7 @@
             <th>{{ "crmp.acquisition.offer.singular"|trans }}</th>
             <td>
                 {% if contract.offer %}
-                    <a href="{{ path('offer_show', {id: contract.offer.id}) }}">
+                    <a href="{{ path('crmp_acquisition_offer_show', {id: contract.offer.id}) }}">
                         {{ contract.offer.title }}
                     </a>
                 {% endif %}

@@ -20,7 +20,7 @@ class OfferController extends CrmpController
     /**
      * Lists all Offer entities.
      *
-     * @Route("/", name="offer_index")
+     * @Route("/", name="crmp_acquisition_offer_index")
      * @Method("GET")
      */
     public function indexAction(Request $request)
@@ -55,7 +55,7 @@ class OfferController extends CrmpController
     /**
      * Creates a new Offer entity.
      *
-     * @Route("/new", name="offer_new")
+     * @Route("/new", name="crmp_acquisition_offer_new")
      * @Method({"GET", "POST"})
      */
     public function newAction(Request $request)
@@ -86,7 +86,7 @@ class OfferController extends CrmpController
             $em->persist($offer);
             $em->flush();
 
-            return $this->redirectToRoute('offer_show', array('id' => $offer->getId()));
+            return $this->redirectToRoute('crmp_acquisition_offer_show', array('id' => $offer->getId()));
         }
 
         return $this->render('CrmpAcquisitionBundle:Offer:new.html.twig', array(
@@ -98,7 +98,7 @@ class OfferController extends CrmpController
     /**
      * Finds and displays a Offer entity.
      *
-     * @Route("/{id}", name="offer_show")
+     * @Route("/{id}", name="crmp_acquisition_offer_show")
      * @Method("GET")
      */
     public function showAction(Offer $offer)
@@ -114,7 +114,7 @@ class OfferController extends CrmpController
     /**
      * Displays a form to edit an existing Offer entity.
      *
-     * @Route("/{id}/edit", name="offer_edit")
+     * @Route("/{id}/edit", name="crmp_acquisition_offer_edit")
      * @Method({"GET", "POST"})
      */
     public function editAction(Request $request, Offer $offer)
@@ -128,7 +128,7 @@ class OfferController extends CrmpController
             $em->persist($offer);
             $em->flush();
 
-            return $this->redirectToRoute('offer_edit', array('id' => $offer->getId()));
+            return $this->redirectToRoute('crmp_acquisition_offer_edit', array('id' => $offer->getId()));
         }
 
         return $this->render('CrmpAcquisitionBundle:Offer:edit.html.twig', array(
@@ -141,7 +141,7 @@ class OfferController extends CrmpController
     /**
      * Deletes a Offer entity.
      *
-     * @Route("/{id}", name="offer_delete")
+     * @Route("/{id}", name="crmp_acquisition_offer_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, Offer $offer)
@@ -155,7 +155,7 @@ class OfferController extends CrmpController
             $em->flush();
         }
 
-        return $this->redirectToRoute('offer_index');
+        return $this->redirectToRoute('crmp_acquisition_offer_index');
     }
 
     /**
@@ -168,7 +168,7 @@ class OfferController extends CrmpController
     private function createDeleteForm(Offer $offer)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('offer_delete', array('id' => $offer->getId())))
+            ->setAction($this->generateUrl('crmp_acquisition_offer_delete', array('id' => $offer->getId())))
             ->setMethod('DELETE')
             ->getForm()
         ;

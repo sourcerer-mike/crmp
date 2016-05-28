@@ -10,18 +10,18 @@
     {% for contract in contracts %}
         <tr>
             <td>
-                <a href="{{ path('contract_show', { 'id': contract.id }) }}">
+                <a href="{{ path('crmp_acquisition_contract_show', { 'id': contract.id }) }}">
                     {{ contract.title }}
                 </a>
             </td>
             <td>{{ contract.value|price }}</td>
             <td>
                 <div class="btn-group">
-                    <a href="{{ path('contract_show', { 'id': contract.id }) }}"
+                    <a href="{{ path('crmp_acquisition_contract_show', { 'id': contract.id }) }}"
                        class="btn btn-default">
                         <i class="fa fa-eye"></i>
                     </a>
-                    <a href="{{ path('contract_edit', { 'id': contract.id }) }}"
+                    <a href="{{ path('crmp_acquisition_contract_edit', { 'id': contract.id }) }}"
                        class="btn btn-default">
                         <i class="fa fa-pencil"></i>
                     </a>

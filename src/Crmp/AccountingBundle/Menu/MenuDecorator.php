@@ -89,7 +89,7 @@ class MenuDecorator extends AbstractMenuDecorator
             $menu->addChild(
                 'crmp.abort',
                 [
-                    'route'           => 'contract_show',
+                    'route'           => 'crmp_acquisition_contract_show',
                     'routeParameters' => ['id' => $contract],
                     'labelAttributes' => [
                         'icon' => 'fa fa-ban',

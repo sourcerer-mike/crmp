@@ -11,7 +11,7 @@
     {% for offer in offers %}
         <tr>
             <td>
-                <a href="{{ path('offer_show', { 'id': offer.id }) }}">
+                <a href="{{ path('crmp_acquisition_offer_show', { 'id': offer.id }) }}">
                     {{ offer.title }}
                     {% if (offer.ordered) %}
                         <span class="label label-success">
@@ -25,11 +25,11 @@
             <td>{{ offer.price|price }}</td>
             <td>
                 <div class="btn-group">
-                    <a href="{{ path('offer_show', { 'id': offer.id }) }}"
+                    <a href="{{ path('crmp_acquisition_offer_show', { 'id': offer.id }) }}"
                        class="btn btn-default">
                         <i class="fa fa-eye"></i>
                     </a>
-                    <a href="{{ path('offer_edit', { 'id': offer.id }) }}"
+                    <a href="{{ path('crmp_acquisition_offer_edit', { 'id': offer.id }) }}"
                        class="btn btn-default">
                         <i class="fa fa-pencil"></i>
                     </a>

@@ -18,7 +18,7 @@ class MenuDecorator extends AbstractMenuDecorator
         $menuItem->addChild(
             'crmp.acquisition.contract.new',
             [
-                'route'           => 'contract_new',
+                'route'           => 'crmp_acquisition_contract_new',
                 'labelAttributes' => [
                     'icon' => 'fa fa-plus',
                 ],
@@ -34,7 +34,7 @@ class MenuDecorator extends AbstractMenuDecorator
             $menuItem->addChild(
                 'crmp.acquisition.contract.edit',
                 [
-                    'route'           => 'contract_edit',
+                    'route'           => 'crmp_acquisition_contract_edit',
                     'routeParameters' => [
                         'id' => $params['contract']->getId(),
                     ],
@@ -54,7 +54,7 @@ class MenuDecorator extends AbstractMenuDecorator
             $menuItem->addChild(
                 'crmp.acquisition.inquiry.new',
                 [
-                    'route'           => 'inquiry_new',
+                    'route'           => 'crmp_acquisition_inquiry_new',
                     'routeParameters' => [
                         'customer' => $params['customer']->getId(),
                     ],
@@ -71,7 +71,7 @@ class MenuDecorator extends AbstractMenuDecorator
         $menuItem->addChild(
             'crmp.acquisition.inquiry.new',
             [
-                'route'           => 'inquiry_new',
+                'route'           => 'crmp_acquisition_inquiry_new',
                 'labelAttributes' => [
                     'icon' => 'fa fa-plus',
                 ],
@@ -87,7 +87,7 @@ class MenuDecorator extends AbstractMenuDecorator
             $menuItem->addChild(
                 'crmp.acquisition.inquiry.edit',
                 [
-                    'route'           => 'inquiry_edit',
+                    'route'           => 'crmp_acquisition_inquiry_edit',
                     'routeParameters' => [
                         'id' => $params['inquiry']->getId(),
                     ],
@@ -100,7 +100,7 @@ class MenuDecorator extends AbstractMenuDecorator
             $menuItem->addChild(
                 'crmp.acquisition.offer.new',
                 [
-                    'route'           => 'offer_new',
+                    'route'           => 'crmp_acquisition_offer_new',
                     'routeParameters' => [
                         'inquiry' => $params['inquiry']->getId(),
                     ],
@@ -117,7 +117,7 @@ class MenuDecorator extends AbstractMenuDecorator
         $menuItem->addChild(
             'crmp.acquisition.offer.new',
             [
-                'route'           => 'offer_new',
+                'route'           => 'crmp_acquisition_offer_new',
                 'labelAttributes' => [
                     'icon' => 'fa fa-plus',
                 ],
@@ -133,7 +133,7 @@ class MenuDecorator extends AbstractMenuDecorator
             $menuItem->addChild(
                 'crmp.acquisition.offer.edit',
                 [
-                    'route'           => 'offer_edit',
+                    'route'           => 'crmp_acquisition_offer_edit',
                     'routeParameters' => [
                         'id' => $params['offer']->getId(),
                     ],
@@ -146,7 +146,7 @@ class MenuDecorator extends AbstractMenuDecorator
             $menuItem->addChild(
                 'crmp.acquisition.contract.new',
                 [
-                    'route'           => 'contract_new',
+                    'route'           => 'crmp_acquisition_contract_new',
                     'routeParameters' => [
                         'offer' => $params['offer']->getId(),
                     ],
@@ -171,9 +171,9 @@ class MenuDecorator extends AbstractMenuDecorator
 
         $acquisition = $menu->addChild('crmp.acquisition.menu.label');
 
-        $acquisition->addChild('crmp.acquisition.menu.inquiry', ['route' => 'inquiry_index']);
-        $acquisition->addChild('crmp.acquisition.menu.offer', ['route' => 'offer_index']);
-        $acquisition->addChild('crmp.acquisition.menu.contract', ['route' => 'contract_index']);
+        $acquisition->addChild('crmp.acquisition.menu.inquiry', ['route' => 'crmp_acquisition_inquiry_index']);
+        $acquisition->addChild('crmp.acquisition.menu.offer', ['route' => 'crmp_acquisition_offer_index']);
+        $acquisition->addChild('crmp.acquisition.menu.contract', ['route' => 'crmp_acquisition_contract_index']);
 
         return $menu;
     }

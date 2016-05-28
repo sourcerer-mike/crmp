@@ -16,12 +16,12 @@ class EditActionTest extends AuthTestCase
         $this->assertInstanceOf('\\Crmp\\AcquisitionBundle\\Entity\\Contract', $someContract);
 
         $routeParameters = ['id' => $someContract->getId()];
-        $client          = $this->createAuthorizedUserClient('GET', 'contract_edit', $routeParameters);
+        $client          = $this->createAuthorizedUserClient('GET', 'crmp_acquisition_contract_edit', $routeParameters);
         $response        = $client->getResponse();
 
         $this->assertTrue($response->isSuccessful());
         $this->assertContains($someContract->getTitle(), $response->getContent());
 
-        $this->assertRoute($client, 'contract_edit', $routeParameters);
+        $this->assertRoute($client, 'crmp_acquisition_contract_edit', $routeParameters);
     }
 }

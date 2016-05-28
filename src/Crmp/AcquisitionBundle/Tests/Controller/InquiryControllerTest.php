@@ -9,6 +9,6 @@ class InquiryControllerTest extends AuthTestCase
 {
     public function testUserCanAccessTheList()
     {
-        $this->assertAvailableForUsers('inquiry_index');
+        $this->assertAvailableForUsers('crmp_acquisition_inquiry_index');
     }
 }

@@ -19,7 +19,7 @@ class InquiryController extends CrmpController
     /**
      * Deletes a Inquiry entity.
      *
-     * @Route("/{id}", name="inquiry_delete")
+     * @Route("/{id}", name="crmp_acquisition_inquiry_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, Inquiry $inquiry)
@@ -33,13 +33,13 @@ class InquiryController extends CrmpController
             $em->flush();
         }
 
-        return $this->redirectToRoute('inquiry_index');
+        return $this->redirectToRoute('crmp_acquisition_inquiry_index');
     }
 
     /**
      * Displays a form to edit an existing Inquiry entity.
      *
-     * @Route("/{id}/edit", name="inquiry_edit")
+     * @Route("/{id}/edit", name="crmp_acquisition_inquiry_edit")
      * @Method({"GET", "POST"})
      */
     public function editAction(Request $request, Inquiry $inquiry)
@@ -53,7 +53,7 @@ class InquiryController extends CrmpController
             $em->persist($inquiry);
             $em->flush();
 
-            return $this->redirectToRoute('inquiry_edit', array('id' => $inquiry->getId()));
+            return $this->redirectToRoute('crmp_acquisition_inquiry_edit', array('id' => $inquiry->getId()));
         }
 
         return $this->render(
@@ -69,7 +69,7 @@ class InquiryController extends CrmpController
     /**
      * Lists all Inquiry entities.
      *
-     * @Route("/", name="inquiry_index")
+     * @Route("/", name="crmp_acquisition_inquiry_index")
      * @Method("GET")
      */
     public function indexAction(Request $request)
@@ -96,7 +96,7 @@ class InquiryController extends CrmpController
     /**
      * Creates a new Inquiry entity.
      *
-     * @Route("/new", name="inquiry_new")
+     * @Route("/new", name="crmp_acquisition_inquiry_new")
      * @Method({"GET", "POST"})
      */
     public function newAction(Request $request)
@@ -120,7 +120,7 @@ class InquiryController extends CrmpController
             $em->persist($inquiry);
             $em->flush();
 
-            return $this->redirectToRoute('inquiry_show', array('id' => $inquiry->getId()));
+            return $this->redirectToRoute('crmp_acquisition_inquiry_show', array('id' => $inquiry->getId()));
         }
 
         $this->container;
@@ -137,7 +137,7 @@ class InquiryController extends CrmpController
     /**
      * Finds and displays a Inquiry entity.
      *
-     * @Route("/{id}", name="inquiry_show")
+     * @Route("/{id}", name="crmp_acquisition_inquiry_show")
      * @Method("GET")
      */
     public function showAction(Inquiry $inquiry)
@@ -163,7 +163,7 @@ class InquiryController extends CrmpController
     private function createDeleteForm(Inquiry $inquiry)
     {
         return $this->createFormBuilder()
-                    ->setAction($this->generateUrl('inquiry_delete', array('id' => $inquiry->getId())))
+                    ->setAction($this->generateUrl('crmp_acquisition_inquiry_delete', array('id' => $inquiry->getId())))
                     ->setMethod('DELETE')
                     ->getForm();
     }

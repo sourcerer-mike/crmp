@@ -8,6 +8,6 @@ class ContractControllerTest extends AuthTestCase
 {
     public function testUserCanAccessTheList()
     {
-        $this->assertAvailableForUsers('contract_index');
+        $this->assertAvailableForUsers('crmp_acquisition_contract_index');
     }
 }

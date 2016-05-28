@@ -5,7 +5,7 @@
 {% block breadcrumb %}
     {{ parent() }}
     <li>
-        <a href="{{ path('offer_show', {'id': offer.id}) }}">
+        <a href="{{ path('crmp_acquisition_offer_show', {'id': offer.id}) }}">
             {{ offer.title }}
         </a>
     </li>

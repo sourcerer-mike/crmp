@@ -19,7 +19,7 @@ class ContractController extends CrmpController
     /**
      * Lists all Contract entities.
      *
-     * @Route("/", name="contract_index")
+     * @Route("/", name="crmp_acquisition_contract_index")
      * @Method("GET")
      */
     public function indexAction()
@@ -36,7 +36,7 @@ class ContractController extends CrmpController
     /**
      * Creates a new Contract entity.
      *
-     * @Route("/new", name="contract_new")
+     * @Route("/new", name="crmp_acquisition_contract_new")
      * @Method({"GET", "POST"})
      */
     public function newAction(Request $request)
@@ -58,7 +58,7 @@ class ContractController extends CrmpController
             $em->persist($contract);
             $em->flush();
 
-            return $this->redirectToRoute('contract_show', array('id' => $contract->getId()));
+            return $this->redirectToRoute('crmp_acquisition_contract_show', array('id' => $contract->getId()));
         }
 
         return $this->render('CrmpAcquisitionBundle:Contract:new.html.twig', array(
@@ -70,7 +70,7 @@ class ContractController extends CrmpController
     /**
      * Finds and displays a Contract entity.
      *
-     * @Route("/{id}", name="contract_show")
+     * @Route("/{id}", name="crmp_acquisition_contract_show")
      * @Method("GET")
      */
     public function showAction(Contract $contract)
@@ -86,7 +86,7 @@ class ContractController extends CrmpController
     /**
      * Displays a form to edit an existing Contract entity.
      *
-     * @Route("/{id}/edit", name="contract_edit")
+     * @Route("/{id}/edit", name="crmp_acquisition_contract_edit")
      * @Method({"GET", "POST"})
      */
     public function editAction(Request $request, Contract $contract)
@@ -100,7 +100,7 @@ class ContractController extends CrmpController
             $em->persist($contract);
             $em->flush();
 
-            return $this->redirectToRoute('contract_edit', array('id' => $contract->getId()));
+            return $this->redirectToRoute('crmp_acquisition_contract_edit', array('id' => $contract->getId()));
         }
 
         return $this->render('CrmpAcquisitionBundle:Contract:edit.html.twig', array(
@@ -113,7 +113,7 @@ class ContractController extends CrmpController
     /**
      * Deletes a Contract entity.
      *
-     * @Route("/{id}", name="contract_delete")
+     * @Route("/{id}", name="crmp_acquisition_contract_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, Contract $contract)
@@ -127,7 +127,7 @@ class ContractController extends CrmpController
             $em->flush();
         }
 
-        return $this->redirectToRoute('contract_index');
+        return $this->redirectToRoute('crmp_acquisition_contract_index');
     }
 
     /**
@@ -140,7 +140,7 @@ class ContractController extends CrmpController
     private function createDeleteForm(Contract $contract)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('contract_delete', array('id' => $contract->getId())))
+            ->setAction($this->generateUrl('crmp_acquisition_contract_delete', array('id' => $contract->getId())))
             ->setMethod('DELETE')
             ->getForm()
         ;

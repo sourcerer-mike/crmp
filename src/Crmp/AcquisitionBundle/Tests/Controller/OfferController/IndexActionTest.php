@@ -9,7 +9,7 @@ class IndexActionTest extends AuthTestCase
 {
     public function testUserCanAccessTheList()
     {
-        $client = $this->createAuthorizedUserClient('GET', 'offer_index');
+        $client = $this->createAuthorizedUserClient('GET', 'crmp_acquisition_offer_index');
 
         $this->assertTrue($client->getResponse()->isSuccessful());
     }

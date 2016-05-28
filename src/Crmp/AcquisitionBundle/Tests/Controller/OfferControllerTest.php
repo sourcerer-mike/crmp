@@ -9,6 +9,6 @@ class OfferControllerTest extends AuthTestCase
 {
     public function testUserCanAccessTheList()
     {
-        $this->assertAvailableForUsers('offer_index');
+        $this->assertAvailableForUsers('crmp_acquisition_offer_index');
     }
 }
