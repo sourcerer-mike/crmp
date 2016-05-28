@@ -49,4 +49,6 @@
             <td>{{ address.updatedBy.username }}</td>
         </tr>
     </table>
+
+    {{ crmp_panels(crmp_crm.container.get('crmp_crm.customer.related_panel')) }}
 {% endblock %}
