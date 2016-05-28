@@ -1,46 +1,46 @@
 services:
-  crmp.acquisition.menu:
+  crmp_acquisition.menu:
     public: false
     class: Crmp\AcquisitionBundle\Menu\MenuDecorator
     decorates: app.menu_builder
-    arguments: ["@crmp.acquisition.menu.inner", "@service_container"]
+    arguments: ["@crmp_acquisition.menu.inner", "@service_container"]
 
-  crmp.inquiry.panels:
-    class: Crmp\CrmBundle\Twig\PanelGroup
-    tags:
-      - { name: 'crmp.panel_group', alias: 'inquiry_related' }
-
-  crmp.offer.panels:
-    class: Crmp\CrmBundle\Twig\PanelGroup
-    tags:
-      - { name: 'crmp.panel_group', alias: 'offer_related' }
-
-  crmp.contract.panels:
+  crmp_acquisition.contract.related_panel:
     class: Crmp\CrmBundle\Twig\PanelGroup
     tags:
       - { name: 'crmp.panel_group', alias: 'contract_related' }
 
-  crmp.customer.panel.inquiry:
-    class: Crmp\AcquisitionBundle\Panel\Customer\InquiryPanel
-    tags:
-      - {name: 'crmp.panel', target: 'customer_related' }
-
-  crmp.customer.panel.offer:
-    class: Crmp\AcquisitionBundle\Panel\Customer\OfferPanel
-    tags:
-      - {name: 'crmp.panel', target: 'customer_related' }
-
-  crmp.customer.panel.contract:
+  crmp_acquisition.customer.related_panel.contract:
     class: Crmp\AcquisitionBundle\Panel\Customer\ContractPanel
     tags:
       - {name: 'crmp.panel', target: 'customer_related' }
 
-  crmp.inquiry.panel.offer:
+  crmp_acquisition.customer.related_panel.inquiry:
+    class: Crmp\AcquisitionBundle\Panel\Customer\InquiryPanel
+    tags:
+      - {name: 'crmp.panel', target: 'customer_related' }
+
+  crmp_acquisition.customer.related_panel.offer:
+    class: Crmp\AcquisitionBundle\Panel\Customer\OfferPanel
+    tags:
+      - {name: 'crmp.panel', target: 'customer_related' }
+
+  crmp_acquisition.inquiry.related_panel:
+    class: Crmp\CrmBundle\Twig\PanelGroup
+    tags:
+      - { name: 'crmp.panel_group', alias: 'inquiry_related' }
+
+  crmp_acquisition.inquiry.related_panel.offer:
       class: Crmp\AcquisitionBundle\Panel\Inquiry\OfferPanel
       tags:
         - {name: 'crmp.panel', target: 'inquiry_related' }
 
-  crmp.offer.panel.contract:
+  crmp_acquisition.offer.related_panel:
+    class: Crmp\CrmBundle\Twig\PanelGroup
+    tags:
+      - { name: 'crmp.panel_group', alias: 'offer_related' }
+
+  crmp_acquisition.offer.related_panel.contract:
     class: Crmp\AcquisitionBundle\Panel\Offer\ContractPanel
     tags:
       - { name: 'crmp.panel', target: 'offer_related' }
