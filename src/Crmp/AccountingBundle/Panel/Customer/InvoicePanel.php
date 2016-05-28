@@ -59,7 +59,7 @@ class InvoicePanel extends AbstractPanel implements PanelInterface
      */
     public function getTitle()
     {
-        return $this->container->get('translator')->trans('crmp.accounting.invoice.plural');
+        return $this->container->get('translator')->trans('crmp_accounting.invoice.plural');
     }
 
 

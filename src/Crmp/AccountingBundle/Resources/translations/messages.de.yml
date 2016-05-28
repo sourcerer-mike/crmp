@@ -1,13 +1,9 @@
-crmp:
-  accounting:
-    invoice:
-      edit: Rechnung bearbeiten
-      new: Rechnung erstellen
-      plural: Rechnungen
-      singular: Rechnung
-      total: Rechnungsbetrag
-    menu:
-      label: Buchhaltung
-  acquisition:
-    inquiry:
-      list: Anfragen
+crmp_accounting:
+  invoice:
+    edit: Rechnung bearbeiten
+    new: Rechnung erstellen
+    plural: Rechnungen
+    singular: Rechnung
+    total: Rechnungsbetrag
+  menu:
+    label: Buchhaltung

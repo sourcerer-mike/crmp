@@ -11,6 +11,7 @@ crmp_acquisition:
     content: Inhalt
     date: Angefragt am
     edit: Anfrage bearbeiten
+    list: Anfragen
     new: Neue Anfrage
     plural: Anfragen
     predictedValue: Voraussichtlicher Wert

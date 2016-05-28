@@ -34,7 +34,7 @@ class MenuDecorator extends AbstractMenuDecorator
         }
 
         $menu->addChild(
-            'crmp.accounting.invoice.new',
+            'crmp_accounting.invoice.new',
             [
                 'route'           => 'crmp_accounting_invoice_new',
                 'routeParameters' => $routeParameters,
@@ -51,7 +51,7 @@ class MenuDecorator extends AbstractMenuDecorator
 
         if (isset( $params['customer'] ) && $params['customer'] instanceof Customer) {
             $menuItem->addChild(
-                'crmp.accounting.invoice.new',
+                'crmp_accounting.invoice.new',
                 [
                     'route'           => 'crmp_accounting_invoice_new',
                     'routeParameters' => [
@@ -68,7 +68,7 @@ class MenuDecorator extends AbstractMenuDecorator
     public function buildAccountingInvoiceIndexRelatedMenu(MenuItem $menuItem)
     {
         $menuItem->addChild(
-            'crmp.accounting.invoice.new',
+            'crmp_accounting.invoice.new',
             [
                 'route'           => 'crmp_accounting_invoice_new',
                 'labelAttributes' => [
@@ -105,7 +105,7 @@ class MenuDecorator extends AbstractMenuDecorator
 
         if (isset( $params['invoice'] ) && $params['invoice'] instanceof Invoice) {
             $menuItem->addChild(
-                'crmp.accounting.invoice.edit',
+                'crmp_accounting.invoice.edit',
                 [
                     'route'           => 'crmp_accounting_invoice_edit',
                     'routeParameters' => [
@@ -130,9 +130,9 @@ class MenuDecorator extends AbstractMenuDecorator
             return $menu;
         }
 
-        $acquisition = $menu->addChild('crmp.accounting.menu.label');
+        $acquisition = $menu->addChild('crmp_accounting.menu.label');
 
-        $acquisition->addChild('crmp.accounting.invoice.plural', ['route' => 'crmp_accounting_invoice_index']);
+        $acquisition->addChild('crmp_accounting.invoice.plural', ['route' => 'crmp_accounting_invoice_index']);
 
         return $menu;
     }

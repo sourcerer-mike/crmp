@@ -16,7 +16,7 @@ class InvoiceType extends AbstractType
     {
         $builder
 	        ->add('customer', null, ['label' => 'crmp_crm.customer.singular'])
-            ->add('value', null, ['label' => 'crmp.accounting.invoice.total'])
+            ->add('value', null, ['label' => 'crmp_accounting.invoice.total'])
         ;
     }
     
