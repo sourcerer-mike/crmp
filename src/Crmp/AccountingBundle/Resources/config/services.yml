@@ -1,19 +1,16 @@
 services:
-#    crmp_acc.example:
-#        class: Crmp\AccountingBundle\Example
-#        arguments: ["@service_id", "plain_value", %parameter%]
   crmp_accounting.menu:
     public: false
     class: Crmp\AccountingBundle\Menu\MenuDecorator
     decorates: app.menu_builder
     arguments: ["@crmp_accounting.menu.inner", "@service_container"]
 
-  crmp.customer.panel.invoices:
+  crmp_accounting.customer.related_panel.invoices:
     class: Crmp\AccountingBundle\Panel\Customer\InvoicePanel
     tags:
       - { name: 'crmp.panel', target: 'customer_related' }
 
-  crmp.contract.panel.invoices:
+  crmp_accounting.contract.related_panel.invoices:
     class: Crmp\AccountingBundle\Panel\Contract\InvoicePanel
     tags:
       - { name: 'crmp.panel', target: 'contract_related' }

@@ -44,7 +44,7 @@ class InvoicePanel extends AbstractPanel implements PanelInterface
      */
     public function getId()
     {
-        return 'crmp.customer.panel.invoices';
+        return 'crmp_accounting.customer.related_panel.invoices';
     }
 
     public function getTemplate()
