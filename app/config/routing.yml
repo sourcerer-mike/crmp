@@ -11,8 +11,5 @@ crmp_acquisition:
 crmp_crm:
   resource: "@CrmpCrmBundle/Resources/config/routing.yml"
 
-crmp_hr:
-  resource: "@CrmpHrBundle/Resources/config/routing.yml"
-
 fos_user:
   resource: "@FOSUserBundle/Resources/config/routing/all.xml"
