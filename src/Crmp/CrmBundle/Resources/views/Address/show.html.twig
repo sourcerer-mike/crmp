@@ -16,14 +16,14 @@
     <table class="table table-bordered table-hover table-striped">
         <tbody>
         <tr>
-            <th>{{ "crmp.crm.customer.singular"|trans }}</th>
+            <th>{{ "crmp_crm.customer.singular"|trans }}</th>
             <td>
                 <a href="{{ path('crmp_crm_customer_show', {'id': address.customer.id}) }}">
                     {{ address.customer.name }}
                 </a>
                 <a href="{{ path('crmp_crm_address_index', {customer: address.customer.id}) }}"
                    class="btn btn-default btn-xs pull-right"
-                        title="{{ "crmp.crm.address.related"|trans }}">
+                        title="{{ "crmp_crm.address.related"|trans }}">
                     <i class="fa fa-filter"></i>
                 </a>
             </td>

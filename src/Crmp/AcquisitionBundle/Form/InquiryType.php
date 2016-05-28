@@ -19,7 +19,7 @@ class InquiryType extends AbstractType
     {
         $builder
             ->add('title', null, ['label' => 'crmp_acquisition.inquiry.title'])
-            ->add('customer', null, ['label' => 'crmp.crm.customer.singular'])
+            ->add('customer', null, ['label' => 'crmp_crm.customer.singular'])
             ->add(
                 'inquiredAt',
                 \Symfony\Component\Form\Extension\Core\Type\DateType::class,

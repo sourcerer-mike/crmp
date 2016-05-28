@@ -57,7 +57,7 @@ class AddressPanel extends AbstractPanel implements PanelInterface
      */
     public function getTitle()
     {
-        return $this->container->get('translator')->trans('crmp.crm.address.plural');
+        return $this->container->get('translator')->trans('crmp_crm.address.plural');
     }
 
 

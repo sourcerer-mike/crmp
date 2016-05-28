@@ -15,7 +15,7 @@ class CustomerType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', null, ['label' => 'crmp.crm.customer.name'])
+            ->add('name', null, ['label' => 'crmp_crm.customer.name'])
         ;
     }
     

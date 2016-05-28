@@ -14,7 +14,7 @@ class MenuDecorator extends AbstractMenuDecorator
     public function buildCrmAddressIndexRelatedMenu(MenuItem $menuItem)
     {
         $menuItem->addChild(
-            'crmp.crm.address.create',
+            'crmp_crm.address.create',
             [
                 'route'           => 'crmp_crm_address_new',
                 'labelAttributes' => [
@@ -62,7 +62,7 @@ class MenuDecorator extends AbstractMenuDecorator
     public function buildCrmCustomerIndexRelatedMenu(MenuItem $menuItem)
     {
         $menuItem->addChild(
-            'crmp.crm.customer.create',
+            'crmp_crm.customer.create',
             [
                 'route'           => 'crmp_crm_customer_new',
                 'labelAttributes' => [
@@ -79,7 +79,7 @@ class MenuDecorator extends AbstractMenuDecorator
         if (isset($params['customer']) && $params['customer'] instanceof Customer)
         {
             $menuItem->addChild(
-                'crmp.crm.customer.edit',
+                'crmp_crm.customer.edit',
                 [
                     'route'           => 'crmp_crm_customer_edit',
                     'routeParameters' => [
@@ -92,7 +92,7 @@ class MenuDecorator extends AbstractMenuDecorator
             );
 
             $menuItem->addChild(
-                'crmp.crm.address.create',
+                'crmp_crm.address.create',
                 [
                     'route'           => 'crmp_crm_address_new',
                     'routeParameters' => [
@@ -131,10 +131,10 @@ class MenuDecorator extends AbstractMenuDecorator
             return $menu;
         }
 
-        $crm = $menu->addChild('crmp.crm.singular');
+        $crm = $menu->addChild('crmp_crm.singular');
 
-        $crm->addChild('crmp.crm.address.plural', ['route' => 'crmp_crm_address_index']);
-        $crm->addChild('crmp.crm.customer.plural', ['route' => 'crmp_crm_customer_index']);
+        $crm->addChild('crmp_crm.address.plural', ['route' => 'crmp_crm_address_index']);
+        $crm->addChild('crmp_crm.customer.plural', ['route' => 'crmp_crm_customer_index']);
 
         return $menu;
     }

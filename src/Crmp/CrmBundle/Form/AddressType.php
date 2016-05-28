@@ -16,19 +16,19 @@ class AddressType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', null, ['label' => 'crmp.crm.address.name'])
+            ->add('name', null, ['label' => 'crmp_crm.address.name'])
             ->add(
                 'customer',
                 null,
                 [
-                    'label'        => 'crmp.crm.customer.singular',
+                    'label'        => 'crmp_crm.customer.singular',
                     'query_builder' => function (EntityRepository $entityRepository) {
                         return $entityRepository->createQueryBuilder('c')->orderBy('c.name', 'ASC');
                     },
                     'choice_label' => 'name',
                 ]
             )
-            ->add('mail', null, ['label' => 'crmp.crm.address.mail']);
+            ->add('mail', null, ['label' => 'crmp_crm.address.mail']);
     }
 
     /**
