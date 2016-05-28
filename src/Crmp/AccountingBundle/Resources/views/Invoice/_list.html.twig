@@ -17,16 +17,16 @@
                 </a>
             </td>
             <td>
-                <a href="{{ path('invoice_show', { 'id': invoice.id }) }}">{{ invoice.value|price }}</a>
+                <a href="{{ path('crmp_accounting_invoice_show', { 'id': invoice.id }) }}">{{ invoice.value|price }}</a>
             </td>
             <td>
                 <div class="btn-group">
-                    <a href="{{ path('invoice_show', { 'id': invoice.id }) }}"
+                    <a href="{{ path('crmp_accounting_invoice_show', { 'id': invoice.id }) }}"
                        title="{{ "crmp.view"|trans }}"
                        class="btn btn-default">
                         <i class="fa fa-eye"></i>
                     </a>
-                    <a href="{{ path('invoice_edit', { 'id': invoice.id }) }}"
+                    <a href="{{ path('crmp_accounting_invoice_edit', { 'id': invoice.id }) }}"
                        title="{% trans %}crmp.edit{% endtrans %}"
                        class="btn btn-default">
                         <i class="fa fa-pencil"></i>

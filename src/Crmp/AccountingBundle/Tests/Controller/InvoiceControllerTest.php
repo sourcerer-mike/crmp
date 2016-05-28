@@ -9,6 +9,6 @@ class InvoiceControllerTest extends AuthTestCase
 {
     public function testUserCanAccessTheList()
     {
-        $this->assertAvailableForUsers('invoice_index');
+        $this->assertAvailableForUsers('crmp_accounting_invoice_index');
     }
 }

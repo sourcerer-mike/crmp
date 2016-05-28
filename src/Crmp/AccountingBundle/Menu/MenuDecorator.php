@@ -36,7 +36,7 @@ class MenuDecorator extends AbstractMenuDecorator
         $menu->addChild(
             'crmp.accounting.invoice.new',
             [
-                'route'           => 'invoice_new',
+                'route'           => 'crmp_accounting_invoice_new',
                 'routeParameters' => $routeParameters,
                 'labelAttributes' => [
                     'icon' => 'fa fa-plus',
@@ -53,7 +53,7 @@ class MenuDecorator extends AbstractMenuDecorator
             $menuItem->addChild(
                 'crmp.accounting.invoice.new',
                 [
-                    'route'           => 'invoice_new',
+                    'route'           => 'crmp_accounting_invoice_new',
                     'routeParameters' => [
                         'customer' => $params['customer']->getId(),
                     ],
@@ -70,7 +70,7 @@ class MenuDecorator extends AbstractMenuDecorator
         $menuItem->addChild(
             'crmp.accounting.invoice.new',
             [
-                'route'           => 'invoice_new',
+                'route'           => 'crmp_accounting_invoice_new',
                 'labelAttributes' => [
                     'icon' => 'fa fa-plus',
                 ],
@@ -107,7 +107,7 @@ class MenuDecorator extends AbstractMenuDecorator
             $menuItem->addChild(
                 'crmp.accounting.invoice.edit',
                 [
-                    'route'           => 'invoice_edit',
+                    'route'           => 'crmp_accounting_invoice_edit',
                     'routeParameters' => [
                         'id' => $params['invoice']->getId(),
                     ],
@@ -132,7 +132,7 @@ class MenuDecorator extends AbstractMenuDecorator
 
         $acquisition = $menu->addChild('crmp.accounting.menu.label');
 
-        $acquisition->addChild('crmp.accounting.invoice.plural', ['route' => 'invoice_index']);
+        $acquisition->addChild('crmp.accounting.invoice.plural', ['route' => 'crmp_accounting_invoice_index']);
 
         return $menu;
     }

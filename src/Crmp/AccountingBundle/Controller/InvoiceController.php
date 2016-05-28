@@ -20,7 +20,7 @@ class InvoiceController extends CrmpController
     /**
      * Lists all Invoice entities.
      *
-     * @Route("/", name="invoice_index")
+     * @Route("/", name="crmp_accounting_invoice_index")
      * @Method("GET")
      */
     public function indexAction(Request $request)
@@ -44,7 +44,7 @@ class InvoiceController extends CrmpController
     /**
      * Creates a new Invoice entity.
      *
-     * @Route("/new", name="invoice_new")
+     * @Route("/new", name="crmp_accounting_invoice_new")
      * @Method({"GET", "POST"})
      */
     public function newAction(Request $request)
@@ -69,7 +69,7 @@ class InvoiceController extends CrmpController
             $em->persist($invoice);
             $em->flush();
 
-            return $this->redirectToRoute('invoice_show', array('id' => $invoice->getId()));
+            return $this->redirectToRoute('crmp_accounting_invoice_show', array('id' => $invoice->getId()));
         }
 
         return $this->render('CrmpAccountingBundle:Invoice:new.html.twig', array(
@@ -81,7 +81,7 @@ class InvoiceController extends CrmpController
     /**
      * Finds and displays a Invoice entity.
      *
-     * @Route("/{id}", name="invoice_show")
+     * @Route("/{id}", name="crmp_accounting_invoice_show")
      * @Method("GET")
      */
     public function showAction(Invoice $invoice)
@@ -97,7 +97,7 @@ class InvoiceController extends CrmpController
     /**
      * Displays a form to edit an existing Invoice entity.
      *
-     * @Route("/{id}/edit", name="invoice_edit")
+     * @Route("/{id}/edit", name="crmp_accounting_invoice_edit")
      * @Method({"GET", "POST"})
      */
     public function editAction(Request $request, Invoice $invoice)
@@ -111,7 +111,7 @@ class InvoiceController extends CrmpController
             $em->persist($invoice);
             $em->flush();
 
-            return $this->redirectToRoute('invoice_edit', array('id' => $invoice->getId()));
+            return $this->redirectToRoute('crmp_accounting_invoice_edit', array('id' => $invoice->getId()));
         }
 
         return $this->render('CrmpAccountingBundle:Invoice:edit.html.twig', array(
@@ -124,7 +124,7 @@ class InvoiceController extends CrmpController
     /**
      * Deletes a Invoice entity.
      *
-     * @Route("/{id}", name="invoice_delete")
+     * @Route("/{id}", name="crmp_accounting_invoice_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, Invoice $invoice)
@@ -138,7 +138,7 @@ class InvoiceController extends CrmpController
             $em->flush();
         }
 
-        return $this->redirectToRoute('invoice_index');
+        return $this->redirectToRoute('crmp_accounting_invoice_index');
     }
 
     /**
@@ -151,7 +151,7 @@ class InvoiceController extends CrmpController
     private function createDeleteForm(Invoice $invoice)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('invoice_delete', array('id' => $invoice->getId())))
+            ->setAction($this->generateUrl('crmp_accounting_invoice_delete', array('id' => $invoice->getId())))
             ->setMethod('DELETE')
             ->getForm()
         ;
