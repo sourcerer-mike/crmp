@@ -16,13 +16,10 @@ function assert() {
     finalStatus+=$status
 }
 
-# create dummy data
-assert bin/populate.sh
-
 # unit tests
-assert vendor/bin/phpunit --colors=never --coverage-clover var/phpunit/coverage.xml
+assert vendor/bin/phpunit
 
 # behat tests
-assert vendor/bin/behat --no-colors
+assert vendor/bin/behat
 
 exit ${finalStatus}
