@@ -18,11 +18,11 @@ class IndentedOutputFormatter extends OutputFormatter
     public function format($message)
     {
         $message = parent::format($message);
-        if ($this->indentLevel === 0) {
+        if ($this->getLevel() == 0) {
             return $message;
         }
 
-        $amount = self::INDENT_AMOUNT * $this->indentLevel;
+        $amount = self::INDENT_AMOUNT * $this->getLevel();
         $prependBy = str_repeat(' ', $amount);
         $message = $prependBy . $message;
 
@@ -30,18 +30,28 @@ class IndentedOutputFormatter extends OutputFormatter
     }
 
     /**
-     *
+     * @return int
      */
-    public function increaseLevel()
+    public function getLevel()
     {
-        $this->indentLevel = $this->indentLevel + 1;
+        return $this->indentLevel;
     }
 
     /**
      *
      */
+    public function increaseLevel()
+    {
+        $this->indentLevel = $this->getLevel() + 1;
+    }
+
+    /**
+     * Decrease indent.
+     *
+     * Decreases the indent but never lower than zero.
+     */
     public function decreaseLevel()
     {
-        $this->indentLevel = $this->indentLevel - 1;
+        $this->indentLevel = max(0, $this->getLevel() - 1);
     }
 }
