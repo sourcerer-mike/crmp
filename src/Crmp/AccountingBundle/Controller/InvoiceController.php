@@ -11,14 +11,20 @@ use Crmp\AccountingBundle\Entity\Invoice;
 use Crmp\AccountingBundle\Form\InvoiceType;
 
 /**
- * Invoice controller.
+ * Invoices
+ *
+ * Manage invoices in the "/invoice" section.
+ * Invoices keep your business going.
  *
  * @Route("/invoice")
  */
 class InvoiceController extends CrmpController
 {
     /**
-     * Lists all Invoice entities.
+     * Lists all invoices.
+     *
+     * Control all invoices.
+     * You can apply some filters here to get a better overview.
      *
      * @Route("/", name="crmp_accounting_invoice_index")
      * @Method("GET")
@@ -42,7 +48,9 @@ class InvoiceController extends CrmpController
     }
 
     /**
-     * Creates a new Invoice entity.
+     * Creating a new invoice.
+     *
+     * Invoices keep your business going especially the paid ones.
      *
      * @Route("/new", name="crmp_accounting_invoice_new")
      * @Method({"GET", "POST"})
@@ -79,7 +87,9 @@ class InvoiceController extends CrmpController
     }
 
     /**
-     * Finds and displays a Invoice entity.
+     * Look at a single invoice.
+     *
+     * Recheck a single invoice calling "/invoice/{id}".
      *
      * @Route("/{id}", name="crmp_accounting_invoice_show")
      * @Method("GET")
@@ -95,7 +105,11 @@ class InvoiceController extends CrmpController
     }
 
     /**
-     * Displays a form to edit an existing Invoice entity.
+     * Change a single existing invoice.
+     *
+     * Sometimes a customer should pay more or less for a service
+     * or the invoice needs more details than the contract offered.
+     * In such cases you can edit the invoice.
      *
      * @Route("/{id}/edit", name="crmp_accounting_invoice_edit")
      * @Method({"GET", "POST"})
@@ -122,7 +136,11 @@ class InvoiceController extends CrmpController
     }
 
     /**
-     * Deletes a Invoice entity.
+     * Deletes an invoice.
+     *
+     * You should not delete invoices as this is needed for accounting.
+     * Anyways CRMP allows you to delete entities as if they never existed.
+     * Please be careful deleting things.
      *
      * @Route("/{id}", name="crmp_accounting_invoice_delete")
      * @Method("DELETE")
