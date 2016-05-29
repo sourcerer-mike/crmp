@@ -14,12 +14,11 @@ use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 
 class UpdateDocsCommand extends Command implements ContainerAwareInterface
 {
-    protected $exitCode = 0;
-
     /**
      * @var ContainerInterface
      */
     protected $container;
+    protected $exitCode = 0;
 
     public function __construct()
     {
@@ -68,103 +67,137 @@ class UpdateDocsCommand extends Command implements ContainerAwareInterface
 
     private function parseBundle(BundleInterface $bundle, OutputInterface $output)
     {
-        $path = $bundle->getPath().'/Resources/doc';
+        if ($output->isVerbose()) {
+            $output->writeln('Controller');
+            $output->getFormatter()->increaseLevel();
+        }
 
-        $em = $this->container->get('doctrine.orm.entity_manager');
+        $this->updateController($bundle, $output);
 
-        foreach ($em->getMetadataFactory()->getAllMetadata() as $meta) {
-            /** @var \Doctrine\ORM\Mapping\ClassMetadata $meta */
-            if (0 !== strpos($meta->getName(), $bundle->getNamespace())) {
-                continue;
-            }
+        if ($output->isVerbose()) {
+            $output->getFormatter()->decreaseLevel();
 
-            $short = str_replace($bundle->getNamespace().'\\Entity\\', '', $meta->getName());
+            $output->writeln('Entities');
+            $output->getFormatter()->increaseLevel();
+        }
 
-            if ($output->isVerbose()) {
-                $output->writeln($short);
-                $output->getFormatter()->increaseLevel();
-            }
+        $this->updateEntities($bundle, $output);
 
-            $content = $this->parseClassMetadata($bundle, $meta, $output);
+        if ($output->isVerbose()) {
+            $output->getFormatter()->decreaseLevel();
+        }
 
-            $basename = 'Entities/'.$short.'.md';
+    }
 
-            $text    = '';
-            $details = "\n";
-            $text .= '# '.$content['heading']."\n\n";
+    private function updateController(BundleInterface $bundle, OutputInterface $output)
+    {
+        // Fetch all controller.
+        $controllerDirectory = $bundle->getPath().'/Controller';
+        if (file_exists($controllerDirectory)) {
+            foreach (glob($controllerDirectory.'/*Controller.php') as $controllerFile) {
 
-            if (trim($content['content'])) {
-                $text .= $content['content'] . "\n\n";
-            }
+                $controllerClass = $bundle->getNamespace()
+                                   .'\\Controller\\'
+                                   .basename($controllerFile, '.php');
 
-            $text .= "\n## Properties\n\n";
-            foreach ($content['fields'] as $field) {
-                $text .= '- '.$field['heading']."\n";
-                if (trim($field['content'])) {
-                    $details .= rtrim($field['content'])."\n\n";
-                }
-            }
-
-            if (trim($details)) {
-                $text .= $details."\n";
-            }
-
-            $text = rtrim($text)."\n";
-
-            $docPath = $path.'/'.$basename;
-
-            if ( ! is_dir(dirname($docPath))) {
-                if ( ! mkdir(dirname($docPath), 0755, true)) {
+                if ( ! class_exists($controllerClass)) {
+                    if ($output->isDebug()) {
+                        $output->writeln('Skipping controller file '.basename($controllerFile));
+                    }
                     continue;
                 }
-            }
 
-            file_put_contents($docPath, $text);
+                if ($output->isDebug()) {
+                    $output->writeln('Parsing controller '.$controllerClass);
+                }
 
-            if ($output->isVerbose()) {
-                $output->writeln('Written to: '.$basename);
+                if ($output->isVerbose()) {
+                    $output->writeln($controllerClass);
+                    $output->getFormatter()->increaseLevel();
+                }
 
-                $output->getFormatter()->decreaseLevel();
+                $this->writeControllerDocs(
+                    basename($controllerFile, 'Controller.php'),
+                    $this->parseController($controllerClass, $output),
+                    $bundle,
+                    $output
+                );
+
+
+                if ($output->isVerbose()) {
+                    $output->getFormatter()->decreaseLeveL();
+                }
             }
         }
     }
 
-    private function parseClassMetadata(BundleInterface $bundle, ClassMetadata $meta, OutputInterface $output)
+    private function writeControllerDocs($slug, $docs, BundleInterface $bundle, OutputInterface $output)
     {
-        $reflectionClass = $meta->getReflectionClass();
+        $content = $this->docToContent($docs);
 
-        if ($output->isVerbose()) {
-            $output->writeln('# '.$reflectionClass->getShortName());
+        foreach ($docs['actions'] as $actionDoc) {
+            $content .= $this->docToContent($actionDoc, 2);
+            $content .= "\n\n";
         }
 
-        $data           = $this->parseDocComment(
-            $reflectionClass->getShortName(),
-            $reflectionClass->getDocComment(),
-            $output
-        );
+        $docDir = $this->getDocPath($bundle).'/Usage';
 
-        $data['fields'] = [];
+        if ( ! is_dir($docDir)) {
+            mkdir($docDir, 0755, true);
+        }
 
-        foreach ($meta->getFieldNames() as $fieldName) {
-            if (in_array($fieldName, $meta->getIdentifier())) {
+        file_put_contents($docDir.'/'.$slug.'.md', $content);
+    }
+
+    /**
+     * @param BundleInterface $bundle
+     *
+     * @return string
+     */
+    private function getDocPath(BundleInterface $bundle)
+    {
+        return $bundle->getPath().'/Resources/doc';
+    }
+
+    /**
+     * @param string          $controllerClass
+     * @param OutputInterface $output
+     *
+     * @return array
+     */
+    private function parseController($controllerClass, OutputInterface $output)
+    {
+        $controllerReflection = new \ReflectionClass($controllerClass);
+
+        $docs            = $this->parseDocComment($controllerClass, $controllerReflection->getDocComment(), $output);
+        $docs['actions'] = [];
+
+        $reflectionMethods = $controllerReflection->getMethods(\ReflectionMethod::IS_PUBLIC);
+
+        usort($reflectionMethods, [$this, 'sortMethods']);
+
+        foreach ($reflectionMethods as $method) {
+            $methodName = $method->getName();
+
+            if ( ! preg_match('@Action$@', $methodName)) {
+                if ($output->isDebug()) {
+                    $output->writeln('Skipping '.$methodName.' - not an action.');
+                }
                 continue;
             }
 
-            $field = $reflectionClass->getProperty($fieldName);
-
-            if ( ! $field) {
-                $this->exitCode++;
-                $output->writeln('<error>Unresolvable field "'.$fieldName.'"</error>');
-            }
-
             if ($output->isVerbose()) {
-                $output->writeln('- '.$fieldName);
+                $output->writeln('::'.$methodName);
             }
 
-            $data['fields'] = array_merge($data['fields'], $this->extractField($field, $output));
+            $docs['actions']['::'.$methodName] = $this->parseDocComment(
+                '::'.$methodName,
+                $method->getDocComment(),
+                $output
+            );
         }
 
-        return $data;
+        return $docs;
     }
 
     /**
@@ -207,15 +240,143 @@ class UpdateDocsCommand extends Command implements ContainerAwareInterface
         return $fieldData;
     }
 
+    /**
+     * @param BundleInterface $bundle
+     * @param OutputInterface $output
+     */
+    private function updateEntities(BundleInterface $bundle, OutputInterface $output)
+    {
+        $path = $this->getDocPath($bundle);
+        $em   = $this->container->get('doctrine.orm.entity_manager');
+
+        foreach ($em->getMetadataFactory()->getAllMetadata() as $meta) {
+            /** @var \Doctrine\ORM\Mapping\ClassMetadata $meta */
+            if (0 !== strpos($meta->getName(), $bundle->getNamespace())) {
+                continue;
+            }
+
+            $short = str_replace($bundle->getNamespace().'\\Entity\\', '', $meta->getName());
+
+            if ($output->isVerbose()) {
+                $output->writeln($short);
+                $output->getFormatter()->increaseLevel();
+            }
+
+            $content = $this->parseClassMetadata($bundle, $meta, $output);
+
+            $basename = 'Entities/'.$short.'.md';
+
+            $text    = $this->docToContent($content);
+            $details = "\n";
+
+            $text .= "\n## Properties\n\n";
+            foreach ($content['fields'] as $field) {
+                $text .= '- '.$field['heading']."\n";
+                if (trim($field['content'])) {
+                    $details .= rtrim($field['content'])."\n\n";
+                }
+            }
+
+            if (trim($details)) {
+                $text .= $details."\n";
+            }
+
+            $text = rtrim($text)."\n";
+
+            $docPath = $path.'/'.$basename;
+
+            if ( ! is_dir(dirname($docPath))) {
+                if ( ! mkdir(dirname($docPath), 0755, true)) {
+                    continue;
+                }
+            }
+
+            file_put_contents($docPath, $text);
+
+            if ($output->isVerbose()) {
+                $output->writeln('Written to: '.$basename);
+
+                $output->getFormatter()->decreaseLevel();
+            }
+        }
+    }
+
+    private function parseClassMetadata(BundleInterface $bundle, ClassMetadata $meta, OutputInterface $output)
+    {
+        $reflectionClass = $meta->getReflectionClass();
+
+        if ($output->isVerbose()) {
+            $output->writeln('# '.$reflectionClass->getShortName());
+        }
+
+        $data = $this->parseDocComment(
+            $reflectionClass->getShortName(),
+            $reflectionClass->getDocComment(),
+            $output
+        );
+
+        $data['fields'] = [];
+
+        foreach ($meta->getFieldNames() as $fieldName) {
+            if (in_array($fieldName, $meta->getIdentifier())) {
+                continue;
+            }
+
+            $field = $reflectionClass->getProperty($fieldName);
+
+            if ( ! $field) {
+                $this->exitCode++;
+                $output->writeln('<error>Unresolvable field "'.$fieldName.'"</error>');
+            }
+
+            if ($output->isVerbose()) {
+                $output->writeln('- '.$fieldName);
+            }
+
+            $data['fields'] = array_merge($data['fields'], $this->extractField($field, $output));
+        }
+
+        return $data;
+    }
+
     private function extractField(\ReflectionProperty $field, OutputInterface $output)
     {
         $fieldData = $this->parseDocComment(
-            $field->getDeclaringClass()->getName() . '::' . $field->getName(),
+            $field->getDeclaringClass()->getName().'::'.$field->getName(),
             $field->getDocComment(),
             $output
         );
 
         return [$field->getName() => $fieldData];
+    }
+
+    protected function sortMethods(\ReflectionMethod $methodA, \ReflectionMethod $methodB)
+    {
+        return ( $methodA->getName() > $methodB->getName() );
+    }
+
+    /**
+     * @param string $docs
+     *
+     * @return string
+     */
+    private function docToContent($docs, $level = 1)
+    {
+        $content = '';
+
+        $heading = ' (missing heading)';
+        if (isset( $docs['heading'] ) && $docs['heading']) {
+            $heading = rtrim($docs['heading'], '.');
+        }
+
+        $content .= str_repeat('#', $level);
+        $content .= ' '.$heading."\n\n";
+
+        if (isset( $docs['content'] ) && $docs['content']) {
+            $content .= "\n".$docs['content']."\n";
+        }
+
+        return $content;
     }
 
     private function extractHeading(\ReflectionClass $reflectionClass)
