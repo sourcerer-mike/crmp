@@ -13,12 +13,16 @@ use Crmp\AcquisitionBundle\Form\OfferType;
 /**
  * Offer controller.
  *
+ * Create, print or send an offer to your customers.
+ *
  * @Route("/offer")
  */
 class OfferController extends CrmpController
 {
     /**
-     * Lists all Offer entities.
+     * Lists all offers.
+     *
+     * Have a look at all offers and filter them as you like.
      *
      * @Route("/", name="crmp_acquisition_offer_index")
      * @Method("GET")
@@ -53,7 +57,9 @@ class OfferController extends CrmpController
     }
 
     /**
-     * Creates a new Offer entity.
+     * Create a new offer.
+     *
+     * Create a new offer and stick it to some customer.
      *
      * @Route("/new", name="crmp_acquisition_offer_new")
      * @Method({"GET", "POST"})
@@ -96,7 +102,10 @@ class OfferController extends CrmpController
     }
 
     /**
-     * Finds and displays a Offer entity.
+     * Find and display an offer.
+     *
+     * Look up a single offer.
+     * You can read what the customer will become when he sets the contract.
      *
      * @Route("/{id}", name="crmp_acquisition_offer_show")
      * @Method("GET")
@@ -112,7 +121,9 @@ class OfferController extends CrmpController
     }
 
     /**
-     * Displays a form to edit an existing Offer entity.
+     * Edit an existing offer.
+     *
+     * Change the contents or value of an offer.
      *
      * @Route("/{id}/edit", name="crmp_acquisition_offer_edit")
      * @Method({"GET", "POST"})
@@ -139,7 +150,9 @@ class OfferController extends CrmpController
     }
 
     /**
-     * Deletes a Offer entity.
+     * Deletes an offer.
+     *
+     * Please refrain from deleting entities.
      *
      * @Route("/{id}", name="crmp_acquisition_offer_delete")
      * @Method("DELETE")

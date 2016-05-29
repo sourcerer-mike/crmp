@@ -68,13 +68,6 @@ class UpdateDocsCommand extends Command implements ContainerAwareInterface
     private function parseBundle(BundleInterface $bundle, OutputInterface $output)
     {
         if ($output->isVerbose()) {
-            $output->writeln('Controller');
-            $output->getFormatter()->increaseLevel();
-        }
-
-        $this->updateController($bundle, $output);
-
-        if ($output->isVerbose()) {
             $output->getFormatter()->decreaseLevel();
 
             $output->writeln('Entities');
@@ -140,7 +133,7 @@ class UpdateDocsCommand extends Command implements ContainerAwareInterface
             $content .= "\n\n";
         }
 
-        $docDir = $this->getDocPath($bundle).'/Usage';
+        $docDir = $this->getDocPath($bundle).'/Controller';
 
         if ( ! is_dir($docDir)) {
             mkdir($docDir, 0755, true);

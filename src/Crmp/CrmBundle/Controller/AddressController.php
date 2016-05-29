@@ -10,14 +10,19 @@ use Crmp\CrmBundle\Entity\Address;
 use Crmp\CrmBundle\Form\AddressType;
 
 /**
- * Address controller.
+ * Managing addresses.
+ *
+ * The CRM-Bundle brings you two main entities with customers and addresses.
  *
  * @Route("/address")
  */
 class AddressController extends CrmpController
 {
     /**
-     * Lists all Address entities.
+     * Lists all addresses.
+     *
+     * To list all addresses go to the address overview.
+     * Addresses can be filtered by customer.
      *
      * @Route("/", name="crmp_crm_address_index")
      * @Method("GET")
@@ -123,7 +128,12 @@ class AddressController extends CrmpController
     }
 
     /**
-     * Deletes a Address entity.
+     * Delete an address.
+     *
+     * An address shall never be deleted more disabled.
+     * Once you delete an address it is completely gone
+     * and related invoices, inquiries, offers or other entities will be hard to find.
+     * So think twice before deleting/disabling an address.
      *
      * @Route("/{id}", name="crmp_crm_address_delete")
      * @Method("DELETE")
