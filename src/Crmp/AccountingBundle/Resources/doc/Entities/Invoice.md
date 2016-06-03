@@ -4,6 +4,7 @@
 Invoices are made after a contractor has done his duty to deliver goods or a service.
 This entity keeps track of such invoices or helps creating them.
 
+
 ## Properties
 
 - Total cost that will be invoiced without tax.

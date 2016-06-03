@@ -5,6 +5,13 @@ namespace Crmp\CrmBundle\Tests\Command;
 
 use Crmp\CrmBundle\Command\IndentedOutputFormatter;
 
+/**
+ *
+ *
+ * @package Crmp\CrmBundle\Tests\Command
+ *
+ * @group internal
+ */
 class IndentedOutputFormatterTest extends \PHPUnit_Framework_TestCase
 {
     public function testItNeverDecreasesTheLeverLowerThanZero()

@@ -1,5 +1,6 @@
 # Inquiries
 
+
 When a customer comes into your rooms or sends you a mail,
 then every one in your business likes to keep track of that or delegate it.
 CRMP offers a pool where you can just throw the inquiry in, keep track of them and generate offers or contracts.

@@ -1,5 +1,6 @@
 # Contract
 
+
 A customer may contract you with or without an offer.
 This part helps you to keep track of your duties and apply some controlling.
 

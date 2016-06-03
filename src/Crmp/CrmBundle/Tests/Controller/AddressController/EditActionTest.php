@@ -6,8 +6,20 @@ namespace Crmp\CrmBundle\Tests\Controller\AddressController;
 use Crmp\CrmBundle\Entity\Address;
 use Crmp\CrmBundle\Tests\Controller\AuthTestCase;
 
+/**
+ * Edit an address.
+ *
+ * Open a single address and click the edit link.
+ *
+ * @package Crmp\CrmBundle\Tests\Controller\AddressController
+ */
 class EditActionTest extends AuthTestCase
 {
+    /**
+     * Users are authorized to edit an address.
+     *
+     * Every user can edit an address.
+     */
     public function testUserCanEditAnAddress()
     {
         /** @var Address $someAddress */

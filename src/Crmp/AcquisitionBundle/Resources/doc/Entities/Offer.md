@@ -1,5 +1,6 @@
 # Offer
 
+
 An entity to manage your quotes and track them for each customer.
 
 
