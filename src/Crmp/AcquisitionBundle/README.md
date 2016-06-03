@@ -22,6 +22,11 @@ Install it via composer:
     composer require crmp/acquisition
 
 Easy as that.
+Now you need the routing which is just two lines for your *app/config/routing.yml*:
+
+    crmp_acquisition:
+      resource: "@CrmpAcquisitionBundle/Resources/config/routing.yml"
+
 The database it built automagically too but if you like to rebuild it on your own:
 
     bin/console doctrine:schema:update
