@@ -2,7 +2,6 @@
 
 namespace Crmp\AcquisitionBundle\Panel\Inquiry;
 
-
 use Crmp\AcquisitionBundle\Entity\Inquiry;
 use Crmp\CrmBundle\Twig\AbstractPanel;
 use Crmp\CrmBundle\Twig\PanelInterface;
@@ -18,7 +17,7 @@ class OfferPanel extends AbstractPanel implements PanelInterface
         $this->data           = $this->container->get('crmp.controller.render.parameters');
         $this->data['offers'] = [];
 
-        if ( ! isset( $this->data['inquiry'] ) || false == ( $this->data['inquiry'] instanceof Inquiry )) {
+        if (! isset($this->data['inquiry']) || false == ( $this->data['inquiry'] instanceof Inquiry )) {
             return $this->data;
         }
 
@@ -61,6 +60,4 @@ class OfferPanel extends AbstractPanel implements PanelInterface
     {
         return $this->container->get('translator')->trans('crmp_acquisition.offer.plural');
     }
-
-
 }

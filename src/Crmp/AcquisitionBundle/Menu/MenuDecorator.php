@@ -2,7 +2,6 @@
 
 namespace Crmp\AcquisitionBundle\Menu;
 
-
 use AppBundle\Menu\AbstractMenuDecorator;
 use Crmp\AcquisitionBundle\Entity\Contract;
 use Crmp\AcquisitionBundle\Entity\Inquiry;
@@ -30,7 +29,7 @@ class MenuDecorator extends AbstractMenuDecorator
     {
         $params = $this->container->get('crmp.controller.render.parameters');
 
-        if (isset( $params['contract'] ) && $params['contract'] instanceof Contract) {
+        if (isset($params['contract']) && $params['contract'] instanceof Contract) {
             $menuItem->addChild(
                 'crmp_acquisition.contract.edit',
                 [
@@ -50,7 +49,7 @@ class MenuDecorator extends AbstractMenuDecorator
     {
         $params = $this->container->get('crmp.controller.render.parameters');
 
-        if (isset( $params['customer'] ) && $params['customer'] instanceof Customer) {
+        if (isset($params['customer']) && $params['customer'] instanceof Customer) {
             $menuItem->addChild(
                 'crmp_acquisition.inquiry.new',
                 [
@@ -83,7 +82,7 @@ class MenuDecorator extends AbstractMenuDecorator
     {
         $params = $this->container->get('crmp.controller.render.parameters');
 
-        if (isset( $params['inquiry'] ) && $params['inquiry'] instanceof Inquiry) {
+        if (isset($params['inquiry']) && $params['inquiry'] instanceof Inquiry) {
             $menuItem->addChild(
                 'crmp_acquisition.inquiry.edit',
                 [
@@ -129,7 +128,7 @@ class MenuDecorator extends AbstractMenuDecorator
     {
         $params = $this->container->get('crmp.controller.render.parameters');
 
-        if (isset( $params['offer'] ) && $params['offer'] instanceof Offer) {
+        if (isset($params['offer']) && $params['offer'] instanceof Offer) {
             $menuItem->addChild(
                 'crmp_acquisition.offer.edit',
                 [
@@ -177,5 +176,4 @@ class MenuDecorator extends AbstractMenuDecorator
 
         return $menu;
     }
-
 }

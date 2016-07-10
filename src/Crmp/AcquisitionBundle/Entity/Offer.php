@@ -234,18 +234,20 @@ class Offer
         return $this;
     }
 
-	public function isOrdered() {
-		return ! $this->getContracts()->isEmpty();
-	}
+    public function isOrdered()
+    {
+        return ! $this->getContracts()->isEmpty();
+    }
 
-	/**
-	 * @return \Crmp\CrmBundle\Entity\Customer
-	 */
-	public function getCustomer() {
-		return $this->customer;
-	}
+    /**
+     * @return \Crmp\CrmBundle\Entity\Customer
+     */
+    public function getCustomer()
+    {
+        return $this->customer;
+    }
 
-	/**
+    /**
      * Remove contract
      *
      * @param \Crmp\AcquisitionBundle\Entity\Contract $contract

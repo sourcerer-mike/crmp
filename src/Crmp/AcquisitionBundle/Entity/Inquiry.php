@@ -144,16 +144,17 @@ class Inquiry
         return $this->title;
     }
 
-	public function isOrdered() {
-		/** @var Offer $offer */
-		foreach ( $this->getOffers() as $offer ) {
-			if ($offer->isOrdered()) {
-				return true;
-			}
-		}
+    public function isOrdered()
+    {
+        /** @var Offer $offer */
+        foreach ($this->getOffers() as $offer) {
+            if ($offer->isOrdered()) {
+                return true;
+            }
+        }
 
-		return false;
-	}
+        return false;
+    }
 
     /**
      * Set netValue

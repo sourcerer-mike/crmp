@@ -76,12 +76,13 @@ class Contract
      */
     private $customer;
 
-	/**
-	 * @return \Crmp\CrmBundle\Entity\Customer
-	 */
-	public function getCustomer() {
-		return $this->customer;
-	}
+    /**
+     * @return \Crmp\CrmBundle\Entity\Customer
+     */
+    public function getCustomer()
+    {
+        return $this->customer;
+    }
 
 
     /**

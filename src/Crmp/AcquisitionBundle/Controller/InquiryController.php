@@ -76,14 +76,14 @@ class InquiryController extends CrmpController
     {
         $em = $this->getDoctrine()->getManager();
 
-	    $criteria = Criteria::create();
+        $criteria = Criteria::create();
 
-	    if ($request->get('customer')) {
-		    $customer = $this->getDoctrine()->getRepository('CrmpCrmBundle:Customer')->find($request->get('customer'));
-		    $criteria->andWhere(Criteria::expr()->eq('customer', $customer));
-	    }
+        if ($request->get('customer')) {
+            $customer = $this->getDoctrine()->getRepository('CrmpCrmBundle:Customer')->find($request->get('customer'));
+            $criteria->andWhere(Criteria::expr()->eq('customer', $customer));
+        }
 
-	    $inquiries = $em->getRepository( 'CrmpAcquisitionBundle:Inquiry' )->matching($criteria);
+        $inquiries = $em->getRepository('CrmpAcquisitionBundle:Inquiry')->matching($criteria);
 
         return $this->render(
             'CrmpAcquisitionBundle:Inquiry:index.html.twig',

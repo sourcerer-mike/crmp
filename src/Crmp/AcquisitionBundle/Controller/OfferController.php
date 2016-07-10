@@ -31,15 +31,15 @@ class OfferController extends CrmpController
     {
         $em = $this->getDoctrine()->getManager();
 
-	    $criteria = Criteria::create();
+        $criteria = Criteria::create();
 
-	    if ($request->get('inquiry')) {
-		    $inquiry = $this->getDoctrine()
-			                ->getRepository( 'CrmpAcquisitionBundle:Inquiry' )
-		                    ->find( $request->get( 'inquiry' ) );
+        if ($request->get('inquiry')) {
+            $inquiry = $this->getDoctrine()
+                            ->getRepository('CrmpAcquisitionBundle:Inquiry')
+                            ->find($request->get('inquiry'));
 
-		    $criteria->andWhere(  $criteria->expr()->eq('inquiry', $inquiry ) );
-	    }
+            $criteria->andWhere($criteria->expr()->eq('inquiry', $inquiry));
+        }
 
         if ($request->get('customer')) {
             $customer = $this->getDoctrine()

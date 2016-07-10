@@ -24,7 +24,7 @@ class InquiryType extends AbstractType
                 'inquiredAt',
                 \Symfony\Component\Form\Extension\Core\Type\DateType::class,
                 [
-	                'label' => 'crmp_acquisition.inquiry.date',
+                    'label' => 'crmp_acquisition.inquiry.date',
                     'widget' => 'single_text',
                     'format' => 'dd.MM.yyyy',
                     'attr'   => [

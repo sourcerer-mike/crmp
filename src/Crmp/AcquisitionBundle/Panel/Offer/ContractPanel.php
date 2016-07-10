@@ -2,7 +2,6 @@
 
 namespace Crmp\AcquisitionBundle\Panel\Offer;
 
-
 use Crmp\AcquisitionBundle\Entity\Offer;
 use Crmp\CrmBundle\Twig\AbstractPanel;
 use Crmp\CrmBundle\Twig\PanelInterface;
@@ -18,7 +17,7 @@ class ContractPanel extends AbstractPanel implements PanelInterface
         $this->data           = $this->container->get('crmp.controller.render.parameters');
         $this->data['contracts'] = [];
 
-        if ( ! isset( $this->data['offer'] ) || false == ( $this->data['offer'] instanceof Offer )) {
+        if (! isset($this->data['offer']) || false == ( $this->data['offer'] instanceof Offer )) {
             return $this->data;
         }
 
@@ -61,6 +60,4 @@ class ContractPanel extends AbstractPanel implements PanelInterface
     {
         return $this->container->get('translator')->trans('crmp_acquisition.contract.plural');
     }
-
-
 }
