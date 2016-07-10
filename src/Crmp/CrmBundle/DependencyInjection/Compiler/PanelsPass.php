@@ -6,6 +6,15 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
+/**
+ * Compiller pass to build up panels.
+ *
+ * Panels are used especially while looking at single entities.
+ * Other entities shall be allowed to place related information
+ * below the major information about the current entity.
+ *
+ * @package Crmp\CrmBundle\DependencyInjection\Compiler
+ */
 class PanelsPass implements CompilerPassInterface
 {
     protected $mapServiceTag    = 'crmp.panel';

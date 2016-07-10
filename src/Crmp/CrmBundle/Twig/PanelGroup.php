@@ -2,14 +2,31 @@
 
 namespace Crmp\CrmBundle\Twig;
 
+use Crmp\CrmBundle\Debug;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
+/**
+ * Panel container.
+ *
+ * Given mostly below the view for single entities to show other related information / panels.
+ *
+ * @package Crmp\CrmBundle\Twig
+ */
 class PanelGroup implements \IteratorAggregate
 {
     protected $children = [];
 
     protected $container;
 
+    /**
+     * Append another panel.
+     *
+     * Add a panel with related information.
+     *
+     * @param PanelInterface $panel
+     *
+     * @return $this
+     */
     public function add(PanelInterface $panel)
     {
         $panel->setContainer($this->container);
@@ -18,9 +35,14 @@ class PanelGroup implements \IteratorAggregate
         return $this;
     }
 
+    /**
+     * Amount of panels.
+     *
+     * @return int The amount of panels within this group.
+     */
     public function count()
     {
-        return count($this->children);
+        return (int) count($this->children);
     }
 
     /**
@@ -46,7 +68,7 @@ class PanelGroup implements \IteratorAggregate
             throw new \InvalidArgumentException(
                 sprintf(
                     'Invalid argument of type "%s".'.' Expected \\Crmp\\CrmBundle\\Twig\\PanelInterface or string containing the ID.',
-                    \Crmp\CrmBundle\Debug::getType($panel)
+                    Debug::getType($panel)
                 )
             );
         }

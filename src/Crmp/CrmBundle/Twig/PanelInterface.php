@@ -4,6 +4,15 @@ namespace Crmp\CrmBundle\Twig;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
+/**
+ * Interface for single panels.
+ *
+ * Single panels can be put into a PanelGroup to enhance the information about entities or other views.
+ *
+ * @see PanelGroup
+ *
+ * @package Crmp\CrmBundle\Twig
+ */
 interface PanelInterface
 {
     /**

@@ -2,8 +2,11 @@
 
 namespace Crmp\CrmBundle\Twig;
 
-use Symfony\Component\DependencyInjection\ContainerInterface;
-
+/**
+ * Twig-Extension to render panels.
+ *
+ * @package Crmp\CrmBundle\Twig
+ */
 class PanelsRenderer extends \Twig_Extension
 {
     protected $container;

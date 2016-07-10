@@ -4,6 +4,16 @@ namespace Crmp\CrmBundle\Twig;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
+/**
+ * Abstract for single panels.
+ *
+ * Single panels can be put into a PanelGroup to enhance the information about entities or other views.
+ *
+ * @see PanelGroup
+ * @see PanelInterface
+ *
+ * @package Crmp\CrmBundle\Twig
+ */
 abstract class AbstractPanel
 {
     const STYLE_DANGER  = 'danger';
@@ -18,6 +28,13 @@ abstract class AbstractPanel
     protected $container;
     protected $data = null;
 
+    /**
+     * Body of the panel.
+     *
+     * @see http://getbootstrap.com/components/#panels
+     *
+     * @return string
+     */
     public function getBody()
     {
         return '';
@@ -43,6 +60,11 @@ abstract class AbstractPanel
         return 'default';
     }
 
+    /**
+     * Default template for panels.
+     *
+     * @return string Path to panel template.
+     */
     public function getTemplate()
     {
         return 'CrmpCrmBundle::panel.html.twig';
