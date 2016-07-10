@@ -6,19 +6,29 @@ use Crmp\AcquisitionBundle\Entity\Offer;
 use Crmp\CrmBundle\Twig\AbstractPanel;
 use Crmp\CrmBundle\Twig\PanelInterface;
 
+/**
+ * List offers in the single contract view.
+ *
+ * @package Crmp\AcquisitionBundle\Panel\Offer
+ */
 class ContractPanel extends AbstractPanel implements PanelInterface
 {
+    /**
+     * Gather offers for current contract.
+     *
+     * @return array
+     */
     public function getData()
     {
         if ($this->data) {
             return (array) $this->data;
         }
 
-        $this->data           = $this->container->get('crmp.controller.render.parameters');
+        $this->data           = (array) $this->container->get('crmp.controller.render.parameters');
         $this->data['contracts'] = [];
 
         if (! isset($this->data['offer']) || false == ( $this->data['offer'] instanceof Offer )) {
-            return $this->data;
+            return (array) $this->data;
         }
 
         /** @var Offer $offer */
@@ -33,7 +43,7 @@ class ContractPanel extends AbstractPanel implements PanelInterface
             10
         );
 
-        return $this->data;
+        return (array) $this->data;
     }
 
     /**
@@ -46,6 +56,11 @@ class ContractPanel extends AbstractPanel implements PanelInterface
         return 'acquisition_contract_list';
     }
 
+    /**
+     * Override default template.
+     *
+     * @return string
+     */
     public function getTemplate()
     {
         return 'CrmpAcquisitionBundle:Offer:_panel-contract.html.twig';

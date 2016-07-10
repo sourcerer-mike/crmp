@@ -6,19 +6,29 @@ use Crmp\CrmBundle\Entity\Customer;
 use Crmp\CrmBundle\Twig\AbstractPanel;
 use Crmp\CrmBundle\Twig\PanelInterface;
 
+/**
+ * Show contracts for a single customer.
+ *
+ * @package Crmp\AcquisitionBundle\Panel\Customer
+ */
 class ContractPanel extends AbstractPanel implements PanelInterface
 {
+    /**
+     * Gather contracts for current customer.
+     *
+     * @return array
+     */
     public function getData()
     {
         if ($this->data) {
             return (array) $this->data;
         }
 
-        $this->data           = $this->container->get('crmp.controller.render.parameters');
+        $this->data           = (array) $this->container->get('crmp.controller.render.parameters');
         $this->data['contracts'] = [];
 
         if (! isset($this->data['customer']) || false == ( $this->data['customer'] instanceof Customer )) {
-            return $this->data;
+            return (array) $this->data;
         }
 
         /** @var Customer $customer */
@@ -33,7 +43,7 @@ class ContractPanel extends AbstractPanel implements PanelInterface
             10
         );
 
-        return $this->data;
+        return (array) $this->data;
     }
 
     /**
@@ -46,6 +56,11 @@ class ContractPanel extends AbstractPanel implements PanelInterface
         return 'acquisition_contract_list';
     }
 
+    /**
+     * Override default template.
+     *
+     * @return string
+     */
     public function getTemplate()
     {
         return 'CrmpAcquisitionBundle:Customer:_panel-contract.html.twig';

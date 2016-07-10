@@ -6,15 +6,25 @@ use Crmp\CrmBundle\Entity\Customer;
 use Crmp\CrmBundle\Twig\AbstractPanel;
 use Crmp\CrmBundle\Twig\PanelInterface;
 
+/**
+ * Show offers for a single customer.
+ *
+ * @package Crmp\AcquisitionBundle\Panel\Customer
+ */
 class OfferPanel extends AbstractPanel implements PanelInterface
 {
+    /**
+     * Gather all offers for a single customer.
+     *
+     * @return array
+     */
     public function getData()
     {
         if ($this->data) {
             return (array) $this->data;
         }
 
-        $this->data           = $this->container->get('crmp.controller.render.parameters');
+        $this->data           = (array) $this->container->get('crmp.controller.render.parameters');
         $this->data['offers'] = [];
 
         if (! isset($this->data['customer']) || false == ( $this->data['customer'] instanceof Customer )) {
@@ -33,7 +43,7 @@ class OfferPanel extends AbstractPanel implements PanelInterface
             10
         );
 
-        return $this->data;
+        return (array) $this->data;
     }
 
     /**
@@ -46,6 +56,11 @@ class OfferPanel extends AbstractPanel implements PanelInterface
         return 'acquisition_offer_list';
     }
 
+    /**
+     * Override default template.
+     *
+     * @return string
+     */
     public function getTemplate()
     {
         return 'CrmpAcquisitionBundle:Customer:_panel-offer.html.twig';
