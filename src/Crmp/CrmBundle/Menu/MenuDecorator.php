@@ -8,8 +8,22 @@ use Crmp\CrmBundle\Entity\Customer;
 use Knp\Menu\MenuItem;
 use Symfony\Component\HttpFoundation\RequestStack;
 
+/**
+ * Enhance main and context menus for CRM.
+ *
+ * @package Crmp\CrmBundle\Menu
+ */
 class MenuDecorator extends AbstractMenuDecorator
 {
+    /**
+     * Add context menu while looking at a list of addresses.
+     *
+     * Related actions:
+     *
+     * - Create new address.
+     *
+     * @param MenuItem $menuItem
+     */
     public function buildCrmAddressIndexRelatedMenu(MenuItem $menuItem)
     {
         $menuItem->addChild(
@@ -23,6 +37,15 @@ class MenuDecorator extends AbstractMenuDecorator
         );
     }
 
+    /**
+     * Add context menu while creating a new address.
+     *
+     * Related actions:
+     *
+     * - Abort creating an address.
+     *
+     * @param MenuItem $menuItem
+     */
     public function buildCrmAddressNewRelatedMenu(MenuItem $menuItem)
     {
         $abortParams = [
@@ -37,6 +60,15 @@ class MenuDecorator extends AbstractMenuDecorator
         }
     }
 
+    /**
+     * Add context menu while looking at a single address.
+     *
+     * Related actions:
+     *
+     * - Edit address.
+     *
+     * @param MenuItem $menuItem
+     */
     public function buildCrmAddressShowRelatedMenu(MenuItem $menuItem)
     {
         $params = $this->container->get('crmp.controller.render.parameters');
@@ -58,6 +90,15 @@ class MenuDecorator extends AbstractMenuDecorator
 
     }
 
+    /**
+     * Add context menu in the list of customers.
+     *
+     * Related actions:
+     *
+     * - Create new customer.
+     *
+     * @param MenuItem $menuItem
+     */
     public function buildCrmCustomerIndexRelatedMenu(MenuItem $menuItem)
     {
         $menuItem->addChild(
@@ -71,6 +112,16 @@ class MenuDecorator extends AbstractMenuDecorator
         );
     }
 
+    /**
+     * Add context menu while looking at a customer.
+     *
+     * Related actions:
+     *
+     * - Edit customer.
+     * - Add address for current customer.
+     *
+     * @param MenuItem $menuItem
+     */
     public function buildCrmCustomerShowRelatedMenu(MenuItem $menuItem)
     {
         $params = $this->container->get('crmp.controller.render.parameters');
@@ -104,6 +155,15 @@ class MenuDecorator extends AbstractMenuDecorator
         }
     }
 
+    /**
+     * Add context menu while creating a customer.
+     *
+     * Related actions:
+     *
+     * - Abort
+     *
+     * @param MenuItem $menuItem
+     */
     public function buildCrmCustomerNewRelatedMenu(MenuItem $menuItem)
     {
         $abortParams = [
@@ -118,6 +178,19 @@ class MenuDecorator extends AbstractMenuDecorator
         }
     }
 
+    /**
+     * Add main menu entries.
+     *
+     * Entries will be:
+     *
+     * - CRM
+     *   - Addresses
+     *   - Customers
+     *
+     * @param RequestStack $requestStack
+     *
+     * @return \Knp\Menu\ItemInterface
+     */
     public function createMainMenu(RequestStack $requestStack)
     {
         $menu = parent::createMainMenu($requestStack);

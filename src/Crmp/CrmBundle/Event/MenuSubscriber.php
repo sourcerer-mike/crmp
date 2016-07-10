@@ -6,10 +6,20 @@ use AppBundle\Event\Menu\ConfigureMainMenuEvent;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
+/**
+ * Add context menu entries and entries for the main menu.
+ *
+ * @package Crmp\CrmBundle\Event
+ */
 class MenuSubscriber implements EventSubscriberInterface
 {
     protected $container;
 
+    /**
+     * MenuSubscriber constructor.
+     *
+     * @param ContainerInterface $container
+     */
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
@@ -41,6 +51,17 @@ class MenuSubscriber implements EventSubscriberInterface
         ];
     }
 
+    /**
+     * Add entries to the main menu.
+     *
+     * Entries will be:
+     *
+     * - CRM
+     *   - Address
+     *   - Customer
+     *
+     * @param ConfigureMainMenuEvent $menuEvent
+     */
     public function onConfigure(ConfigureMainMenuEvent $menuEvent)
     {
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
