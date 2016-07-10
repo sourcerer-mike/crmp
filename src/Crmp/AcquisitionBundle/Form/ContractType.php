@@ -6,6 +6,11 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * Form for contracts.
+ *
+ * @package Crmp\AcquisitionBundle\Form
+ */
 class ContractType extends AbstractType
 {
     /**

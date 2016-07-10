@@ -9,6 +9,11 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * Form for inquiries.
+ *
+ * @package Crmp\AcquisitionBundle\Form
+ */
 class InquiryType extends AbstractType
 {
     /**

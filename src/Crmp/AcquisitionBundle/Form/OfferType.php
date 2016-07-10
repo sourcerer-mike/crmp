@@ -10,6 +10,11 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * Form for offers.
+ *
+ * @package Crmp\AcquisitionBundle\Form
+ */
 class OfferType extends AbstractType
 {
     const DEFAULT_TEXTAREA_HEIGHT = 20;
@@ -30,10 +35,10 @@ class OfferType extends AbstractType
                 TextareaType::class,
                 [
                     'label' => 'crmp_acquisition.offer.content',
-                    'trim' => true,
-                    'attr' => [
+                    'trim'  => true,
+                    'attr'  => [
                         'rows' => self::DEFAULT_TEXTAREA_HEIGHT,
-                    ]
+                    ],
                 ]
             )
             ->add(
@@ -42,19 +47,20 @@ class OfferType extends AbstractType
                 [
                     'choices'  => Config::getChoices('acquisition.offer.status'),
                     'expanded' => true,
-                    'label' => 'crmp_acquisition.offer.status',
+                    'label'    => 'crmp_acquisition.offer.status',
                 ]
             );
-        ;
     }
-    
+
     /**
      * @param OptionsResolver $resolver
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Crmp\AcquisitionBundle\Entity\Offer'
-        ));
+        $resolver->setDefaults(
+            array(
+                'data_class' => 'Crmp\AcquisitionBundle\Entity\Offer',
+            )
+        );
     }
 }
