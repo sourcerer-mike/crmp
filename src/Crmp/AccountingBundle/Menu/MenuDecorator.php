@@ -9,61 +9,22 @@ use Crmp\CrmBundle\Entity\Customer;
 use Knp\Menu\MenuItem;
 use Symfony\Component\HttpFoundation\RequestStack;
 
+/**
+ * Add menu entries for accounting.
+ *
+ * @package Crmp\AccountingBundle\Menu
+ */
 class MenuDecorator extends AbstractMenuDecorator
 {
-    public function buildAcquisitionContractShowRelatedMenu(MenuItem $menu)
-    {
-        $params = $this->container->get('crmp.controller.render.parameters');
-
-        // Create invoice based on current contract
-        $routeParameters = [];
-
-        if ($params && isset($params['contract'])) {
-            /** @var Contract $contract */
-            $contract = $params['contract'];
-
-            $customer                    = $contract->getCustomer();
-
-            if ($customer) {
-                $routeParameters['customer'] = $customer->getId();
-            }
-
-            $routeParameters['value']    = $contract->getValue();
-            $routeParameters['contract'] = $contract->getId();
-        }
-
-        $menu->addChild(
-            'crmp_accounting.invoice.new',
-            [
-                'route'           => 'crmp_accounting_invoice_new',
-                'routeParameters' => $routeParameters,
-                'labelAttributes' => [
-                    'icon' => 'fa fa-plus',
-                ],
-            ]
-        );
-    }
-
-    public function buildCrmCustomerShowRelatedMenu(MenuItem $menuItem)
-    {
-        $params = $this->container->get('crmp.controller.render.parameters');
-
-        if (isset($params['customer']) && $params['customer'] instanceof Customer) {
-            $menuItem->addChild(
-                'crmp_accounting.invoice.new',
-                [
-                    'route'           => 'crmp_accounting_invoice_new',
-                    'routeParameters' => [
-                        'customer' => $params['customer']->getId(),
-                    ],
-                    'labelAttributes' => [
-                        'icon' => 'fa fa-plus',
-                    ],
-                ]
-            );
-        }
-    }
-
+    /**
+     * Add context menu while viewing a list of invoices.
+     *
+     * Related actions:
+     *
+     * - Create new invoice.
+     *
+     * @param MenuItem $menuItem
+     */
     public function buildAccountingInvoiceIndexRelatedMenu(MenuItem $menuItem)
     {
         $menuItem->addChild(
@@ -77,6 +38,15 @@ class MenuDecorator extends AbstractMenuDecorator
         );
     }
 
+    /**
+     * Add context menu while creating an invoice.
+     *
+     * Related actions:
+     *
+     * - Abort creation.
+     *
+     * @param MenuItem $menu
+     */
     public function buildAccountingInvoiceNewRelatedMenu(MenuItem $menu)
     {
         // abort and go back to contract
@@ -98,17 +68,29 @@ class MenuDecorator extends AbstractMenuDecorator
         }
     }
 
+    /**
+     * Add context menu when viewing an invoice.
+     *
+     * Related actions:
+     *
+     * - Edit the current invoice.
+     *
+     * @param MenuItem $menuItem
+     */
     public function buildAccountingInvoiceShowRelatedMenu(MenuItem $menuItem)
     {
         $params = $this->container->get('crmp.controller.render.parameters');
 
         if (isset($params['invoice']) && $params['invoice'] instanceof Invoice) {
+            /** @var Invoice $invoice */
+            $invoice = $params['invoice'];
+
             $menuItem->addChild(
                 'crmp_accounting.invoice.edit',
                 [
                     'route'           => 'crmp_accounting_invoice_edit',
                     'routeParameters' => [
-                        'id' => $params['invoice']->getId(),
+                        'id' => $invoice->getId(),
                     ],
                     'labelAttributes' => [
                         'icon' => 'fa fa-edit',
@@ -118,6 +100,87 @@ class MenuDecorator extends AbstractMenuDecorator
         }
     }
 
+    /**
+     * Add context menu when looking at a single contract.
+     *
+     * Related actions:
+     *
+     * - Create invoice for contract.
+     *
+     * @param MenuItem $menu
+     */
+    public function buildAcquisitionContractShowRelatedMenu(MenuItem $menu)
+    {
+        $params = $this->container->get('crmp.controller.render.parameters');
+
+        // Create invoice based on current contract
+        $routeParameters = [];
+
+        if ($params && isset($params['contract'])) {
+            /** @var Contract $contract */
+            $contract = $params['contract'];
+
+            $customer = $contract->getCustomer();
+
+            if ($customer) {
+                $routeParameters['customer'] = $customer->getId();
+            }
+
+            $routeParameters['value']    = $contract->getValue();
+            $routeParameters['contract'] = $contract->getId();
+        }
+
+        $menu->addChild(
+            'crmp_accounting.invoice.new',
+            [
+                'route'           => 'crmp_accounting_invoice_new',
+                'routeParameters' => $routeParameters,
+                'labelAttributes' => [
+                    'icon' => 'fa fa-plus',
+                ],
+            ]
+        );
+    }
+
+    /**
+     * Add context menu while looking at a single customer.
+     *
+     * Related actions:
+     *
+     * - Create invoice for current customer.
+     *
+     * @param MenuItem $menuItem
+     */
+    public function buildCrmCustomerShowRelatedMenu(MenuItem $menuItem)
+    {
+        $params = $this->container->get('crmp.controller.render.parameters');
+
+        if (isset($params['customer']) && $params['customer'] instanceof Customer) {
+            /** @var Customer $customer */
+            $customer = $params['customer'];
+
+            $menuItem->addChild(
+                'crmp_accounting.invoice.new',
+                [
+                    'route'           => 'crmp_accounting_invoice_new',
+                    'routeParameters' => [
+                        'customer' => $customer->getId(),
+                    ],
+                    'labelAttributes' => [
+                        'icon' => 'fa fa-plus',
+                    ],
+                ]
+            );
+        }
+    }
+
+    /**
+     * Add main menu entries for accounting.
+     *
+     * @param RequestStack $requestStack
+     *
+     * @return \Knp\Menu\ItemInterface
+     */
     public function createMainMenu(RequestStack $requestStack)
     {
         $menu = parent::createMainMenu($requestStack);
