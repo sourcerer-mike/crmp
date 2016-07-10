@@ -37,10 +37,10 @@ class Invoice
      */
     private $value;
 
-	/**
-	 * @ORM\ManyToOne(targetEntity="Crmp\CrmBundle\Entity\Customer")
-	 */
-	private $customer;
+    /**
+     * @ORM\ManyToOne(targetEntity="Crmp\CrmBundle\Entity\Customer")
+     */
+    private $customer;
 
     /**
      * @ORM\ManyToOne(targetEntity="Crmp\AcquisitionBundle\Entity\Contract")

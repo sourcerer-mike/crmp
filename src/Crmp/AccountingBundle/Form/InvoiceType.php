@@ -10,12 +10,12 @@ class InvoiceType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-	        ->add('customer', null, ['label' => 'crmp_crm.customer.singular'])
+            ->add('customer', null, ['label' => 'crmp_crm.customer.singular'])
             ->add('value', null, ['label' => 'crmp_accounting.invoice.total'])
         ;
     }

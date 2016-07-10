@@ -33,12 +33,12 @@ class InvoiceController extends CrmpController
     {
         $em = $this->getDoctrine()->getManager();
 
-	    $criteria = Criteria::create();
+        $criteria = Criteria::create();
 
-	    if ($request->get('customer')) {
-		    $customer = $this->getDoctrine()->getRepository('CrmpCrmBundle:Customer')->find($request->get('customer'));
-		    $criteria->andWhere(Criteria::expr()->eq('customer', $customer));
-	    }
+        if ($request->get('customer')) {
+            $customer = $this->getDoctrine()->getRepository('CrmpCrmBundle:Customer')->find($request->get('customer'));
+            $criteria->andWhere(Criteria::expr()->eq('customer', $customer));
+        }
 
         $invoices = $em->getRepository('CrmpAccountingBundle:Invoice')->matching($criteria);
 
@@ -59,11 +59,11 @@ class InvoiceController extends CrmpController
     {
         $invoice = new Invoice();
 
-	    if ($request->get('customer')) {
-		    $invoice->setCustomer(
-			    $this->getDoctrine()->getRepository('CrmpCrmBundle:Customer')->find($request->get('customer'))
-		    );
-	    }
+        if ($request->get('customer')) {
+            $invoice->setCustomer(
+                $this->getDoctrine()->getRepository('CrmpCrmBundle:Customer')->find($request->get('customer'))
+            );
+        }
 
         if ($request->get('value')) {
             $invoice->setValue((float) $request->get('value'));

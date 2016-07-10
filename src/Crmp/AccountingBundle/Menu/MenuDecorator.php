@@ -2,7 +2,6 @@
 
 namespace Crmp\AccountingBundle\Menu;
 
-
 use AppBundle\Menu\AbstractMenuDecorator;
 use Crmp\AccountingBundle\Entity\Invoice;
 use Crmp\AcquisitionBundle\Entity\Contract;
@@ -19,7 +18,7 @@ class MenuDecorator extends AbstractMenuDecorator
         // Create invoice based on current contract
         $routeParameters = [];
 
-        if ($params && isset( $params['contract'] )) {
+        if ($params && isset($params['contract'])) {
             /** @var Contract $contract */
             $contract = $params['contract'];
 
@@ -49,7 +48,7 @@ class MenuDecorator extends AbstractMenuDecorator
     {
         $params = $this->container->get('crmp.controller.render.parameters');
 
-        if (isset( $params['customer'] ) && $params['customer'] instanceof Customer) {
+        if (isset($params['customer']) && $params['customer'] instanceof Customer) {
             $menuItem->addChild(
                 'crmp_accounting.invoice.new',
                 [
@@ -103,7 +102,7 @@ class MenuDecorator extends AbstractMenuDecorator
     {
         $params = $this->container->get('crmp.controller.render.parameters');
 
-        if (isset( $params['invoice'] ) && $params['invoice'] instanceof Invoice) {
+        if (isset($params['invoice']) && $params['invoice'] instanceof Invoice) {
             $menuItem->addChild(
                 'crmp_accounting.invoice.edit',
                 [

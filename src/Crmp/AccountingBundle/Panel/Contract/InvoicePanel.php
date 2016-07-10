@@ -2,7 +2,6 @@
 
 namespace Crmp\AccountingBundle\Panel\Contract;
 
-
 use Crmp\AcquisitionBundle\Entity\Contract;
 use Crmp\CrmBundle\Entity\Customer;
 use Crmp\CrmBundle\Twig\AbstractPanel;
@@ -19,7 +18,7 @@ class InvoicePanel extends AbstractPanel implements PanelInterface
         $this->data             = $this->container->get('crmp.controller.render.parameters');
         $this->data['invoices'] = [];
 
-        if ( ! isset( $this->data['contract'] ) || false == ( $this->data['contract'] instanceof Contract )) {
+        if (! isset($this->data['contract']) || false == ( $this->data['contract'] instanceof Contract )) {
             return $this->data;
         }
 
@@ -62,6 +61,4 @@ class InvoicePanel extends AbstractPanel implements PanelInterface
     {
         return $this->container->get('translator')->trans('crmp_accounting.invoice.plural');
     }
-
-
 }
