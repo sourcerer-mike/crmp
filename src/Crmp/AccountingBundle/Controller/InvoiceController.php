@@ -2,7 +2,7 @@
 
 namespace Crmp\AccountingBundle\Controller;
 
-use AppBundle\Controller\CrmpController;
+use AppBundle\Controller\AbstractCrmpController;
 use Doctrine\Common\Collections\Criteria;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,7 +20,7 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * @Route("/invoice")
  */
-class InvoiceController extends CrmpController
+class InvoiceController extends AbstractCrmpController
 {
     /**
      * Deletes an invoice.

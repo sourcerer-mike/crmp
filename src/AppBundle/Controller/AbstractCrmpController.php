@@ -5,7 +5,15 @@ namespace AppBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
-class CrmpController extends Controller
+/**
+ * Abstract controller for CRMP.
+ *
+ * Other controller shall inherit from this
+ * because it registers the current used parameters in the DI container.
+ *
+ * @package AppBundle\Controller
+ */
+abstract class AbstractCrmpController extends Controller
 {
     protected function render($view, array $parameters = array(), Response $response = null)
     {

@@ -2,7 +2,7 @@
 
 namespace Crmp\CrmBundle\Controller;
 
-use AppBundle\Controller\CrmpController;
+use AppBundle\Controller\AbstractCrmpController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * @Route("/customer")
  */
-class CustomerController extends CrmpController
+class CustomerController extends AbstractCrmpController
 {
     /**
      * Deletes a Customer entity.

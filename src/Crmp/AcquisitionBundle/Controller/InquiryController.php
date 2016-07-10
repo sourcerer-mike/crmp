@@ -2,7 +2,7 @@
 
 namespace Crmp\AcquisitionBundle\Controller;
 
-use AppBundle\Controller\CrmpController;
+use AppBundle\Controller\AbstractCrmpController;
 use Doctrine\Common\Collections\Criteria;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * @Route("/inquiry")
  */
-class InquiryController extends CrmpController
+class InquiryController extends AbstractCrmpController
 {
     /**
      * Deletes a Inquiry entity.
