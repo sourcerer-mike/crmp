@@ -2,7 +2,6 @@
 
 namespace Crmp\CrmBundle\Event;
 
-
 use AppBundle\Event\Menu\ConfigureMainMenuEvent;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;

@@ -2,7 +2,6 @@
 
 namespace Crmp\CrmBundle\Twig;
 
-
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class PanelGroup implements \IteratorAggregate
@@ -43,21 +42,20 @@ class PanelGroup implements \IteratorAggregate
             $panel = $panel->getId();
         }
 
-        if ( ! is_scalar($panel)) {
+        if (! is_scalar($panel)) {
             throw new \InvalidArgumentException(
                 sprintf(
-                    'Invalid argument of type "%s".'.
-                    ' Expected \\Crmp\\CrmBundle\\Twig\\PanelInterface or string containing the ID.',
+                    'Invalid argument of type "%s".'.' Expected \\Crmp\\CrmBundle\\Twig\\PanelInterface or string containing the ID.',
                     \Crmp\CrmBundle\Debug::get_type($panel)
                 )
             );
         }
 
-        if ( ! isset( $this->children[$panel] )) {
+        if (! isset($this->children[$panel])) {
             return $this;
         }
 
-        unset( $this->children[$panel] );
+        unset($this->children[$panel]);
 
         return $this;
     }

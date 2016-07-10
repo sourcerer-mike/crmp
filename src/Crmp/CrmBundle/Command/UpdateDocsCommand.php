@@ -2,7 +2,6 @@
 
 namespace Crmp\CrmBundle\Command;
 
-
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -128,8 +127,8 @@ class UpdateDocsCommand extends Command implements ContainerAwareInterface
 
             $docPath = $path.'/'.$basename;
 
-            if ( ! is_dir(dirname($docPath))) {
-                if ( ! mkdir(dirname($docPath), 0755, true)) {
+            if (! is_dir(dirname($docPath))) {
+                if (! mkdir(dirname($docPath), 0755, true)) {
                     continue;
                 }
             }
@@ -177,7 +176,7 @@ class UpdateDocsCommand extends Command implements ContainerAwareInterface
 
             $field = $reflectionClass->getProperty($fieldName);
 
-            if ( ! $field) {
+            if (! $field) {
                 $this->exitCode++;
                 $output->writeln('<error>Unresolvable field "'.$fieldName.'"</error>');
             }
@@ -210,30 +209,30 @@ class UpdateDocsCommand extends Command implements ContainerAwareInterface
             return null;
         }
 
-        if ( ! $docComment) {
+        if (! $docComment) {
             return $fieldData;
         }
 
         preg_match('!\/[\s\*]*([^\*]*)\*(.*?(?=\s*\* @|\s*\*\/))!s', $docComment, $headingMatches);
 
         $fieldData['heading'] = '(missing header)';
-        if ($headingMatches && isset( $headingMatches[1] )) {
+        if ($headingMatches && isset($headingMatches[1])) {
             $fieldData['heading'] = trim($headingMatches[1]);
         }
 
-        if ( ! $fieldData['heading'] || 0 === strpos($fieldData['heading'], '@')) {
+        if (! $fieldData['heading'] || 0 === strpos($fieldData['heading'], '@')) {
             $this->exitCode++;
             $output->writeln(sprintf('<error>%s has no heading.</error>', $slug));
         }
 
-        if (isset( $headingMatches[2] )) {
+        if (isset($headingMatches[2])) {
             $fieldData['content'] = trim($headingMatches[2]);
             $fieldData['content'] = preg_replace('@\n\s*\* @s', "\n", $fieldData['content']);
             $fieldData['content'] = rtrim($fieldData['content'], "*\n ");
             $fieldData['content'] = substr($fieldData['content'], 2); // cut off "* " from beginning
         }
 
-        if ( ! $fieldData['content']) {
+        if (! $fieldData['content']) {
             $this->exitCode++;
             $output->writeln(sprintf('<error>%s has no content.</error>', $slug));
         }
@@ -262,18 +261,18 @@ class UpdateDocsCommand extends Command implements ContainerAwareInterface
         $content = '';
 
         $heading = ' (missing heading)';
-        if (isset( $docs['heading'] ) && $docs['heading']) {
+        if (isset($docs['heading']) && $docs['heading']) {
             $heading = rtrim($docs['heading'], '.');
         }
 
         $content .= str_repeat('#', $level);
         $content .= ' '.$heading."\n\n";
 
-        if (isset( $docs['content'] ) && $docs['content']) {
+        if (isset($docs['content']) && $docs['content']) {
             $content .= "\n".$docs['content']."\n\n";
         }
 
-        if (isset( $docs['children'] ) && $docs['children']) {
+        if (isset($docs['children']) && $docs['children']) {
             foreach ($docs['children'] as $child) {
                 $content .= $this->docToContent($child, $level + 1);
             }
@@ -295,12 +294,11 @@ class UpdateDocsCommand extends Command implements ContainerAwareInterface
 
             $output->writeln($filePath, $output::VERBOSITY_DEBUG);
 
-            if ( ! is_dir(dirname($filePath))) {
+            if (! is_dir(dirname($filePath))) {
                 mkdir(dirname($filePath), 0755, true);
             }
 
             file_put_contents($filePath, $this->docToContent($info));
-
         }
     }
 
@@ -327,7 +325,7 @@ class UpdateDocsCommand extends Command implements ContainerAwareInterface
             $class = ltrim($class, '/\\');
             $class = $bundle->getNamespace().'\\'.str_replace('/', '\\', $class);
 
-            if ( ! class_exists($class)) {
+            if (! class_exists($class)) {
                 $output->writeln('<comment>Class does not exist: '.$class.'</comment>', $output::VERBOSITY_DEBUG);
             }
 
@@ -335,7 +333,7 @@ class UpdateDocsCommand extends Command implements ContainerAwareInterface
 
             $parseClass = $this->parseClass($class, new BufferedOutput());
 
-            if ( ! $parseClass) {
+            if (! $parseClass) {
                 continue;
             }
 
@@ -373,7 +371,7 @@ class UpdateDocsCommand extends Command implements ContainerAwareInterface
         $docs = [];
 
         foreach ($reflectClass->getMethods() as $method) {
-            if ( ! preg_match($pattern, $method->getName(), $matches)) {
+            if (! preg_match($pattern, $method->getName(), $matches)) {
                 continue;
             }
 
@@ -401,7 +399,7 @@ class UpdateDocsCommand extends Command implements ContainerAwareInterface
 
         preg_match('@\/[\s\*]*([^\*]*)@s', $docComment, $headingMatches);
 
-        if ( ! $headingMatches || ! isset( $headingMatches[1] )) {
+        if (! $headingMatches || ! isset($headingMatches[1])) {
             return '';
         }
 
@@ -432,12 +430,9 @@ class UpdateDocsCommand extends Command implements ContainerAwareInterface
         $controllerDirectory = $bundle->getPath().'/Controller';
         if (file_exists($controllerDirectory)) {
             foreach (glob($controllerDirectory.'/*Controller.php') as $controllerFile) {
+                $controllerClass = $bundle->getNamespace().'\\Controller\\'.basename($controllerFile, '.php');
 
-                $controllerClass = $bundle->getNamespace()
-                                   .'\\Controller\\'
-                                   .basename($controllerFile, '.php');
-
-                if ( ! class_exists($controllerClass)) {
+                if (! class_exists($controllerClass)) {
                     if ($output->isDebug()) {
                         $output->writeln('Skipping controller file '.basename($controllerFile));
                     }
@@ -479,7 +474,7 @@ class UpdateDocsCommand extends Command implements ContainerAwareInterface
 
         $docDir = $this->getDocPath($bundle).'/Controller';
 
-        if ( ! is_dir($docDir)) {
+        if (! is_dir($docDir)) {
             mkdir($docDir, 0755, true);
         }
 
@@ -506,7 +501,7 @@ class UpdateDocsCommand extends Command implements ContainerAwareInterface
         foreach ($reflectionMethods as $method) {
             $methodName = $method->getName();
 
-            if ( ! preg_match('@Action$@', $methodName)) {
+            if (! preg_match('@Action$@', $methodName)) {
                 if ($output->isDebug()) {
                     $output->writeln('Skipping '.$methodName.' - not an action.');
                 }

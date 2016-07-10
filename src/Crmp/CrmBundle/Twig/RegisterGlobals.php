@@ -2,7 +2,6 @@
 
 namespace Crmp\CrmBundle\Twig;
 
-
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class RegisterGlobals extends \Twig_Extension implements \Twig_Extension_GlobalsInterface

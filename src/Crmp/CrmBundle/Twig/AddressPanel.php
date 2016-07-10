@@ -2,7 +2,6 @@
 
 namespace Crmp\CrmBundle\Twig;
 
-
 use Crmp\CrmBundle\Entity\Customer;
 
 class AddressPanel extends AbstractPanel implements PanelInterface
@@ -16,7 +15,7 @@ class AddressPanel extends AbstractPanel implements PanelInterface
         $this->data = $this->container->get('crmp.controller.render.parameters');
         $this->data['addresses'] = [1];
 
-        if ( ! isset( $this->data['customer'] ) || false == ($this->data['customer'] instanceof Customer)) {
+        if (! isset($this->data['customer']) || false == ($this->data['customer'] instanceof Customer)) {
             return $this->data;
         }
 
@@ -59,6 +58,4 @@ class AddressPanel extends AbstractPanel implements PanelInterface
     {
         return $this->container->get('translator')->trans('crmp_crm.address.plural');
     }
-
-
 }

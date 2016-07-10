@@ -14,5 +14,4 @@ class CrmpCrmBundle extends Bundle
 
         $container->addCompilerPass(new PanelsPass());
     }
-
 }

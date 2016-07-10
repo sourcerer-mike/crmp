@@ -2,7 +2,6 @@
 
 namespace Crmp\CrmBundle\Twig;
 
-
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 abstract class AbstractPanel

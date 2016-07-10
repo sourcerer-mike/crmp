@@ -31,17 +31,17 @@ class AddressController extends CrmpController
     {
         $em = $this->getDoctrine()->getManager();
 
-	    $addressRepository = $em->getRepository( 'CrmpCrmBundle:Address' );
+        $addressRepository = $em->getRepository('CrmpCrmBundle:Address');
 
-	    $addresses = $addressRepository->findAll();
+        $addresses = $addressRepository->findAll();
 
-	    if ($request->get('customer')) {
-		    $addresses = $addressRepository->findBy(
-			    [
-			        'customer' => $request->get('customer')
-			    ]
-		    );
-	    }
+        if ($request->get('customer')) {
+            $addresses = $addressRepository->findBy(
+                [
+                    'customer' => $request->get('customer')
+                ]
+            );
+        }
 
         return $this->render('CrmpCrmBundle:Address:index.html.twig', array(
             'addresses' => $addresses,
@@ -58,12 +58,12 @@ class AddressController extends CrmpController
     {
         $address = new Address();
 
-	    if ($request->get('customer')) {
-		    // customer given: pre-fill form
-		    $customer = $this->getDoctrine()->getRepository('CrmpCrmBundle:Customer')->find($request->get('customer'));
+        if ($request->get('customer')) {
+            // customer given: pre-fill form
+            $customer = $this->getDoctrine()->getRepository('CrmpCrmBundle:Customer')->find($request->get('customer'));
 
-		    $address->setCustomer($customer);
-	    }
+            $address->setCustomer($customer);
+        }
 
         $form = $this->createForm('Crmp\CrmBundle\Form\AddressType', $address);
         $form->handleRequest($request);

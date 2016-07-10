@@ -2,7 +2,6 @@
 
 namespace Crmp\CrmBundle\Menu;
 
-
 use AppBundle\Menu\AbstractMenuDecorator;
 use Crmp\CrmBundle\Entity\Address;
 use Crmp\CrmBundle\Entity\Customer;
@@ -42,7 +41,7 @@ class MenuDecorator extends AbstractMenuDecorator
     {
         $params = $this->container->get('crmp.controller.render.parameters');
 
-        if (isset( $params['address'] ) && $params['address'] instanceof Address) {
+        if (isset($params['address']) && $params['address'] instanceof Address) {
             $menuItem->addChild(
                 'crmp.edit',
                 [
@@ -76,8 +75,7 @@ class MenuDecorator extends AbstractMenuDecorator
     {
         $params = $this->container->get('crmp.controller.render.parameters');
 
-        if (isset($params['customer']) && $params['customer'] instanceof Customer)
-        {
+        if (isset($params['customer']) && $params['customer'] instanceof Customer) {
             $menuItem->addChild(
                 'crmp_crm.customer.edit',
                 [
@@ -138,5 +136,4 @@ class MenuDecorator extends AbstractMenuDecorator
 
         return $menu;
     }
-
 }

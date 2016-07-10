@@ -2,7 +2,6 @@
 
 namespace Crmp\CrmBundle\Twig;
 
-
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 interface PanelInterface
@@ -30,9 +29,9 @@ interface PanelInterface
 
     /**
      * Path to the twig template that shall be used.
-     * 
+     *
      * Default: 'CrmpCrmBundle::panel.html.twig
-     * 
+     *
      * @return mixed
      */
     public function getTemplate();
@@ -46,18 +45,18 @@ interface PanelInterface
 
     /**
      * Style of the panel.
-     * 
+     *
      * Bootstrap 3 provides ("panel-..."):
-     * 
+     *
      * - default
      * - primary
      * - success
      * - info
      * - warning
      * - danger
-     * 
+     *
      * @see http://getbootstrap.com/components/#panels
-     * 
+     *
      * @return mixed
      */
     public function getStyle();

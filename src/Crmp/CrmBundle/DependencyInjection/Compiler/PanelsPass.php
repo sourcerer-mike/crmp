@@ -2,7 +2,6 @@
 
 namespace Crmp\CrmBundle\DependencyInjection\Compiler;
 
-
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
@@ -25,7 +24,7 @@ class PanelsPass implements CompilerPassInterface
             foreach ($tags as $eachTag) {
                 $targetId = $eachTag['target'];
 
-                if (empty( $mapServices[$targetId] )) {
+                if (empty($mapServices[$targetId])) {
                     $mapServices[$targetId] = array();
                 }
 
@@ -33,7 +32,7 @@ class PanelsPass implements CompilerPassInterface
             }
         }
 
-        if (empty( $mapServices )) {
+        if (empty($mapServices)) {
             return;
         }
 
@@ -41,7 +40,7 @@ class PanelsPass implements CompilerPassInterface
             foreach ($tags as $eachTag) {
                 $alias = $eachTag['alias'];
 
-                if ( ! empty( $mapServices[$alias] )) {
+                if (! empty($mapServices[$alias])) {
                     $targetDefinition = $container->getDefinition($id);
 
                     foreach ($mapServices[$alias] as $eachMapServiceId) {

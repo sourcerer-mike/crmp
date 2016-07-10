@@ -24,7 +24,7 @@ class IndentedOutputFormatter extends OutputFormatter
 
         $amount = self::INDENT_AMOUNT * $this->getLevel();
         $prependBy = str_repeat(' ', $amount);
-        $message = $prependBy . $message;
+        $message = $prependBy.$message;
 
         return $message;
     }

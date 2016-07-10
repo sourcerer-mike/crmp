@@ -2,7 +2,6 @@
 
 namespace Crmp\CrmBundle;
 
-
 class Debug
 {
     public static function get_type($something)

@@ -2,7 +2,6 @@
 
 namespace Crmp\CrmBundle\Twig;
 
-
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class PanelsRenderer extends \Twig_Extension
@@ -11,7 +10,7 @@ class PanelsRenderer extends \Twig_Extension
 
     /**
      * Register the crmp_panels function for Twig.
-     * 
+     *
      * @return array
      */
     public function getFunctions()
@@ -40,10 +39,10 @@ class PanelsRenderer extends \Twig_Extension
 
     /**
      * Render all registered panels.
-     * 
+     *
      * Iterates over all registered panels and renders them.
      * The template will have a "panel" variable referencing the single PanelInterface instance.
-     * 
+     *
      * @param \Twig_Environment $twig
      * @param PanelGroup        $panelGroup
      *
