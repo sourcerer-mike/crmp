@@ -66,6 +66,13 @@ class Config
      */
     private $value;
 
+    /**
+     * Get all possible statuses.
+     *
+     * @param string $path
+     *
+     * @return array
+     */
     public static function getChoices($path)
     {
         return [

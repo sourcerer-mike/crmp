@@ -2,6 +2,8 @@
 
 namespace Crmp\CrmBundle\Entity;
 
+use Crmp\AccountingBundle\Entity\Invoice;
+use Crmp\CrmBundle\Entity\Address;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints\DateTime;
 
@@ -50,6 +52,11 @@ class Customer
     private $id;
 
     /**
+     * @var Invoice[]
+     */
+    private $invoices;
+
+    /**
      * Firm of the company.
      *
      * Companies usually have a title/name/firm that they are known by.
@@ -75,53 +82,24 @@ class Customer
      */
     private $updatedAt;
 
+    /**
+     * Name and ID of customer as string representation.
+     *
+     * @return string
+     */
     public function __toString()
     {
         return $this->getName().' ('.$this->getId().')';
     }
 
     /**
-     * Get name
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * Set name
-     *
-     * @param string $name
-     *
-     * @return Customer
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * Get id
-     *
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
      * Add address
      *
-     * @param \Crmp\CrmBundle\Entity\Address $address
+     * @param Address $address
      *
      * @return Customer
      */
-    public function addAddress(\Crmp\CrmBundle\Entity\Address $address)
+    public function addAddress(Address $address)
     {
         $this->addresses[] = $address;
 
@@ -131,11 +109,11 @@ class Customer
     /**
      * Add invoice
      *
-     * @param \Crmp\AccountingBundle\Entity\Invoice $invoice
+     * @param Invoice $invoice
      *
      * @return Customer
      */
-    public function addInvoice(\Crmp\AccountingBundle\Entity\Invoice $invoice)
+    public function addInvoice(Invoice $invoice)
     {
         $this->invoices[] = $invoice;
 
@@ -177,6 +155,16 @@ class Customer
     }
 
     /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
      * Get invoices
      *
      * @return \Doctrine\Common\Collections\Collection
@@ -184,6 +172,30 @@ class Customer
     public function getInvoices()
     {
         return $this->invoices;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return Customer
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
     }
 
     /**
@@ -231,9 +243,9 @@ class Customer
     /**
      * Remove address
      *
-     * @param \Crmp\CrmBundle\Entity\Address $address
+     * @param Address $address
      */
-    public function removeAddress(\Crmp\CrmBundle\Entity\Address $address)
+    public function removeAddress(Address $address)
     {
         $this->addresses->removeElement($address);
     }
@@ -241,9 +253,9 @@ class Customer
     /**
      * Remove invoice
      *
-     * @param \Crmp\AccountingBundle\Entity\Invoice $invoice
+     * @param Invoice $invoice
      */
-    public function removeInvoice(\Crmp\AccountingBundle\Entity\Invoice $invoice)
+    public function removeInvoice(Invoice $invoice)
     {
         $this->invoices->removeElement($invoice);
     }
