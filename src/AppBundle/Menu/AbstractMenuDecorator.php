@@ -5,6 +5,13 @@ namespace AppBundle\Menu;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
+/**
+ * Interface for other bundles to enhance a menu tree.
+ *
+ * @see     MenuDecoratorInterface
+ *
+ * @package AppBundle\Menu
+ */
 abstract class AbstractMenuDecorator implements MenuDecoratorInterface
 {
     /**
@@ -21,7 +28,7 @@ abstract class AbstractMenuDecorator implements MenuDecoratorInterface
      * MenuBuilder constructor.
      *
      * @param MenuInterface      $menu      The menu to decorate.
-     * @param ContainerInterface $container
+     * @param ContainerInterface $container DI container.
      */
     public function __construct(MenuInterface $menu, ContainerInterface $container)
     {
@@ -29,11 +36,35 @@ abstract class AbstractMenuDecorator implements MenuDecoratorInterface
         $this->container   = $container;
     }
 
+    /**
+     * Decorate the main menu.
+     *
+     * @param RequestStack $requestStack
+     *
+     * @return \Knp\Menu\ItemInterface|mixed
+     */
     public function createMainMenu(RequestStack $requestStack)
     {
         return $this->menuBuilder->createMainMenu($requestStack);
     }
 
+    /**
+     * Decorate the related menu.
+     *
+     * Based on the current request (e.g. "customer_show")
+     * another method will be called if it exists.
+     * It will be named as "build{route}RelatedMenu".
+     *
+     * ## Examples
+     *
+     * - customer_show => buildCustomerShowRelatedMenu
+     *
+     * @deprecated 2.0.0 Solve this via a different approach, more modular and single purpose principle.
+     *
+     * @param RequestStack $requestStack
+     *
+     * @return \Knp\Menu\ItemInterface|mixed
+     */
     public function createRelatedMenu(RequestStack $requestStack)
     {
         $menu = $this->menuBuilder->createRelatedMenu($requestStack);

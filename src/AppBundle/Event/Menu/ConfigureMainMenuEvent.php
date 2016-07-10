@@ -6,6 +6,11 @@ use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
 use Symfony\Component\EventDispatcher\Event;
 
+/**
+ * ConfigureMainMenuEvent.
+ *
+ * @package AppBundle\Event\Menu
+ */
 class ConfigureMainMenuEvent extends Event
 {
     const NAME = 'crmp.menu.main.configure';
