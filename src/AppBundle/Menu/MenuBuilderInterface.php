@@ -2,7 +2,6 @@
 
 namespace AppBundle\Menu;
 
-
 use Knp\Menu\FactoryInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 

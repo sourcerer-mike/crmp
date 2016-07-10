@@ -19,7 +19,7 @@ class AppExtension extends \Twig_Extension
     public function priceFilter($number, $decimals = 2, $decPoint = ',', $thousandsSep = '.')
     {
         $price = number_format($number, $decimals, $decPoint, $thousandsSep);
-        $price = $price . ' EUR';
+        $price = $price.' EUR';
 
         return $price;
     }

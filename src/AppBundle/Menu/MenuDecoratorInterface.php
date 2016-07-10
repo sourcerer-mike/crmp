@@ -2,7 +2,6 @@
 
 namespace AppBundle\Menu;
 
-
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 interface MenuDecoratorInterface extends MenuInterface

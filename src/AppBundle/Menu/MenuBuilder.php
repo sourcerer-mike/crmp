@@ -2,7 +2,6 @@
 
 namespace AppBundle\Menu;
 
-
 use AppBundle\Event\Menu\ConfigureMainMenuEvent;
 use AppBundle\Event\Menu\ConfigureRelatedMenuEvent;
 use Knp\Menu\FactoryInterface;
