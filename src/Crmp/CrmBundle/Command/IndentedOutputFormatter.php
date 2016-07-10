@@ -3,6 +3,11 @@ namespace Crmp\CrmBundle\Command;
 
 use Symfony\Component\Console\Formatter\OutputFormatter;
 
+/**
+ * Formatter for nested output on the CLI.
+ *
+ * @package Crmp\CrmBundle\Command
+ */
 class IndentedOutputFormatter extends OutputFormatter
 {
     const INDENT_AMOUNT = 4;

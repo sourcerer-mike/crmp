@@ -14,6 +14,11 @@ use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 
+/**
+ * Regenerate doc entries via unit test doc comments.
+ *
+ * @package Crmp\CrmBundle\Command
+ */
 class UpdateDocsCommand extends Command implements ContainerAwareInterface
 {
     /**
@@ -22,11 +27,19 @@ class UpdateDocsCommand extends Command implements ContainerAwareInterface
     protected $container;
     protected $exitCode = 0;
 
+    /**
+     * Register command as crmp:docs:update.
+     */
     public function __construct()
     {
         parent::__construct('crmp:docs:update');
     }
 
+    /**
+     * Inject the object pool.
+     *
+     * @param ContainerInterface|null $container
+     */
     public function setContainer(ContainerInterface $container = null)
     {
         $this->container = $container;
@@ -40,10 +53,7 @@ class UpdateDocsCommand extends Command implements ContainerAwareInterface
             )
         );
 
-        $em = $this->container->get('doctrine.orm.entity_manager');
-
         // bundles
-
         $bundles = $this->container->get('kernel')->getBundles();
 
         foreach ($bundles as $bundle) {
@@ -67,6 +77,62 @@ class UpdateDocsCommand extends Command implements ContainerAwareInterface
         return $this->exitCode;
     }
 
+    protected function sortMethods(\ReflectionMethod $methodA, \ReflectionMethod $methodB)
+    {
+        return ($methodA->getName() > $methodB->getName());
+    }
+
+    /**
+     * @param string $docs
+     *
+     * @return string
+     */
+    private function docToContent($docs, $level = 1)
+    {
+        $content = '';
+
+        $heading = ' (missing heading)';
+        if (isset($docs['heading']) && $docs['heading']) {
+            $heading = rtrim($docs['heading'], '.');
+        }
+
+        $content .= str_repeat('#', $level);
+        $content .= ' '.$heading."\n\n";
+
+        if (isset($docs['content']) && $docs['content']) {
+            $content .= "\n".$docs['content']."\n\n";
+        }
+
+        if (isset($docs['children']) && $docs['children']) {
+            foreach ($docs['children'] as $child) {
+                $content .= $this->docToContent($child, $level + 1);
+            }
+        }
+
+        return $content;
+    }
+
+    private function extractField(\ReflectionProperty $field, OutputInterface $output)
+    {
+        $fieldData = $this->parseDocComment(
+            $field->getDeclaringClass()->getName().'::'.$field->getName(),
+            $field->getDocComment(),
+            $output
+        );
+
+        return [$field->getName() => $fieldData];
+    }
+
+    /**
+     * @param BundleInterface $bundle
+     *
+     * @return string
+     */
+    private function getDocPath(BundleInterface $bundle)
+    {
+        return $bundle->getPath().'/Resources/doc';
+    }
+
     private function parseBundle(BundleInterface $bundle, OutputInterface $output)
     {
         if ($output->isVerbose()) {
@@ -82,75 +148,20 @@ class UpdateDocsCommand extends Command implements ContainerAwareInterface
 
     }
 
-    /**
-     * @param BundleInterface $bundle
-     * @param OutputInterface $output
-     */
-    private function updateEntities(BundleInterface $bundle, OutputInterface $output)
+    private function parseClass($class, $output)
     {
-        $path = $this->getDocPath($bundle);
-        $em   = $this->container->get('doctrine.orm.entity_manager');
+        $reflectClass = new \ReflectionClass($class);
+        $docComment   = $reflectClass->getDocComment();
 
-        foreach ($em->getMetadataFactory()->getAllMetadata() as $meta) {
-            /** @var \Doctrine\ORM\Mapping\ClassMetadata $meta */
-            if (0 !== strpos($meta->getName(), $bundle->getNamespace())) {
-                continue;
-            }
-
-            $short = str_replace($bundle->getNamespace().'\\Entity\\', '', $meta->getName());
-
-            if ($output->isVerbose()) {
-                $output->writeln($short);
-                $output->getFormatter()->increaseLevel();
-            }
-
-            $content = $this->parseClassMetadata($bundle, $meta, $output);
-
-            $basename = 'Entities/'.$short.'.md';
-
-            $text    = $this->docToContent($content);
-            $details = "\n";
-
-            $text .= "\n## Properties\n\n";
-            foreach ($content['fields'] as $field) {
-                $text .= '- '.$field['heading']."\n";
-                if (trim($field['content'])) {
-                    $details .= rtrim($field['content'])."\n\n";
-                }
-            }
-
-            if (trim($details)) {
-                $text .= $details."\n";
-            }
-
-            $text = rtrim($text)."\n";
-
-            $docPath = $path.'/'.$basename;
-
-            if (! is_dir(dirname($docPath))) {
-                if (! mkdir(dirname($docPath), 0755, true)) {
-                    continue;
-                }
-            }
-
-            file_put_contents($docPath, $text);
-
-            if ($output->isVerbose()) {
-                $output->writeln('Written to: '.$basename);
-
-                $output->getFormatter()->decreaseLevel();
-            }
+        if (preg_match('/@group\s*internal/', $docComment)) {
+            // skip internal classes: they shall not be in end-user documentation
+            return [];
         }
-    }
 
-    /**
-     * @param BundleInterface $bundle
-     *
-     * @return string
-     */
-    private function getDocPath(BundleInterface $bundle)
-    {
-        return $bundle->getPath().'/Resources/doc';
+        $docs             = $this->parseDocComment($class, $docComment, $output);
+        $docs['children'] = [];
+
+        return $docs;
     }
 
     private function parseClassMetadata(BundleInterface $bundle, ClassMetadata $meta, OutputInterface $output)
@@ -240,66 +251,28 @@ class UpdateDocsCommand extends Command implements ContainerAwareInterface
         return $fieldData;
     }
 
-    private function extractField(\ReflectionProperty $field, OutputInterface $output)
+    private function parseMethods($class, $pattern, $output)
     {
-        $fieldData = $this->parseDocComment(
-            $field->getDeclaringClass()->getName().'::'.$field->getName(),
-            $field->getDocComment(),
-            $output
-        );
+        $reflectClass = new \ReflectionClass($class);
 
-        return [$field->getName() => $fieldData];
-    }
+        $docs = [];
 
-    /**
-     * @param string $docs
-     *
-     * @return string
-     */
-    private function docToContent($docs, $level = 1)
-    {
-        $content = '';
-
-        $heading = ' (missing heading)';
-        if (isset($docs['heading']) && $docs['heading']) {
-            $heading = rtrim($docs['heading'], '.');
-        }
-
-        $content .= str_repeat('#', $level);
-        $content .= ' '.$heading."\n\n";
-
-        if (isset($docs['content']) && $docs['content']) {
-            $content .= "\n".$docs['content']."\n\n";
-        }
-
-        if (isset($docs['children']) && $docs['children']) {
-            foreach ($docs['children'] as $child) {
-                $content .= $this->docToContent($child, $level + 1);
-            }
-        }
-
-        return $content;
-    }
-
-    private function writeUsage($docs, BundleInterface $bundle, OutputInterface $output)
-    {
-        $files = [];
-        foreach ($docs as $scope => $info) {
-            $content = '';
-
-            $shortScope = str_replace($bundle->getNamespace().'\\Tests\\', '', $scope);
-
-            $fileName = str_replace('\\', '/', preg_replace('@Test$@', '.md', $shortScope));
-            $filePath = $this->getDocPath($bundle).'/'.$fileName;
-
-            $output->writeln($filePath, $output::VERBOSITY_DEBUG);
-
-            if (! is_dir(dirname($filePath))) {
-                mkdir(dirname($filePath), 0755, true);
+        foreach ($reflectClass->getMethods() as $method) {
+            if (! preg_match($pattern, $method->getName(), $matches)) {
+                continue;
             }
 
-            file_put_contents($filePath, $this->docToContent($info));
+            $docComment = $method->getDocComment();
+
+            if (preg_match('/@group\s*internal/', $docComment)) {
+                // skip internal methods: they shall not be in end-user documentation
+                continue;
+            }
+
+            $docs[$method->getName()] = $this->parseDocComment('::'.$method, $docComment, $output);
         }
+
+        return $docs;
     }
 
     private function parseUnitTests(BundleInterface $bundle, OutputInterface $output)
@@ -348,177 +321,82 @@ class UpdateDocsCommand extends Command implements ContainerAwareInterface
         return $docs;
     }
 
-    private function parseClass($class, $output)
-    {
-        $reflectClass = new \ReflectionClass($class);
-        $docComment   = $reflectClass->getDocComment();
-
-        if (preg_match('/@group\s*internal/', $docComment)) {
-            // skip internal classes: they shall not be in end-user documentation
-            return [];
-        }
-
-        $docs             = $this->parseDocComment($class, $docComment, $output);
-        $docs['children'] = [];
-
-        return $docs;
-    }
-
-    private function parseMethods($class, $pattern, $output)
-    {
-        $reflectClass = new \ReflectionClass($class);
-
-        $docs = [];
-
-        foreach ($reflectClass->getMethods() as $method) {
-            if (! preg_match($pattern, $method->getName(), $matches)) {
-                continue;
-            }
-
-            $docComment = $method->getDocComment();
-
-            if (preg_match('/@group\s*internal/', $docComment)) {
-                // skip internal methods: they shall not be in end-user documentation
-                continue;
-            }
-
-            $docs[$method->getName()] = $this->parseDocComment('::'.$method, $docComment, $output);
-        }
-
-        return $docs;
-    }
-
-    protected function sortMethods(\ReflectionMethod $methodA, \ReflectionMethod $methodB)
-    {
-        return ( $methodA->getName() > $methodB->getName() );
-    }
-
-    private function extractHeading(\ReflectionClass $reflectionClass)
-    {
-        $docComment = $reflectionClass->getDocComment();
-
-        preg_match('@\/[\s\*]*([^\*]*)@s', $docComment, $headingMatches);
-
-        if (! $headingMatches || ! isset($headingMatches[1])) {
-            return '';
-        }
-
-        return trim($headingMatches[1]);
-    }
-
     /**
-     * @param $basename
-     *
-     * @return mixed
-     */
-    private function sanitizeName($basename)
-    {
-        $basename = strtr(
-            $basename,
-            [
-                ' ' => '-',
-            ]
-        );
-        $basename = preg_replace('@[^a-z\-\_]@i', '', $basename);
-
-        return $basename;
-    }
-
-    private function updateController(BundleInterface $bundle, OutputInterface $output)
-    {
-        // Fetch all controller.
-        $controllerDirectory = $bundle->getPath().'/Controller';
-        if (file_exists($controllerDirectory)) {
-            foreach (glob($controllerDirectory.'/*Controller.php') as $controllerFile) {
-                $controllerClass = $bundle->getNamespace().'\\Controller\\'.basename($controllerFile, '.php');
-
-                if (! class_exists($controllerClass)) {
-                    if ($output->isDebug()) {
-                        $output->writeln('Skipping controller file '.basename($controllerFile));
-                    }
-                    continue;
-                }
-
-                if ($output->isDebug()) {
-                    $output->writeln('Parsing controller '.$controllerClass);
-                }
-
-                if ($output->isVerbose()) {
-                    $output->writeln($controllerClass);
-                    $output->getFormatter()->increaseLevel();
-                }
-
-                $this->writeControllerDocs(
-                    basename($controllerFile, 'Controller.php'),
-                    $this->parseController($controllerClass, $output),
-                    $bundle,
-                    $output
-                );
-
-
-                if ($output->isVerbose()) {
-                    $output->getFormatter()->decreaseLeveL();
-                }
-            }
-        }
-    }
-
-    private function writeControllerDocs($slug, $docs, BundleInterface $bundle, OutputInterface $output)
-    {
-        $content = $this->docToContent($docs);
-
-        foreach ($docs['actions'] as $actionDoc) {
-            $content .= $this->docToContent($actionDoc, 2);
-            $content .= "\n\n";
-        }
-
-        $docDir = $this->getDocPath($bundle).'/Controller';
-
-        if (! is_dir($docDir)) {
-            mkdir($docDir, 0755, true);
-        }
-
-        file_put_contents($docDir.'/'.$slug.'.md', $content);
-    }
-
-    /**
-     * @param string          $controllerClass
+     * @param BundleInterface $bundle
      * @param OutputInterface $output
-     *
-     * @return array
      */
-    private function parseController($controllerClass, OutputInterface $output)
+    private function updateEntities(BundleInterface $bundle, OutputInterface $output)
     {
-        $controllerReflection = new \ReflectionClass($controllerClass);
+        $path = $this->getDocPath($bundle);
+        $em   = $this->container->get('doctrine.orm.entity_manager');
 
-        $docs            = $this->parseDocComment($controllerClass, $controllerReflection->getDocComment(), $output);
-        $docs['actions'] = [];
-
-        $reflectionMethods = $controllerReflection->getMethods(\ReflectionMethod::IS_PUBLIC);
-
-        usort($reflectionMethods, [$this, 'sortMethods']);
-
-        foreach ($reflectionMethods as $method) {
-            $methodName = $method->getName();
-
-            if (! preg_match('@Action$@', $methodName)) {
-                if ($output->isDebug()) {
-                    $output->writeln('Skipping '.$methodName.' - not an action.');
-                }
+        foreach ($em->getMetadataFactory()->getAllMetadata() as $meta) {
+            /** @var \Doctrine\ORM\Mapping\ClassMetadata $meta */
+            if (0 !== strpos($meta->getName(), $bundle->getNamespace())) {
                 continue;
             }
+
+            $short = str_replace($bundle->getNamespace().'\\Entity\\', '', $meta->getName());
 
             if ($output->isVerbose()) {
-                $output->writeln('::'.$methodName);
+                $output->writeln($short);
+                $output->getFormatter()->increaseLevel();
             }
 
-            $docs['actions']['::'.$methodName] = $this->parseDocComment(
-                '::'.$methodName,
-                $method->getDocComment(),
-                $output
-            );
-        }
+            $content = $this->parseClassMetadata($bundle, $meta, $output);
 
-        return $docs;
+            $basename = 'Entities/'.$short.'.md';
+
+            $text    = $this->docToContent($content);
+            $details = "\n";
+
+            $text .= "\n## Properties\n\n";
+            foreach ($content['fields'] as $field) {
+                $text .= '- '.$field['heading']."\n";
+                if (trim($field['content'])) {
+                    $details .= rtrim($field['content'])."\n\n";
+                }
+            }
+
+            if (trim($details)) {
+                $text .= $details."\n";
+            }
+
+            $text = rtrim($text)."\n";
+
+            $docPath = $path.'/'.$basename;
+
+            if (! is_dir(dirname($docPath))) {
+                if (! mkdir(dirname($docPath), 0755, true)) {
+                    continue;
+                }
+            }
+
+            file_put_contents($docPath, $text);
+
+            if ($output->isVerbose()) {
+                $output->writeln('Written to: '.$basename);
+
+                $output->getFormatter()->decreaseLevel();
+            }
+        }
+    }
+
+    private function writeUsage($docs, BundleInterface $bundle, OutputInterface $output)
+    {
+        foreach ($docs as $scope => $info) {
+            $shortScope = str_replace($bundle->getNamespace().'\\Tests\\', '', $scope);
+
+            $fileName = str_replace('\\', '/', preg_replace('@Test$@', '.md', $shortScope));
+            $filePath = $this->getDocPath($bundle).'/'.$fileName;
+
+            $output->writeln($filePath, $output::VERBOSITY_DEBUG);
+
+            if (! is_dir(dirname($filePath))) {
+                mkdir(dirname($filePath), 0755, true);
+            }
+
+            file_put_contents($filePath, $this->docToContent($info));
+        }
     }
 }
