@@ -46,7 +46,7 @@ class PanelGroup implements \IteratorAggregate
             throw new \InvalidArgumentException(
                 sprintf(
                     'Invalid argument of type "%s".'.' Expected \\Crmp\\CrmBundle\\Twig\\PanelInterface or string containing the ID.',
-                    \Crmp\CrmBundle\Debug::get_type($panel)
+                    \Crmp\CrmBundle\Debug::getType($panel)
                 )
             );
         }
