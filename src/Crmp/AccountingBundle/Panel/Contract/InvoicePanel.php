@@ -7,15 +7,25 @@ use Crmp\CrmBundle\Entity\Customer;
 use Crmp\CrmBundle\Twig\AbstractPanel;
 use Crmp\CrmBundle\Twig\PanelInterface;
 
+/**
+ * Panel about invoices while viewing a single contract.
+ *
+ * @package Crmp\AccountingBundle\Panel\Contract
+ */
 class InvoicePanel extends AbstractPanel implements PanelInterface
 {
+    /**
+     * Gather all invoices for current contract.
+     *
+     * @return array
+     */
     public function getData()
     {
         if ($this->data) {
             return (array) $this->data;
         }
 
-        $this->data             = $this->container->get('crmp.controller.render.parameters');
+        $this->data             = (array) $this->container->get('crmp.controller.render.parameters');
         $this->data['invoices'] = [];
 
         if (! isset($this->data['contract']) || false == ( $this->data['contract'] instanceof Contract )) {
@@ -34,7 +44,7 @@ class InvoicePanel extends AbstractPanel implements PanelInterface
             10
         );
 
-        return $this->data;
+        return (array) $this->data;
     }
 
     /**
@@ -47,6 +57,11 @@ class InvoicePanel extends AbstractPanel implements PanelInterface
         return 'crmp_accounting.contract.related_panel.invoices';
     }
 
+    /**
+     * Override default template.
+     *
+     * @return string
+     */
     public function getTemplate()
     {
         return 'CrmpAccountingBundle:Contract:_panel-invoice.html.twig';

@@ -6,8 +6,18 @@ use Crmp\CrmBundle\Entity\Customer;
 use Crmp\CrmBundle\Twig\AbstractPanel;
 use Crmp\CrmBundle\Twig\PanelInterface;
 
+/**
+ * Panel about invoices when viewing a single customer.
+ *
+ * @package Crmp\AccountingBundle\Panel\Customer
+ */
 class InvoicePanel extends AbstractPanel implements PanelInterface
 {
+    /**
+     * Gather invoices for the current customer.
+     *
+     * @return array
+     */
     public function getData()
     {
         if ($this->data) {
@@ -17,8 +27,8 @@ class InvoicePanel extends AbstractPanel implements PanelInterface
         $this->data             = $this->container->get('crmp.controller.render.parameters');
         $this->data['invoices'] = [];
 
-        if (! isset($this->data['customer']) || false == ( $this->data['customer'] instanceof Customer )) {
-            return $this->data;
+        if (! isset($this->data['customer']) || false == ($this->data['customer'] instanceof Customer)) {
+            return (array) $this->data;
         }
 
         /** @var Customer $customer */
@@ -33,7 +43,7 @@ class InvoicePanel extends AbstractPanel implements PanelInterface
             10
         );
 
-        return $this->data;
+        return (array) $this->data;
     }
 
     /**
@@ -46,6 +56,11 @@ class InvoicePanel extends AbstractPanel implements PanelInterface
         return 'crmp_accounting.customer.related_panel.invoices';
     }
 
+    /**
+     * Override default template.
+     *
+     * @return string
+     */
     public function getTemplate()
     {
         return 'CrmpAccountingBundle:Customer:_panel-invoice.html.twig';
