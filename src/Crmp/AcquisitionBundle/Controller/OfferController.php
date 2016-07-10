@@ -20,12 +20,80 @@ use Crmp\AcquisitionBundle\Form\OfferType;
 class OfferController extends CrmpController
 {
     /**
+     * Deletes an offer.
+     *
+     * Please refrain from deleting entities.
+     *
+     * @param Request $request
+     * @param Offer   $offer
+     *
+     * @Route("/{id}", name="crmp_acquisition_offer_delete")
+     * @Method("DELETE")
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function deleteAction(Request $request, Offer $offer)
+    {
+        $form = $this->createDeleteForm($offer);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($offer);
+            $em->flush();
+        }
+
+        return $this->redirectToRoute('crmp_acquisition_offer_index');
+    }
+
+    /**
+     * Edit an existing offer.
+     *
+     * Change the contents or value of an offer.
+     *
+     * @param Request $request
+     * @param Offer   $offer
+     *
+     * @Route("/{id}/edit", name="crmp_acquisition_offer_edit")
+     * @Method({"GET", "POST"})
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    public function editAction(Request $request, Offer $offer)
+    {
+        $deleteForm = $this->createDeleteForm($offer);
+        $editForm   = $this->createForm('Crmp\AcquisitionBundle\Form\OfferType', $offer);
+        $editForm->handleRequest($request);
+
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($offer);
+            $em->flush();
+
+            return $this->redirectToRoute('crmp_acquisition_offer_edit', array('id' => $offer->getId()));
+        }
+
+        return $this->render(
+            'CrmpAcquisitionBundle:Offer:edit.html.twig',
+            array(
+                'offer'       => $offer,
+                'edit_form'   => $editForm->createView(),
+                'delete_form' => $deleteForm->createView(),
+            )
+        );
+    }
+
+    /**
      * Lists all offers.
      *
      * Have a look at all offers and filter them as you like.
      *
+     * @param Request $request
+     *
      * @Route("/", name="crmp_acquisition_offer_index")
      * @Method("GET")
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function indexAction(Request $request)
     {
@@ -51,9 +119,12 @@ class OfferController extends CrmpController
 
         $offers = $em->getRepository('CrmpAcquisitionBundle:Offer')->matching($criteria);
 
-        return $this->render('CrmpAcquisitionBundle:Offer:index.html.twig', array(
-            'offers' => $offers,
-        ));
+        return $this->render(
+            'CrmpAcquisitionBundle:Offer:index.html.twig',
+            array(
+                'offers' => $offers,
+            )
+        );
     }
 
     /**
@@ -61,8 +132,12 @@ class OfferController extends CrmpController
      *
      * Create a new offer and stick it to some customer.
      *
+     * @param Request $request
+     *
      * @Route("/new", name="crmp_acquisition_offer_new")
      * @Method({"GET", "POST"})
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function newAction(Request $request)
     {
@@ -70,7 +145,9 @@ class OfferController extends CrmpController
 
         if ($request->get('inquiry')) {
             // customer given: pre-fill form
-            $inquiry = $this->getDoctrine()->getRepository('CrmpAcquisitionBundle:Inquiry')->find($request->get('inquiry'));
+            $inquiry = $this->getDoctrine()->getRepository('CrmpAcquisitionBundle:Inquiry')->find(
+                $request->get('inquiry')
+            );
 
             $offer->setInquiry($inquiry);
         }
@@ -95,10 +172,13 @@ class OfferController extends CrmpController
             return $this->redirectToRoute('crmp_acquisition_offer_show', array('id' => $offer->getId()));
         }
 
-        return $this->render('CrmpAcquisitionBundle:Offer:new.html.twig', array(
-            'offer' => $offer,
-            'form' => $form->createView(),
-        ));
+        return $this->render(
+            'CrmpAcquisitionBundle:Offer:new.html.twig',
+            array(
+                'offer' => $offer,
+                'form'  => $form->createView(),
+            )
+        );
     }
 
     /**
@@ -107,68 +187,24 @@ class OfferController extends CrmpController
      * Look up a single offer.
      * You can read what the customer will become when he sets the contract.
      *
+     * @param Offer $offer
+     *
      * @Route("/{id}", name="crmp_acquisition_offer_show")
      * @Method("GET")
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function showAction(Offer $offer)
     {
         $deleteForm = $this->createDeleteForm($offer);
 
-        return $this->render('CrmpAcquisitionBundle:Offer:show.html.twig', array(
-            'offer' => $offer,
-            'delete_form' => $deleteForm->createView(),
-        ));
-    }
-
-    /**
-     * Edit an existing offer.
-     *
-     * Change the contents or value of an offer.
-     *
-     * @Route("/{id}/edit", name="crmp_acquisition_offer_edit")
-     * @Method({"GET", "POST"})
-     */
-    public function editAction(Request $request, Offer $offer)
-    {
-        $deleteForm = $this->createDeleteForm($offer);
-        $editForm = $this->createForm('Crmp\AcquisitionBundle\Form\OfferType', $offer);
-        $editForm->handleRequest($request);
-
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($offer);
-            $em->flush();
-
-            return $this->redirectToRoute('crmp_acquisition_offer_edit', array('id' => $offer->getId()));
-        }
-
-        return $this->render('CrmpAcquisitionBundle:Offer:edit.html.twig', array(
-            'offer' => $offer,
-            'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
-    }
-
-    /**
-     * Deletes an offer.
-     *
-     * Please refrain from deleting entities.
-     *
-     * @Route("/{id}", name="crmp_acquisition_offer_delete")
-     * @Method("DELETE")
-     */
-    public function deleteAction(Request $request, Offer $offer)
-    {
-        $form = $this->createDeleteForm($offer);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($offer);
-            $em->flush();
-        }
-
-        return $this->redirectToRoute('crmp_acquisition_offer_index');
+        return $this->render(
+            'CrmpAcquisitionBundle:Offer:show.html.twig',
+            array(
+                'offer'       => $offer,
+                'delete_form' => $deleteForm->createView(),
+            )
+        );
     }
 
     /**
@@ -181,9 +217,8 @@ class OfferController extends CrmpController
     private function createDeleteForm(Offer $offer)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('crmp_acquisition_offer_delete', array('id' => $offer->getId())))
-            ->setMethod('DELETE')
-            ->getForm()
-        ;
+                    ->setAction($this->generateUrl('crmp_acquisition_offer_delete', array('id' => $offer->getId())))
+                    ->setMethod('DELETE')
+                    ->getForm();
     }
 }

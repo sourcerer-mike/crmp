@@ -4,10 +4,12 @@ namespace Crmp\AcquisitionBundle\Controller;
 
 use AppBundle\Controller\CrmpController;
 use Doctrine\Common\Collections\Criteria;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Crmp\AcquisitionBundle\Entity\Inquiry;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Inquiry controller.
@@ -21,6 +23,11 @@ class InquiryController extends CrmpController
      *
      * @Route("/{id}", name="crmp_acquisition_inquiry_delete")
      * @Method("DELETE")
+     *
+     * @param Request $request
+     * @param Inquiry $inquiry
+     *
+     * @return RedirectResponse
      */
     public function deleteAction(Request $request, Inquiry $inquiry)
     {
@@ -39,8 +46,13 @@ class InquiryController extends CrmpController
     /**
      * Displays a form to edit an existing Inquiry entity.
      *
+     * @param Request $request
+     * @param Inquiry $inquiry
+     *
      * @Route("/{id}/edit", name="crmp_acquisition_inquiry_edit")
      * @Method({"GET", "POST"})
+     *
+     * @return RedirectResponse|Response
      */
     public function editAction(Request $request, Inquiry $inquiry)
     {
@@ -69,8 +81,12 @@ class InquiryController extends CrmpController
     /**
      * Lists all Inquiry entities.
      *
+     * @param Request $request
+     *
      * @Route("/", name="crmp_acquisition_inquiry_index")
      * @Method("GET")
+     *
+     * @return Response
      */
     public function indexAction(Request $request)
     {
@@ -96,8 +112,12 @@ class InquiryController extends CrmpController
     /**
      * Creates a new Inquiry entity.
      *
+     * @param Request $request
+     *
      * @Route("/new", name="crmp_acquisition_inquiry_new")
      * @Method({"GET", "POST"})
+     *
+     * @return RedirectResponse|Response
      */
     public function newAction(Request $request)
     {
@@ -137,8 +157,12 @@ class InquiryController extends CrmpController
     /**
      * Finds and displays a Inquiry entity.
      *
+     * @param Inquiry $inquiry
+     *
      * @Route("/{id}", name="crmp_acquisition_inquiry_show")
      * @Method("GET")
+     *
+     * @return Response
      */
     public function showAction(Inquiry $inquiry)
     {
