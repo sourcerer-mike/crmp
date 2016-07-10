@@ -7,6 +7,11 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * Form for addresses.
+ *
+ * @package Crmp\CrmBundle\Form
+ */
 class AddressType extends AbstractType
 {
     /**
@@ -21,11 +26,11 @@ class AddressType extends AbstractType
                 'customer',
                 null,
                 [
-                    'label'        => 'crmp_crm.customer.singular',
+                    'label'         => 'crmp_crm.customer.singular',
                     'query_builder' => function (EntityRepository $entityRepository) {
                         return $entityRepository->createQueryBuilder('c')->orderBy('c.name', 'ASC');
                     },
-                    'choice_label' => 'name',
+                    'choice_label'  => 'name',
                 ]
             )
             ->add('mail', null, ['label' => 'crmp_crm.address.mail']);
