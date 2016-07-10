@@ -33,6 +33,7 @@
     },
     "require": {
         "components/font-awesome": "~4",
+        "components/jquery": "~2",
         "components/jqueryui": "~1.11",
         "doctrine/orm": "^2.5",
         "doctrine/doctrine-bundle": "^1.6",
