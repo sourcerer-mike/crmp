@@ -112,4 +112,38 @@ class AuthTestCase extends WebTestCase
 
         return $result[$key];
     }
+
+    /**
+     * Build query for an entity.
+     *
+     * @param string $entityName Alias of the entity.
+     *
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    protected function queryEntity($entityName, $alias)
+    {
+        $client        = static::createClient();
+        $entityManager = $client->getContainer()->get('doctrine.orm.entity_manager');
+
+        $query  = $entityManager->getRepository($entityName)->createQueryBuilder($alias);
+
+        return $query;
+    }
+
+    /**
+     * @param $entityName
+     * @param $id
+     *
+     * @return null|object
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Doctrine\ORM\TransactionRequiredException
+     */
+    protected function findEntity($entityName, $id)
+    {
+        $client        = static::createClient();
+        $entityManager = $client->getContainer()->get('doctrine.orm.entity_manager');
+
+        return $entityManager->find($entityName, $id);
+    }
 }
