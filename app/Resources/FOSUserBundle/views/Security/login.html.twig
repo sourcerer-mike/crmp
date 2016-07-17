@@ -1,33 +1,49 @@
-{% extends "base.html.twig" %}
+{% extends "CrmpCrmBundle::base.html.twig" %}
 
-{% trans_default_domain 'FOSUserBundle' %}
+{% block breadcrumb %}
+    <li class="active">
+        {{ "crmp.user.login"|trans }}
+    </li>
+{% endblock %}
+
+{% block related_nav %}
+    <li>
+        <a href="{{ path("fos_user_registration_register") }}">
+            <i class="fa fa-plus"></i>
+            {{ 'crmp.user.register'|trans }}
+        </a>
+    </li>
+{% endblock related_nav %}
+
 
 {% block body %}
     {% if error %}
-        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        <div class="alert alert-danger">
+            {{ error.messageKey|trans(error.messageData, 'security') }}
+        </div>
     {% endif %}
 
     <form action="{{ path("fos_user_security_check") }}" class="form-horizontal" method="post">
         <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
         <div class="form-group">
             <label for="username" class="col-sm-2 control-label">
-            {% trans %}Username{% endtrans %}
+            {{ "crmp.user.name"|trans }}
 </label>
             <div class="col-sm-3">
                 <input type="text" id="username" name="_username"
                        value="{{ last_username }}" required="required" class="form-control"
-                        placeholder="{% trans %}Username{% endtrans %}"/>
+                        placeholder="{{ "crmp.user.name"|trans }}"/>
             </div>
         </div>
 
         <div class="form-group">
             <label for="password" class="col-sm-2 control-label">
-                {% trans %}Password{% endtrans %}
+                {{ "crmp.user.password"|trans }}
             </label>
             <div class="col-sm-3">
                 <input type="password" id="password" name="_password"
                        required="required" class="form-control"
-                       placeholder="{% trans %}Password{% endtrans %}"/>
+                       placeholder="{{ "crmp.user.password"|trans }}"/>
             </div>
         </div>
 
@@ -43,7 +59,10 @@
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-default">Sign in</button>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa fa-sign-in"></i>
+                    {{ "crmp.user.login"|trans }}
+                </button>
             </div>
         </div>
     </form>

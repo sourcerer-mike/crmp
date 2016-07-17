@@ -1,26 +1,15 @@
-crmp_hr:
-    resource: "@CrmpHrBundle/Controller/"
-    type:     annotation
-    prefix:   /tasks/
-
-crmp_acc:
-    resource: "@CrmpAccBundle/Controller/"
-    type:     annotation
-    prefix:   /accounting/
-
-acquisition:
-    resource: "@AcquisitionBundle/Controller/"
-    type:     annotation
-    prefix:   /
-
-crm:
-    resource: "@CrmBundle/Controller/"
-    type:     annotation
-    prefix:   /
-
 app:
-    resource: "@AppBundle/Controller/"
-    type:     annotation
+  resource: "@AppBundle/Controller/"
+  type:     annotation
+
+crmp_accounting:
+  resource: "@CrmpAccountingBundle/Resources/config/routing.yml"
+
+crmp_acquisition:
+  resource: "@CrmpAcquisitionBundle/Resources/config/routing.yml"
+
+crmp_crm:
+  resource: "@CrmpCrmBundle/Resources/config/routing.yml"
 
 fos_user:
-    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+  resource: "@FOSUserBundle/Resources/config/routing/all.xml"

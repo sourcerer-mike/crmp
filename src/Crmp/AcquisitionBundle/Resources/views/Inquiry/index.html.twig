@@ -1,27 +1,17 @@
-{% extends '::base.html.twig' %}
+{% extends 'CrmpCrmBundle::base.html.twig' %}
 
-{% block title %}{% trans %}Inquiry list{% endtrans %}{% endblock %}
-
-{% block related_nav %}
-    {{ parent() }}
-    <li>
-        <a href="{{ path('inquiry_new') }}">
-            <i class="fa fa-plus"></i>
-            {% trans %}Inquiry creation{% endtrans %}
-        </a>
-    </li>
-{% endblock %}
+{% block title %}{{ "crmp_acquisition.inquiry.plural"|trans }}{% endblock %}
 
 {% block breadcrumb %}
     {{ parent() }}
     <li class="active">
-        {% trans %}Inquiry list{% endtrans %}
+        {{ block('title') }}
     </li>
 {% endblock %}
 
 
 {% block body %}
-    <h1>{% trans %}Inquiry list{% endtrans %}</h1>
+    <h1>{{ block('title') }}</h1>
 
-    {% include 'AcquisitionBundle:Inquiry:_list.html.twig' %}
+    {% include 'CrmpAcquisitionBundle:Inquiry:_list.html.twig' %}
 {% endblock %}

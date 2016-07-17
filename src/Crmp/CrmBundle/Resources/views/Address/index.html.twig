@@ -1,25 +1,16 @@
-{% extends '::base.html.twig' %}
+{% extends 'CrmpCrmBundle::base.html.twig' %}
 
-{% block title %}{% trans %}Address list{% endtrans %}{% endblock %}
+{% block title %}{{ "crmp_crm.address.list"|trans }}{% endblock %}
 
 {% block breadcrumb %}
     {{ parent() }}
     <li class="active">
-        {% trans %}Address list{% endtrans %}
-    </li>
-{% endblock %}
-
-{% block related_nav %}
-    <li>
-        <a href="{{ path('address_new') }}">
-            <i class="fa fa-plus"></i>
-            {% trans %}Address creation{% endtrans %}
-        </a>
+        {{ "crmp_crm.address.singular"|trans }}
     </li>
 {% endblock %}
 
 {% block body %}
-    <h1>Address list</h1>
+    <h1>{{ "crmp_crm.address.list"|trans }}</h1>
 
-    {% include 'CrmBundle:Address:_list.html.twig' %}
+    {% include 'CrmpCrmBundle:Address:_list.html.twig' %}
 {% endblock %}

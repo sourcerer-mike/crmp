@@ -1,20 +1,22 @@
-{% extends '@Crm/Customer/base.html.twig' %}
+{% extends '@CrmpCrm/Customer/base.html.twig' %}
 
-{% block title %}{% trans %}Customer creation{% endtrans %}{% endblock %}
+{% block title %}{% trans %}crmp_crm.customer.create{% endtrans %}{% endblock %}
 
 {% block breadcrumb %}
     {{ parent() }}
         <li class="active">
             New
         </li>
-    </ol>
 {% endblock %}
 
 {% block body %}
-    <h1>{% trans %}Customer creation{% endtrans %}</h1>
+    <h1>{% trans %}crmp_crm.customer.create{% endtrans %}</h1>
 
     {{ form_start(form) }}
     {{ form_widget(form) }}
-    <input type="submit" value="Create" class="btn btn-primary"/>
+    <button type="submit" class="btn btn-primary">
+        <i class="fa fa-floppy-o"></i>
+        {{ "crmp.create"|trans }}
+    </button>
     {{ form_end(form) }}
 {% endblock %}

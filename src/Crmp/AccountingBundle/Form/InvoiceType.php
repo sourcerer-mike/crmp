@@ -6,27 +6,33 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * Form for invoices.
+ *
+ * @package Crmp\AccountingBundle\Form
+ */
 class InvoiceType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-	        ->add('customer')
-            ->add('value')
-        ;
+            ->add('customer', null, ['label' => 'crmp_crm.customer.singular'])
+            ->add('value', null, ['label' => 'crmp_accounting.invoice.total']);
     }
-    
+
     /**
      * @param OptionsResolver $resolver
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Crmp\AccountingBundle\Entity\Invoice'
-        ));
+        $resolver->setDefaults(
+            array(
+                'data_class' => 'Crmp\AccountingBundle\Entity\Invoice',
+            )
+        );
     }
 }

@@ -1,0 +1,35 @@
+{% extends 'CrmpCrmBundle::panel.html.twig' %}
+
+{% block information %}
+    {% if offers %}
+        {% include 'CrmpAcquisitionBundle:Offer:_list.html.twig' with {offers: offers} %}
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+    {% if not offers %}
+        <div class="panel-body">
+            {{ "crmp_acquisition.offer.empty"|trans }}
+        </div>
+    {% endif %}
+{% endblock %}
+
+
+{% block panel_footer %}
+    <a href="{{ path('crmp_acquisition_offer_index', {inquiry: inquiry.id}) }}"
+       class="btn btn-default"
+       title="{{ "crmp.entity.related.more"|trans }}">
+        <i class="fa fa-table"></i>
+        <span class="hidden-xs">
+            {{ "crmp.entity.related.more"|trans }}
+        </span>
+    </a>
+    <a href="{{ path('crmp_acquisition_offer_new', {inquiry: inquiry.id}) }}"
+       class="btn btn-success"
+       title="{{ "crmp_acquisition.offer.new"|trans }}">
+        <i class="fa fa-plus"></i>
+        <span class="hidden-xs">
+            {{ "crmp_acquisition.offer.new"|trans }}
+        </span>
+    </a>
+{% endblock %}

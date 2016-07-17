@@ -1,4 +1,4 @@
-{% extends '@Acquisition/Offer/base.html.twig' %}
+{% extends 'CrmpAcquisitionBundle:Offer:base.html.twig' %}
 
 {% block title %}{{ offer.title }}{% endblock %}
 
@@ -9,45 +9,16 @@
     </li>
 {% endblock %}
 
-{% block related_nav %}
-    {{ parent() }}
-    <li>
-        <a href="{{ path('offer_edit', { 'id': offer.id }) }}">
-            <i class="fa fa-pencil"></i>
-            {% trans %}Edit{% endtrans %}
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('contract_new', {offer: offer.id}) }}">
-            <i class="fa fa-plus"></i>
-            {% trans %}Contract creation{% endtrans %}
-        </a>
-    </li>
-{% endblock %}
-
 {% block body %}
     <h1>{{ offer.title }}</h1>
-
-    <p>
-        {% if offer.ordered %}
-            <span class="label label-success">
-                <i class="fa fa-check"></i>
-                {% trans %}Ordered{% endtrans %}
-            </span>
-        {% endif %}
-    </p>
 
     <table class="table table-bordered table-hover table-striped">
         <tbody>
         <tr>
-            <th>Id</th>
-            <td>{{ offer.id }}</td>
-        </tr>
-        <tr>
-            <th>{% trans %}Customer{% endtrans %}</th>
+            <th>{{ "crmp_crm.customer.singular"|trans }}</th>
             <td>
                 {% if offer.customer %}
-                    <a href="{{ path('customer_show', {id: offer.customer.id}) }}">
+                    <a href="{{ path('crmp_crm_customer_show', {id: offer.customer.id}) }}">
                         {{ offer.customer.name }}
                     </a>
                 {% else %}
@@ -56,33 +27,45 @@
             </td>
         </tr>
         <tr>
-            <th>{% trans %}Inquiry{% endtrans %}</th>
+            <th>{{ "crmp_acquisition.inquiry.singular"|trans }}</th>
             <td>
-                <a href="{{ path('inquiry_show', {id: offer.inquiry.id}) }}">
-                    {{ offer.inquiry.title }}
-                </a>
-                <a href="{{ path('offer_index', {inquiry: offer.inquiry.id}) }}"
-                   class="btn btn-default btn-xs pull-right"
-                   title="{% trans %}Related offers{% endtrans %}">
-                    <i class="fa fa-filter"></i>
-                </a>
+                {% if offer.inquiry %}
+                    <a href="{{ path('crmp_acquisition_inquiry_show', {id: offer.inquiry.id}) }}">
+                        {{ offer.inquiry.title }}
+                    </a>
+                    <a href="{{ path('crmp_acquisition_offer_index', {inquiry: offer.inquiry.id}) }}"
+                       class="btn btn-default btn-xs pull-right"
+                       title="{{ "crmp_acquisition.offer.related"|trans }}">
+                        <i class="fa fa-filter"></i>
+                    </a>
+                {% endif %}
             </td>
         </tr>
         <tr>
-            <th>{% trans %}Status{% endtrans %}</th>
-            <td>{{ offer.statusLabel }}</td>
+            <th>{{ "crmp_acquisition.inquiry.statusLabel"|trans }}</th>
+            <td>
+                {% if offer.ordered %}
+                    <span class="label label-success">
+                        <i class="fa fa-check"></i>
+                        {{ "crmp_acquisition.offer.ordered"|trans }}
+                    </span>
+                {% else %}
+                    {{ offer.statusLabel|trans }}
+                {% endif %}
+
+            </td>
         </tr>
         <tr>
-            <th>{% trans %}Price{% endtrans %}</th>
+            <th>{{ "crmp_acquisition.offer.price"|trans }}</th>
             <td>{{ offer.price|price }}</td>
         </tr>
         <tr>
-            <th>{% trans %}Content{% endtrans %}</th>
+            <th>{% trans %}crmp_acquisition.offer.content{% endtrans %}</th>
             <td>{{ offer.content|nl2br }}</td>
         </tr>
         </tbody>
     </table>
 
-    <h2>{% trans %}Contract list{% endtrans %}</h2>
-    {% include 'AcquisitionBundle:Contract:_list.html.twig' with {'contracts': offer.contracts} %}
+    {{ crmp_panels(crmp_crm.container.get('crmp_acquisition.offer.related_panel')) }}
+
 {% endblock %}

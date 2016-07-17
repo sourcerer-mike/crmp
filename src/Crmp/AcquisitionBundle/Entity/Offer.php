@@ -3,10 +3,14 @@
 namespace Crmp\AcquisitionBundle\Entity;
 
 use Crmp\CrmBundle\Entity\Config;
+use Crmp\CrmBundle\Entity\Customer;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Offer
+ *
+ * An entity to manage your quotes and track them for each customer.
  *
  * @ORM\Table(name="offer")
  * @ORM\Entity(repositoryClass="Crmp\AcquisitionBundle\Repository\OfferRepository")
@@ -18,7 +22,14 @@ class Offer
      * @ORM\JoinColumn(name="inquiry_id", referencedColumnName="id")
      */
     protected $inquiry;
+
     /**
+     * Quotation text.
+     *
+     * Every offer shall be described in a large quotation text to let everyone (esp. the customer)
+     * know what it's all about.
+     * It can be a large text as large as your database can bare.
+     *
      * @var string
      *
      * @ORM\Column(name="content", type="text")
@@ -28,6 +39,13 @@ class Offer
      * @ORM\OneToMany(targetEntity="Contract", mappedBy="offer")
      */
     private $contracts;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Crmp\CrmBundle\Entity\Customer")
+     * @ORM\JoinColumn(name="customer_id", referencedColumnName="id")
+     */
+    private $customer;
+
     /**
      * @var int
      *
@@ -36,13 +54,37 @@ class Offer
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
     /**
+     * Value of the offer.
+     *
+     * The price or quote value is given without taxes for a better internal workflow.
+     * It can be any number with four digits and up to 16 decimals in total.
+     *
      * @var string
      *
      * @ORM\Column(name="price", type="decimal", precision=16, scale=4)
      */
     private $price;
     /**
+     * Approval status.
+     *
+     * The status shows in which step the offer is.
+     * It shall be extended via configuration at later time.
+     * For now it only covers some common states.
+     *
+     * @todo Make it extensible.
+     *
+     * @ORM\Column(name="status", type="integer")
+     */
+    private $status;
+    /**
+     * Subject of the offer.
+     *
+     * The offer subject is a title for the whole document
+     * and reduces all it's content to a small text.
+     * The text can be 255 characters long but should be short for a better understanding.
+     *
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255)
@@ -50,55 +92,33 @@ class Offer
     private $title;
 
     /**
-     * @ORM\Column(name="status", type="integer")
-     */
-    private $status;
-
-    /**
      * Constructor
      */
     public function __construct()
     {
-        $this->contracts = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->contracts = new ArrayCollection();
     }
 
+    /**
+     * String representation of the offer.
+     *
+     * Usually the title.
+     *
+     * @return string
+     */
     public function __toString()
     {
         return $this->getTitle();
     }
 
     /**
-     * Get title
-     *
-     * @return string
-     */
-    public function getTitle()
-    {
-        return $this->title;
-    }
-
-    /**
-     * Set title
-     *
-     * @param string $title
-     *
-     * @return Offer
-     */
-    public function setTitle($title)
-    {
-        $this->title = $title;
-
-        return $this;
-    }
-
-    /**
      * Add contract
      *
-     * @param \Crmp\AcquisitionBundle\Entity\Contract $contract
+     * @param Contract $contract
      *
      * @return Offer
      */
-    public function addContract(\Crmp\AcquisitionBundle\Entity\Contract $contract)
+    public function addContract(Contract $contract)
     {
         $this->contracts[] = $contract;
 
@@ -140,6 +160,28 @@ class Offer
     }
 
     /**
+     * @return Customer
+     */
+    public function getCustomer()
+    {
+        return $this->customer;
+    }
+
+    /**
+     * Set customer
+     *
+     * @param Customer $customer
+     *
+     * @return Offer
+     */
+    public function setCustomer(Customer $customer = null)
+    {
+        $this->customer = $customer;
+
+        return $this;
+    }
+
+    /**
      * Get id
      *
      * @return int
@@ -152,7 +194,7 @@ class Offer
     /**
      * Get inquiry
      *
-     * @return \Crmp\AcquisitionBundle\Entity\Inquiry
+     * @return Inquiry
      */
     public function getInquiry()
     {
@@ -162,11 +204,11 @@ class Offer
     /**
      * Set inquiry
      *
-     * @param \Crmp\AcquisitionBundle\Entity\Inquiry $inquiry
+     * @param Inquiry $inquiry
      *
      * @return Offer
      */
-    public function setInquiry(\Crmp\AcquisitionBundle\Entity\Inquiry $inquiry = null)
+    public function setInquiry(Inquiry $inquiry = null)
     {
         $this->inquiry = $inquiry;
 
@@ -197,25 +239,14 @@ class Offer
         return $this;
     }
 
-	public function isOrdered() {
-		return ! $this->getContracts()->isEmpty();
-	}
-
-	/**
-	 * @return \Crmp\CrmBundle\Entity\Customer
-	 */
-	public function getCustomer() {
-		return $this->getInquiry()->getCustomer();
-	}
-
-	/**
-     * Remove contract
+    /**
+     * Get status
      *
-     * @param \Crmp\AcquisitionBundle\Entity\Contract $contract
+     * @return integer
      */
-    public function removeContract(\Crmp\AcquisitionBundle\Entity\Contract $contract)
+    public function getStatus()
     {
-        $this->contracts->removeElement($contract);
+        return $this->status;
     }
 
     /**
@@ -233,19 +264,58 @@ class Offer
     }
 
     /**
-     * Get status
+     * Label for the status choice.
      *
-     * @return integer
+     * @return string
      */
-    public function getStatus()
-    {
-        return $this->status;
-    }
-
     public function getStatusLabel()
     {
         $map = Config::getChoices('acquisition.offer.status');
 
-        return array_search($this->getStatus(), $map, true);
+        return (string) array_search($this->getStatus(), $map, true);
+    }
+
+    /**
+     * Get title
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     *
+     * @return Offer
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Check if the current contract has been ordered.
+     *
+     * @return bool
+     */
+    public function isOrdered()
+    {
+        return ! $this->getContracts()->isEmpty();
+    }
+
+    /**
+     * Remove contract
+     *
+     * @param Contract $contract
+     */
+    public function removeContract(Contract $contract)
+    {
+        $this->contracts->removeElement($contract);
     }
 }

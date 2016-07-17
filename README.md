@@ -1,4 +1,63 @@
-crm
-===
+crmp
+====
 
-A Symfony project created on January 15, 2016, 9:22 pm.
+> An CRM tool written with Symfony 3.
+
+<div style="padding: 0.5em; background-color: #FA8072">
+    <strong>Warning!</strong>
+    Neither this branch nor one of the others is ment for production use!
+    <br />
+    Either you are a pro in PHP/Symfony and can handle that,
+    or you come back later.
+    Thanks ;)
+</div>
+
+
+## Install your CRM
+
+Just do it!
+But please create the target database before installation
+or as it still exists assert that there is no table in it.
+
+    git clone https://github.com/sourcerer-mike/crmp.git
+    
+    # hump in and install dependencies
+    composer install --no-dev
+
+Easy as that.
+You will be asked for database credentials - this is important!
+Besides that you will be asked for mail support - if you like.
+If you were **not asked** for database credentials, then you can still do it by hand:
+    
+    cp app/config/parameters.yml.dist app/config/parameters.yml
+    # edit app/config/parameters.yml now!
+
+The database it built automagically too but if you like to rebuild it on your own:
+
+    bin/console doctrine:schema:update
+
+Now you're good to go.
+
+# Serve the CRM
+
+Let's see how cool you are. Some PHP will eat this:
+
+    bin/console server:start
+
+And then it runs in the background.
+If that did not work you are using some uncool system (maybe unmodified OSX/MAMP)
+and need old shoes:
+
+    bin/console server:run
+
+The URL to the CRMP will be shown in the output.
+Call that in your favorite browser.
+Add an "&" at the end to run it in background.
+
+**Note: The first call will take some time - leave him alone!**
+
+It will compile all the assets like SCSS or Coffee scripts etc.
+
+## Start working
+
+Create your own user on the register page: http://127.0.0.1:8000/register/

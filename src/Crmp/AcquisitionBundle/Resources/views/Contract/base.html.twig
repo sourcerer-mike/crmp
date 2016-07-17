@@ -1,10 +1,10 @@
-{% extends '::base.html.twig' %}
+{% extends 'CrmpCrmBundle::base.html.twig' %}
 
 {% block breadcrumb %}
     {{ parent() }}
     <li>
-        <a href="{{ path('contract_index') }}">
-            {% trans %}Contract list{% endtrans %}
+        <a href="{{ path('crmp_acquisition_contract_index') }}">
+            {{ "crmp_acquisition.contract.plural"|trans }}
         </a>
     </li>
 {% endblock %}

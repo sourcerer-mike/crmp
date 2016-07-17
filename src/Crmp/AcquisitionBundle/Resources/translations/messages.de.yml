@@ -1,80 +1,41 @@
-Abort: Abbrechen
-Accounting: Buchhaltung
-Acquisition: Akquise
-
-Address: Adresse
-Address creation: Neue Adresse
-Address list: Adressen
-
-Back to the list: Zurück zur Liste
-
-Content: Inhalt
-Contract creation: Neuer Auftrag
-Contract list: Aufträge
-Create: Erstellen
-
-Customer: Kunde
-Customer edit: Kunde bearbeiten
-Customer creation: Neuer Kunde
-Customer list: Kunden
-
-Date: Datum
-date_js: dd.mm.yy
-Delete: Löschen
-
-Edit: Bearbeiten
-
-Goto inquiry: Zur Anfrage
-Goto offer: Zum Angebot
-
-Inquired at: Angefragt am
-Inquiry: Anfrage
-Inquiry creation: Neue Anfrage
-Inquiry list: Anfragen
-
-Invoice: Rechnung
-Invoices: Rechnungen
-Invoice edit: Rechnung bearbeiten
-Invoice creation: Neue Rechnung
-Invoice list: Rechnungen
-
-Logout: Abmelden
-
-More: Mehr
-
-Remember me: Eingeloggt bleiben
-
-Save: Speichern
-Send mail: Mail senden
-Sign in: Anmelden
-
-Mail: E-Mail
-
-Name: Name
-New: Neu
-New offer: Neues Angebot
-
-Offer: Angebot
-Offer creation: Neues Angebot
-Offer list: Angebote
-Offers: Angebote
-
-Ordered: Beauftragt
-
-Password: Passwort
-Please choose something from the menu: Bitte wählen Sie einen Eintrag aus dem Menü
-Predicted value: Voraussichtlicher Wert
-Price: Preis
-Profile: Profil
-
-Related addresses: Zugehörige Adressen
-Related offers: Zugehörige Angebote
-
-Status: Status
-
-Tasks: Aufgaben
-Title: Titel
-
-Value: Wert
-
-Username: Benutzer
+crmp_acquisition:
+  contract:
+    edit: Auftrag bearbeiten
+    new: Neuer Auftrag
+    plural: Aufträge
+    singular: Auftrag
+    title: Titel
+    value: Auftragswert
+    content: Auftragsbeschreibung
+  inquiry:
+    content: Inhalt
+    date: Angefragt am
+    edit: Anfrage bearbeiten
+    list: Anfragen
+    new: Neue Anfrage
+    plural: Anfragen
+    predictedValue: Voraussichtlicher Wert
+    singular: Anfrage
+    statusLabel: Status
+    status:
+      open: Ausstehend
+      done: Erledigt
+      canceled: Abgelehnt
+    title: Titel
+  menu:
+    contract: Verträge
+    inquiry: Anfragen
+    offer: Angebote
+    label: Vertrieb
+  offer:
+    content: Inhalt
+    edit: Angebot bearbeiten
+    empty: Bisher sind keine Angebote hinterlegt.
+    new: Neues Angebot
+    plural: Angebote
+    price: Preis
+    related: Zugehörige Angebote
+    singular: Angebot
+    status: Status vom Angebot
+    title: Titel
+    ordered: Angebot angenommen

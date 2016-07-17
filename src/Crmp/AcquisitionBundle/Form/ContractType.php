@@ -6,6 +6,11 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * Form for contracts.
+ *
+ * @package Crmp\AcquisitionBundle\Form
+ */
 class ContractType extends AbstractType
 {
     /**
@@ -15,10 +20,10 @@ class ContractType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title')
-            ->add('offer')
-            ->add('value')
-            ->add('content');
+            ->add('title', null, ['label' => 'crmp_acquisition.contract.title'])
+            ->add('offer', null, ['label' => 'crmp_acquisition.offer.singular'])
+            ->add('value', null, ['label' => 'crmp_acquisition.contract.value'])
+            ->add('content', null, ['label' => 'crmp_acquisition.contract.content']);
     }
 
     /**

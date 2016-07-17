@@ -1,4 +1,38 @@
 services:
-#    crm.example:
-#        class: Crmp\CrmBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]
+  crmp_crm.address.related_panel:
+    class: Crmp\CrmBundle\Twig\PanelGroup
+    tags:
+      - { name: 'crmp.panel_group', alias: 'address_related' }
+
+  crmp_crm.command.update_docs:
+    class: Crmp\CrmBundle\Command\UpdateDocsCommand
+    tags:
+      - { name: console.command }
+
+  crmp_crm.customer.related_panel:
+    class: Crmp\CrmBundle\Twig\PanelGroup
+    tags:
+      - { name: 'crmp.panel_group', alias: 'customer_related' }
+
+  crmp_crm.customer.panel.address:
+    class: Crmp\CrmBundle\Twig\AddressPanel
+    tags:
+      - { name: 'crmp.panel', target: 'customer_related' }
+
+  crmp_crm.menu:
+    public: false
+    class: Crmp\CrmBundle\Menu\MenuDecorator
+    decorates: app.menu_builder
+    arguments: ["@crmp_crm.menu.inner", "@service_container"]
+
+  crmp_crm.twig.panels:
+    class: Crmp\CrmBundle\Twig\PanelsRenderer
+    tags:
+      - {name: 'twig.extension' }
+
+  crmp_crm.twig.register_globals:
+    class: Crmp\CrmBundle\Twig\RegisterGlobals
+    arguments: ['@service_container']
+    tags:
+      - {name: 'twig.extension' }
+

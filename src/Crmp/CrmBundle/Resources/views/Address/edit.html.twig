@@ -1,4 +1,4 @@
-{% extends 'CrmBundle:Address:base.html.twig' %}
+{% extends 'CrmpCrmBundle:Address:base.html.twig' %}
 
 {% block title %}{{ address.name }}{% endblock %}
 
@@ -16,14 +16,14 @@
     {{ form_widget(edit_form) }}
     <button class="btn btn-primary" type="submit">
         <i class="fa fa-floppy-o"></i>
-        {% trans %}Save{% endtrans %}
+        {% trans %}crmp.save{% endtrans %}
     </button>
     {{ form_end(edit_form) }}
 
     {{ form_start(delete_form) }}
     <button class="btn btn-danger">
         <i class="fa fa-trash-o"></i>
-        {% trans %}Delete{% endtrans %}
+        {{ "crmp.delete"|trans }}
     </button>
     {{ form_end(delete_form) }}
 {% endblock %}

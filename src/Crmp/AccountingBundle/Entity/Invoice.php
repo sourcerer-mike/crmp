@@ -5,7 +5,10 @@ namespace Crmp\AccountingBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Invoice
+ * Invoices
+ *
+ * Invoices are made after a contractor has done his duty to deliver goods or a service.
+ * This entity keeps track of such invoices or helps creating them.
  *
  * @ORM\Table(name="invoice")
  * @ORM\Entity(repositoryClass="Crmp\AccountingBundle\Repository\InvoiceRepository")
@@ -22,16 +25,27 @@ class Invoice
     private $id;
 
     /**
+     * Total cost that will be invoiced without tax.
+     *
+     * The total amount that will be invoiced is stored without taxes
+     * for a easier and better workflow inside the company.
+     * It can be a number with four digits and up to 16 cipher in total.
+     *
      * @var string
      *
      * @ORM\Column(name="value", type="decimal", precision=16, scale=4)
      */
     private $value;
 
-	/**
-	 * @ORM\ManyToOne(targetEntity="Crmp\CrmBundle\Entity\Customer", inversedBy="invoices")
-	 */
-	private $customer;
+    /**
+     * @ORM\ManyToOne(targetEntity="Crmp\CrmBundle\Entity\Customer")
+     */
+    private $customer;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Crmp\AcquisitionBundle\Entity\Contract")
+     */
+    private $contract;
 
     /**
      * Get id
@@ -89,5 +103,29 @@ class Invoice
     public function getCustomer()
     {
         return $this->customer;
+    }
+
+    /**
+     * Set contract
+     *
+     * @param \Crmp\AcquisitionBundle\Entity\Contract $contract
+     *
+     * @return Invoice
+     */
+    public function setContract(\Crmp\AcquisitionBundle\Entity\Contract $contract = null)
+    {
+        $this->contract = $contract;
+
+        return $this;
+    }
+
+    /**
+     * Get contract
+     *
+     * @return \Crmp\AcquisitionBundle\Entity\Contract
+     */
+    public function getContract()
+    {
+        return $this->contract;
     }
 }

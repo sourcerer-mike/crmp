@@ -1,8 +1,9 @@
 <table class="table table-hover table-striped">
     <thead>
     <tr>
-        <th>{% trans %}Name{% endtrans %}</th>
-        <th>{% trans %}Mail{% endtrans %}</th>
+        <th>{% trans %}crmp_crm.address.name{% endtrans %}</th>
+        <th>{{ "crmp_crm.customer.singular"|trans }}</th>
+        <th>{% trans %}crmp_crm.address.mail{% endtrans %}</th>
         <th></th>
     </tr>
     </thead>
@@ -10,18 +11,31 @@
     {% for address in addresses %}
         <tr>
             <td>
-                <a href="{{ path('address_show', {'id': address.id}) }}">
+                <a href="{{ path('crmp_crm_address_show', {'id': address.id}) }}">
                     {{ address.name }}
                 </a>
             </td>
-            <td>{{ address.mail }}</td>
+            <td>
+                {% if address.customer %}
+                    <a href="{{ path('crmp_crm_customer_show', {'id': address.customer.id }) }}">
+                        {{ address.customer.name }}
+                    </a>
+                {% else %}
+                    &mdash;
+                {% endif %}
+            </td>
+            <td>
+                <a href="mailto:{{ address.mail }}" title="{{ "crmp.mail.send"|trans }}">
+                    {{ address.mail }}
+                </a>
+            </td>
             <td>
                 <div class="btn-group">
-                    <a href="{{ path('address_show', { 'id': address.id }) }}"
+                    <a href="{{ path('crmp_crm_address_show', { 'id': address.id }) }}"
                             class="btn btn-default">
                         <i class="fa fa-eye"></i>
                     </a>
-                    <a href="{{ path('address_edit', { 'id': address.id }) }}"
+                    <a href="{{ path('crmp_crm_address_edit', { 'id': address.id }) }}"
                             class="btn btn-default">
                         <i class="fa fa-pencil"></i>
                     </a>

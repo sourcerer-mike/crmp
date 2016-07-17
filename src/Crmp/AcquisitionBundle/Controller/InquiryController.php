@@ -2,26 +2,32 @@
 
 namespace Crmp\AcquisitionBundle\Controller;
 
+use AppBundle\Controller\AbstractCrmpController;
 use Doctrine\Common\Collections\Criteria;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Crmp\AcquisitionBundle\Entity\Inquiry;
-use Crmp\CrmBundle\Repository\CustomerRepository;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Inquiry controller.
  *
  * @Route("/inquiry")
  */
-class InquiryController extends Controller
+class InquiryController extends AbstractCrmpController
 {
     /**
      * Deletes a Inquiry entity.
      *
-     * @Route("/{id}", name="inquiry_delete")
+     * @Route("/{id}", name="crmp_acquisition_inquiry_delete")
      * @Method("DELETE")
+     *
+     * @param Request $request
+     * @param Inquiry $inquiry
+     *
+     * @return RedirectResponse
      */
     public function deleteAction(Request $request, Inquiry $inquiry)
     {
@@ -34,14 +40,19 @@ class InquiryController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('inquiry_index');
+        return $this->redirectToRoute('crmp_acquisition_inquiry_index');
     }
 
     /**
      * Displays a form to edit an existing Inquiry entity.
      *
-     * @Route("/{id}/edit", name="inquiry_edit")
+     * @param Request $request
+     * @param Inquiry $inquiry
+     *
+     * @Route("/{id}/edit", name="crmp_acquisition_inquiry_edit")
      * @Method({"GET", "POST"})
+     *
+     * @return RedirectResponse|Response
      */
     public function editAction(Request $request, Inquiry $inquiry)
     {
@@ -54,11 +65,11 @@ class InquiryController extends Controller
             $em->persist($inquiry);
             $em->flush();
 
-            return $this->redirectToRoute('inquiry_edit', array('id' => $inquiry->getId()));
+            return $this->redirectToRoute('crmp_acquisition_inquiry_edit', array('id' => $inquiry->getId()));
         }
 
         return $this->render(
-            'AcquisitionBundle:Inquiry:edit.html.twig',
+            'CrmpAcquisitionBundle:Inquiry:edit.html.twig',
             array(
                 'inquiry'     => $inquiry,
                 'edit_form'   => $editForm->createView(),
@@ -70,24 +81,28 @@ class InquiryController extends Controller
     /**
      * Lists all Inquiry entities.
      *
-     * @Route("/", name="inquiry_index")
+     * @param Request $request
+     *
+     * @Route("/", name="crmp_acquisition_inquiry_index")
      * @Method("GET")
+     *
+     * @return Response
      */
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
-	    $criteria = Criteria::create();
+        $criteria = Criteria::create();
 
-	    if ($request->get('customer')) {
-		    $customer = $this->getDoctrine()->getRepository('CrmBundle:Customer')->find($request->get('customer'));
-		    $criteria->andWhere(Criteria::expr()->eq('customer', $customer));
-	    }
+        if ($request->get('customer')) {
+            $customer = $this->getDoctrine()->getRepository('CrmpCrmBundle:Customer')->find($request->get('customer'));
+            $criteria->andWhere(Criteria::expr()->eq('customer', $customer));
+        }
 
-	    $inquiries = $em->getRepository( 'AcquisitionBundle:Inquiry' )->matching($criteria);
+        $inquiries = $em->getRepository('CrmpAcquisitionBundle:Inquiry')->matching($criteria);
 
         return $this->render(
-            'AcquisitionBundle:Inquiry:index.html.twig',
+            'CrmpAcquisitionBundle:Inquiry:index.html.twig',
             array(
                 'inquiries' => $inquiries,
             )
@@ -97,8 +112,12 @@ class InquiryController extends Controller
     /**
      * Creates a new Inquiry entity.
      *
-     * @Route("/new", name="inquiry_new")
+     * @param Request $request
+     *
+     * @Route("/new", name="crmp_acquisition_inquiry_new")
      * @Method({"GET", "POST"})
+     *
+     * @return RedirectResponse|Response
      */
     public function newAction(Request $request)
     {
@@ -106,10 +125,12 @@ class InquiryController extends Controller
 
         if ($request->get('customer')) {
             // customer given: pre-fill form
-            $customer = $this->getDoctrine()->getRepository('CrmBundle:Customer')->find($request->get('customer'));
+            $customer = $this->getDoctrine()->getRepository('CrmpCrmBundle:Customer')->find($request->get('customer'));
 
             $inquiry->setCustomer($customer);
         }
+
+        $inquiry->setInquiredAt(new \DateTime());
 
         $form = $this->createForm('Crmp\AcquisitionBundle\Form\InquiryType', $inquiry);
         $form->handleRequest($request);
@@ -119,13 +140,13 @@ class InquiryController extends Controller
             $em->persist($inquiry);
             $em->flush();
 
-            return $this->redirectToRoute('inquiry_show', array('id' => $inquiry->getId()));
+            return $this->redirectToRoute('crmp_acquisition_inquiry_show', array('id' => $inquiry->getId()));
         }
 
         $this->container;
 
         return $this->render(
-            'AcquisitionBundle:Inquiry:new.html.twig',
+            'CrmpAcquisitionBundle:Inquiry:new.html.twig',
             array(
                 'inquiry' => $inquiry,
                 'form'    => $form->createView(),
@@ -136,15 +157,19 @@ class InquiryController extends Controller
     /**
      * Finds and displays a Inquiry entity.
      *
-     * @Route("/{id}", name="inquiry_show")
+     * @param Inquiry $inquiry
+     *
+     * @Route("/{id}", name="crmp_acquisition_inquiry_show")
      * @Method("GET")
+     *
+     * @return Response
      */
     public function showAction(Inquiry $inquiry)
     {
         $deleteForm = $this->createDeleteForm($inquiry);
 
         return $this->render(
-            'AcquisitionBundle:Inquiry:show.html.twig',
+            'CrmpAcquisitionBundle:Inquiry:show.html.twig',
             array(
                 'inquiry'     => $inquiry,
                 'delete_form' => $deleteForm->createView(),
@@ -162,7 +187,7 @@ class InquiryController extends Controller
     private function createDeleteForm(Inquiry $inquiry)
     {
         return $this->createFormBuilder()
-                    ->setAction($this->generateUrl('inquiry_delete', array('id' => $inquiry->getId())))
+                    ->setAction($this->generateUrl('crmp_acquisition_inquiry_delete', array('id' => $inquiry->getId())))
                     ->setMethod('DELETE')
                     ->getForm();
     }

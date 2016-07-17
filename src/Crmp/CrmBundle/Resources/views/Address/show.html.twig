@@ -1,4 +1,4 @@
-{% extends 'CrmBundle:Address:base.html.twig' %}
+{% extends 'CrmpCrmBundle:Address:base.html.twig' %}
 
 {% block title %}{{ address.name }}{% endblock %}
 
@@ -9,17 +9,6 @@
     </li>
 {% endblock %}
 
-{% block related_nav %}
-    {{ parent() }}
-    <li>
-        <a href="{{ path('address_edit', {'id': address.id}) }}">
-            <i class="fa fa-pencil"></i>
-            {% trans %}Edit{% endtrans %}
-        </a>
-    </li>
-{% endblock %}
-
-
 
 {% block body %}
     <h1>{{ address.name }}</h1>
@@ -27,18 +16,14 @@
     <table class="table table-bordered table-hover table-striped">
         <tbody>
         <tr>
-            <th>Id</th>
-            <td>{{ address.id }}</td>
-        </tr>
-        <tr>
-            <th>{% trans %}Customer{% endtrans %}</th>
+            <th>{{ "crmp_crm.customer.singular"|trans }}</th>
             <td>
-                <a href="{{ path('customer_show', {'id': address.customer.id}) }}">
+                <a href="{{ path('crmp_crm_customer_show', {'id': address.customer.id}) }}">
                     {{ address.customer.name }}
                 </a>
-                <a href="{{ path('address_index', {customer: address.customer.id}) }}"
+                <a href="{{ path('crmp_crm_address_index', {customer: address.customer.id}) }}"
                    class="btn btn-default btn-xs pull-right"
-                        title="{% trans %}Related addresses{% endtrans %}">
+                        title="{{ "crmp_crm.address.related"|trans }}">
                     <i class="fa fa-filter"></i>
                 </a>
             </td>
@@ -46,11 +31,24 @@
         <tr>
             <th>Mail</th>
             <td>
-                <a href="mailto:{{ address.mail }}" title="{% trans %}Send mail{% endtrans %}">
+                <a href="mailto:{{ address.mail }}" title="{{ "crmp.mail.send"|trans }}">
                     {{ address.mail }}
                 </a>
             </td>
         </tr>
         </tbody>
     </table>
+
+    <table class="table table-bordered table-condensed table-striped">
+        <tr>
+            <th>{{ "crmp.updatedAt"|trans }}</th>
+            <td>{{ address.updatedAt|date }}</td>
+        </tr>
+        <tr>
+            <th>{{ "crmp.updatedBy"|trans }}</th>
+            <td>{{ address.updatedBy.username }}</td>
+        </tr>
+    </table>
+
+    {{ crmp_panels(crmp_crm.container.get('crmp_crm.address.related_panel')) }}
 {% endblock %}

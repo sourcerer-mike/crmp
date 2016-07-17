@@ -1,19 +1,22 @@
-{% extends 'AcquisitionBundle:Contract:base.html.twig' %}
+{% extends 'CrmpAcquisitionBundle:Contract:base.html.twig' %}
 
-{% block title %}{% trans %}Contract creation{% endtrans %}{% endblock %}
+{% block title %}{{ "crmp_acquisition.contract.new"|trans }}{% endblock %}
 
 {% block breadcrumb %}
     {{ parent() }}
     <li class="active">
-        {% trans %}New{% endtrans %}
+        {{ block('title') }}
     </li>
 {% endblock %}
 
 {% block body %}
-    <h1>{% trans %}Contract creation{% endtrans %}</h1>
+    <h1>{{ block('title') }}</h1>
 
     {{ form_start(form) }}
     {{ form_widget(form) }}
-    <input type="submit" value="{% trans %}Create{% endtrans %}" class="btn btn-primary"/>
+    <button type="submit" class="btn btn-primary">
+        <i class="fa fa-floppy-o"></i>
+        {{ "crmp.create"|trans }}
+    </button>
     {{ form_end(form) }}
 {% endblock %}

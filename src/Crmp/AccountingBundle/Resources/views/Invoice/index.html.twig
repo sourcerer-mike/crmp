@@ -1,16 +1,6 @@
-{% extends '@CrmpAcc/Invoice/base.html.twig' %}
+{% extends '@CrmpAccounting/Invoice/base.html.twig' %}
 
-{% block title %}{% trans %}Invoice list{% endtrans %}{% endblock %}
-
-{% block related_nav %}
-    <li>
-        <a href="{{ path('invoice_new') }}"
-           title="Create a new entry">
-            <i class="fa fa-plus"></i>
-            New invoice
-        </a>
-    </li>
-{% endblock %}
+{% block title %}{{ "crmp_accounting.invoice.plural"|trans }}{% endblock %}
 
 {% block breadcrumb %}
     <li>
@@ -19,10 +9,10 @@
         </a>
     </li>
     <li class="active">
-        Invoices
+        {{ block('title') }}
     </li>
 {% endblock %}
 
 {% block body %}
-    {%  include '@CrmpAcc/Invoice/_list.html.twig' %}
+    {%  include '@CrmpAccounting/Invoice/_list.html.twig' %}
 {% endblock %}

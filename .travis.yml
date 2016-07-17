@@ -1,0 +1,29 @@
+language: php
+php:
+  - '5.6'
+  - '7.0'
+
+services:
+  - mysql
+
+before_script:
+  - cp app/config/parameters.yml.travis app/config/parameters.yml
+  - mysql -e 'create database crmp;'
+  - composer install
+  - bin/console doctrine:schema:create --env=test
+  - bin/console cache:warmup
+  - bin/console server:run 127.0.0.1:8000 &
+
+script:
+  - bin/console crmp:docs:update
+  - bin/test-max.sh
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+
+notifications:
+  email:
+    recipients:
+      - pretzlaw@gmail.com
+    on_success: never
+    on_failure: change

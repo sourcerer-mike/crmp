@@ -1,4 +1,4 @@
-{% extends '@Acquisition/Inquiry/base.html.twig' %}
+{% extends 'CrmpAcquisitionBundle:Inquiry:base.html.twig' %}
 
 {% block title %}{{ inquiry.title }}{% endblock %}
 
@@ -9,53 +9,24 @@
     </li>
 {% endblock %}
 
-{% block related_nav %}
-    {{ parent() }}
-    <li>
-        <a href="{{ path('inquiry_edit', { 'id': inquiry.id }) }}">
-            <i class="fa fa-pencil"></i>
-            {% trans %}Edit{% endtrans %}
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('offer_new', {'inquiry': inquiry.id}) }}">
-            <i class="fa fa-plus"></i>
-            {% trans %}Offer creation{% endtrans %}
-        </a>
-    </li>
-{% endblock %}
-
 {% block body %}
 
     <h1>
         {{ inquiry.title }}
     </h1>
 
-    <p>
-        {% if inquiry.ordered %}
-            <span class="label label-success">
-                <i class="fa fa-check"></i>
-                {% trans %}Ordered{% endtrans %}
-            </span>
-        {% endif %}
-    </p>
-
     <table class="table table-striped table-hover table-bordered">
         <tbody>
         <tr>
-            <th>Id</th>
-            <td>{{ inquiry.id }}</td>
-        </tr>
-        <tr>
-            <th>{% trans %}Customer{% endtrans %}</th>
+            <th>{{ "crmp_crm.customer.singular"|trans }}</th>
             <td>
                 {% if inquiry.customer %}
-                    <a href="{{ path('customer_show', {id: inquiry.customer.id}) }}">
+                    <a href="{{ path('crmp_crm_customer_show', {id: inquiry.customer.id}) }}">
                         {{ inquiry.customer.name }}
                     </a>
-                    <a href="{{ path('inquiry_index', {customer: inquiry.customer.id}) }}"
+                    <a href="{{ path('crmp_acquisition_inquiry_index', {customer: inquiry.customer.id}) }}"
                        class="btn btn-default btn-xs pull-right"
-                            title="{{ inquiry.customer.name }} {% trans %}Inquiry list{% endtrans %}">
+                            title="{{ inquiry.customer.name }} {{ "crmp_acquisition.inquiry.list"|trans }}">
                         <i class="fa fa-filter"></i>
                     </a>
                 {% else %}
@@ -64,30 +35,24 @@
             </td>
         </tr>
         <tr>
-            <th>{% trans %}Inquired at{% endtrans %}</th>
+            <th>{{ "crmp_acquisition.inquiry.date"|trans }}</th>
             <td>{{ inquiry.inquiredAt|date('l M j, Y') }}</td>
         </tr>
         <tr>
-            <th>{% trans %}Predicted value{% endtrans %}</th>
+            <th>{{ "crmp_acquisition.inquiry.predictedValue"|trans }}</th>
             <td>{{ inquiry.netValue|price }}</td>
         </tr>
         <tr>
-            <th>{% trans %}Status{% endtrans %}</th>
+            <th>{{ "crmp_acquisition.inquiry.statusLabel"|trans }}</th>
             <td>{{ inquiry.statusLabel }}</td>
         </tr>
         <tr>
-            <th>{% trans %}Content{% endtrans %}</th>
+            <th>{{ "crmp_acquisition.inquiry.content"|trans }}</th>
             <td>{{ inquiry.content|nl2br }}</td>
         </tr>
         </tbody>
     </table>
 
-    <h2>
-        <a href="{{ path('offer_index', {inquiry: inquiry.id}) }}">
-            {% trans %}Offers{% endtrans %}
-        </a>
-    </h2>
-
-    {% include "AcquisitionBundle:Offer:_list.html.twig" with {'offers': inquiry.offers} %}
+    {{ crmp_panels(crmp_crm.container.get('crmp_acquisition.inquiry.related_panel')) }}
 
 {% endblock %}

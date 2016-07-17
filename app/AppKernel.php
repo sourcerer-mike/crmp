@@ -3,8 +3,48 @@
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
 
+/**
+ * Register bundles and build the application.
+ */
 class AppKernel extends Kernel
 {
+    /**
+     * Get the path for caching files.
+     *
+     * @return string
+     */
+    public function getCacheDir()
+    {
+        return dirname(__DIR__).'/var/cache/'.$this->getEnvironment();
+    }
+
+    /**
+     * Get the path to the log files.
+     *
+     * @return string
+     */
+    public function getLogDir()
+    {
+        return dirname(__DIR__).'/var/logs';
+    }
+
+    /**
+     * Get the base path to the application.
+     *
+     * @return string
+     */
+    public function getRootDir()
+    {
+        return __DIR__;
+    }
+
+    /**
+     * Registered bundles.
+     *
+     * Add new bundles here.
+     *
+     * @return array
+     */
     public function registerBundles()
     {
         $bundles = [
@@ -17,10 +57,11 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new \FOS\UserBundle\FOSUserBundle(),
             new AppBundle\AppBundle(),
-            new Crmp\CrmBundle\CrmBundle(),
-            new Crmp\AcquisitionBundle\AcquisitionBundle(),
-            new Crmp\AccountingBundle\CrmpAccBundle(),
-            new Crmp\HrBundle\CrmpHrBundle(),
+            new \Symfony\Bundle\AsseticBundle\AsseticBundle(),
+            new \Knp\Bundle\MenuBundle\KnpMenuBundle(),
+            new Crmp\CrmBundle\CrmpCrmBundle(),
+            new Crmp\AcquisitionBundle\CrmpAcquisitionBundle(),
+            new Crmp\AccountingBundle\CrmpAccountingBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
@@ -28,26 +69,17 @@ class AppKernel extends Kernel
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
+            $bundles[] = new \Hautelook\AliceBundle\HautelookAliceBundle();
         }
 
         return $bundles;
     }
 
-    public function getRootDir()
-    {
-        return __DIR__;
-    }
-
-    public function getCacheDir()
-    {
-        return dirname(__DIR__).'/var/cache/'.$this->getEnvironment();
-    }
-
-    public function getLogDir()
-    {
-        return dirname(__DIR__).'/var/logs';
-    }
-
+    /**
+     * Load the config for the current environment.
+     *
+     * @param LoaderInterface $loader
+     */
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
         $loader->load($this->getRootDir().'/config/config_'.$this->getEnvironment().'.yml');

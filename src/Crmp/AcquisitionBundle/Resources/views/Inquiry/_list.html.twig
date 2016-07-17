@@ -1,8 +1,9 @@
 <table class="table table-striped table-hover">
     <thead>
     <tr>
-        <th>{% trans %}Title{% endtrans %}</th>
-        <th>{% trans %}Predicted value{% endtrans %}</th>
+        <th>{% trans %}crmp_acquisition.inquiry.title{% endtrans %}</th>
+        <th>{{ "crmp_crm.customer.singular"|trans }}</th>
+        <th>{% trans %}crmp_acquisition.inquiry.predictedValue{% endtrans %}</th>
         <th></th>
     </tr>
     </thead>
@@ -10,18 +11,26 @@
     {% for inquiry in inquiries %}
         <tr>
             <td>
-                <a href="{{ path('inquiry_show', { 'id': inquiry.id }) }}">
+                <a href="{{ path('crmp_acquisition_inquiry_show', { 'id': inquiry.id }) }}">
                     {{ inquiry.title }}
                 </a>
+            </td>
+            <td>
+                {% if inquiry.customer %}
+                    <a href="{{ path('crmp_crm_customer_show', {id: inquiry.customer.id}) }}"
+                       title="{{ "crmp.common.show"|trans({'%name%': inquiry.customer.name}) }}">
+                        {{ inquiry.customer.name }}
+                    </a>
+                {% endif %}
             </td>
             <td>{{ inquiry.netValue|price }}</td>
             <td>
                 <div class="btn-group">
-                    <a href="{{ path('inquiry_show', { 'id': inquiry.id }) }}"
+                    <a href="{{ path('crmp_acquisition_inquiry_show', { 'id': inquiry.id }) }}"
                        class="btn btn-default">
                         <i class="fa fa-eye"></i>
                     </a>
-                    <a href="{{ path('inquiry_edit', { 'id': inquiry.id }) }}"
+                    <a href="{{ path('crmp_acquisition_inquiry_edit', { 'id': inquiry.id }) }}"
                        class="btn btn-default">
                         <i class="fa fa-pencil"></i>
                     </a>

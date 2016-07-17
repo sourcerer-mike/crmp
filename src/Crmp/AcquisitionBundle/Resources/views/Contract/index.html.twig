@@ -1,26 +1,16 @@
-{% extends '::base.html.twig' %}
+{% extends 'CrmpCrmBundle::base.html.twig' %}
 
-{% block title %}{% trans %}Contract list{% endtrans %}{% endblock %}
-
-{% block related_nav %}
-    {{ parent() }}
-    <li>
-        <a href="{{ path('contract_new') }}">
-            <i class="fa fa-plus"></i>
-            {% trans %}Contract creation{% endtrans %}
-        </a>
-    </li>
-{% endblock %}
+{% block title %}{{ "crmp_acquisition.contract.plural"|trans }}{% endblock %}
 
 {% block breadcrumb %}
     {{ parent() }}
     <li class="active">
-        {% trans %}Contract list{% endtrans %}
+        {{ block('title') }}
     </li>
 {% endblock %}
 
 {% block body %}
-    <h1>{% trans %}Contract list{% endtrans %}</h1>
+    <h1>{{ block('title') }}</h1>
 
-    {% include 'AcquisitionBundle:Contract:_list.html.twig' %}
+    {% include 'CrmpAcquisitionBundle:Contract:_list.html.twig' %}
 {% endblock %}

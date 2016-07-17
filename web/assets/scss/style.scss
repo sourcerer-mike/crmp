@@ -1,0 +1,27 @@
+@import "../../../vendor/twbs/bootstrap-sass/assets/stylesheets/bootstrap";
+@import "../../../vendor/components/font-awesome/scss/font-awesome";
+
+.crmp-body {
+  padding-top: 70px;
+}
+
+.crmp-related {
+  ul.nav-stacked {
+    padding-bottom: 2em;
+
+    li {
+      a.btn {
+        display: inline-block;
+        float: right;
+      }
+    }
+  }
+}
+
+div.panel div.panel-heading[data-toggle="collapse"] {
+  cursor: s-resize;
+}
+
+div.panel > div > table {
+  margin-bottom: 0;
+}

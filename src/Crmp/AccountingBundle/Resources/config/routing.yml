@@ -1,0 +1,4 @@
+crmp_accounting:
+  resource: "@CrmpAccountingBundle/Controller/"
+  type:     annotation
+  prefix:   /accounting/

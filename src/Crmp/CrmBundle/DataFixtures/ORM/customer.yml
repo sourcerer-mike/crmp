@@ -1,0 +1,3 @@
+Crmp\CrmBundle\Entity\Customer:
+  customer{1..3}:
+    name: <company()>

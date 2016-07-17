@@ -1,4 +1,4 @@
-{% extends 'AcquisitionBundle:Contract:base.html.twig' %}
+{% extends 'CrmpAcquisitionBundle:Contract:base.html.twig' %}
 
 {% block title %}{{ contract.title }}{% endblock %}
 
@@ -9,42 +9,31 @@
     </li>
 {% endblock %}
 
-{% block related_nav %}
-    <li>
-        <a href="{{ path('contract_edit', { 'id': contract.id }) }}">
-            <i class="fa fa-pencil"></i>
-            {% trans %}Edit{% endtrans %}
-        </a>
-    </li>
-{% endblock %}
-
 {% block body %}
     <h1>{{ contract.title }}</h1>
 
     <table class="table table-bordered table-hover table-striped">
         <tbody>
         <tr>
-            <th>Id</th>
-            <td>{{ contract.id }}</td>
-        </tr>
-        <tr>
-            <th>
-                {% trans %}Offer{% endtrans %}
-            </th>
+            <th>{{ "crmp_acquisition.offer.singular"|trans }}</th>
             <td>
-                <a href="{{ path('offer_show', {id: contract.offer.id}) }}">
-                    {{ contract.offer.title }}
-                </a>
+                {% if contract.offer %}
+                    <a href="{{ path('crmp_acquisition_offer_show', {id: contract.offer.id}) }}">
+                        {{ contract.offer.title }}
+                    </a>
+                {% endif %}
             </td>
         </tr>
         <tr>
-            <th>{% trans %}Value{% endtrans %}</th>
-            <td>{{ contract.value }}</td>
+            <th>{{ "crmp_acquisition.contract.value"|trans }}</th>
+            <td>{{ contract.value|price }}</td>
         </tr>
         <tr>
-            <th>{% trans %}Content{% endtrans %}</th>
+            <th>{{ "crmp_acquisition.contract.content"|trans }}</th>
             <td>{{ contract.content|nl2br }}</td>
         </tr>
         </tbody>
     </table>
+
+    {{ crmp_panels(crmp_crm.container.get('crmp_acquisition.contract.related_panel')) }}
 {% endblock %}

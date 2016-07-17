@@ -1,10 +1,10 @@
 <table class="table table-striped table-hover">
     <thead>
     <tr>
+        <th>{{ "crmp_crm.customer.singular"|trans }}</th>
         <th>
-            {% trans %}Value{% endtrans %}
+            {{ "crmp_accounting.invoice.total"|trans }}
         </th>
-        <th>{% trans %}Customer{% endtrans %}</th>
         <th></th>
     </tr>
     </thead>
@@ -12,22 +12,22 @@
     {% for invoice in invoices %}
         <tr>
             <td>
-                <a href="{{ path('invoice_show', { 'id': invoice.id }) }}">{{ invoice.value }}</a>
-            </td>
-            <td>
-                <a href="{{ path('customer_show', {'id': invoice.customer.id}) }}">
+                <a href="{{ path('crmp_crm_customer_show', {'id': invoice.customer.id}) }}">
                     {{ invoice.customer.name }}
                 </a>
             </td>
             <td>
+                <a href="{{ path('crmp_accounting_invoice_show', { 'id': invoice.id }) }}">{{ invoice.value|price }}</a>
+            </td>
+            <td>
                 <div class="btn-group">
-                    <a href="{{ path('invoice_show', { 'id': invoice.id }) }}"
-                       title="View"
+                    <a href="{{ path('crmp_accounting_invoice_show', { 'id': invoice.id }) }}"
+                       title="{{ "crmp.view"|trans }}"
                        class="btn btn-default">
                         <i class="fa fa-eye"></i>
                     </a>
-                    <a href="{{ path('invoice_edit', { 'id': invoice.id }) }}"
-                       title="{% trans %}Edit{% endtrans %}"
+                    <a href="{{ path('crmp_accounting_invoice_edit', { 'id': invoice.id }) }}"
+                       title="{% trans %}crmp.edit{% endtrans %}"
                        class="btn btn-default">
                         <i class="fa fa-pencil"></i>
                     </a>

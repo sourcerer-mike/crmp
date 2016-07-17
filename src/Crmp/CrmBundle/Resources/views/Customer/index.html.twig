@@ -1,30 +1,20 @@
-{% extends 'CrmBundle:Customer:base.html.twig' %}
+{% extends 'CrmpCrmBundle:Customer:base.html.twig' %}
 
-{% block title %}{% trans %}Customer list{% endtrans %}{% endblock %}
-
-{% block related_nav %}
-    <li>
-        <a href="{{ path('customer_new') }}"
-           title="Create a new entry">
-            <i class="fa fa-plus"></i>
-            {% trans %}Customer creation{% endtrans %}
-        </a>
-    </li>
-{% endblock %}
+{% block title %}{{ "crmp_crm.customer.list"|trans }}{% endblock %}
 
 {% block breadcrumb %}
     <li>
         <a href="/">
-            {% trans %}Dashboard{% endtrans %}
+            {{ "crmp.dashboard"|trans }}
         </a>
     </li>
     <li class="active">
-        Customers
+        {{ "crmp_crm.customer.list"|trans }}
     </li>
 {% endblock %}
 
 {% block body %}
-    <h2>{% trans %}Customer list{% endtrans %}</h2>
+    <h2>{{ "crmp_crm.customer.list"|trans }}</h2>
 
-    {% include 'CrmBundle:Customer:_list.html.twig' %}
+    {% include 'CrmpCrmBundle:Customer:_list.html.twig' %}
 {% endblock %}

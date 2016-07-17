@@ -1,0 +1,23 @@
+crmp:
+  empty: Keine Einträge vorhanden.
+  common:
+    show: Zeige %name%
+crmp_crm:
+  date_js: dd.mm.yy
+  address:
+    create: Neue Adresse
+    list: Adressen
+    mail: Mail
+    name: Name
+    new: Neue Adresse
+    plural: Addressen
+    related: Zugehörige Adressen
+    singular: Adresse
+  customer:
+    create: Neuer Kunde
+    edit: Kunde bearbeiten
+    list: Kunden
+    name: Kundenname
+    singular: Kunde
+    plural: Kunden
+  singular: CRM

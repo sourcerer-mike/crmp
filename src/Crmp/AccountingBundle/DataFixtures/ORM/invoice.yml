@@ -1,0 +1,5 @@
+Crmp\AccountingBundle\Entity\Invoice:
+  invoiceWithContract{1}:
+    value: '@contractWithOffer<current()>->value'
+    customer: '@contractWithOffer<current()>->customer'
+    contract: '@contractWithOffer<current()>'

@@ -1,45 +1,26 @@
-{% extends 'AcquisitionBundle:Inquiry:show.html.twig' %}
+{% extends 'CrmpAcquisitionBundle:Inquiry:show.html.twig' %}
 
 {% block title %}{{ inquiry.title }}{% endblock %}
 
-{% block related_nav %}
-    <ul class="nav nav-pills nav-stacked">
-        <li>
-            <a href="{{ path('inquiry_index') }}">
-                <i class="fa fa-list-ul"></i>
-                {% trans %}Back to the list{% endtrans %}
-            </a>
-        </li>
-        <li>
-            <a href="{{ path('inquiry_show', { 'id': inquiry.id }) }}">
-                <i class="fa fa-ban"></i>
-                {% trans %}Abort{% endtrans %}
-            </a>
-        </li>
-    </ul>
-{% endblock %}
-
 {% block breadcrumb %}
-    <ol class="breadcrumb">
-        <li>
-            <a href="/">
-                Dashboard
-            </a>
-        </li>
-        <li>
-            <a href="{{ path('inquiry_index') }}">
-                Inquiries
-            </a>
-        </li>
-        <li>
-            <a href="{{ path('inquiry_show', {'id': inquiry.id}) }}">
-                {{ inquiry.title }}
-            </a>
-        </li>
-        <li class="active">
-            {% trans %}Edit{% endtrans %}
-        </li>
-    </ol>
+    <li>
+        <a href="/">
+            Dashboard
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('crmp_acquisition_inquiry_index') }}">
+            Inquiries
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('crmp_acquisition_inquiry_show', {'id': inquiry.id}) }}">
+            {{ inquiry.title }}
+        </a>
+    </li>
+    <li class="active">
+        {% trans %}crmp.edit{% endtrans %}
+    </li>
 {% endblock %}
 
 {% block body %}
@@ -47,7 +28,7 @@
 
     {{ form_start(edit_form) }}
         {{ form_widget(edit_form) }}
-        <input type="submit" value="Save" class="btn btn-primary"/>
+        <input type="submit" value="crmp.save" class="btn btn-primary"/>
     {{ form_end(edit_form) }}
     {{ form_start(delete_form) }}
     <input type="submit" value="Delete" class="btn btn-danger">
@@ -55,10 +36,11 @@
 {% endblock %}
 
 {% block javascripts %}
+    {{ parent() }}
     <script type="text/javascript">
         $(function () {
             $('.datepicker').datepicker({
-                dateFormat: '{% trans %}date_js{% endtrans %}'
+                dateFormat: '{{ "crmp_crm.date_js"|trans }}'
             });
         });
     </script>

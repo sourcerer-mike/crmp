@@ -1,0 +1,15 @@
+Crmp\AcquisitionBundle\Entity\Inquiry:
+  inquiry{1..10}:
+    title: <sentence(5, true)>
+    netValue: 50%? <numberBetween(1,20)>00
+    content: <paragraph()>
+    inquiredAt: <dateTimeBetween('-7 days')>
+    customer: '@customer*'
+    status: <numberBetween(0,2)>
+  inquiryWithOffer{1..5}:
+    title: <sentence(5, true)>
+    netValue: <numberBetween(1,20)>00
+    content: <paragraph()>
+    inquiredAt: <dateTimeBetween('-14 days', '-7 days')>
+    customer: '@customer*'
+    status: <numberBetween(0,2)>

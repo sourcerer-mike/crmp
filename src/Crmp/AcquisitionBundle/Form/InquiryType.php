@@ -9,6 +9,11 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * Form for inquiries.
+ *
+ * @package Crmp\AcquisitionBundle\Form
+ */
 class InquiryType extends AbstractType
 {
     /**
@@ -18,13 +23,13 @@ class InquiryType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title')
-            ->add('customer')
+            ->add('title', null, ['label' => 'crmp_acquisition.inquiry.title'])
+            ->add('customer', null, ['label' => 'crmp_crm.customer.singular'])
             ->add(
                 'inquiredAt',
                 \Symfony\Component\Form\Extension\Core\Type\DateType::class,
                 [
-	                'label' => 'Date',
+                    'label' => 'crmp_acquisition.inquiry.date',
                     'widget' => 'single_text',
                     'format' => 'dd.MM.yyyy',
                     'attr'   => [
@@ -38,7 +43,7 @@ class InquiryType extends AbstractType
                 'netValue',
                 null,
                 [
-                    'label' => 'Predicted value',
+                    'label' => 'crmp_acquisition.inquiry.predictedValue',
                 ]
             )
             ->add(
@@ -47,9 +52,10 @@ class InquiryType extends AbstractType
                 [
                     'choices' => Config::getChoices('acquisition.inquiry.status'),
                     'expanded' => true,
+                    'label' => 'crmp_acquisition.inquiry.statusLabel',
                 ]
             )
-            ->add('content');
+            ->add('content', null, ['label' => 'crmp_acquisition.inquiry.content']);
     }
 
     /**

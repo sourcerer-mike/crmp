@@ -1,39 +1,44 @@
-{% extends '@Crm/Customer/base.html.twig' %}
+{% extends 'CrmpCrmBundle:Customer:base.html.twig' %}
 
 {% block title %}{{ customer.name }}{% endblock %}
 
 {% block related_nav %}
     {{ parent() }}
     <li>
-        <a href="{{ path('customer_show', { 'id': customer.id }) }}">
+        <a href="{{ path('crmp_crm_customer_show', { 'id': customer.id }) }}">
             <i class="fa fa-ban"></i>
-            {% trans %}Abort{% endtrans %}
+            {% trans %}crmp.abort{% endtrans %}
         </a>
     </li>
 {% endblock %}
 
 {% block breadcrumb %}
     {{ parent() }}
-        <li>
-            <a href="{{ path('customer_show', {'id': customer.id}) }}">
-                {{ customer.name }}
-            </a>
-        </li>
-        <li class="active">
-            {% trans %}Edit{% endtrans %}
-        </li>
-    </ol>
+    <li>
+        <a href="{{ path('crmp_crm_customer_show', {'id': customer.id}) }}">
+            {{ customer.name }}
+        </a>
+    </li>
+    <li class="active">
+        {% trans %}crmp.edit{% endtrans %}
+    </li>
 {% endblock %}
 
 {% block body %}
-    <h1>{% trans %}Customer edit{% endtrans %}</h1>
+    <h1>{{ "crmp_crm.customer.edit"|trans }}</h1>
 
     {{ form_start(edit_form) }}
     {{ form_widget(edit_form) }}
-    <input type="submit" value="Save" class="btn btn-primary"/>
+    <button type="submit" class="btn btn-primary">
+        <i class="fa fa-floppy-o"></i>
+        {{ "crmp.save"|trans }}
+    </button>
     {{ form_end(edit_form) }}
 
     {{ form_start(delete_form) }}
-    <input type="submit" value="Delete" class="btn btn-danger">
+    <button type="submit" class="btn btn-danger pull-right">
+        {{ "crmp.delete"|trans }}
+    </button>
     {{ form_end(delete_form) }}
+
 {% endblock %}

@@ -1,0 +1,40 @@
+{
+    "name": "crmp/acquisition",
+    "description": "Inquiries, offers, contracts and more your acquisition needs in CRMP.",
+    "keywords": ["CRM", "crmp", "acquisition", "Contract", "Inquiry", "Offer"],
+    "homepage": "https://github.com/crmp/acquisition",
+    "license": "MIT",
+    "type": "symfony-bundle",
+    "authors": [
+        {
+            "name": "Mike Pretzlaw",
+            "email": "pretzlaw@gmail.com",
+            "role": "Product Owner"
+        }
+    ],
+    "support": {
+        "docs": "https://github.com/crmp/acquisition/docs",
+        "issues": "https://github.com/crmp/acquisition/issues",
+        "source": "https://github.com/crmp/acquisition"
+    },
+    "autoload": {
+        "psr-4": { "Crmp\\AcquisitionBundle\\": "" }
+    },
+    "require": {
+        "components/font-awesome": "~4",
+        "components/jqueryui": "~1.11",
+        "doctrine/orm": "^2.5",
+        "friendsofsymfony/user-bundle": "~2.0@dev",
+        "php": ">=5.5.9",
+        "crmp/crm": "~1"
+    },
+    "require-dev": {
+        "behat/mink-extension": "~2",
+        "behat/mink-goutte-driver": "~1",
+        "doctrine/data-fixtures": "^1.1",
+        "hautelook/alice-bundle": "^1.2",
+        "phpunit/phpunit": "~5",
+        "symfony/phpunit-bridge": "^2.7",
+        "behat/symfony2-extension": "^2.1"
+    }
+}

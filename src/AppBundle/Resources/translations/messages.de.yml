@@ -1,0 +1,38 @@
+registration:
+  submit: Registrieren
+security:
+  login:
+    remember_me: Erinnere dich an mich
+
+crmp:
+  abort: Abbrechen
+  create: Erstellen
+  createdAt: Erstellt am
+  dashboard: Dashboard
+  delete: Löschen
+  edit: Bearbeiten
+  entity:
+    metaInformation: Meta-Informationen
+    related:
+      more: Gesamte Liste anzeigen
+    relatedInformations: Weitere Informationen
+  helloWorld: Bitte wählen Sie etwas aus dem Menü.
+  logout: Abmelden
+  mail:
+    send: Mail senden
+  menu:
+    related:
+      label: Aktionen
+  more: Mehr
+  panel:
+    collapse: Auf-/Zuklappen
+  profile: Profil
+  save: Speichern
+  updatedAt: Aktualisiert am
+  updatedBy: Aktualisiert von
+  user:
+    login: Anmelden
+    name: Benutzername
+    password: Passwort
+    register: Neu registrieren
+  view: Anzeigen

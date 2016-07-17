@@ -2,16 +2,46 @@
 
 namespace Crmp\CrmBundle\Entity;
 
+use Crmp\AccountingBundle\Entity\Invoice;
+use Crmp\CrmBundle\Entity\Address;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
  * Customer
  *
+ * The mostly used entity referring to plenty others is the customer itself.
+ *
  * @ORM\Table(name="customer")
  * @ORM\Entity(repositoryClass="Crmp\CrmBundle\Repository\CustomerRepository")
+ *
+ * @ORM\HasLifecycleCallbacks
  */
 class Customer
 {
+
+    /**
+     * Related addresses.
+     *
+     * Each customer can have none or more addresses attached to them.
+     * The address itself refer to a single customer.
+     * Thus it is not possible for an address to match on two customers at once.
+     * It might become handy for a person working for two or more companies.
+     * In this case please create the single address multiple times or only once for the one major customer.
+     *
+     * @ORM\OneToMany(targetEntity="Crmp\CrmBundle\Entity\Address", mappedBy="customer")
+     */
+    private $addresses;
+
+    /**
+     * Timestamp when this customer has been created.
+     *
+     * When the customer is created the "created at" field will be filled automatically with the current date and time.
+     *
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
     /**
      * @var int
      *
@@ -22,6 +52,18 @@ class Customer
     private $id;
 
     /**
+     * @var Invoice[]
+     */
+    private $invoices;
+
+    /**
+     * Firm of the company.
+     *
+     * Companies usually have a title/name/firm that they are known by.
+     * The "name" field is mend for the full title of a company as registered by the state.
+     * A name can be 255 chars long and are treated as unique.
+     * So when you try to store a company that already exists an error might be thrown.
+     *
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255, unique=true)
@@ -29,19 +71,88 @@ class Customer
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="\Crmp\AcquisitionBundle\Entity\Inquiry", mappedBy="customer")
+     * Timestamp when the customer has been edited.
+     *
+     * You might want to track when the latest change has happened,
+     * to keep your data up-to-date or filter out old customer.
+     * Every time a customer information is changed,
+     * the date and time is stored.
+     *
+     * @ORM\Column(type="datetime")
      */
-    protected $inquiries;
+    private $updatedAt;
 
-	/**
-	 * @ORM\OneToMany(targetEntity="Crmp\CrmBundle\Entity\Address", mappedBy="customer")
-	 */
-	private $addresses;
+    /**
+     * Name and ID of customer as string representation.
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getName().' ('.$this->getId().')';
+    }
 
-	/**
-	 * @ORM\OneToMany(targetEntity="Crmp\AccountingBundle\Entity\Invoice", mappedBy="customer")
-	 */
-	private $invoices;
+    /**
+     * Add address
+     *
+     * @param Address $address
+     *
+     * @return Customer
+     */
+    public function addAddress(Address $address)
+    {
+        $this->addresses[] = $address;
+
+        return $this;
+    }
+
+    /**
+     * Add invoice
+     *
+     * @param Invoice $invoice
+     *
+     * @return Customer
+     */
+    public function addInvoice(Invoice $invoice)
+    {
+        $this->invoices[] = $invoice;
+
+        return $this;
+    }
+
+    /**
+     * Get addresses
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAddresses()
+    {
+        return $this->addresses;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     *
+     * @return Customer
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
 
     /**
      * Get id
@@ -54,6 +165,16 @@ class Customer
     }
 
     /**
+     * Get invoices
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getInvoices()
+    {
+        return $this->invoices;
+    }
+
+    /**
      * Get name
      *
      * @return string
@@ -61,11 +182,6 @@ class Customer
     public function getName()
     {
         return $this->name;
-    }
-
-    public function __toString()
-    {
-        return $this->getName() . ' (' . $this->getId() . ')';
     }
 
     /**
@@ -81,113 +197,66 @@ class Customer
 
         return $this;
     }
+
     /**
-     * Constructor
+     * Get updatedAt
+     *
+     * @return \DateTime
      */
-    public function __construct()
+    public function getUpdatedAt()
     {
-        $this->inquiries = new \Doctrine\Common\Collections\ArrayCollection();
+        return $this->updatedAt;
     }
 
     /**
-     * Add inquiry
+     * Set updatedAt
      *
-     * @param \Crmp\AcquisitionBundle\Entity\Inquiry $inquiry
+     * @param \DateTime $updatedAt
      *
      * @return Customer
      */
-    public function addInquiry(\Crmp\AcquisitionBundle\Entity\Inquiry $inquiry)
+    public function setUpdatedAt($updatedAt)
     {
-        $this->inquiries[] = $inquiry;
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }
 
     /**
-     * Remove inquiry
-     *
-     * @param \Crmp\AcquisitionBundle\Entity\Inquiry $inquiry
+     * @ORM\PrePersist
      */
-    public function removeInquiry(\Crmp\AcquisitionBundle\Entity\Inquiry $inquiry)
+    public function prePersist()
     {
-        $this->inquiries->removeElement($inquiry);
+        $this->setCreatedAt(new \DateTime());
+        $this->setUpdatedAt(new \DateTime());
     }
 
     /**
-     * Get inquiries
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @ORM\PreUpdate
      */
-    public function getInquiries()
+    public function preUpdate()
     {
-        return $this->inquiries;
-    }
-
-    /**
-     * Add address
-     *
-     * @param \Crmp\CrmBundle\Entity\Address $address
-     *
-     * @return Customer
-     */
-    public function addAddress(\Crmp\CrmBundle\Entity\Address $address)
-    {
-        $this->addresses[] = $address;
-
-        return $this;
+        $this->setUpdatedAt(new \DateTime());
     }
 
     /**
      * Remove address
      *
-     * @param \Crmp\CrmBundle\Entity\Address $address
+     * @param Address $address
      */
-    public function removeAddress(\Crmp\CrmBundle\Entity\Address $address)
+    public function removeAddress(Address $address)
     {
         $this->addresses->removeElement($address);
     }
 
     /**
-     * Get addresses
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getAddresses()
-    {
-        return $this->addresses;
-    }
-
-    /**
-     * Add invoice
-     *
-     * @param \Crmp\AccountingBundle\Entity\Invoice $invoice
-     *
-     * @return Customer
-     */
-    public function addInvoice(\Crmp\AccountingBundle\Entity\Invoice $invoice)
-    {
-        $this->invoices[] = $invoice;
-
-        return $this;
-    }
-
-    /**
      * Remove invoice
      *
-     * @param \Crmp\AccountingBundle\Entity\Invoice $invoice
+     * @param Invoice $invoice
      */
-    public function removeInvoice(\Crmp\AccountingBundle\Entity\Invoice $invoice)
+    public function removeInvoice(Invoice $invoice)
     {
         $this->invoices->removeElement($invoice);
-    }
-
-    /**
-     * Get invoices
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getInvoices()
-    {
-        return $this->invoices;
     }
 }

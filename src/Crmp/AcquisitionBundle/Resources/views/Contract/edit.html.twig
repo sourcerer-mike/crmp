@@ -1,16 +1,16 @@
-{% extends 'AcquisitionBundle:Contract:base.html.twig' %}
+{% extends 'CrmpAcquisitionBundle:Contract:base.html.twig' %}
 
 {% block title %}{{ contract.title }}{% endblock %}
 
 {% block breadcrumb %}
     {{ parent() }}
     <li>
-        <a href="{{ path('contract_show', {'id': contract.id}) }}">
+        <a href="{{ path('crmp_acquisition_contract_show', {'id': contract.id}) }}">
             {{ contract.title }}
         </a>
     </li>
     <li class="active">
-        {% trans %}Edit{% endtrans %}
+        {% trans %}crmp.edit{% endtrans %}
     </li>
 {% endblock %}
 
@@ -19,10 +19,16 @@
 
     {{ form_start(edit_form) }}
     {{ form_widget(edit_form) }}
-    <input type="submit" value="{% trans %}Save{% endtrans %}" class="btn btn-primary"/>
+    <button type="submit" class="btn btn-primary">
+        <i class="fa fa-floppy-o"></i>
+        {{ "crmp.save"|trans }}
+    </button>
     {{ form_end(edit_form) }}
 
     {{ form_start(delete_form) }}
-    <input type="submit" value="{% trans %}Delete{% endtrans %}" class="btn btn-danger">
+    <button type="submit" class="btn btn-danger">
+        <i class="fa fa-trash"></i>
+        {{ "crmp.delete"|trans }}
+    </button>
     {{ form_end(delete_form) }}
 {% endblock %}
