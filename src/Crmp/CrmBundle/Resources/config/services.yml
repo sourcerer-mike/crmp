@@ -1,4 +1,7 @@
 services:
+  crmp.controller.render.parameters:
+    synthetic: true
+
   crmp_crm.address.related_panel:
     class: Crmp\CrmBundle\Twig\PanelGroup
     tags:
