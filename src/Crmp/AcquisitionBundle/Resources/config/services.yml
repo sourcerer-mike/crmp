@@ -5,6 +5,10 @@ services:
     decorates: app.menu_builder
     arguments: ["@crmp_acquisition.menu.inner", "@service_container"]
 
+  crmp_acquisition.adapter.offer:
+    class: Crmp\AcquisitionBundle\Adapter\Offer
+    arguments: ["@service_container"]
+
   crmp_acquisition.contract.related_panel:
     class: Crmp\CrmBundle\Twig\PanelGroup
     tags:

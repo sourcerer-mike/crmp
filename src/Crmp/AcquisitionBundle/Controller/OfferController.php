@@ -38,9 +38,7 @@ class OfferController extends AbstractCrmpController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($offer);
-            $em->flush();
+            $this->container->get('crmp_acquisition.adapter.offer')->delete($offer)->flush();
         }
 
         return $this->redirectToRoute('crmp_acquisition_offer_index');
@@ -66,9 +64,8 @@ class OfferController extends AbstractCrmpController
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($offer);
-            $em->flush();
+            
+            $this->container->get('crmp_acquisition.adapter.offer')->persist($offer)->flush();
 
             return $this->redirectToRoute('crmp_acquisition_offer_edit', array('id' => $offer->getId()));
         }
