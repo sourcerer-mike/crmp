@@ -1,0 +1,4 @@
+services:
+  crmp_crm.address_repository:
+    class: Crmp\CrmBundle\DomainRepository\Addresses
+    arguments: ["@service_container"]

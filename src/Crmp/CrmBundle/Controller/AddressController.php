@@ -102,9 +102,7 @@ class AddressController extends AbstractCrmpController
      */
     public function indexAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $addressRepository = $em->getRepository('CrmpCrmBundle:Address');
+        $addressRepository = $this->get('crmp_crm.address_repository');
 
         $addresses = $addressRepository->findAll();
 
