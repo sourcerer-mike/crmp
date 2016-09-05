@@ -2,11 +2,11 @@
 
 namespace Crmp\CrmBundle\Tests\Controller;
 
+use Crmp\AcquisitionBundle\Controller\OfferController;
 use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\BrowserKit\Cookie;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Form\Form;
 
 class AuthTestCase extends WebTestCase
 {
@@ -111,6 +111,56 @@ class AuthTestCase extends WebTestCase
         $key    = array_rand($result, 1);
 
         return $result[$key];
+    }
+
+    /**
+     * @param $formMock
+     * @param $client
+     *
+     * @return \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected function mockDeleteFormController($class, $container)
+    {
+        $mockedTarget = $this->getMockBuilder($class)->setMethods(['createDeleteForm'])->getMock();
+
+        $mockedTarget->setContainer($container);
+
+        $deleteFormMock = $this->getMockBuilder(Form::class)
+                               ->disableOriginalConstructor()
+                               ->setProxyTarget(new OfferController())
+                               ->getMock();
+
+        $deleteFormMock->method('isValid')->willReturn(true);
+        $deleteFormMock->method('isSubmitted')->willReturn(true);
+
+        $mockedTarget->expects($this->any())->method('createDeleteForm')->willReturn(
+        $deleteFormMock
+    );
+
+        return $mockedTarget;
+    }
+
+    /**
+     * @param $client
+     * @param $serviceName
+     * @param $offer
+     */
+    protected function mockRepositoryAdapter($container, $serviceName)
+    {
+// create a mock builder for crmp_acquisition.adapter.offer
+        $originalTarget = $container->get($serviceName);
+        $builder        = $this->getMockBuilder(get_class($originalTarget))
+                               ->setConstructorArgs([$container]);
+        $builder->setMethods(['delete', 'flush']);
+        $builder->setProxyTarget($originalTarget); // forward everything else
+
+        // assert that delete will be called with the above object
+        $mock = $builder->getMock();
+        $mock->expects($this->any())->method('flush')->willReturn($mock);
+
+        $container->set($serviceName, $mock);
+
+        return $mock;
     }
 
     /**

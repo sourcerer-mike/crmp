@@ -64,7 +64,7 @@ class OfferController extends AbstractCrmpController
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            
+
             $this->container->get('crmp_acquisition.adapter.offer')->persist($offer)->flush();
 
             return $this->redirectToRoute('crmp_acquisition_offer_edit', array('id' => $offer->getId()));
@@ -211,7 +211,7 @@ class OfferController extends AbstractCrmpController
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm(Offer $offer)
+    protected function createDeleteForm(Offer $offer)
     {
         return $this->createFormBuilder()
                     ->setAction($this->generateUrl('crmp_acquisition_offer_delete', array('id' => $offer->getId())))
