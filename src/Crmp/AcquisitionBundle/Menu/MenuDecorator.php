@@ -174,33 +174,39 @@ class MenuDecorator extends AbstractMenuDecorator
     {
         $params = $this->container->get('crmp.controller.render.parameters');
 
-        if (isset($params['offer']) && $params['offer'] instanceof Offer) {
-            $menuItem->addChild(
-                'crmp_acquisition.offer.edit',
-                [
-                    'route'           => 'crmp_acquisition_offer_edit',
-                    'routeParameters' => [
-                        'id' => $params['offer']->getId(),
-                    ],
-                    'labelAttributes' => [
-                        'icon' => 'fa fa-edit',
-                    ],
-                ]
-            );
-
-            $menuItem->addChild(
-                'crmp_acquisition.contract.new',
-                [
-                    'route'           => 'crmp_acquisition_contract_new',
-                    'routeParameters' => [
-                        'offer' => $params['offer']->getId(),
-                    ],
-                    'labelAttributes' => [
-                        'icon' => 'fa fa-plus',
-                    ],
-                ]
-            );
+        if (! isset($params['offer']) || false == $params['offer'] instanceof Offer) {
+            // no offer set or not an offer => incorrect context
+            return;
         }
+
+        /** @var Offer $offer */
+        $offer = $params['offer'];
+
+        $menuItem->addChild(
+            'crmp_acquisition.offer.edit',
+            [
+                'route'           => 'crmp_acquisition_offer_edit',
+                'routeParameters' => [
+                    'id' => $offer->getId(),
+                ],
+                'labelAttributes' => [
+                    'icon' => 'fa fa-edit',
+                ],
+            ]
+        );
+
+        $menuItem->addChild(
+            'crmp_acquisition.contract.new',
+            [
+                'route'           => 'crmp_acquisition_contract_new',
+                'routeParameters' => [
+                    'offer' => $offer->getId(),
+                ],
+                'labelAttributes' => [
+                    'icon' => 'fa fa-plus',
+                ],
+            ]
+        );
     }
 
     /**
