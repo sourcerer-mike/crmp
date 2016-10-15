@@ -71,6 +71,13 @@ interface PanelInterface
     public function getStyle();
 
     /**
+     * Determine if the panel should be shown.
+     *
+     * @return bool
+     */
+    public function isVisible();
+
+    /**
      * @param ContainerInterface $container
      *
      * @return PanelInterface

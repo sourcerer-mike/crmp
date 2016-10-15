@@ -40,6 +40,11 @@ services:
     tags:
       - { name: 'crmp.panel_group', alias: 'offer_related' }
 
+  crmp_acquisition.offer.dashboard_panel:
+      class: Crmp\AcquisitionBundle\Panel\Dashboard\OfferPanel
+      tags:
+        - { name: 'crmp.panel', target: 'dashboard' }
+
   crmp_acquisition.offer.related_panel.contract:
     class: Crmp\AcquisitionBundle\Panel\Offer\ContractPanel
     tags:

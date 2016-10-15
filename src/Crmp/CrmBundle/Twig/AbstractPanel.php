@@ -71,6 +71,16 @@ abstract class AbstractPanel
     }
 
     /**
+     * All lists are visible by default.
+     *
+     * @return bool
+     */
+    public function isVisible()
+    {
+        return true;
+    }
+
+    /**
      * @param ContainerInterface $container
      */
     public function setContainer(ContainerInterface $container)

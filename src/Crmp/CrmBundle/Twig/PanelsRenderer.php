@@ -55,6 +55,11 @@ class PanelsRenderer extends \Twig_Extension
     {
         $out = '';
         foreach ($panelGroup->getIterator() as $item) {
+            if (! $item->isVisible()) {
+                // This panel does not want to be visible => don't render this panel
+                continue;
+            }
+
             $context = array_merge(['panel' => $item], (array) $item->getData());
             $out .= $twig->render($item->getTemplate(), $context);
         }

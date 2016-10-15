@@ -19,6 +19,11 @@ services:
     tags:
       - { name: 'crmp.panel', target: 'customer_related' }
 
+  crmp_crm.dashboard_panel:
+    class: Crmp\CrmBundle\Twig\PanelGroup
+    tags:
+      - { name: 'crmp.panel_group', alias: 'dashboard' }
+
   crmp_crm.menu:
     public: false
     class: Crmp\CrmBundle\Menu\MenuDecorator

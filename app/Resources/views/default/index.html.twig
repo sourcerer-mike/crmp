@@ -7,5 +7,5 @@
 {% endblock %}
 
 {% block body %}
-    {% trans %}crmp.helloWorld{% endtrans %}
+    {{ crmp_panels(crmp_crm.container.get('crmp_crm.dashboard_panel')) }}
 {% endblock %}
