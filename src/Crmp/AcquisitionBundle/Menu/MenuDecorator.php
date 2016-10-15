@@ -6,6 +6,7 @@ use AppBundle\Menu\AbstractMenuDecorator;
 use Crmp\AcquisitionBundle\Entity\Contract;
 use Crmp\AcquisitionBundle\Entity\Inquiry;
 use Crmp\AcquisitionBundle\Entity\Offer;
+use Crmp\CrmBundle\CoreDomain\Config\ConfigRepository;
 use Crmp\CrmBundle\Entity\Customer;
 use Knp\Menu\MenuItem;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -207,6 +208,33 @@ class MenuDecorator extends AbstractMenuDecorator
                 ],
             ]
         );
+
+        /** @var ConfigRepository $config */
+        $config = $this->container->get('crmp_acquisition.config');
+
+        // Status buttons
+        $configValue = (array) $config->get('crmp_acquisition.offer.states');
+
+        foreach ($configValue as $label => $stateId) {
+            if ($offer->getStatus() == $stateId) {
+                // This is the current state => do not show as an option
+                continue;
+            }
+
+            $menuItem->addChild(
+                $label,
+                [
+                    'route'           => 'crmp_acquisition_offer_put',
+                    'routeParameters' => [
+                        'id'  => $offer->getId(),
+                        'status' => $stateId,
+                    ],
+                    'labelAttributes' => [
+                        'icon' => 'fa fa-tag',
+                    ],
+                ]
+            );
+        }
     }
 
     /**

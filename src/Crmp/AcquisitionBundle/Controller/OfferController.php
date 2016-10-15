@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Crmp\AcquisitionBundle\Entity\Offer;
 use Crmp\AcquisitionBundle\Form\OfferType;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Offer controller.
@@ -62,7 +63,7 @@ class OfferController extends AbstractCrmpController
     public function editAction(Request $request, Offer $offer)
     {
         $deleteForm = $this->createDeleteForm($offer);
-        $editForm   = $this->createForm('Crmp\AcquisitionBundle\Form\OfferType', $offer);
+        $editForm   = $this->createForm(OfferType::class, $offer);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
@@ -161,7 +162,7 @@ class OfferController extends AbstractCrmpController
 
         $offer->setStatus(0);
 
-        $form = $this->createForm('Crmp\AcquisitionBundle\Form\OfferType', $offer);
+        $form = $this->createForm(OfferType::class, $offer);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -179,6 +180,38 @@ class OfferController extends AbstractCrmpController
                 'form'  => $form->createView(),
             )
         );
+    }
+
+    /**
+     * Updates information about an offer.
+     *
+     * @param Request $request
+     *
+     * @Route("/{id}/put", name="crmp_acquisition_offer_put")
+     * @Method("GET")
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function putAction(Request $request)
+    {
+        $entityManager   = $this->get('doctrine.orm.entity_manager');
+        $offerRepository = $entityManager->getRepository('CrmpAcquisitionBundle:Offer');
+
+        /** @var Offer $offer */
+        $offer = $offerRepository->find($request->get('id'));
+
+        if (! $offer) {
+            // offer not found => this is odd
+            return new Response('', 500);
+        }
+
+        if (null !== $request->get('status')) {
+            // received value for status => update offer status
+            $offer->setStatus($request->get('status'));
+            $entityManager->flush($offer);
+        }
+
+        return $this->redirectToRoute('crmp_acquisition_offer_show', ['id' => $offer->getId()]);
     }
 
     /**
