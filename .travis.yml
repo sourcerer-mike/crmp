@@ -13,9 +13,13 @@ before_script:
   - bin/console doctrine:schema:create --env=test
   - bin/console cache:warmup
   - bin/console server:run 127.0.0.1:8000 &
+  - vendor/bin/phpcs --config-set installed_paths vendor/escapestudios/symfony2-coding-standard
+  - bin/populate.sh
 
 script:
-  - bin/test-max.sh
+  - vendor/bin/phpcs --standard=phpcs.xml src
+  - vendor/bin/phpunit --colors=never --coverage-clover var/phpunit/coverage.xml
+  - vendor/bin/behat --no-colors
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
