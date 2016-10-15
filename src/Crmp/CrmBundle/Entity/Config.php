@@ -69,6 +69,8 @@ class Config
     /**
      * Get all possible statuses.
      *
+     * @deprecated 1.0.0 This is to hard coded and should be replaced by the core comain ConfigRepository.
+     *
      * @param string $path
      *
      * @return array

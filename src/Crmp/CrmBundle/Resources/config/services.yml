@@ -9,6 +9,10 @@ services:
     tags:
       - { name: console.command }
 
+  crmp_crm.config:
+    class: Crmp\CrmBundle\CoreDomain\Config\ConfigRepository
+    arguments: ['@crmp_crm.doctrine.config_repository']
+
   crmp_crm.customer.related_panel:
     class: Crmp\CrmBundle\Twig\PanelGroup
     tags:
@@ -23,6 +27,12 @@ services:
     class: Crmp\CrmBundle\Twig\PanelGroup
     tags:
       - { name: 'crmp.panel_group', alias: 'dashboard' }
+
+  crmp_crm.doctrine.config_repository:
+      class: Doctrine\ORM\EntityRepository
+      factory: ['@doctrine.orm.entity_manager', getRepository]
+      arguments:
+        - Crmp\CrmBundle\Entity\Config
 
   crmp_crm.menu:
     public: false
