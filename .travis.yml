@@ -15,7 +15,6 @@ before_script:
   - bin/console server:run 127.0.0.1:8000 &
 
 script:
-  - bin/console crmp:docs:update
   - bin/test-max.sh
 
 after_success:
