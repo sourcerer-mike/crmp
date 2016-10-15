@@ -28,7 +28,7 @@ class MenuDecorator extends AbstractMenuDecorator
      *
      * @param MenuItem $menuItem
      */
-    public function buildAccountingInquiryIndexRelatedMenu(MenuItem $menuItem)
+    public function buildAcquisitionInquiryIndexRelatedMenu(MenuItem $menuItem)
     {
         $menuItem->addChild(
             'crmp_acquisition.inquiry.new',
@@ -51,7 +51,7 @@ class MenuDecorator extends AbstractMenuDecorator
      *
      * @param MenuItem $menuItem
      */
-    public function buildAccountingInquiryShowRelatedMenu(MenuItem $menuItem)
+    public function buildAcquisitionInquiryShowRelatedMenu(MenuItem $menuItem)
     {
         $params = $this->container->get('crmp.controller.render.parameters');
 
