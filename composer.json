@@ -62,7 +62,8 @@
         "phpunit/phpunit": "~5",
         "squizlabs/php_codesniffer": "~2",
         "symfony/phpunit-bridge": "^2.7",
-        "behat/symfony2-extension": "^2.1"
+        "behat/symfony2-extension": "^2.1",
+        "johnkary/phpunit-speedtrap": "^1.0"
     },
     "scripts": {
         "post-install-cmd": [

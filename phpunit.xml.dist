@@ -34,6 +34,18 @@
         </whitelist>
     </filter>
 
+    <listeners>
+        <listener class="JohnKary\PHPUnit\Listener\SpeedTrapListener">
+            <arguments>
+                <array>
+                    <element key="slowThreshold">
+                        <integer>100</integer>
+                    </element>
+                </array>
+            </arguments>
+        </listener>
+    </listeners>
+
     <logging>
         <log type="testdox-text" target="var/phpunit/testdox.txt"/>
     </logging>
