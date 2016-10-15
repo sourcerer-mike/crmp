@@ -3,10 +3,14 @@
 
 namespace Crmp\CrmBundle\CoreDomain\Config;
 
-
 use Crmp\CrmBundle\Repository\ConfigRepository as ConfigRepo;
 use Doctrine\Common\Collections\Criteria;
 
+/**
+ * Adapter to the config storage.
+ *
+ * @package Crmp\CrmBundle\CoreDomain\Config
+ */
 class ConfigRepository implements ConfigRepositoryInterface
 {
     /**

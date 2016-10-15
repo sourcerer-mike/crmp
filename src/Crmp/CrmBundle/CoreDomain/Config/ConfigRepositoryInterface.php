@@ -3,6 +3,11 @@
 
 namespace Crmp\CrmBundle\CoreDomain\Config;
 
+/**
+ * Interface for the configuration storage.
+ *
+ * @package Crmp\CrmBundle\CoreDomain\Config
+ */
 interface ConfigRepositoryInterface
 {
     /**

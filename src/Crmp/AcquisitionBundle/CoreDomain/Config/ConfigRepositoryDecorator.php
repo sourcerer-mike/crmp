@@ -1,11 +1,14 @@
 <?php
 
-
 namespace Crmp\AcquisitionBundle\CoreDomain\Config;
-
 
 use Crmp\CrmBundle\CoreDomain\Config\ConfigRepositoryInterface;
 
+/**
+ * Stub for some configurations.
+ *
+ * @package Crmp\AcquisitionBundle\CoreDomain\Config
+ */
 class ConfigRepositoryDecorator implements ConfigRepositoryInterface
 {
     /**
@@ -15,6 +18,11 @@ class ConfigRepositoryDecorator implements ConfigRepositoryInterface
      */
     protected $configRepository;
 
+    /**
+     * ConfigRepositoryDecorator constructor.
+     *
+     * @param ConfigRepositoryInterface $configRepository
+     */
     public function __construct(ConfigRepositoryInterface $configRepository)
     {
         $this->configRepository = $configRepository;
