@@ -36,6 +36,10 @@ crmp_acquisition:
     price: Preis
     related: Zugehörige Angebote
     singular: Angebot
+    states:
+      open: Offen
+      closed: Abgeschlossen
+      rejected: Abgelehnt
     status: Status vom Angebot
     title: Titel
     open: Offene Angebote
