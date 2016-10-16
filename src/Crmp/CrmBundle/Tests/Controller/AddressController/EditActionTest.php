@@ -3,8 +3,12 @@
 namespace Crmp\CrmBundle\Tests\Controller\AddressController;
 
 
+use AppBundle\Entity\User;
+use Crmp\CrmBundle\Controller\AddressController;
+use Crmp\CrmBundle\CoreDomain\Address\AddressRepository;
 use Crmp\CrmBundle\Entity\Address;
-use Crmp\CrmBundle\Tests\Controller\AuthTestCase;
+use Crmp\CrmBundle\Tests\Controller\AbstractControllerTestCase;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Edit an address.
@@ -13,27 +17,82 @@ use Crmp\CrmBundle\Tests\Controller\AuthTestCase;
  *
  * @package Crmp\CrmBundle\Tests\Controller\AddressController
  */
-class EditActionTest extends AuthTestCase
+class EditActionTest extends AbstractControllerTestCase
 {
-    /**
-     * Users are authorized to edit an address.
-     *
-     * Every user can edit an address.
-     */
-    public function testUserCanEditAnAddress()
+    public function testCreatesEditFormForCustomer()
     {
-        /** @var Address $someAddress */
-        $someAddress = $this->getRandomEntity('CrmpCrmBundle:Address');
+        $address = new Address();
+        $address->setName('John Doe');
+        $address->setMail('some@example.org');
 
-        $this->assertInstanceOf('\\Crmp\\CrmBundle\\Entity\\Address', $someAddress);
+        $controller = $this->controllerMock = $this->controllerBuilder->getMock();
 
-        $routeParameters = ['id' => $someAddress->getId()];
-        $client          = $this->createAuthorizedUserClient('GET', 'crmp_crm_address_edit', $routeParameters);
-        $response        = $client->getResponse();
+        $this->createCreateFormMock()
+             ->expects($this->atLeastOnce())
+             ->method('isSubmitted')
+             ->willReturn(false);
 
-        $this->assertTrue($response->isSuccessful());
-        $this->assertContains($someAddress->getName(), $response->getContent());
+        $this->createDeleteFormMock();
 
-        $this->assertRoute($client, 'crmp_crm_address_edit', $routeParameters);
+        $this->expectRendering('address', $address, 'CrmpCrmBundle:Address:edit.html.twig');
+
+        /** @var AddressController $controller */
+        $controller->editAction($this->createMock(Request::class), $address);
+    }
+
+    public function testItDelegatesSaveOperations()
+    {
+        $address = new Address();
+        $address->setName('John Doe');
+        $address->setMail('some@example.org');
+
+        $controller = $this->controllerMock = $this->controllerBuilder->getMock();
+
+        $controller->expects($this->atLeastOnce())
+                   ->method('getUser')
+                   ->willReturn(new User());
+
+        $controller->expects($this->atLeastOnce())
+                   ->method('get')
+                   ->with('crmp.address.repository')
+                   ->willReturn(
+                       $repoMock = $this->createMock(AddressRepository::class)
+                   );
+
+        $repoMock->expects($this->once())
+                 ->method('update')
+                 ->with($address);
+
+        $createFormMock = $this->createCreateFormMock();
+
+        $createFormMock->expects($this->atLeastOnce())
+                       ->method('isSubmitted')
+                       ->willReturn(true);
+
+        $createFormMock->expects($this->atLeastOnce())
+                       ->method('isValid')
+                       ->willReturn(true);
+
+        /** @var AddressController $controller */
+        $controller->editAction($this->createMock(Request::class), $address);
+    }
+
+    protected function setUp()
+    {
+        $this->controllerClass = AddressController::class;
+
+        parent::setUp();
+
+        $this->controllerBuilder->setMethods(
+            [
+                'createDeleteForm',
+                'createForm',
+                'render',
+                'get',
+                'getUser',
+                'redirectToRoute',
+            ]
+        );
+
     }
 }
