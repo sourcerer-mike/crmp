@@ -17,13 +17,13 @@ class InquiryRepository
     /**
      * Inject interfaces to doctrine.
      *
-     * @param InquiryRepository $inquiryRepository Storage with inquirys.
-     * @param EntityManager   $entityManager   Entity manager to persist inquirys in it.
+     * @param InquiryRepo   $inquiryRepository Storage with inquirys.
+     * @param EntityManager $entityManager     Entity manager to persist inquirys in it.
      */
     public function __construct(InquiryRepo $inquiryRepository, EntityManager $entityManager)
     {
         $this->inquiryRepository = $inquiryRepository;
-        $this->entitiyManager  = $entityManager;
+        $this->entitiyManager    = $entityManager;
     }
 
     /**
