@@ -65,7 +65,7 @@ class CustomerController extends AbstractCrmpController
             $customerRepository->update($customer);
             $customerRepository->flush();
 
-            return $this->redirectToRoute('crmp_crm_customer_edit', array('id' => $customer->getId()));
+            return $this->redirectToRoute('crmp_crm_customer_show', array('id' => $customer->getId()));
         }
 
         return $this->render(

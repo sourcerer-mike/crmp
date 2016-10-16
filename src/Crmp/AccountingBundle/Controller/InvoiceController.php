@@ -77,7 +77,7 @@ class InvoiceController extends AbstractCrmpController
             $em->persist($invoice);
             $em->flush();
 
-            return $this->redirectToRoute('crmp_accounting_invoice_edit', array('id' => $invoice->getId()));
+            return $this->redirectToRoute('crmp_accounting_invoice_show', array('id' => $invoice->getId()));
         }
 
         return $this->render(

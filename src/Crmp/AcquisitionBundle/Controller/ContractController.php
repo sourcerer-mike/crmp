@@ -65,7 +65,7 @@ class ContractController extends AbstractCrmpController
             $em->persist($contract);
             $em->flush();
 
-            return $this->redirectToRoute('crmp_acquisition_contract_edit', array('id' => $contract->getId()));
+            return $this->redirectToRoute('crmp_acquisition_contract_show', array('id' => $contract->getId()));
         }
 
         return $this->render(

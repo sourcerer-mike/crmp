@@ -65,7 +65,7 @@ class InquiryController extends AbstractCrmpController
             $em->persist($inquiry);
             $em->flush();
 
-            return $this->redirectToRoute('crmp_acquisition_inquiry_edit', array('id' => $inquiry->getId()));
+            return $this->redirectToRoute('crmp_acquisition_inquiry_show', array('id' => $inquiry->getId()));
         }
 
         return $this->render(

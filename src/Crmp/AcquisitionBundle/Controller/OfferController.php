@@ -71,7 +71,7 @@ class OfferController extends AbstractCrmpController
             $em->persist($offer);
             $em->flush();
 
-            return $this->redirectToRoute('crmp_acquisition_offer_edit', array('id' => $offer->getId()));
+            return $this->redirectToRoute('crmp_acquisition_offer_show', array('id' => $offer->getId()));
         }
 
         return $this->render(
