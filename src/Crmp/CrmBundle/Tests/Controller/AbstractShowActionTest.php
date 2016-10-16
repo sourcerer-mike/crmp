@@ -1,36 +1,12 @@
 <?php
 
-
 namespace Crmp\CrmBundle\Tests\Controller;
-
 
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormBuilder;
 
-abstract class AbstractShowActionTest extends \PHPUnit_Framework_TestCase
+abstract class AbstractShowActionTest extends AbstractControllerTestCase
 {
-    /**
-     * Mock of the customer controller.
-     *
-     * @var \PHPUnit_Framework_MockObject_MockBuilder
-     */
-    protected $controller;
-
-    /**
-     * CustomerController mocking some functions.
-     *
-     * Disabled in ::setUp method:
-     *
-     * - ::createForm
-     * - ::deleteForm
-     * - ::render
-     *
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $controllerMock;
-
-    protected $controllerClass = '';
-
     protected function expectRendering($entityKey, $entity, $template)
     {
         $self               = $this;
@@ -48,9 +24,9 @@ abstract class AbstractShowActionTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->controller = $this->getMockBuilder($this->controllerClass);
+        parent::setUp();
 
-        $this->controllerMock = $this->controller->setMethods(
+        $this->controllerMock = $this->controllerBuilder->setMethods(
             ['createDeleteForm', 'createFormBuilder', 'render']
         )->getMock();
 
@@ -61,7 +37,5 @@ abstract class AbstractShowActionTest extends \PHPUnit_Framework_TestCase
         $this->controllerMock->expects($this->any())->method('createFormBuilder')->willReturn(
             $this->createMock(FormBuilder::class)
         );
-
-        parent::setUp();
     }
 }
