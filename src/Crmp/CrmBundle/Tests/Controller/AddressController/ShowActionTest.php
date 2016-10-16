@@ -3,22 +3,28 @@
 namespace Crmp\CrmBundle\Tests\Controller\AddressController;
 
 
+use Crmp\CrmBundle\Controller\AddressController;
 use Crmp\CrmBundle\Entity\Address;
-use Crmp\CrmBundle\Tests\Controller\AuthTestCase;
+use Crmp\CrmBundle\Tests\Controller\AbstractShowActionTest;
 
-class ShowActionTest extends AuthTestCase
+class ShowActionTest extends AbstractShowActionTest
 {
+    protected function setUp()
+    {
+        $this->controllerClass = AddressController::class;
+
+        parent::setUp();
+    }
+
     public function testUserCanAccessTheList()
     {
         /** @var Address $someAddress */
-        $someAddress = $this->getRandomEntity('CrmpCrmBundle:Address');
+        $someAddress = new Address();
+        $someAddress->setName(uniqid());
+        $someAddress->setMail(uniqid());
 
-        $this->assertInstanceOf('\\Crmp\\CrmBundle\\Entity\\Address', $someAddress);
+        $this->expectRendering('address', $someAddress, 'CrmpCrmBundle:Address:show.html.twig');
 
-        $client   = $this->createAuthorizedUserClient('GET', 'crmp_crm_address_show', ['id' => $someAddress->getId()]);
-        $response = $client->getResponse();
-
-        $this->assertTrue($response->isSuccessful());
-        $this->assertContains($someAddress->getName(), $response->getContent());
+        $this->controllerMock->showAction($someAddress);
     }
 }

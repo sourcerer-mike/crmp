@@ -195,7 +195,7 @@ class AddressController extends AbstractCrmpController
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm(Address $address)
+    protected function createDeleteForm(Address $address)
     {
         return $this->createFormBuilder()
                     ->setAction($this->generateUrl('crmp_crm_address_delete', array('id' => $address->getId())))

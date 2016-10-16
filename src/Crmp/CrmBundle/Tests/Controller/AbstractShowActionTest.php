@@ -31,6 +31,21 @@ abstract class AbstractShowActionTest extends \PHPUnit_Framework_TestCase
 
     protected $controllerClass = '';
 
+    protected function expectRendering($entityKey, $entity, $template)
+    {
+        $self               = $this;
+        $customerController = $this->controllerMock;
+
+        $customerController->expects($this->once())->method('render')->willReturnCallback(
+            function () use ($self, $entity, $template, $entityKey) {
+                $args = func_get_args();
+
+                $self->assertEquals($template, $args[0]);
+                $self->assertEquals($entity, $args[1][$entityKey]);
+            }
+        );
+    }
+
     protected function setUp()
     {
         $this->controller = $this->getMockBuilder($this->controllerClass);
@@ -43,7 +58,7 @@ abstract class AbstractShowActionTest extends \PHPUnit_Framework_TestCase
             $this->createMock(Form::class)
         );
 
-        $this->controllerMock->expects($this->atLeastOnce())->method('createFormBuilder')->willReturn(
+        $this->controllerMock->expects($this->any())->method('createFormBuilder')->willReturn(
             $this->createMock(FormBuilder::class)
         );
 
