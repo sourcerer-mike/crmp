@@ -164,7 +164,7 @@ class CustomerController extends AbstractCrmpController
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm(Customer $customer)
+    protected function createDeleteForm(Customer $customer)
     {
         return $this->createFormBuilder()
                     ->setAction($this->generateUrl('crmp_crm_customer_delete', array('id' => $customer->getId())))
