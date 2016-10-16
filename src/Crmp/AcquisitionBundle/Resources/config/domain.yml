@@ -1,0 +1,6 @@
+services:
+  crmp.offer.repository:
+    class: Crmp\AcquisitionBundle\CoreDomain\Offer\OfferRepository
+    arguments:
+      - '@crmp_acquisition.doctrine.offer_repository'
+      - '@doctrine.orm.entity_manager'

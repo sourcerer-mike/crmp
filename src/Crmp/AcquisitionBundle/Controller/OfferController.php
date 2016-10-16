@@ -67,9 +67,7 @@ class OfferController extends AbstractCrmpController
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($offer);
-            $em->flush();
+            $this->get('crmp.offer.repository')->update($offer);
 
             return $this->redirectToRoute('crmp_acquisition_offer_show', array('id' => $offer->getId()));
         }

@@ -29,6 +29,12 @@ services:
     tags:
       - {name: 'crmp.panel', target: 'customer_related' }
 
+  crmp_acquisition.doctrine.offer_repository:
+    class: Doctrine\ORM\EntityRepository
+    factory: ['@doctrine.orm.entity_manager', getRepository]
+    arguments:
+      - Crmp\AcquisitionBundle\Entity\Offer
+
   crmp_acquisition.inquiry.related_panel:
     class: Crmp\CrmBundle\Twig\PanelGroup
     tags:
