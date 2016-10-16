@@ -29,6 +29,13 @@ services:
     tags:
       - {name: 'crmp.panel', target: 'customer_related' }
 
+  # especially injected in "crmp.inquiry.repository" service
+  crmp_acquisition.doctrine.inquiry_repository:
+    class: Doctrine\ORM\EntityRepository
+    factory: ['@doctrine.orm.entity_manager', getRepository]
+    arguments:
+      - Crmp\AcquisitionBundle\Entity\Inquiry
+
   crmp_acquisition.doctrine.offer_repository:
     class: Doctrine\ORM\EntityRepository
     factory: ['@doctrine.orm.entity_manager', getRepository]
