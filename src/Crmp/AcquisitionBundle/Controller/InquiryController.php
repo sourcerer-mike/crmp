@@ -61,9 +61,7 @@ class InquiryController extends AbstractCrmpController
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($inquiry);
-            $em->flush();
+            $this->get('crmp.inquiry.repository')->update($inquiry);
 
             return $this->redirectToRoute('crmp_acquisition_inquiry_show', array('id' => $inquiry->getId()));
         }
