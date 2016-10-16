@@ -28,6 +28,12 @@ services:
     tags:
       - { name: 'crmp.panel_group', alias: 'dashboard' }
 
+  crmp_crm.doctrine.address_repository:
+    class: Doctrine\ORM\EntityRepository
+    factory: ['@doctrine.orm.entity_manager', getRepository]
+    arguments:
+      - Crmp\CrmBundle\Entity\Address
+
   crmp_crm.doctrine.config_repository:
       class: Doctrine\ORM\EntityRepository
       factory: ['@doctrine.orm.entity_manager', getRepository]

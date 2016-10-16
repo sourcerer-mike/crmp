@@ -2,3 +2,7 @@ services:
   crmp.customer.repository:
     class: Crmp\CrmBundle\CoreDomain\Customer\CustomerRepository
     arguments: ['@crmp_crm.doctrine.customer_repository', '@doctrine.orm.entity_manager']
+
+  crmp.address.repository:
+    class: Crmp\CrmBundle\CoreDomain\Address\AddressRepository
+    arguments: ['@crmp_crm.doctrine.address_repository', '@doctrine.orm.entity_manager']

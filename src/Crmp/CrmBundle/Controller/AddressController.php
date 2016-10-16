@@ -70,9 +70,7 @@ class AddressController extends AbstractCrmpController
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $address->setUpdatedBy($this->getUser());
 
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($address);
-            $em->flush();
+            $this->get('crmp.address.repository')->update($address);
 
             return $this->redirectToRoute('crmp_crm_address_show', array('id' => $address->getId()));
         }
