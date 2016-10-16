@@ -3,25 +3,52 @@
 namespace Crmp\CrmBundle\Tests\Controller\CustomerController;
 
 
+use Crmp\CrmBundle\Controller\CustomerController;
 use Crmp\CrmBundle\Entity\Customer;
-use Crmp\CrmBundle\Tests\Controller\AuthTestCase;
+use Crmp\CrmBundle\Tests\Controller\AbstractControllerTestCase;
+use Symfony\Component\HttpFoundation\Request;
 
-class EditActionTest extends AuthTestCase
+/**
+ * Class EditActionTest
+ *
+ * @see     CustomerController::editAction()
+ *
+ * @package Crmp\CrmBundle\Tests\Controller\CustomerController
+ */
+class EditActionTest extends AbstractControllerTestCase
 {
-    public function testUserCanEditACustomer()
+    public function setUp()
     {
-        /** @var Customer $someCustomer */
-        $someCustomer = $this->getRandomEntity('CrmpCrmBundle:Customer');
+        $this->controllerClass = CustomerController::class;
 
-        $this->assertInstanceOf('\\Crmp\\CrmBundle\\Entity\\Customer', $someCustomer);
+        parent::setUp();
 
-        $routeParameters = ['id' => $someCustomer->getId()];
-        $client          = $this->createAuthorizedUserClient('GET', 'crmp_crm_customer_edit', $routeParameters);
-        $response        = $client->getResponse();
+        $this->controllerBuilder->setMethods(
+            [
+                'createDeleteForm',
+                'createForm',
+                'render',
+            ]
+        );
+    }
 
-        $this->assertTrue($response->isSuccessful());
-        $this->assertContains($someCustomer->getName(), $response->getContent());
+    public function testCreatesEditFormForCustomer()
+    {
+        $customer = new Customer();
+        $customer->setName('king customer');
 
-        $this->assertRoute($client, 'crmp_crm_customer_edit', $routeParameters);
+        $controller = $this->controllerMock = $this->controllerBuilder->getMock();
+
+        $this->createCreateFormMock()
+             ->expects($this->atLeastOnce())
+             ->method('isSubmitted')
+             ->willReturn(false);
+
+        $this->createDeleteFormMock();
+
+        $this->expectRendering('customer', $customer, 'CrmpCrmBundle:Customer:edit.html.twig');
+
+        /** @var CustomerController $controller */
+        $controller->editAction($this->createMock(Request::class), $customer);
     }
 }

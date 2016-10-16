@@ -7,19 +7,13 @@ use Symfony\Component\Form\FormBuilder;
 
 abstract class AbstractShowActionTest extends AbstractControllerTestCase
 {
-    protected function expectRendering($entityKey, $entity, $template)
+    protected function createFormBuilderMock()
     {
-        $self               = $this;
-        $customerController = $this->controllerMock;
-
-        $customerController->expects($this->once())->method('render')->willReturnCallback(
-            function () use ($self, $entity, $template, $entityKey) {
-                $args = func_get_args();
-
-                $self->assertEquals($template, $args[0]);
-                $self->assertEquals($entity, $args[1][$entityKey]);
-            }
+        $this->controllerMock->expects($this->any())->method('createFormBuilder')->willReturn(
+            $formBuilder = $this->createMock(FormBuilder::class)
         );
+
+        return $formBuilder;
     }
 
     protected function setUp()
@@ -30,12 +24,7 @@ abstract class AbstractShowActionTest extends AbstractControllerTestCase
             ['createDeleteForm', 'createFormBuilder', 'render']
         )->getMock();
 
-        $this->controllerMock->expects($this->any())->method('createDeleteForm')->willReturn(
-            $this->createMock(Form::class)
-        );
-
-        $this->controllerMock->expects($this->any())->method('createFormBuilder')->willReturn(
-            $this->createMock(FormBuilder::class)
-        );
+        $this->createDeleteFormMock();
+        $this->createFormBuilderMock();
     }
 }
