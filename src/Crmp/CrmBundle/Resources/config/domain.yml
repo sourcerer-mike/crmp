@@ -1,0 +1,4 @@
+services:
+  crmp.customer.repository:
+    class: Crmp\CrmBundle\CoreDomain\Customer\CustomerRepository
+    arguments: ['@crmp_crm.doctrine.customer_repository', '@doctrine.orm.entity_manager']

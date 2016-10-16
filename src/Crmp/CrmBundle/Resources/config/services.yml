@@ -34,6 +34,12 @@ services:
       arguments:
         - Crmp\CrmBundle\Entity\Config
 
+  crmp_crm.doctrine.customer_repository:
+      class: Doctrine\ORM\EntityRepository
+      factory: ['@doctrine.orm.entity_manager', getRepository]
+      arguments:
+        - Crmp\CrmBundle\Entity\Customer
+
   crmp_crm.menu:
     public: false
     class: Crmp\CrmBundle\Menu\MenuDecorator

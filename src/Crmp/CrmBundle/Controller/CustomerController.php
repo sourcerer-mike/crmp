@@ -61,9 +61,9 @@ class CustomerController extends AbstractCrmpController
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($customer);
-            $em->flush();
+            $customerRepository = $this->get('crmp.customer.repository');
+            $customerRepository->update($customer);
+            $customerRepository->flush();
 
             return $this->redirectToRoute('crmp_crm_customer_edit', array('id' => $customer->getId()));
         }
