@@ -73,9 +73,9 @@ class InvoiceController extends AbstractCrmpController
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($invoice);
-            $em->flush();
+            $repo = $this->get('crmp.invoice.repository');
+
+            $repo->update($invoice);
 
             return $this->redirectToRoute('crmp_accounting_invoice_show', array('id' => $invoice->getId()));
         }

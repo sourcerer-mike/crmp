@@ -1,0 +1,4 @@
+services:
+  crmp.invoice.repository:
+    class: Crmp\AccountingBundle\CoreDomain\InvoiceRepository
+    arguments: ['@crmp_accounting.doctrine.invoice_repository', '@doctrine.orm.entity_manager']

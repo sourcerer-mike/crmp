@@ -14,3 +14,9 @@ services:
     class: Crmp\AccountingBundle\Panel\Contract\InvoicePanel
     tags:
       - { name: 'crmp.panel', target: 'contract_related' }
+
+  crmp_accounting.doctrine.invoice_repository:
+    class: Doctrine\ORM\EntityRepository
+    factory: ['@doctrine.orm.entity_manager', getRepository]
+    arguments:
+      - Crmp\AccountingBundle\Entity\Invoice
