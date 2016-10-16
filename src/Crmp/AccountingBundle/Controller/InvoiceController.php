@@ -202,7 +202,7 @@ class InvoiceController extends AbstractCrmpController
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm(Invoice $invoice)
+    protected function createDeleteForm(Invoice $invoice)
     {
         return $this->createFormBuilder()
                     ->setAction($this->generateUrl('crmp_accounting_invoice_delete', array('id' => $invoice->getId())))

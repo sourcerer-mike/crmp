@@ -3,22 +3,27 @@
 namespace Crmp\AcquisitionBundle\Tests\Controller\ContractController;
 
 
+use Crmp\AcquisitionBundle\Controller\ContractController;
 use Crmp\AcquisitionBundle\Entity\Contract;
-use Crmp\CrmBundle\Tests\Controller\AuthTestCase;
+use Crmp\CrmBundle\Tests\Controller\AbstractShowActionTest;
 
-class ShowActionTest extends AuthTestCase
+class ShowActionTest extends AbstractShowActionTest
 {
-    public function testUserCanAccessTheList()
+    protected function setUp()
     {
-        /** @var Contract $someContract */
-        $someContract = $this->getRandomEntity('CrmpAcquisitionBundle:Contract');
+        $this->controllerClass = ContractController::class;
 
-        $this->assertInstanceOf('\\Crmp\\AcquisitionBundle\\Entity\\Contract', $someContract);
+        parent::setUp();
+    }
 
-        $client   = $this->createAuthorizedUserClient('GET', 'crmp_acquisition_contract_show', ['id' => $someContract->getId()]);
-        $response = $client->getResponse();
+    public function testContractWillBeDelegatedForRendering()
+    {
+        $contract = new Contract();
+        $contract->setTitle('the title');
+        $contract->setContent('the content');
 
-        $this->assertTrue($response->isSuccessful());
-        $this->assertContains($someContract->getTitle(), $response->getContent());
+        $this->expectRendering('contract', $contract, 'CrmpAcquisitionBundle:Contract:show.html.twig');
+
+        $this->controllerMock->showAction($contract);
     }
 }

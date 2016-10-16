@@ -171,7 +171,7 @@ class ContractController extends AbstractCrmpController
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm(Contract $contract)
+    protected function createDeleteForm(Contract $contract)
     {
         return $this->createFormBuilder()
                     ->setAction(

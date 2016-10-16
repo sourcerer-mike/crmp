@@ -184,7 +184,7 @@ class InquiryController extends AbstractCrmpController
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm(Inquiry $inquiry)
+    protected function createDeleteForm(Inquiry $inquiry)
     {
         return $this->createFormBuilder()
                     ->setAction($this->generateUrl('crmp_acquisition_inquiry_delete', array('id' => $inquiry->getId())))

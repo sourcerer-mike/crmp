@@ -3,22 +3,26 @@
 namespace Crmp\AcquisitionBundle\Tests\Controller\OfferController;
 
 
+use Crmp\AcquisitionBundle\Controller\OfferController;
 use Crmp\AcquisitionBundle\Entity\Offer;
-use Crmp\CrmBundle\Tests\Controller\AuthTestCase;
+use Crmp\CrmBundle\Tests\Controller\AbstractShowActionTest;
 
-class ShowActionTest extends AuthTestCase
+class ShowActionTest extends AbstractShowActionTest
 {
-    public function testUserCanAccessTheList()
+    protected function setUp()
     {
-        /** @var Offer $someOffer */
-        $someOffer = $this->getRandomEntity('CrmpAcquisitionBundle:Offer');
+        $this->controllerClass = OfferController::class;
+        parent::setUp();
+    }
 
-        $this->assertInstanceOf('\\Crmp\\AcquisitionBundle\\Entity\\Offer', $someOffer);
+    public function testOfferWillBeRendered()
+    {
+        $offer = new Offer();
+        $offer->setTitle('foo bar');
+        $offer->setContent('some content');
 
-        $client   = $this->createAuthorizedUserClient('GET', 'crmp_acquisition_offer_show', ['id' => $someOffer->getId()]);
-        $response = $client->getResponse();
+        $this->expectRendering('offer', $offer, 'CrmpAcquisitionBundle:Offer:show.html.twig');
 
-        $this->assertTrue($response->isSuccessful());
-        $this->assertContains($someOffer->getTitle(), $response->getContent());
+        $this->controllerMock->showAction($offer);
     }
 }

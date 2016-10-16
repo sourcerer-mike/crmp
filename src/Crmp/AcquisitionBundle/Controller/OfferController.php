@@ -247,7 +247,7 @@ class OfferController extends AbstractCrmpController
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm(Offer $offer)
+    protected function createDeleteForm(Offer $offer)
     {
         return $this->createFormBuilder()
                     ->setAction($this->generateUrl('crmp_acquisition_offer_delete', array('id' => $offer->getId())))

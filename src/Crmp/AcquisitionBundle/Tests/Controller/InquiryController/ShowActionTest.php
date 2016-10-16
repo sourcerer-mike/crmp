@@ -3,22 +3,27 @@
 namespace Crmp\AcquisitionBundle\Tests\Controller\InquiryController;
 
 
+use Crmp\AcquisitionBundle\Controller\InquiryController;
 use Crmp\AcquisitionBundle\Entity\Inquiry;
-use Crmp\CrmBundle\Tests\Controller\AuthTestCase;
+use Crmp\CrmBundle\Tests\Controller\AbstractShowActionTest;
 
-class ShowActionTest extends AuthTestCase
+class ShowActionTest extends AbstractShowActionTest
 {
-    public function testUserCanAccessTheList()
+    protected function setUp()
     {
-        /** @var Inquiry $someInquiry */
-        $someInquiry = $this->getRandomEntity('CrmpAcquisitionBundle:Inquiry');
+        $this->controllerClass = InquiryController::class;
 
-        $this->assertInstanceOf('\\Crmp\\AcquisitionBundle\\Entity\\Inquiry', $someInquiry);
+        parent::setUp();
+    }
 
-        $client   = $this->createAuthorizedUserClient('GET', 'crmp_acquisition_inquiry_show', ['id' => $someInquiry->getId()]);
-        $response = $client->getResponse();
+    public function testInquiryWillBeRendered()
+    {
+        $inquiry = new Inquiry();
+        $inquiry->setTitle('the title');
+        $inquiry->setContent('the content');
 
-        $this->assertTrue($response->isSuccessful());
-        $this->assertContains($someInquiry->getTitle(), $response->getContent());
+        $this->expectRendering('inquiry', $inquiry, 'CrmpAcquisitionBundle:Inquiry:show.html.twig');
+
+        $this->controllerMock->showAction($inquiry);
     }
 }
