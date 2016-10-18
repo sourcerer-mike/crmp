@@ -27,6 +27,18 @@ class CustomerRepository
     }
 
     /**
+     * Fetch a single customer.
+     *
+     * @param int $id ID of the customer.
+     *
+     * @return null|Customer
+     */
+    public function find($id)
+    {
+        return $this->customerRepository->find($id);
+    }
+
+    /**
      * Flush the write cache.
      *
      * @param null $entity
