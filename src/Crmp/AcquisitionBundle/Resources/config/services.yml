@@ -42,6 +42,11 @@ services:
     arguments:
       - Crmp\AcquisitionBundle\Entity\Offer
 
+  crmp_acquisition.inquiry.dashboard_panel:
+    class: Crmp\AcquisitionBundle\Panel\Dashboard\InquiryPanel
+    tags:
+      - { name: 'crmp.panel', target: 'dashboard' }
+
   crmp_acquisition.inquiry.related_panel:
     class: Crmp\CrmBundle\Twig\PanelGroup
     tags:

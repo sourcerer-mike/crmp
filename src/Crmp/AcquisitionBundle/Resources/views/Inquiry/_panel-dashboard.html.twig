@@ -1,0 +1,7 @@
+{% extends 'CrmpCrmBundle::panel.html.twig' %}
+
+{% block information %}
+    {% if inquiries %}
+        {% include 'CrmpAcquisitionBundle:Inquiry:_list.html.twig' with {inquiries: inquiries} %}
+    {% endif %}
+{% endblock %}
