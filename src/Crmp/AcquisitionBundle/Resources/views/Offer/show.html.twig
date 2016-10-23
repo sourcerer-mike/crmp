@@ -42,6 +42,10 @@
             </td>
         </tr>
         <tr>
+            <th>{{ "crmp_acquisition.offer.updatedAt"|trans }}</th>
+            <td>{{ offer.updatedAt|date }}</td>
+        </tr>
+        <tr>
             <th>{{ "crmp_acquisition.inquiry.statusLabel"|trans }}</th>
             <td>
                 {% if offer.ordered %}

@@ -44,3 +44,4 @@ crmp_acquisition:
     title: Titel
     open: Offene Angebote
     ordered: Angebot angenommen
+    updatedAt: Aktualisiert am
