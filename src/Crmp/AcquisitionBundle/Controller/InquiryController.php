@@ -44,6 +44,38 @@ class InquiryController extends AbstractCrmpController
     }
 
     /**
+     * Updates information about an inquiry.
+     *
+     * @param Request $request
+     *
+     * @Route("/{id}/put", name="crmp_acquisition_inquiry_put")
+     * @Method({"GET", "PUT"})
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function putAction(Request $request)
+    {
+        $entityManager   = $this->get('doctrine.orm.entity_manager');
+        $inquiryRepository = $entityManager->getRepository('CrmpAcquisitionBundle:Inquiry');
+
+        /** @var Inquiry $inquiry */
+        $inquiry = $inquiryRepository->find($request->get('id'));
+
+        if (! $inquiry) {
+            // offer not found => this is odd
+            return new Response('', 500);
+        }
+
+        if (null !== $request->get('status')) {
+            // received value for status => update offer status
+            $inquiry->setStatus($request->get('status'));
+            $entityManager->flush($inquiry);
+        }
+
+        return $this->redirectToRoute('crmp_acquisition_inquiry_show', ['id' => $inquiry->getId()]);
+    }
+
+    /**
      * Displays a form to edit an existing Inquiry entity.
      *
      * @param Request $request

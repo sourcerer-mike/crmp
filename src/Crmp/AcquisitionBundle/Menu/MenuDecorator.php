@@ -14,77 +14,12 @@ use Symfony\Component\HttpFoundation\RequestStack;
 /**
  * Class MenuDecorator
  *
- * @package Crmp\AcquisitionBundle\Menu
+ * @package    Crmp\AcquisitionBundle\Menu
  *
  * @deprecated 2.0.0 This should be replaced with a more modular/simpler kind of class (SinglePurpose).
  */
 class MenuDecorator extends AbstractMenuDecorator
 {
-    /**
-     * Add context menu when viewing a list of inquiries.
-     *
-     * Related actions:
-     *
-     * - Create new inquiry.
-     *
-     * @param MenuItem $menuItem
-     */
-    public function buildAcquisitionInquiryIndexRelatedMenu(MenuItem $menuItem)
-    {
-        $menuItem->addChild(
-            'crmp_acquisition.inquiry.new',
-            [
-                'route'           => 'crmp_acquisition_inquiry_new',
-                'labelAttributes' => [
-                    'icon' => 'fa fa-plus',
-                ],
-            ]
-        );
-    }
-
-    /**
-     * Add context menu when viewing an inquiry.
-     *
-     * Related actions:
-     *
-     * - Edit current inquiry.
-     * - Create offer based on current inquiry.
-     *
-     * @param MenuItem $menuItem
-     */
-    public function buildAcquisitionInquiryShowRelatedMenu(MenuItem $menuItem)
-    {
-        $params = $this->container->get('crmp.controller.render.parameters');
-
-        if (isset($params['inquiry']) && $params['inquiry'] instanceof Inquiry) {
-            $menuItem->addChild(
-                'crmp_acquisition.inquiry.edit',
-                [
-                    'route'           => 'crmp_acquisition_inquiry_edit',
-                    'routeParameters' => [
-                        'id' => $params['inquiry']->getId(),
-                    ],
-                    'labelAttributes' => [
-                        'icon' => 'fa fa-edit',
-                    ],
-                ]
-            );
-
-            $menuItem->addChild(
-                'crmp_acquisition.offer.new',
-                [
-                    'route'           => 'crmp_acquisition_offer_new',
-                    'routeParameters' => [
-                        'inquiry' => $params['inquiry']->getId(),
-                    ],
-                    'labelAttributes' => [
-                        'icon' => 'fa fa-plus',
-                    ],
-                ]
-            );
-        }
-    }
-
     /**
      * Add context menu when viewing a list of contracts.
      *
@@ -133,6 +68,104 @@ class MenuDecorator extends AbstractMenuDecorator
                     ],
                     'labelAttributes' => [
                         'icon' => 'fa fa-edit',
+                    ],
+                ]
+            );
+        }
+    }
+
+    /**
+     * Add context menu when viewing a list of inquiries.
+     *
+     * Related actions:
+     *
+     * - Create new inquiry.
+     *
+     * @param MenuItem $menuItem
+     */
+    public function buildAcquisitionInquiryIndexRelatedMenu(MenuItem $menuItem)
+    {
+        $menuItem->addChild(
+            'crmp_acquisition.inquiry.new',
+            [
+                'route'           => 'crmp_acquisition_inquiry_new',
+                'labelAttributes' => [
+                    'icon' => 'fa fa-plus',
+                ],
+            ]
+        );
+    }
+
+    /**
+     * Add context menu when viewing an inquiry.
+     *
+     * Related actions:
+     *
+     * - Edit current inquiry.
+     * - Create offer based on current inquiry.
+     *
+     * @param MenuItem $menuItem
+     */
+    public function buildAcquisitionInquiryShowRelatedMenu(MenuItem $menuItem)
+    {
+        $params = $this->container->get('crmp.controller.render.parameters');
+
+        if (! isset($params['inquiry']) || false == $params['inquiry'] instanceof Inquiry) {
+            // no offer set or not an offer => incorrect context
+            return;
+        }
+
+        /** @var Inquiry $inquiry */
+        $inquiry = $params['inquiry'];
+
+        $menuItem->addChild(
+            'crmp_acquisition.inquiry.edit',
+            [
+                'route'           => 'crmp_acquisition_inquiry_edit',
+                'routeParameters' => [
+                    'id' => $params['inquiry']->getId(),
+                ],
+                'labelAttributes' => [
+                    'icon' => 'fa fa-edit',
+                ],
+            ]
+        );
+
+        $menuItem->addChild(
+            'crmp_acquisition.offer.new',
+            [
+                'route'           => 'crmp_acquisition_offer_new',
+                'routeParameters' => [
+                    'inquiry' => $params['inquiry']->getId(),
+                ],
+                'labelAttributes' => [
+                    'icon' => 'fa fa-plus',
+                ],
+            ]
+        );
+
+        /** @var ConfigRepository $config */
+        $config = $this->container->get('crmp_acquisition.config');
+
+        // Status buttons
+        $configValue = (array) $config->get('crmp_acquisition.offer.states');
+
+        foreach ($configValue as $label => $stateId) {
+            if ($inquiry->getStatus() == $stateId) {
+                // This is the current state => do not show as an option
+                continue;
+            }
+
+            $menuItem->addChild(
+                $label,
+                [
+                    'route'           => 'crmp_acquisition_inquiry_put',
+                    'routeParameters' => [
+                        'id'     => $inquiry->getId(),
+                        'status' => $stateId,
+                    ],
+                    'labelAttributes' => [
+                        'icon' => 'fa fa-tag',
                     ],
                 ]
             );
@@ -226,7 +259,7 @@ class MenuDecorator extends AbstractMenuDecorator
                 [
                     'route'           => 'crmp_acquisition_offer_put',
                     'routeParameters' => [
-                        'id'  => $offer->getId(),
+                        'id'     => $offer->getId(),
                         'status' => $stateId,
                     ],
                     'labelAttributes' => [
