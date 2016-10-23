@@ -92,6 +92,18 @@ class Offer
     private $title;
 
     /**
+     * Timestamp when the offer has been edited.
+     *
+     * You might want to track when the latest change has happened,
+     * to keep your data up-to-date or filter out old offers.
+     * Every time a offer information is changed,
+     * the date and time is stored.
+     *
+     * @ORM\Column(type="datetime")
+     */
+    private $updatedAt;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -123,6 +135,16 @@ class Offer
         $this->contracts[] = $contract;
 
         return $this;
+    }
+
+    /**
+     * Store the update date before every update.
+     *
+     * @preUpdate
+     */
+    public function doPreUpdate()
+    {
+        $this->setUpdatedAt(new \DateTime());
     }
 
     /**
@@ -295,6 +317,37 @@ class Offer
     public function setTitle($title)
     {
         $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get updatedAt
+     *
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * Set updatedAt
+     *
+     * @param \DateTime $updatedAt
+     *
+     * @return static
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        if ($updatedAt->getTimestamp() > time() + 86400) {
+            // time travel is impossible => dates in distant future are not allowed
+            throw new \InvalidArgumentException(
+                'The update date can not be in the future.'
+            );
+        }
+
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }
