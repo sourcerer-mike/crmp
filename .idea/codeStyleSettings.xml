@@ -106,12 +106,7 @@
             <option name="SMART_TABS" value="true" />
           </indentOptions>
           <arrangement>
-            <groups>
-              <group>
-                <type>GETTERS_AND_SETTERS</type>
-                <order>KEEP</order>
-              </group>
-            </groups>
+            <groups />
             <rules>
               <section>
                 <rule>
