@@ -41,6 +41,17 @@ class Offer
     private $contracts;
 
     /**
+     * Timestamp when the offer has been created.
+     *
+     * You might want to track when the entity has been created,
+     * to filter out old offers.
+     * Every time an offer is created the date and time is stored.
+     *
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Crmp\CrmBundle\Entity\Customer")
      * @ORM\JoinColumn(name="customer_id", referencedColumnName="id")
      */
@@ -138,6 +149,21 @@ class Offer
     }
 
     /**
+     * Store the creation date.
+     *
+     * @prePersist
+     */
+    public function doPrePersist()
+    {
+        if ($this->getCreatedAt()) {
+            // already set => do not overwrite
+            return;
+        }
+
+        $this->setCreatedAt(new \DateTime());
+    }
+
+    /**
      * Store the update date before every update.
      *
      * @preUpdate
@@ -158,20 +184,6 @@ class Offer
     }
 
     /**
-     * Set content
-     *
-     * @param string $content
-     *
-     * @return Offer
-     */
-    public function setContent($content)
-    {
-        $this->content = $content;
-
-        return $this;
-    }
-
-    /**
      * Get contracts
      *
      * @return \Doctrine\Common\Collections\Collection
@@ -182,25 +194,21 @@ class Offer
     }
 
     /**
+     * Get createdAt
+     *
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
      * @return Customer
      */
     public function getCustomer()
     {
         return $this->customer;
-    }
-
-    /**
-     * Set customer
-     *
-     * @param Customer $customer
-     *
-     * @return Offer
-     */
-    public function setCustomer(Customer $customer = null)
-    {
-        $this->customer = $customer;
-
-        return $this;
     }
 
     /**
@@ -224,20 +232,6 @@ class Offer
     }
 
     /**
-     * Set inquiry
-     *
-     * @param Inquiry $inquiry
-     *
-     * @return Offer
-     */
-    public function setInquiry(Inquiry $inquiry = null)
-    {
-        $this->inquiry = $inquiry;
-
-        return $this;
-    }
-
-    /**
      * Get price
      *
      * @return string
@@ -248,20 +242,6 @@ class Offer
     }
 
     /**
-     * Set price
-     *
-     * @param string $price
-     *
-     * @return Offer
-     */
-    public function setPrice($price)
-    {
-        $this->price = $price;
-
-        return $this;
-    }
-
-    /**
      * Get status
      *
      * @return integer
@@ -269,20 +249,6 @@ class Offer
     public function getStatus()
     {
         return $this->status;
-    }
-
-    /**
-     * Set status
-     *
-     * @param integer $status
-     *
-     * @return Offer
-     */
-    public function setStatus($status)
-    {
-        $this->status = $status;
-
-        return $this;
     }
 
     /**
@@ -308,6 +274,106 @@ class Offer
     }
 
     /**
+     * Get updatedAt
+     *
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * Check if the current contract has been ordered.
+     *
+     * @return bool
+     */
+    public function isOrdered()
+    {
+        return ! $this->getContracts()->isEmpty();
+    }
+
+    /**
+     * Remove contract
+     *
+     * @param Contract $contract
+     */
+    public function removeContract(Contract $contract)
+    {
+        $this->contracts->removeElement($contract);
+    }
+
+    /**
+     * Set content
+     *
+     * @param string $content
+     *
+     * @return Offer
+     */
+    public function setContent($content)
+    {
+        $this->content = $content;
+
+        return $this;
+    }
+
+    /**
+     * Set customer
+     *
+     * @param Customer $customer
+     *
+     * @return Offer
+     */
+    public function setCustomer(Customer $customer = null)
+    {
+        $this->customer = $customer;
+
+        return $this;
+    }
+
+    /**
+     * Set inquiry
+     *
+     * @param Inquiry $inquiry
+     *
+     * @return Offer
+     */
+    public function setInquiry(Inquiry $inquiry = null)
+    {
+        $this->inquiry = $inquiry;
+
+        return $this;
+    }
+
+    /**
+     * Set price
+     *
+     * @param string $price
+     *
+     * @return Offer
+     */
+    public function setPrice($price)
+    {
+        $this->price = $price;
+
+        return $this;
+    }
+
+    /**
+     * Set status
+     *
+     * @param integer $status
+     *
+     * @return Offer
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
      * Set title
      *
      * @param string $title
@@ -319,16 +385,6 @@ class Offer
         $this->title = $title;
 
         return $this;
-    }
-
-    /**
-     * Get updatedAt
-     *
-     * @return \DateTime
-     */
-    public function getUpdatedAt()
-    {
-        return $this->updatedAt;
     }
 
     /**
@@ -353,22 +409,16 @@ class Offer
     }
 
     /**
-     * Check if the current contract has been ordered.
+     * Set createdAt
      *
-     * @return bool
+     * @param \DateTime $createdAt
+     *
+     * @return Offer
      */
-    public function isOrdered()
+    protected function setCreatedAt($createdAt)
     {
-        return ! $this->getContracts()->isEmpty();
-    }
+        $this->createdAt = $createdAt;
 
-    /**
-     * Remove contract
-     *
-     * @param Contract $contract
-     */
-    public function removeContract(Contract $contract)
-    {
-        $this->contracts->removeElement($contract);
+        return $this;
     }
 }
