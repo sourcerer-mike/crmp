@@ -27,7 +27,7 @@ class UpdatedAtTest extends \PHPUnit_Framework_TestCase
     {
         $offer = new Offer();
 
-        $offer->setUpdatedAt(new \DateTime('next week'));
+        $offer->setUpdatedAt(new \DateTime('+3 days'));
     }
 
     public function testItUpdatesTheChangeDateBeforeEverySave()
