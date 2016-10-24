@@ -8,25 +8,25 @@ use Crmp\AcquisitionBundle\Entity\Offer;
 use Doctrine\ORM\EntityManager;
 
 /**
- * Asserting that delegation of offer updates work correctly.
+ * Asserting that delegation of offer deletion work correctly.
  *
- * @see     OfferRepository::update()
+ * @see     OfferRepository::delete()
  *
  * @package Crmp\AcquisitionBundle\Tests\CoreDomain\Offer\OfferRepository
  */
-class UpdateTest extends AbstractRepositoryTestCase
+class DeleteTest extends AbstractRepositoryTestCase
 {
-    public function testItDelegatesUpdatesToDoctrine()
+    public function testItDelegatesDeletionToDoctrine()
     {
         $offer = $this->getOfferStub();
 
-        $entityManager = $this->expectEntityManagerCall('persist', $offer);
+        $entityManager = $this->expectEntityManagerCall('remove', $offer);
 
         $offerRepository = new OfferRepository(
             $this->createMock(\Crmp\AcquisitionBundle\Repository\OfferRepository::class),
             $entityManager
         );
 
-        $offerRepository->update($offer);
+        $offerRepository->delete($offer);
     }
 }

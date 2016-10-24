@@ -27,6 +27,16 @@ class OfferRepository
     }
 
     /**
+     * Remove an offer from the repo.
+     *
+     * @param Offer $offer
+     */
+    public function delete(Offer $offer)
+    {
+        $this->entitiyManager->remove($offer);
+    }
+
+    /**
      * Change offer data in the storage.
      *
      * @param Offer $offer
