@@ -25,7 +25,7 @@ vendor/bin/phpcs --config-set installed_paths vendor/escapestudios/symfony2-codi
 assert vendor/bin/phpcs --standard=phpcs.xml src
 
 # unit tests
-assert vendor/bin/phpunit --colors=never --coverage-clover var/phpunit/coverage.xml
+assert vendor/bin/phpunit --colors=never var/phpunit/coverage.xml
 
 # behat tests
 assert vendor/bin/behat --no-colors
