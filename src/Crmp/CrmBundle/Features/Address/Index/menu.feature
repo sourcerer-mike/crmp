@@ -8,8 +8,8 @@ Feature: Menu
     And I am on "/crm/address"
     And I should see "Aktionen"
 
-    When I click on "Neue Adresse"
+    When I click on "New address"
 
     Then I am on "/crm/address/new"
-    And I should see "Neue Adresse"
+    And I should see "New address"
     And I should see "Erstellen"

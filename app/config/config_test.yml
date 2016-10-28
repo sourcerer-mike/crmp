@@ -8,13 +8,12 @@ framework:
     profiler:
         collect: false
 
+parameters:
+  locale: en
+
 web_profiler:
     toolbar: false
     intercept_redirects: false
 
 swiftmailer:
     disable_delivery: true
-
-framework:
-    session:
-        storage_id: session.storage.mock_file

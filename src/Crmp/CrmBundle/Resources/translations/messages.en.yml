@@ -1,0 +1,24 @@
+crmp:
+  empty: No entries.
+  common:
+    show: Show %name%
+  save: Save
+crmp_crm:
+  date_js: yyyy-dd-mm
+  address:
+    create: New address
+    list: Addresses
+    mail: Mail
+    name: Name
+    new: New address
+    plural: Addresses
+    related: Related addresses
+    singular: Address
+  customer:
+    create: New customer
+    edit: Edit customer
+    list: Customer
+    name: Customer name
+    singular: Customer
+    plural: Customer
+  singular: CRM

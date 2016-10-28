@@ -1,0 +1,46 @@
+crmp_acquisition:
+  contract:
+    edit: Edit contract
+    new: New contract
+    plural: Contracts
+    singular: Contract
+    title: Title
+    value: Contract value
+    content: Contract description
+  inquiry:
+    content: Inquiry description
+    date: Inquiried at
+    edit: Edit inquiry
+    list: Inquiry
+    new: New inquiry
+    plural: Inquiries
+    predictedValue: Predicted value
+    singular: Inquiry
+    statusLabel: Status
+    status:
+      open: Pending
+      done: Done
+      canceled: Canceled
+    title: Title
+  menu:
+    contract: Contracts
+    inquiry: Inquiries
+    offer: Offers
+    label: Sales
+  offer:
+    content: Offer description
+    edit: Edit Offer
+    empty: No offer so far.
+    new: New offer
+    plural: Offers
+    price: Price
+    related: Related offers
+    singular: Offer
+    states:
+      open: Pending
+      closed: Closed
+      rejected: Rejected
+    status: Status
+    title: Title
+    open: Pending offers
+    ordered: Ordered offers
