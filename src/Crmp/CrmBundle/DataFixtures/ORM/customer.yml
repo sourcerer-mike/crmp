@@ -1,3 +1,6 @@
 Crmp\CrmBundle\Entity\Customer:
+  customerForBehat1:
+    id: 1
+    name: John Doe
   customer{1..3}:
     name: <company()>

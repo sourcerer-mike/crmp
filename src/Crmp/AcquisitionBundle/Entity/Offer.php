@@ -166,7 +166,7 @@ class Offer
     /**
      * Store the update date before every update.
      *
-     * @preUpdate
+     * @ORM\PreUpdate
      */
     public function doPreUpdate()
     {

@@ -1,6 +1,8 @@
 default:
   suites:
     default:
+      paths:
+        - src/Crmp
       contexts:
         - FeatureContext:
             session: '@session'

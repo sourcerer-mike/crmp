@@ -1,6 +1,8 @@
 <?php
 
 use Behat\Behat\Context\SnippetAcceptingContext;
+use Behat\Mink\Exception\ElementNotFoundException;
+use Behat\Mink\Exception\ExpectationException;
 use Behat\MinkExtension\Context\MinkContext;
 use Symfony\Component\HttpFoundation\Session\Session;
 
@@ -66,5 +68,31 @@ class FeatureContext extends MinkContext implements SnippetAcceptingContext
 
         $this->getSession()->setCookie($session->getName(), $session->getId());
         $this->getSession()->getDriver()->setCookie($session->getName(), $session->getId());
+    }
+
+    /**
+     * Check a select and option pair by label.
+     *
+     * @Given /^the "([^"]*)" option is set to "([^"]*)"$/
+     */
+    public function theOptionFromShouldBeSelected($select, $option)
+    {
+        $selectField = $this->getSession()->getPage()->findField($select);
+        if (null === $selectField) {
+            throw new ElementNotFoundException($this->getSession(), 'select field', 'id|name|label|value', $select);
+        }
+
+        $optionField = $selectField->find('named', array(
+            'option',
+            $option,
+        ));
+
+        if (null === $optionField) {
+            throw new ElementNotFoundException($this->getSession(), 'select option field', 'id|name|label|value', $option);
+        }
+
+        if (!$optionField->isSelected()) {
+            throw new ExpectationException('Select option field with value|text "'.$option.'" is not selected in the select "'.$select.'"', $this->getSession());
+        }
     }
 }

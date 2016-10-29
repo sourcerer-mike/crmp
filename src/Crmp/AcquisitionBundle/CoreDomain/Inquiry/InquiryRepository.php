@@ -35,4 +35,16 @@ class InquiryRepository
     {
         $this->entitiyManager->persist($inquiry);
     }
+
+    /**
+     * Fetch one specific inquiry.
+     *
+     * @param int $inquiryId ID of the inquiry.
+     *
+     * @return null|Inquiry The found inquiry, otherwise null.
+     */
+    public function find($inquiryId)
+    {
+        return $this->inquiryRepository->find($inquiryId);
+    }
 }

@@ -2,6 +2,7 @@ crmp:
   empty: Keine Einträge vorhanden.
   common:
     show: Zeige %name%
+  save: Save
 crmp_crm:
   date_js: dd.mm.yy
   address:
