@@ -27,6 +27,18 @@ class OfferRepository
     }
 
     /**
+     * Fetch an offer from repository by ID.
+     *
+     * @param int $offerId ID of the requested offer.
+     *
+     * @return null|Offer
+     */
+    public function find($offerId)
+    {
+        return $this->offerRepository->find($offerId);
+    }
+
+    /**
      * Change offer data in the storage.
      *
      * @param Offer $offer
