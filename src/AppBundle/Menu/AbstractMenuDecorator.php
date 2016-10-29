@@ -49,6 +49,18 @@ abstract class AbstractMenuDecorator implements MenuDecoratorInterface
     }
 
     /**
+     * Decorate the user menu.
+     *
+     * @param RequestStack $requestStack
+     *
+     * @return \Knp\Menu\ItemInterface|mixed
+     */
+    public function createUserMenu(RequestStack $requestStack)
+    {
+        return $this->menuBuilder->createUserMenu($requestStack);
+    }
+
+    /**
      * Decorate the related menu.
      *
      * Based on the current request (e.g. "customer_show")

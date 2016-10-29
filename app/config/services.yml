@@ -30,3 +30,10 @@ services:
       arguments: ["@request_stack"]
       tags:
         - { name: knp_menu.menu, alias: related }
+
+  app.menu.user:
+    class: Knp\Menu\MenuItem
+    factory: ["@app.menu_builder", createUserMenu]
+    arguments: ["@request_stack"]
+    tags:
+      - { name: knp_menu.menu, alias: user }

@@ -52,6 +52,12 @@ services:
     decorates: app.menu_builder
     arguments: ["@crmp_crm.menu.inner", "@service_container"]
 
+  crmp_crm.menu.user:
+    public: false
+    class: Crmp\CrmBundle\Menu\UserMenu
+    decorates: app.menu_builder
+    arguments: ["@crmp_crm.menu.inner", "@service_container"]
+
   crmp_crm.twig.panels:
     class: Crmp\CrmBundle\Twig\PanelsRenderer
     tags:

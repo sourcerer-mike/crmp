@@ -1,0 +1,8 @@
+{% extends 'CrmpCrmBundle::menu.html.twig' %}
+
+{% block root %}
+    {% set listAttributes = item.childrenAttributes %}
+    <ul class="nav navbar-nav navbar-right">
+        {{ block('list') -}}
+    </ul>
+{% endblock %}

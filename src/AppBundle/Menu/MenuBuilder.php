@@ -4,8 +4,8 @@ namespace AppBundle\Menu;
 
 use AppBundle\Event\Menu\ConfigureMainMenuEvent;
 use AppBundle\Event\Menu\ConfigureRelatedMenuEvent;
+use AppBundle\Event\Menu\ConfigureUserMenuEvent;
 use Knp\Menu\FactoryInterface;
-use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\Debug\TraceableEventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -55,6 +55,26 @@ class MenuBuilder implements MenuBuilderInterface
         $this->eventDispatcher->dispatch(
             ConfigureMainMenuEvent::NAME,
             new ConfigureMainMenuEvent($this->factory, $menu)
+        );
+
+        return $menu;
+    }
+
+    /**
+     * Create the main menu.
+     *
+     * @param RequestStack $requestStack
+     *
+     * @return \Knp\Menu\ItemInterface
+     */
+    public function createUserMenu(RequestStack $requestStack)
+    {
+        $menu = $this->factory->createItem('root');
+        $menu->setDisplay(false);
+
+        $this->eventDispatcher->dispatch(
+            ConfigureUserMenuEvent::NAME,
+            new ConfigureUserMenuEvent($this->factory, $menu)
         );
 
         return $menu;
