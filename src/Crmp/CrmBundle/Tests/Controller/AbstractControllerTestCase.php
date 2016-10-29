@@ -42,6 +42,7 @@ abstract class AbstractControllerTestCase extends \PHPUnit_Framework_TestCase
         return [
             'createDeleteForm',
             'createForm',
+            'get',
             'redirectToRoute',
             'render',
         ];
@@ -176,6 +177,28 @@ abstract class AbstractControllerTestCase extends \PHPUnit_Framework_TestCase
                 $self->assertEquals($expectedResponse, $response);
             }
         );
+    }
+
+    /**
+     * Replace an service with an mock.
+     *
+     * @param string $serviceName Slug of the service that shall be overwritten.
+     * @param mixed  $return      Value, mostly object, that shall be returned.
+     *
+     * @return \PHPUnit_Framework_MockObject_Builder_InvocationMocker
+     */
+    protected function mockService($serviceName, $return = false)
+    {
+        $getMethod = $this->controllerMock
+            ->expects($this->once())
+            ->method('get')
+            ->with($serviceName);
+
+        if (false !== $return) {
+            return $getMethod->willReturn($return);
+        }
+
+        return $getMethod->willReturnSelf();
     }
 
     protected function setUp()

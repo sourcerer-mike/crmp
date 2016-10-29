@@ -31,15 +31,6 @@ class NewActionTest extends AbstractControllerTestCase
     protected $controllerMock;
     private   $mainView = 'CrmpAcquisitionBundle:Offer:new.html.twig';
 
-    public function getMockedMethods()
-    {
-        $mockedMethods = parent::getMockedMethods();
-
-        $mockedMethods[] = 'get';
-
-        return $mockedMethods;
-    }
-
     public function testItFetchesQueriedCustomers()
     {
         $expectedOffer = new Offer();
@@ -189,19 +180,5 @@ class NewActionTest extends AbstractControllerTestCase
         $request = new Request(['inquiry' => 42]);
 
         $this->controllerMock->newAction($request);
-    }
-
-    protected function mockService($serviceName, $return = false)
-    {
-        $getMethod = $this->controllerMock
-            ->expects($this->once())
-            ->method('get')
-            ->with($serviceName);
-
-        if (false !== $return) {
-            return $getMethod->willReturn($return);
-        }
-
-        return $getMethod->willReturnSelf();
     }
 }
