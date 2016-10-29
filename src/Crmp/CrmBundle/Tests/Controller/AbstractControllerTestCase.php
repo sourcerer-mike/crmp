@@ -116,5 +116,6 @@ abstract class AbstractControllerTestCase extends \PHPUnit_Framework_TestCase
         parent::setUp();
 
         $this->controllerBuilder = $this->getMockBuilder($this->controllerClass);
+        $this->controllerMock    = $this->controllerBuilder->getMock();
     }
 }
