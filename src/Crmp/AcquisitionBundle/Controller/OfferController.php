@@ -192,8 +192,7 @@ class OfferController extends AbstractCrmpController
      */
     public function putAction(Request $request)
     {
-        $entityManager   = $this->get('doctrine.orm.entity_manager');
-        $offerRepository = $entityManager->getRepository('CrmpAcquisitionBundle:Offer');
+        $offerRepository = $this->get('crmp.offer.repository');
 
         /** @var Offer $offer */
         $offer = $offerRepository->find($request->get('id'));
@@ -206,7 +205,7 @@ class OfferController extends AbstractCrmpController
         if (null !== $request->get('status')) {
             // received value for status => update offer status
             $offer->setStatus($request->get('status'));
-            $entityManager->flush($offer);
+            $offerRepository->update($offer);
         }
 
         return $this->redirectToRoute('crmp_acquisition_offer_show', ['id' => $offer->getId()]);
