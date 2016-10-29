@@ -143,17 +143,19 @@ class OfferController extends AbstractCrmpController
         $offer = new Offer();
 
         if ($request->get('inquiry')) {
-            // customer given: pre-fill form
-            $inquiry = $this->getDoctrine()->getRepository('CrmpAcquisitionBundle:Inquiry')->find(
-                $request->get('inquiry')
-            );
+            // inquiry given: pre-fill form
+            $inquiry = $this->get('crmp.inquiry.repository')->find($request->get('inquiry'));
 
             $offer->setInquiry($inquiry);
+
+            if ($inquiry->getCustomer()) {
+                $offer->setCustomer($inquiry->getCustomer());
+            }
         }
 
-        if ($request->get('customer')) {
+        if (! $offer->getCustomer() && $request->get('customer')) {
             // customer given: pre-fill form
-            $customer = $this->getDoctrine()->getRepository('CrmpCrmBundle:Customer')->find($request->get('customer'));
+            $customer = $this->get('crmp.customer.repository')->find($request->get('customer'));
 
             $offer->setCustomer($customer);
         }
@@ -164,9 +166,7 @@ class OfferController extends AbstractCrmpController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($offer);
-            $em->flush();
+            $this->get('crmp.offer.repository')->update($offer);
 
             return $this->redirectToRoute('crmp_acquisition_offer_show', array('id' => $offer->getId()));
         }

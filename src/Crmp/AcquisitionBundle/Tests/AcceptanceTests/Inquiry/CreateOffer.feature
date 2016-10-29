@@ -12,4 +12,4 @@ Feature: Creating offer from inquiry
 
     Then I should see "New offer"
     And the "Inquiry" option is set to "Make the logo bigger"
-    # And the "Customer" option is set to "John Doe"
+    And the "Customer" option is set to "John Doe"
