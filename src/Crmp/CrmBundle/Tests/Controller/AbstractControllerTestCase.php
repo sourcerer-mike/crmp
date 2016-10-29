@@ -41,11 +41,9 @@ abstract class AbstractControllerTestCase extends \PHPUnit_Framework_TestCase
         $customerController = $this->controllerMock;
 
         $customerController->expects($this->once())->method('render')->willReturnCallback(
-            function () use ($self, $entity, $template, $entityKey) {
-                $args = func_get_args();
-
-                $self->assertEquals($template, $args[0]);
-                $self->assertEquals($entity, $args[1][$entityKey]);
+            function ($view, $parameters = array(), $response = null) use ($self, $entity, $template, $entityKey) {
+                $self->assertEquals($template, $view);
+                $self->assertEquals($entity, $parameters[$entityKey]);
             }
         );
     }
