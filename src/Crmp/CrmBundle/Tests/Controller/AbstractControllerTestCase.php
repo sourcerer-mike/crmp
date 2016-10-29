@@ -4,6 +4,7 @@
 namespace Crmp\CrmBundle\Tests\Controller;
 
 
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -36,6 +37,23 @@ abstract class AbstractControllerTestCase extends \PHPUnit_Framework_TestCase
      */
     protected $controllerMock;
 
+    public function getMockedMethods()
+    {
+        return [
+            'createDeleteForm',
+            'createForm',
+            'redirectToRoute',
+            'render',
+        ];
+    }
+
+    /**
+     * Mock the ::createForm method.
+     *
+     * @deprecated Use ::expectForm instead.
+     *
+     * @return \PHPUnit_Framework_MockObject_MockObject
+     */
     protected function createCreateFormMock()
     {
         $this->controllerMock->expects($this->any())->method('createForm')->willReturn(
@@ -52,6 +70,63 @@ abstract class AbstractControllerTestCase extends \PHPUnit_Framework_TestCase
         );
 
         return $deleteFormMock;
+    }
+
+    /**
+     * Mock and check if ::createForm has been called correctly.
+     *
+     * @param AbstractType $expectedClass  Some kind of form.
+     * @param object       $expectedObject The entity with all its data.
+     *
+     * @return \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected function expectForm($expectedClass, $expectedObject)
+    {
+        $formMock = $this->getMockBuilder(Form::class)
+                         ->disableOriginalConstructor()
+                         ->setMethods(
+                             [
+                                 'createView',
+                                 'handleRequest',
+                                 'isSubmitted',
+                                 'isValid',
+                             ]
+                         )->getMock();
+
+        $this->controllerMock
+            ->expects($this->atLeastOnce())
+            ->method('createForm')
+            ->with($expectedClass, $expectedObject)
+            ->willReturn($formMock);
+
+        return $formMock;
+    }
+
+    /**
+     * Check if the redirect is correct.
+     *
+     * @see \Symfony\Bundle\FrameworkBundle\Controller\Controller::redirectToRoute()
+     *
+     * @param string $expectedRoute      String what the route should be.
+     * @param array  $expectedParameters Subset or complete array which data is required at last.
+     * @param int    $expectedStatus     Expected HTTP-Status code.
+     */
+    protected function expectRedirectToRoute($expectedRoute, array $expectedParameters = array(), $expectedStatus = 302)
+    {
+        $self = $this;
+
+        $this->controllerMock->expects($this->once())->method('redirectToRoute')->willReturnCallback(
+            function ($route, array $parameters = array(), $status = 302) use (
+                $self,
+                $expectedRoute,
+                $expectedParameters,
+                $expectedStatus
+            ) {
+                $self->assertEquals($expectedRoute, $route);
+                $self->assertArraySubset($expectedParameters, $parameters);
+                $self->assertEquals($expectedStatus, $status);
+            }
+        );
     }
 
     /**
@@ -96,17 +171,9 @@ abstract class AbstractControllerTestCase extends \PHPUnit_Framework_TestCase
                 $expectedParameters,
                 $expectedResponse
             ) {
-                if ($expectedView) {
-                    $self->assertEquals($expectedView, $view);
-                }
-
-                if ($expectedParameters) {
-                    $self->assertArraySubset($expectedParameters, $parameters);
-                }
-
-                if ($response) {
-                    $self->assertEquals($expectedResponse, $response);
-                }
+                $self->assertEquals($expectedView, $view);
+                $self->assertArraySubset($expectedParameters, $parameters);
+                $self->assertEquals($expectedResponse, $response);
             }
         );
     }
@@ -115,7 +182,8 @@ abstract class AbstractControllerTestCase extends \PHPUnit_Framework_TestCase
     {
         parent::setUp();
 
-        $this->controllerBuilder = $this->getMockBuilder($this->controllerClass);
+        $this->controllerBuilder = $this->getMockBuilder($this->controllerClass)
+                                        ->setMethods($this->getMockedMethods());
         $this->controllerMock    = $this->controllerBuilder->getMock();
     }
 }
