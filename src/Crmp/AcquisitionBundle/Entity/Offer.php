@@ -318,20 +318,6 @@ class Offer
     }
 
     /**
-     * Set createdAt
-     *
-     * @param \DateTime $createdAt
-     *
-     * @return Offer
-     */
-    protected function setCreatedAt($createdAt)
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    /**
      * Set customer
      *
      * @param Customer $customer
@@ -418,6 +404,20 @@ class Offer
         }
 
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     *
+     * @return Offer
+     */
+    protected function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
 
         return $this;
     }

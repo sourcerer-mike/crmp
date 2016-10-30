@@ -145,7 +145,6 @@ class UpdateDocsCommand extends Command implements ContainerAwareInterface
         if ($output->isVerbose()) {
             $output->getFormatter()->decreaseLevel();
         }
-
     }
 
     private function parseClass($class, $output)

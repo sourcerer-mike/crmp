@@ -1,15 +1,25 @@
 <?php
 
-
 namespace Crmp\CrmBundle\Menu;
-
 
 use AppBundle\Entity\User;
 use AppBundle\Menu\AbstractMenuDecorator;
 use Symfony\Component\HttpFoundation\RequestStack;
 
+/**
+ * Extend user menu for this bundle.
+ *
+ * @package Crmp\CrmBundle\Menu
+ */
 class UserMenu extends AbstractMenuDecorator
 {
+    /**
+     * Add user menu to top menu.
+     *
+     * @param RequestStack $requestStack
+     *
+     * @return \Knp\Menu\ItemInterface|mixed
+     */
     public function createUserMenu(RequestStack $requestStack)
     {
         $menu = parent::createUserMenu($requestStack);
@@ -44,5 +54,4 @@ class UserMenu extends AbstractMenuDecorator
 
         return $menu;
     }
-
 }
