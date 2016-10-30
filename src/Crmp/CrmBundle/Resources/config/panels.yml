@@ -1,0 +1,25 @@
+services:
+  crmp_crm.address.related_panel:
+    class: Crmp\CrmBundle\Twig\PanelGroup
+    tags:
+      - { name: 'crmp.panel_group', alias: 'address_related' }
+
+  crmp_crm.customer.related_panel:
+    class: Crmp\CrmBundle\Twig\PanelGroup
+    tags:
+      - { name: 'crmp.panel_group', alias: 'customer_related' }
+
+  crmp_crm.customer.panel.address:
+    class: Crmp\CrmBundle\Twig\AddressPanel
+    tags:
+      - { name: 'crmp.panel', target: 'customer_related' }
+
+  #crmp_crm.settings.panel.general:
+  #  class: Crmp\CrmBundle\Twig\SettingsPanel
+  #  tags:
+  #    - { name: 'crmp.panel', target: 'customer_related' }
+
+  crmp_crm.dashboard_panel:
+    class: Crmp\CrmBundle\Twig\PanelGroup
+    tags:
+      - { name: 'crmp.panel_group', alias: 'dashboard' }

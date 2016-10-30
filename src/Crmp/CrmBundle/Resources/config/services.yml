@@ -1,9 +1,4 @@
 services:
-  crmp_crm.address.related_panel:
-    class: Crmp\CrmBundle\Twig\PanelGroup
-    tags:
-      - { name: 'crmp.panel_group', alias: 'address_related' }
-
   crmp_crm.command.update_docs:
     class: Crmp\CrmBundle\Command\UpdateDocsCommand
     tags:
@@ -12,21 +7,6 @@ services:
   crmp_crm.config:
     class: Crmp\CrmBundle\CoreDomain\Config\ConfigRepository
     arguments: ['@crmp_crm.doctrine.config_repository']
-
-  crmp_crm.customer.related_panel:
-    class: Crmp\CrmBundle\Twig\PanelGroup
-    tags:
-      - { name: 'crmp.panel_group', alias: 'customer_related' }
-
-  crmp_crm.customer.panel.address:
-    class: Crmp\CrmBundle\Twig\AddressPanel
-    tags:
-      - { name: 'crmp.panel', target: 'customer_related' }
-
-  crmp_crm.dashboard_panel:
-    class: Crmp\CrmBundle\Twig\PanelGroup
-    tags:
-      - { name: 'crmp.panel_group', alias: 'dashboard' }
 
   crmp_crm.doctrine.address_repository:
     class: Doctrine\ORM\EntityRepository
