@@ -1,0 +1,19 @@
+{% extends 'CrmpCrmBundle:Customer:base.html.twig' %}
+
+{% block title %}{{ "crmp_crm.settings.plural"|trans }}{% endblock %}
+
+{% block breadcrumb %}
+    <li>
+        <a href="/">
+            {{ "crmp.dashboard"|trans }}
+        </a>
+    </li>
+    <li class="active">
+        {{ "crmp_crm.settings.plural"|trans }}
+    </li>
+{% endblock %}
+
+{% block body %}
+    <h2>{{ "crmp_crm.settings.plural"|trans }}</h2>
+
+{% endblock %}

@@ -41,6 +41,8 @@ class UserMenu extends AbstractMenuDecorator
             ]
         );
 
+        $userMenu->addChild('Settings', ['route' => 'crmp_crm_settings']);
+
         $userMenu->addChild('Profile', ['route' => 'fos_user_profile_edit']);
         $userMenu->addChild(
             '',

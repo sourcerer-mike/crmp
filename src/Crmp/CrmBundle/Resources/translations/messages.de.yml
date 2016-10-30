@@ -21,4 +21,6 @@ crmp_crm:
     name: Kundenname
     singular: Kunde
     plural: Kunden
+  settings:
+    plural: Einstellungen
   singular: CRM
