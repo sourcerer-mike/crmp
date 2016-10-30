@@ -36,6 +36,7 @@ abstract class AbstractControllerTestCase extends \PHPUnit_Framework_TestCase
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
     protected $controllerMock;
+    private   $serviceMap;
 
     public function getMockedMethods()
     {
@@ -189,16 +190,24 @@ abstract class AbstractControllerTestCase extends \PHPUnit_Framework_TestCase
      */
     protected function mockService($serviceName, $return = false)
     {
-        $getMethod = $this->controllerMock
-            ->expects($this->once())
-            ->method('get')
-            ->with($serviceName);
+        if (! $this->serviceMap) {
+            $self = $this;
+            $this->controllerMock->expects($this->any())
+                                 ->method('get')
+                                 ->willReturnCallback(
+                                     function ($serviceName) use ($self) {
+                                         if (! isset($self->serviceMap[$serviceName])) {
+                                             return null;
+                                         }
 
-        if (false !== $return) {
-            return $getMethod->willReturn($return);
+                                         return $self->serviceMap[$serviceName];
+                                     }
+                                 );
         }
 
-        return $getMethod->willReturnSelf();
+        if (false !== $return) {
+            $this->serviceMap[$serviceName] = $return;
+        }
     }
 
     protected function setUp()
