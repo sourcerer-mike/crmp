@@ -50,6 +50,7 @@
         "sensio/distribution-bundle": "^5.0",
         "sensio/framework-extra-bundle": "^3.0.2",
         "sensio/generator-bundle": "^3.0",
+        "thomaspark/bootswatch": "~3",
         "twbs/bootstrap-sass": "~3.3.0",
         "knplabs/knp-menu-bundle": "^2.1"
     },

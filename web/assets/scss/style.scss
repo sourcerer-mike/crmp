@@ -1,4 +1,9 @@
+// Load Bootstrap 3 with a theme around.
+// see https://bootswatch.com/
+@import "../../../vendor/thomaspark/bootswatch/superhero/variables";
 @import "../../../vendor/twbs/bootstrap-sass/assets/stylesheets/bootstrap";
+@import "../../../vendor/thomaspark/bootswatch/superhero/bootswatch";
+
 @import "../../../vendor/components/font-awesome/scss/font-awesome";
 
 .crmp-body {
@@ -24,4 +29,9 @@ div.panel div.panel-heading[data-toggle="collapse"] {
 
 div.panel > div > table {
   margin-bottom: 0;
+}
+
+.dropdown-menu > li > a {
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
