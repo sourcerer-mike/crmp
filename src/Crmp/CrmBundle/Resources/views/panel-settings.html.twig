@@ -1,0 +1,10 @@
+{% extends 'CrmpCrmBundle::panel.html.twig' %}
+
+{% block body %}
+    <div class="panel-body">
+        {% if panel.body %}
+            {{ panel.body }}
+        {% endif %}
+        {{ form(panel.form) }}
+    </div>
+{% endblock %}

@@ -16,4 +16,5 @@
 {% block body %}
     <h2>{{ "crmp_crm.settings.plural"|trans }}</h2>
 
+    {{ crmp_panels(crmp_crm.container.get('crmp_crm.settings.panels')) }}
 {% endblock %}

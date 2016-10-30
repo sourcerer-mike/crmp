@@ -14,10 +14,15 @@ services:
     tags:
       - { name: 'crmp.panel', target: 'customer_related' }
 
-  #crmp_crm.settings.panel.general:
-  #  class: Crmp\CrmBundle\Twig\SettingsPanel
-  #  tags:
-  #    - { name: 'crmp.panel', target: 'customer_related' }
+  crmp_crm.settings.panels:
+    class: Crmp\CrmBundle\Twig\PanelGroup
+    tags:
+      - { name: 'crmp.panel_group', alias: 'settings' }
+
+  crmp_crm.settings.general:
+    class: Crmp\CrmBundle\Panels\Settings\General
+    tags:
+      - { name: 'crmp.panel', target: 'settings' }
 
   crmp_crm.dashboard_panel:
     class: Crmp\CrmBundle\Twig\PanelGroup

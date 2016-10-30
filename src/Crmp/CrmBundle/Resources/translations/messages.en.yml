@@ -22,5 +22,7 @@ crmp_crm:
     singular: Customer
     plural: Customer
   settings:
+    general: General
     plural: Settings
+    list_limit: Maximum amount of items in a list (per page)
   singular: CRM
