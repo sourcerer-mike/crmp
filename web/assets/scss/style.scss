@@ -1,10 +1,15 @@
 // Load Bootstrap 3 with a theme around.
 // see https://bootswatch.com/
 @import "../../../vendor/thomaspark/bootswatch/superhero/variables";
+
+$navbar-default-brand-hover-bg: $navbar-default-link-hover-bg;
+
 @import "../../../vendor/twbs/bootstrap-sass/assets/stylesheets/bootstrap";
 @import "../../../vendor/thomaspark/bootswatch/superhero/bootswatch";
 
 @import "../../../vendor/components/font-awesome/scss/font-awesome";
+
+@import "sticky-footer";
 
 .crmp-body {
   padding-top: 70px;
