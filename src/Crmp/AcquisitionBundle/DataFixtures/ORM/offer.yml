@@ -5,7 +5,8 @@ Crmp\AcquisitionBundle\Entity\Offer:
     price: <numberBetween(10,200)>00
     status: <numberBetween(0,2)>
     customer: '@customer*'
-    updatedAt: <dateTimeBetween("-90 days", "now")>
+    createdAt: <dateTimeBetween("-90 days", "-2 days")>
+    updatedAt: <dateTimeBetween($createdAt, "now")>
   offerWithInquiry{1..5}:
     inquiry: '@inquiryWithOffer<current()>'
     title: '@inquiryWithOffer<current()>->title'
@@ -13,4 +14,5 @@ Crmp\AcquisitionBundle\Entity\Offer:
     price: '@inquiryWithOffer<current()>->netValue'
     status: <numberBetween(1)>
     customer: '@inquiryWithOffer<current()>->customer'
-    updatedAt: <dateTimeBetween("-90 days", "now")>
+    createdAt: <dateTimeBetween("-90 days", "-2 days")>
+    updatedAt: <dateTimeBetween($createdAt, "now")>
