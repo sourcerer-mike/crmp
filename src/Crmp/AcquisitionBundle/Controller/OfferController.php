@@ -3,7 +3,6 @@
 namespace Crmp\AcquisitionBundle\Controller;
 
 use AppBundle\Controller\AbstractCrmpController;
-use Doctrine\Common\Collections\Criteria;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -96,32 +95,24 @@ class OfferController extends AbstractCrmpController
      */
     public function indexAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $criteria = Criteria::create();
+        $offerTemplate = new Offer();
 
         if ($request->get('inquiry')) {
-            $inquiry = $this->getDoctrine()
-                            ->getRepository('CrmpAcquisitionBundle:Inquiry')
-                            ->find($request->get('inquiry'));
-
-            $criteria->andWhere($criteria->expr()->eq('inquiry', $inquiry));
+            $offerTemplate->setInquiry(
+                $this->get('crmp.inquiry.repository')->find($request->get('inquiry'))
+            );
         }
 
         if ($request->get('customer')) {
-            $customer = $this->getDoctrine()
-                             ->getRepository('CrmpCrmBundle:Customer')
-                             ->find($request->get('customer'));
-
-            $criteria->andWhere($criteria->expr()->eq('customer', $customer));
+            $offerTemplate->setCustomer(
+                $this->get('crmp.customer.repository')->find($request->get('customer'))
+            );
         }
-
-        $offers = $em->getRepository('CrmpAcquisitionBundle:Offer')->matching($criteria);
 
         return $this->render(
             'CrmpAcquisitionBundle:Offer:index.html.twig',
             array(
-                'offers' => $offers,
+                'offers' => $this->get('crmp.offer.repository')->findSimilar($offerTemplate),
             )
         );
     }
