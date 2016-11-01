@@ -4,6 +4,7 @@ namespace Crmp\CrmBundle\CoreDomain\Settings;
 
 use Crmp\CoreDomain\Settings\Setting;
 use Crmp\CoreDomain\Settings\SettingRepositoryInterface;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
@@ -91,7 +92,7 @@ class SettingsRepository implements SettingRepositoryInterface
      *
      * @param Setting $setting
      *
-     * @return mixed
+     * @return Collection
      */
     public function findSimilar(Setting $setting)
     {
