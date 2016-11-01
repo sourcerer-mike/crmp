@@ -31,16 +31,32 @@ abstract class AbstractSettingsPanel extends AbstractPanel
     /**
      * Get form for the view.
      *
-     * @return \Symfony\Component\Form\FormView
+     * @return FormInterface
      */
     public function getForm()
     {
         if (! $this->form) {
+            // Not yet there => create form
             $this->form = $this->createFormBuilder()->getForm();
         }
 
-        return $this->form->createView();
+        return $this->form;
     }
+
+    /**
+     * Prepare data for the view.
+     *
+     * @return array
+     */
+    public function getData()
+    {
+        $data = parent::getData();
+
+        $data['form'] = $this->getForm()->createView();
+
+        return $data;
+    }
+
 
     /**
      * Use panel-settings template to show the form.

@@ -5,6 +5,17 @@
         {% if panel.body %}
             {{ panel.body }}
         {% endif %}
-        {{ form(panel.form) }}
+
+        {% if form %}
+            {{ form_start(form) }}
+            {{ form_errors(form) }}
+            {{ form_widget(form) }}
+
+            <button type="submit" class="btn btn-success">
+                <i class="fa fa-save"></i>
+                {{ "crmp.save"|trans }}
+            </button>
+            {{ form_end(form) }}
+        {% endif %}
     </div>
 {% endblock %}
