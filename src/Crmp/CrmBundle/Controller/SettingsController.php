@@ -3,6 +3,7 @@
 namespace Crmp\CrmBundle\Controller;
 
 use AppBundle\Controller\AbstractCrmpController;
+use Crmp\CrmBundle\Entity\Setting;
 use Crmp\CrmBundle\Twig\AbstractSettingsPanel;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -40,14 +41,9 @@ class SettingsController extends AbstractCrmpController
             /** @var AbstractSettingsPanel $panel */
 
             $form        = $panel->getForm();
-            $isSubmitted = $isSubmitted || $form->isSubmitted();
-
-            if ($form->isSubmitted()) {
-                // something already happened => skip this form
-                continue;
-            }
 
             $form->handleRequest($request);
+            $isSubmitted = $isSubmitted || $form->isSubmitted();
 
             $isValid = $isValid && $form->isValid();
 
@@ -57,10 +53,22 @@ class SettingsController extends AbstractCrmpController
             }
 
             // persist data
-            $data = array_merge($data, $form->getData());
+            $data = array_merge($data, (array) $form->getData());
         }
 
         if ($isSubmitted && $isValid) {
+            $settingsRepository = $this->get('crmp.setting.repository');
+            foreach ($data as $name => $value) {
+                $setting = new Setting();
+                $setting->setName($name);
+                $setting->setValue($value);
+                $setting->setUser($this->getUser());
+
+                $settingsRepository->add($setting);
+            }
+
+            $settingsRepository->flush();
+
             // form has been send => redirect to prevent additional save on reload
             return $this->redirectToRoute('crmp_crm_settings');
         }

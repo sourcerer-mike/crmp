@@ -4,7 +4,11 @@
 namespace Crmp\CrmBundle\Tests\Controller\SettingsController;
 
 
+use AppBundle\Entity\User;
+use Crmp\CoreDomain\Settings\SettingRepositoryInterface;
 use Crmp\CrmBundle\Controller\SettingsController;
+use Crmp\CrmBundle\CoreDomain\Settings\SettingsRepository;
+use Crmp\CrmBundle\Entity\Setting;
 use Crmp\CrmBundle\Panels\Settings\General;
 use Crmp\CrmBundle\Tests\Controller\AbstractControllerTestCase;
 use Crmp\CrmBundle\Twig\PanelGroup;
@@ -27,19 +31,24 @@ class IndexActionTest extends AbstractControllerTestCase
     protected $controllerMock;
 
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var SettingRepositoryInterface|\PHPUnit_Framework_MockObject_MockObject
      */
-    private $formMock;
-
-    /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
-    private $generalPanelMock;
+    protected $settingsRepositoryMock;
 
     /**
      * @var PanelGroup
      */
     private $panelsStub;
+
+    public function getMockedMethods()
+    {
+        $mockedMethods = parent::getMockedMethods();
+
+        $mockedMethods[] = 'getUser';
+
+        return $mockedMethods;
+    }
+
 
     /**
      * Redirect on submit.
@@ -65,6 +74,43 @@ class IndexActionTest extends AbstractControllerTestCase
         $this->expectRenderingWith('CrmpCrmBundle:Settings:index.html.twig');
 
         $this->controllerMock->indexAction(new Request());
+    }
+
+    public function testSubmittedSettingsWillBeStored()
+    {
+        $panelMock = $this->createPanelMock();
+
+        // clone expectations to ignore changes made by reference
+        $expectedKey   = $key = uniqid();
+        $expectedValue = $value = uniqid();
+
+        $expectedSetting = new Setting();
+        $expectedSetting->setName($expectedKey);
+        $expectedSetting->setValue($expectedValue);
+        $expectedSetting->setUser($expectedUser = new User());
+
+        $expectedUser->setEmail(uniqid('a').'@example.org');
+
+        $this->controllerMock->expects($this->once())
+                             ->method('getUser')
+                             ->willReturn($expectedUser);
+
+        $this->createFormMock(
+            $panelMock,
+            [
+                'isSubmitted' => true,
+                'isValid'     => true,
+                'getData'     => [
+                    $key => $value,
+                ],
+            ]
+        );
+
+        $this->settingsRepositoryMock->expects($this->once())
+                                     ->method('add')
+                                     ->with($expectedSetting);
+
+        $this->controllerMock->indexAction(new Request([$key => $value]));
     }
 
     public function testWrongSubmitsLeadBackToList()
@@ -125,6 +171,13 @@ class IndexActionTest extends AbstractControllerTestCase
 
         $this->panelsStub = new PanelGroup();
         $this->panelsStub->setContainer(new Container());
+
+        $this->settingsRepositoryMock = $this->getMockBuilder(SettingsRepository::class)
+                                             ->disableOriginalConstructor()
+                                             ->setMethods(['add', 'flush'])
+                                             ->getMock();
+
+        $this->mockService('crmp.setting.repository', $this->settingsRepositoryMock);
 
         $this->mockService('crmp_crm.settings.panels', $this->panelsStub);
     }

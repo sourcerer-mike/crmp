@@ -15,16 +15,22 @@ services:
       - Crmp\CrmBundle\Entity\Address
 
   crmp_crm.doctrine.config_repository:
-      class: Doctrine\ORM\EntityRepository
-      factory: ['@doctrine.orm.entity_manager', getRepository]
-      arguments:
-        - Crmp\CrmBundle\Entity\Config
+    class: Doctrine\ORM\EntityRepository
+    factory: ['@doctrine.orm.entity_manager', getRepository]
+    arguments:
+      - Crmp\CrmBundle\Entity\Config
 
   crmp_crm.doctrine.customer_repository:
-      class: Doctrine\ORM\EntityRepository
-      factory: ['@doctrine.orm.entity_manager', getRepository]
-      arguments:
-        - Crmp\CrmBundle\Entity\Customer
+    class: Doctrine\ORM\EntityRepository
+    factory: ['@doctrine.orm.entity_manager', getRepository]
+    arguments:
+      - Crmp\CrmBundle\Entity\Customer
+
+  crmp_crm.doctrine.setting_repository:
+    class: Doctrine\ORM\EntityRepository
+    factory: ['@doctrine.orm.entity_manager', getRepository]
+    arguments:
+      - Crmp\CrmBundle\Entity\Setting
 
   crmp_crm.menu:
     public: false

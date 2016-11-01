@@ -26,4 +26,3 @@ class Setting extends \Crmp\CoreDomain\Settings\Setting
         return $this;
     }
 }
-

@@ -2,6 +2,11 @@
 
 namespace Crmp\CoreDomain\Settings;
 
+/**
+ * Single setting.
+ *
+ * @package Crmp\CoreDomain\Settings
+ */
 class Setting
 {
     /**
@@ -21,6 +26,11 @@ class Setting
      */
     protected $value;
 
+    /**
+     * Create new setting.
+     *
+     * @param null $id
+     */
     public function __construct($id = null)
     {
         $this->id = $id;
@@ -107,6 +117,4 @@ class Setting
 
         return $this;
     }
-
-
 }

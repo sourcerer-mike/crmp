@@ -29,6 +29,11 @@ class CrmpCrmExtension extends Extension implements PrependExtensionInterface
         $loader->load('services.yml');
     }
 
+    /**
+     * Register domains before kernel runs.
+     *
+     * @param ContainerBuilder $container
+     */
     public function prepend(ContainerBuilder $container)
     {
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
