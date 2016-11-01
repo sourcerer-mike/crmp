@@ -3,6 +3,7 @@
 namespace Crmp\CrmBundle\Twig;
 
 use Crmp\CrmBundle\Controller\SettingsController;
+use Symfony\Component\Form\FormInterface;
 
 /**
  * Abstract for settings panel.
@@ -18,13 +19,27 @@ use Crmp\CrmBundle\Controller\SettingsController;
 abstract class AbstractSettingsPanel extends AbstractPanel
 {
     /**
+     * Transient form instance.
+     *
+     * The form needs to be stored in memory
+     * and reused because it shall gather error messages.
+     *
+     * @var FormInterface
+     */
+    private $form;
+
+    /**
      * Get form for the view.
      *
      * @return \Symfony\Component\Form\FormView
      */
     public function getForm()
     {
-        return $this->createFormBuilder()->getForm()->createView();
+        if (! $this->form) {
+            $this->form = $this->createFormBuilder()->getForm();
+        }
+
+        return $this->form->createView();
     }
 
     /**
@@ -49,6 +64,7 @@ abstract class AbstractSettingsPanel extends AbstractPanel
      */
     protected function getFormBuilder()
     {
+        // TODO 1.0.0 Inject the builder via some other way (constructor or setter).
         return $this->container->get('form.factory')->createBuilder();
     }
 }
