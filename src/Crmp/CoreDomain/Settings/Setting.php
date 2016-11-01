@@ -2,6 +2,8 @@
 
 namespace Crmp\CoreDomain\Settings;
 
+use AppBundle\Entity\User;
+
 /**
  * Single setting.
  *
@@ -18,7 +20,7 @@ class Setting
      */
     protected $name;
     /**
-     * @var int
+     * @var User|int
      */
     protected $user;
     /**
@@ -59,7 +61,7 @@ class Setting
     /**
      * Get user
      *
-     * @return \AppBundle\Entity\User
+     * @return \AppBundle\Entity\User|int
      */
     public function getUser()
     {
@@ -97,7 +99,7 @@ class Setting
      *
      * @return Setting
      */
-    public function setUser($user = 0)
+    public function setUser($user = null)
     {
         $this->user = $user;
 
