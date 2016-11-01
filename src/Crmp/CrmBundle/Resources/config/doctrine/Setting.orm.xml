@@ -15,6 +15,10 @@
         <field name="value"/>
 
         <many-to-one target-entity="AppBundle\Entity\User" field="user"/>
+
+        <unique-constraints>
+            <unique-constraint columns="user_id,name" name="settings_per_user" />
+        </unique-constraints>
     </entity>
 
 </doctrine-mapping>

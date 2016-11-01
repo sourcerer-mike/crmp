@@ -3,6 +3,7 @@
 namespace Crmp\CrmBundle\Controller;
 
 use AppBundle\Controller\AbstractCrmpController;
+use Crmp\CrmBundle\Panels\Settings\General;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -100,14 +101,12 @@ class AddressController extends AbstractCrmpController
      */
     public function indexAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
 
-        $addressRepository = $em->getRepository('CrmpCrmBundle:Address');
-
-        $addresses = $addressRepository->findAll();
+        $repo = $this->get('crmp.address.repository');
+        $addresses = $repo->findAll($this->getListLimit());
 
         if ($request->get('customer')) {
-            $addresses = $addressRepository->findBy(
+            $addresses = $repo->findBy(
                 [
                     'customer' => $request->get('customer'),
                 ]
@@ -199,5 +198,10 @@ class AddressController extends AbstractCrmpController
                     ->setAction($this->generateUrl('crmp_crm_address_delete', array('id' => $address->getId())))
                     ->setMethod('DELETE')
                     ->getForm();
+    }
+
+    protected function getListLimit()
+    {
+        return $this->get('crmp.setting.repository')->get(General::LIST_LIMIT, $this->getUser());
     }
 }

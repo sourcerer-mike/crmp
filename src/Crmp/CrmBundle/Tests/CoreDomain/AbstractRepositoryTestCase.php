@@ -4,10 +4,52 @@
 namespace Crmp\CrmBundle\Tests\CoreDomain;
 
 
+use Crmp\CrmBundle\CoreDomain\Settings\SettingsRepository;
 use Doctrine\Common\Collections\Criteria;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityRepository;
 
 abstract class AbstractRepositoryTestCase extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var string
+     */
+    protected $className;
+    protected $repositoryMock;
+
+    protected function createEntityManagerMock()
+    {
+        return $this->getMockBuilder(EntityManager::class)->disableOriginalConstructor()->getMock();
+    }
+
+    /**
+     * @param $repo
+     * @param $entityManager
+     *
+     * @return SettingsRepository|\PHPUnit_Framework_MockObject_MockBuilder
+     */
+    protected function createRepositoryMockBuilder($repo = null, $entityManager = null)
+    {
+        $settingsRepository = $this->getMockBuilder($this->className);
+
+        if (! $repo) {
+            $repo = $this->createMock(EntityRepository::class);
+        }
+
+        if (! $entityManager) {
+            $entityManager = $this->createEntityManagerMock();
+        }
+
+        $settingsRepository->setConstructorArgs([$repo, $entityManager])
+                           ->setMethods(
+                               [
+                                   'findSimilar',
+                               ]
+                           );
+
+        return $settingsRepository;
+    }
+
     /**
      * Check for criteria.
      *
@@ -31,5 +73,25 @@ abstract class AbstractRepositoryTestCase extends \PHPUnit_Framework_TestCase
                        );
     }
 
-    abstract protected function getRepositoryMock();
+    protected function getRepositoryMock($methodReturnMap = [])
+    {
+        if ($this->repositoryMock) {
+            return $this->repositoryMock;
+        }
+
+        $settingsRepository = $this->createRepositoryMockBuilder();
+
+        if ($methodReturnMap) {
+            $settingsRepository->setMethods(array_keys($methodReturnMap));
+        }
+
+        $mock = $settingsRepository->getMock();
+        foreach ($methodReturnMap as $method => $return) {
+            $mock->expects($this->atLeastOnce())
+                 ->method($method)
+                 ->willReturn($return);
+        }
+
+        return $mock;
+    }
 }

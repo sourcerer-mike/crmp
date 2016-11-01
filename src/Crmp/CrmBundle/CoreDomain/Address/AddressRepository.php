@@ -6,7 +6,9 @@ namespace Crmp\CrmBundle\CoreDomain\Address;
 use Crmp\CrmBundle\Entity\Address;
 use Crmp\CrmBundle\Repository\AddressRepository as AddressRepo;
 use Crmp\CrmBundle\Repository\CustomerRepository as CustomerRepo;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityRepository;
 
 /**
  * Adapter to the storage of customer data.
@@ -18,13 +20,28 @@ class AddressRepository
     /**
      * Injects the repository and entity manager.
      *
-     * @param CustomerRepo  $addressRepository Final storage for data in doctrine.
-     * @param EntityManager $entityManager     Doctrine adapter to storage, needed for updates.
+     * @param EntityRepository $addressRepository Final storage for data in doctrine.
+     * @param EntityManager    $entityManager     Doctrine adapter to storage, needed for updates.
      */
-    public function __construct(AddressRepo $addressRepository, EntityManager $entityManager)
+    public function __construct(EntityRepository $addressRepository, EntityManager $entityManager)
     {
         $this->customerRepository = $addressRepository;
         $this->entityManager      = $entityManager;
+    }
+
+    public function findAll($amount = null, $start = null)
+    {
+        $criteria = Criteria::create();
+
+        if (null !== $amount) {
+            $criteria->setMaxResults($amount);
+        }
+
+        if (null !== $start) {
+            $criteria->setFirstResult($start);
+        }
+
+        return $this->customerRepository->matching($criteria);
     }
 
     /**

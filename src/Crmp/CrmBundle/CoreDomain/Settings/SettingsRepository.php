@@ -2,56 +2,72 @@
 
 namespace Crmp\CrmBundle\CoreDomain\Settings;
 
-use Crmp\CoreDomain\Settings\Setting;
+use AppBundle\Entity\User;
+use Crmp\CrmBundle\Entity\Setting;
 use Crmp\CoreDomain\Settings\SettingRepositoryInterface;
-use Doctrine\Common\Collections\Collection;
+use Crmp\CrmBundle\CoreDomain\AbstractRepository;
 use Doctrine\Common\Collections\Criteria;
-use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\EntityRepository;
 
 /**
  * Access the settings repository.
  *
  * @package Crmp\CrmBundle\CoreDomain\Settings
  */
-class SettingsRepository implements SettingRepositoryInterface
+class SettingsRepository extends AbstractRepository implements SettingRepositoryInterface
 {
     /**
-     * Doctrine repository for the entity.
+     * Pool for already fetched data.
      *
-     * @var EntityRepository
+     * @var array
      */
-    protected $repository;
+    protected $data = [];
 
-    /**
-     * Entity manager to access the database.
-     *
-     * @var EntityManager
-     */
-    private $entitiyManager;
-
-    /**
-     * SettingsRepository constructor.
-     *
-     * @param EntityRepository $settingRepository
-     * @param EntityManager    $entityManager
-     */
-    public function __construct(EntityRepository $settingRepository, EntityManager $entityManager)
+    public function add($setting)
     {
-        $this->repository     = $settingRepository;
-        $this->entitiyManager = $entityManager;
+        /** @var Setting $existingSetting */
+        $existingSetting = null;
+
+        if (! $setting->getName()) {
+            throw new \InvalidArgumentException('Settings need a name.');
+        }
+
+        if (! $setting->getId()) {
+            // has no id yet => prevent storing duplicates
+            $existingSetting = $this->findSimilar($setting);
+        }
+
+        if ($existingSetting) {
+            // setting exists already => just change value
+            $existingSetting->setValue($setting->getValue());
+            $setting = $existingSetting;
+        }
+
+        parent::add($setting);
     }
 
     /**
-     * Store a setting in the database.
+     * Fetch entities similar to the given one.
      *
-     * @param Setting $setting
+     * @param object $setting
+     * @param int    $amount
+     * @param int    $start
+     * @param array  $order
      *
-     * @return mixed
+     * @return \Doctrine\Common\Collections\Collection
      */
-    public function add(Setting $setting)
+    public function findAllSimilar($setting, $amount = null, $start = null, $order = [])
     {
-        $this->entitiyManager->persist($setting);
+        $criteria = $this->createCriteria($amount, $start, $order);
+
+        if ($setting->getUser()) {
+            $criteria->andWhere($criteria->expr()->eq('user', $setting->getUser()));
+        }
+
+        if ($setting->getName()) {
+            $criteria->andWhere($criteria->expr()->eq('name', $setting->getName()));
+        }
+
+        return $this->repository->matching($criteria);
     }
 
     /**
@@ -59,65 +75,65 @@ class SettingsRepository implements SettingRepositoryInterface
      */
     public function flush()
     {
-        $this->entitiyManager->flush();
+        $this->entityManager->flush();
     }
 
     /**
-     * Fetch a single setting by ID.
+     * Get the value of a configuration.
      *
-     * @param int $settingId
+     * The setting will be retrieved for the given user first.
+     * If not found then the default value (for user NULL) will be returned.
+     * When the setting does not exists then NULL will be returned.
      *
-     * @return \Crmp\CrmBundle\Entity\Setting
+     * @param string $name Name of the setting.
+     * @param User   $user Setting as stored by this user (use NULL to get the default value).
+     *
+     * @return string|null Value of the setting.
      */
-    public function find($settingId)
+    public function get($name, User $user = null)
     {
-        return $this->repository->find($settingId);
-    }
-
-    /**
-     * Fetch all settings.
-     *
-     * @param int $amount
-     * @param int $start
-     *
-     * @return \Crmp\CrmBundle\Entity\Setting[]
-     */
-    public function findAll($amount = null, $start = null)
-    {
-        return $this->repository->findAll();
-    }
-
-    /**
-     * Fetch settings similar to the given one.
-     *
-     * @param Setting $setting
-     *
-     * @return Collection
-     */
-    public function findSimilar(Setting $setting)
-    {
-        $criteria = Criteria::create();
-
-        if ($setting->getUser()) {
-            $criteria->andWhere($criteria->expr()->eq('user', $setting->getUser()));
+        if (isset($this->data[$name])) {
+            return $this->data[$name];
         }
 
-        if ($setting->getValue()) {
-            $criteria->andWhere($criteria->expr()->eq('value', $setting->getValue()));
+        $setting = new Setting();
+        $setting->setName($name);
+
+        if ($user instanceof User) {
+            $setting->setUser($user);
         }
 
-        return $this->repository->matching($criteria);
+        $found = $this->findSimilar($setting);
+
+        if (! $found && $setting->getUser()) {
+            // last search tried with specific user => check again for the default
+            $setting->setUser(null);
+
+            $found = $this->findSimilar($setting);
+        }
+
+        if (! $found) {
+            return null;
+        }
+
+        return $this->data[$name] = $found->getValue();
     }
 
     /**
-     * Remove a setting from the database.
+     * Set the value of a setting.
      *
-     * @param Setting $setting
+     * @param string    $name  Name of the setting.
+     * @param string    $value Value of the setting.
+     * @param null|User $user  Setting will be stored for this user (use NULL to set the default value for all).
      *
      * @return mixed
      */
-    public function remove(Setting $setting)
+    public function set($name, $value, User $user = null)
     {
-        $this->entitiyManager->remove($setting);
+        $setting = new Setting();
+
+        $setting->setName($name)->setValue($value)->setUser($user);
+
+        $this->add($setting);
     }
 }
