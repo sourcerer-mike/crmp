@@ -7,9 +7,13 @@ $navbar-default-brand-hover-bg: $navbar-default-link-hover-bg;
 @import "../../../vendor/twbs/bootstrap-sass/assets/stylesheets/bootstrap";
 @import "../../../vendor/thomaspark/bootswatch/superhero/bootswatch";
 
+// FontAwesome
+$fa-font-path: '../fonts/font-awesome';
 @import "../../../vendor/components/font-awesome/scss/font-awesome";
 
 @import "sticky-footer";
+
+// Some general changes
 
 .crmp-body {
   padding-top: 70px;
