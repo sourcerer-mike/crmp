@@ -16,6 +16,11 @@
         <many-to-one target-entity="Crmp\CrmBundle\Entity\Customer" field="customer"/>
         
         <many-to-one target-entity="AppBundle\Entity\User" field="updatedBy" />
+        
+        <lifecycle-callbacks>
+            <lifecycle-callback type="prePersist" method="prePersist"/>
+            <lifecycle-callback type="preUpdate" method="preUpdate"/>
+        </lifecycle-callbacks>
 
     </entity>
 

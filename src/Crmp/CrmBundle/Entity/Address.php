@@ -10,10 +10,6 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * Addresses are important to contact someone, write invoices or know who is responsible for what.
  *
- * @ORM\Table(name="address")
- * @ORM\Entity(repositoryClass="Crmp\CrmBundle\Repository\AddressRepository")
- *
- * @ORM\HasLifecycleCallbacks
  */
 class Address
 {
@@ -21,17 +17,12 @@ class Address
     /**
      * @var Customer
      *
-     * @ORM\ManyToOne(targetEntity="Crmp\CrmBundle\Entity\Customer", inversedBy="addresses")
-     * @ORM\JoinColumn(fieldName="customer_id", referencedColumnName="id")
      */
     private $customer;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
@@ -44,8 +35,6 @@ class Address
      * It is unique so that one mail address can only be taken by one contact.
      *
      * @var string
-     *
-     * @ORM\Column(name="mail", type="string", length=255, unique=true)
      */
     private $mail;
 
@@ -57,8 +46,6 @@ class Address
      * It can be any name up to 255 characters.
      *
      * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
 
@@ -68,8 +55,6 @@ class Address
      * You might want to track when the latest change has happened,
      * to keep your data up-to-date or filter out old contacts.
      * The date and time is stored every time the address is changed.
-     *
-     * @ORM\Column(type="datetime")
      */
     private $updatedAt;
 
@@ -79,8 +64,6 @@ class Address
      * When you see that data has changed,
      * you might want to ask a person why and what has changed.
      * To have someone responsible or keep a history of changes the last person is stored on every change.
-     *
-     * @ORM\ManyToOne(targetEntity="\AppBundle\Entity\User")
      */
     private $updatedBy;
 
@@ -215,7 +198,7 @@ class Address
     }
 
     /**
-     * @ORM\PrePersist
+     * Before creating address.
      */
     public function prePersist()
     {
@@ -223,7 +206,7 @@ class Address
     }
 
     /**
-     * @ORM\PreUpdate
+     * Before updating address.
      */
     public function preUpdate()
     {

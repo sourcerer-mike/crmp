@@ -3,19 +3,13 @@
 namespace Crmp\CrmBundle\Entity;
 
 use Crmp\AccountingBundle\Entity\Invoice;
-use Crmp\CrmBundle\Entity\Address;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
  * Customer
  *
  * The mostly used entity referring to plenty others is the customer itself.
  *
- * @ORM\Table(name="customer")
- * @ORM\Entity(repositoryClass="Crmp\CrmBundle\Repository\CustomerRepository")
- *
- * @ORM\HasLifecycleCallbacks
  */
 class Customer
 {
@@ -28,8 +22,6 @@ class Customer
      * Thus it is not possible for an address to match on two customers at once.
      * It might become handy for a person working for two or more companies.
      * In this case please create the single address multiple times or only once for the one major customer.
-     *
-     * @ORM\OneToMany(targetEntity="Crmp\CrmBundle\Entity\Address", mappedBy="customer")
      */
     private $addresses;
 
@@ -37,17 +29,11 @@ class Customer
      * Timestamp when this customer has been created.
      *
      * When the customer is created the "created at" field will be filled automatically with the current date and time.
-     *
-     * @ORM\Column(type="datetime")
      */
     private $createdAt;
 
     /**
      * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
@@ -65,8 +51,6 @@ class Customer
      * So when you try to store a company that already exists an error might be thrown.
      *
      * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=255, unique=true)
      */
     private $name;
 
@@ -77,8 +61,6 @@ class Customer
      * to keep your data up-to-date or filter out old customer.
      * Every time a customer information is changed,
      * the date and time is stored.
-     *
-     * @ORM\Column(type="datetime")
      */
     private $updatedAt;
 
@@ -223,7 +205,7 @@ class Customer
     }
 
     /**
-     * @ORM\PrePersist
+     * Before creating new customer.
      */
     public function prePersist()
     {
@@ -232,8 +214,7 @@ class Customer
     }
 
     /**
-     *
-     * @ORM\PreUpdate
+     * Before updating customer.
      */
     public function preUpdate()
     {
