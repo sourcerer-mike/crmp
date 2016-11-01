@@ -1,3 +1,10 @@
+doctrine:
+  orm:
+    mappings:
+      CrmpCrmBundle:
+        type: xml
+        dir: Resources/config/doctrine
+
 services:
   crmp.customer.repository:
     class: Crmp\CrmBundle\CoreDomain\Customer\CustomerRepository
