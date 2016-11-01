@@ -151,7 +151,7 @@ class Offer
     /**
      * Store the creation date.
      *
-     * @ORM\prePersist
+     * @ORM\PrePersist
      */
     public function doPrePersist()
     {
