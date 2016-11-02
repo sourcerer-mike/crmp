@@ -65,7 +65,7 @@ services:
   crmp_crm.menu.user:
     public: false
     class: Crmp\CrmBundle\Menu\UserMenu
-    decorates: app.menu_builder
+    decorates: crmp.menu_builder
     arguments: ["@crmp_crm.menu.user.inner", "@service_container"]
 
   crmp_crm.twig.panels:

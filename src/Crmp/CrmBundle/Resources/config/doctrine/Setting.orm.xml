@@ -14,7 +14,7 @@
         <field name="name"/>
         <field name="value"/>
 
-        <many-to-one target-entity="AppBundle\Entity\User" field="user"/>
+        <many-to-one target-entity="Crmp\CrmBundle\Entity\User" field="user"/>
     </entity>
 
 </doctrine-mapping>
