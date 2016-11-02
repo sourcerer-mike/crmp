@@ -4,6 +4,7 @@
 namespace Crmp\CrmBundle\Tests\CoreDomain;
 
 
+use Crmp\CoreDomain\RepositoryInterface;
 use Crmp\CrmBundle\CoreDomain\Settings\SettingsRepository;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManager;
@@ -13,9 +14,13 @@ abstract class AbstractRepositoryTestCase extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var string
+     *
+     * @deprecated 1.0.0 Use the method ::getRepositoryClassName() instead.
      */
     protected $className;
     protected $repositoryMock;
+
+    abstract protected function createEntity();
 
     protected function createEntityManagerMock()
     {
@@ -30,7 +35,7 @@ abstract class AbstractRepositoryTestCase extends \PHPUnit_Framework_TestCase
      */
     protected function createRepositoryMockBuilder($repo = null, $entityManager = null)
     {
-        $settingsRepository = $this->getMockBuilder($this->className);
+        $settingsRepository = $this->getMockBuilder($this->getRepositoryClassName());
 
         if (! $repo) {
             $repo = $this->createMock(EntityRepository::class);
@@ -72,6 +77,26 @@ abstract class AbstractRepositoryTestCase extends \PHPUnit_Framework_TestCase
                            }
                        );
     }
+
+    /**
+     * @return \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected function getEntitiyRepositoryMock()
+    {
+        return $this->getMockBuilder(EntityRepository::class)
+                    ->disableOriginalConstructor()
+                    ->setMethods(['matching'])
+                    ->getMock();
+    }
+
+    /**
+     * Get the current class name.
+     *
+     * With 1.0.0 this method will become abstract so that every test have to implement it.
+     *
+     * @return string
+     */
+    abstract protected function getRepositoryClassName();
 
     protected function getRepositoryMock($methodReturnMap = [])
     {
