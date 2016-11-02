@@ -2,7 +2,7 @@
 
 namespace Crmp\CrmBundle\CoreDomain\Settings;
 
-use AppBundle\Entity\User;
+use Crmp\CrmBundle\Entity\User;
 use Crmp\CrmBundle\Entity\Setting;
 use Crmp\CoreDomain\Settings\SettingRepositoryInterface;
 use Crmp\CrmBundle\CoreDomain\AbstractRepository;

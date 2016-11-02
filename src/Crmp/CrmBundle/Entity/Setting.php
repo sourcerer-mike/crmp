@@ -8,14 +8,14 @@ namespace Crmp\CrmBundle\Entity;
 class Setting extends \Crmp\CoreDomain\Settings\Setting
 {
     /**
-     * @var \AppBundle\Entity\User
+     * @var \Crmp\CrmBundle\Entity\User
      */
     protected $user;
 
     /**
      * Set user
      *
-     * @param \AppBundle\Entity\User $user
+     * @param \Crmp\CrmBundle\Entity\User $user
      *
      * @return Setting
      */

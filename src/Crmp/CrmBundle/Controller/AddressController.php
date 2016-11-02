@@ -3,7 +3,6 @@
 namespace Crmp\CrmBundle\Controller;
 
 use Crmp\CrmBundle\Panels\Settings\General;
-use Crmp\CrmBundle\Controller\AbstractCrmpController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;

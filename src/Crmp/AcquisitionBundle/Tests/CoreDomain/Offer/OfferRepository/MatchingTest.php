@@ -21,7 +21,7 @@ class MatchingTest extends AbstractRepositoryTestCase
         $offer = new Offer();
         $offer->setCustomer($expectedCustomer);
 
-        $offerRepositoryMock = $this->getRepositoryMock();
+        $offerRepositoryMock = $this->getOfferRepositoryMock();
 
         $this->expectCriteria($offerRepositoryMock, 'customer', $expectedCustomer);
 
@@ -37,7 +37,7 @@ class MatchingTest extends AbstractRepositoryTestCase
         $offer = new Offer();
         $offer->setInquiry($expectedInquiry);
 
-        $offerRepositoryMock = $this->getRepositoryMock();
+        $offerRepositoryMock = $this->getOfferRepositoryMock();
 
         $this->expectCriteria($offerRepositoryMock, 'inquiry', $expectedInquiry);
 
@@ -49,7 +49,7 @@ class MatchingTest extends AbstractRepositoryTestCase
     /**
      * @return \PHPUnit_Framework_MockObject_MockObject
      */
-    protected function getRepositoryMock()
+    protected function getOfferRepositoryMock()
     {
         return $this->getMockBuilder(\Crmp\AcquisitionBundle\Repository\OfferRepository::class)
                     ->disableOriginalConstructor()

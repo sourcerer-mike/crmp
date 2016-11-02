@@ -2,7 +2,7 @@
 
 namespace Crmp\CoreDomain\Settings;
 
-use AppBundle\Entity\User;
+use Crmp\CrmBundle\Entity\User;
 
 /**
  * Single setting.
@@ -61,7 +61,7 @@ class Setting
     /**
      * Get user
      *
-     * @return \AppBundle\Entity\User|int
+     * @return \Crmp\CrmBundle\Entity\User|int
      */
     public function getUser()
     {
@@ -95,7 +95,7 @@ class Setting
     /**
      * Set user
      *
-     * @param \AppBundle\Entity\User $user
+     * @param \Crmp\CrmBundle\Entity\User $user
      *
      * @return Setting
      */

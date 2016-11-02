@@ -4,7 +4,7 @@
 namespace Crmp\CrmBundle\Tests\Controller\SettingsController;
 
 
-use AppBundle\Entity\User;
+use Crmp\CrmBundle\Entity\User;
 use Crmp\CoreDomain\Settings\SettingRepositoryInterface;
 use Crmp\CrmBundle\Controller\SettingsController;
 use Crmp\CrmBundle\CoreDomain\Settings\SettingsRepository;
@@ -13,6 +13,7 @@ use Crmp\CrmBundle\Panels\Settings\General;
 use Crmp\CrmBundle\Tests\Controller\AbstractControllerTestCase;
 use Crmp\CrmBundle\Twig\PanelGroup;
 use Crmp\CrmBundle\Twig\PanelInterface;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
@@ -45,6 +46,7 @@ class IndexActionTest extends AbstractControllerTestCase
         $mockedMethods = parent::getMockedMethods();
 
         $mockedMethods[] = 'getUser';
+        $mockedMethods[] = 'getCurrentSettings';
 
         return $mockedMethods;
     }
@@ -137,7 +139,7 @@ class IndexActionTest extends AbstractControllerTestCase
     {
         $formMock = $this->getMockBuilder(Form::class)
                          ->disableOriginalConstructor()
-                         ->setMethods(['getData', 'handleRequest', 'isSubmitted', 'isValid'])
+                         ->setMethods(['getData', 'handleRequest', 'isSubmitted', 'isValid', 'setData'])
                          ->getMock();
 
         $panelMock->expects($this->once())
@@ -174,8 +176,12 @@ class IndexActionTest extends AbstractControllerTestCase
 
         $this->settingsRepositoryMock = $this->getMockBuilder(SettingsRepository::class)
                                              ->disableOriginalConstructor()
-                                             ->setMethods(['add', 'flush'])
+                                             ->setMethods(['add', 'flush', 'findSimilar'])
                                              ->getMock();
+
+        $this->settingsRepositoryMock->expects($this->any())
+                                     ->method('findSimilar')
+                                     ->willReturn(new ArrayCollection());
 
         $this->mockService('crmp.setting.repository', $this->settingsRepositoryMock);
 

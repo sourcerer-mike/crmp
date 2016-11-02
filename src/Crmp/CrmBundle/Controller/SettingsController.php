@@ -2,7 +2,6 @@
 
 namespace Crmp\CrmBundle\Controller;
 
-use AppBundle\Controller\AbstractCrmpController;
 use Crmp\CrmBundle\Entity\Setting;
 use Crmp\CrmBundle\Twig\AbstractSettingsPanel;
 use Doctrine\Common\Collections\Collection;

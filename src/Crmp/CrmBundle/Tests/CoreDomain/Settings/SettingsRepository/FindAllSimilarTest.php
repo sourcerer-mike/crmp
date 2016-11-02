@@ -4,9 +4,7 @@
 namespace Crmp\CrmBundle\Tests\CoreDomain\Settings\SettingsRepository;
 
 
-use AppBundle\Entity\User;
 use Crmp\CrmBundle\CoreDomain\Settings\SettingsRepository;
-use Crmp\CrmBundle\Entity\Setting;
 use Crmp\CrmBundle\Tests\CoreDomain\AbstractRepositoryTestCase;
 
 /**

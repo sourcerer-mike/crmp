@@ -2,8 +2,7 @@
 
 namespace Crmp\CrmBundle\Menu;
 
-use AppBundle\Entity\User;
-use AppBundle\Menu\AbstractMenuDecorator;
+use Crmp\CrmBundle\Entity\User;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
