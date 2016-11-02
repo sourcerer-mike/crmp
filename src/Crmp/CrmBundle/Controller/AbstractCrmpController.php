@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Controller;
+namespace Crmp\CrmBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
  * Other controller shall inherit from this
  * because it registers the current used parameters in the DI container.
  *
- * @package AppBundle\Controller
+ * @package Crmp\CrmBundle\Controller
  */
 abstract class AbstractCrmpController extends Controller
 {

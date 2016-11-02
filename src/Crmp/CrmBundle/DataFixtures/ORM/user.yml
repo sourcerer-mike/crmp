@@ -1,4 +1,4 @@
-AppBundle\Entity\User:
+Crmp\CrmBundle\Entity\User:
   user_1:
     username: Mike
     usernameCanonical: mike

@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Menu;
+namespace Crmp\CrmBundle\Menu;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;

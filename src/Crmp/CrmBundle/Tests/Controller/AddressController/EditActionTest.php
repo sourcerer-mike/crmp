@@ -3,7 +3,7 @@
 namespace Crmp\CrmBundle\Tests\Controller\AddressController;
 
 
-use AppBundle\Entity\User;
+use Crmp\CrmBundle\Entity\User;
 use Crmp\CrmBundle\Controller\AddressController;
 use Crmp\CrmBundle\CoreDomain\Address\AddressRepository;
 use Crmp\CrmBundle\Entity\Address;

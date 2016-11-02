@@ -7,26 +7,3 @@ services:
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
-  app.twig_extension:
-    class: AppBundle\Twig\AppExtension
-    public: false
-    tags:
-        - { name: twig.extension }
-
-  app.menu_builder:
-    class: AppBundle\Menu\MenuBuilder
-    arguments: ["@knp_menu.factory", "@service_container"]
-
-  app.menu.main:
-    class: Knp\Menu\MenuItem
-    factory: ["@app.menu_builder", createMainMenu]
-    arguments: ["@request_stack"]
-    tags:
-      - { name: knp_menu.menu, alias: main }
-
-  app.menu.related:
-      class: Knp\Menu\MenuItem
-      factory: ["@app.menu_builder", createRelatedMenu]
-      arguments: ["@request_stack"]
-      tags:
-        - { name: knp_menu.menu, alias: related }

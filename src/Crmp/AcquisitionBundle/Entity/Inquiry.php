@@ -65,7 +65,7 @@ class Inquiry
      * Keep track of your oldest and youngest inquiries by setting a date,
      * so that salesmen can establish a workflow to achieve satisfied customers and/or thrifty projects.
      *
-     * @var string
+     * @var \DateTime
      *
      * @ORM\Column(type="datetime", name="inquired_at")
      */
@@ -202,12 +202,27 @@ class Inquiry
     /**
      * Set inquiredAt
      *
-     * @param \DateTime $inquiredAt
+     * @param string|\DateTime $inquiredAt
      *
      * @return Inquiry
      */
     public function setInquiredAt($inquiredAt)
     {
+        if (is_scalar($inquiredAt)) {
+            // string is given => transform into date time
+            $inquiredAt = new \DateTime($inquiredAt);
+        }
+
+        if (false == $inquiredAt instanceof \DateTime) {
+            // unhandled value => show error
+            throw new \InvalidArgumentException(
+                sprintf(
+                    'Invalid date given (%s). Please use a string containing a date or a DateTime object.',
+                    is_object(func_get_arg(0)) ? get_class(func_get_arg(0)) : var_export(func_get_arg(0), true)
+                )
+            );
+        }
+
         $this->inquiredAt = $inquiredAt;
 
         return $this;

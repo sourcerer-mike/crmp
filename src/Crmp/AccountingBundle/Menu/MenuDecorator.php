@@ -2,7 +2,7 @@
 
 namespace Crmp\AccountingBundle\Menu;
 
-use AppBundle\Menu\AbstractMenuDecorator;
+use Crmp\CrmBundle\Menu\AbstractMenuDecorator;
 use Crmp\AccountingBundle\Entity\Invoice;
 use Crmp\AcquisitionBundle\Entity\Contract;
 use Crmp\CrmBundle\Entity\Customer;

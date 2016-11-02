@@ -2,6 +2,7 @@ language: php
 php:
   - '5.6'
   - '7.0'
+  - '7.1'
 
 services:
   - mysql
@@ -19,7 +20,7 @@ before_script:
 script:
   - vendor/bin/phpcs --standard=phpcs.xml src
   - vendor/bin/phpunit --colors=never --coverage-clover var/phpunit/coverage.xml
-  - vendor/bin/behat --no-colors
+  - vendor/bin/behat --no-colors -f progress
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)

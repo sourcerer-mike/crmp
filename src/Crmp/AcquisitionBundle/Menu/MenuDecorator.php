@@ -2,7 +2,7 @@
 
 namespace Crmp\AcquisitionBundle\Menu;
 
-use AppBundle\Menu\AbstractMenuDecorator;
+use Crmp\CrmBundle\Menu\AbstractMenuDecorator;
 use Crmp\AcquisitionBundle\Entity\Contract;
 use Crmp\AcquisitionBundle\Entity\Inquiry;
 use Crmp\AcquisitionBundle\Entity\Offer;
