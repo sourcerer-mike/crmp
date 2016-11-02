@@ -3,6 +3,7 @@
 namespace Crmp\Tests\CoreDomain\Settings;
 
 use Crmp\CoreDomain\Settings\Setting;
+use Crmp\CrmBundle\Entity\User;
 
 /**
  * Testing the settings class.
@@ -56,5 +57,18 @@ class SettingTest extends \PHPUnit_Framework_TestCase
         $setting->setUser($value);
 
         $this->assertEquals($expectedValue, $setting->getUser());
+    }
+
+    public function testSettingsCanBeBoundToAnUser()
+    {
+        $setting = new Setting();
+
+        // copy value to suppress changes by reference
+        $user = new User();
+        $user->setUsername(uniqid());
+
+        $setting->setUser($user);
+
+        $this->assertEquals($user, $setting->getUser());
     }
 }
