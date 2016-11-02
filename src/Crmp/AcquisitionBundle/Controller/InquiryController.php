@@ -2,7 +2,7 @@
 
 namespace Crmp\AcquisitionBundle\Controller;
 
-use AppBundle\Controller\AbstractCrmpController;
+use Crmp\CrmBundle\Controller\AbstractCrmpController;
 use Doctrine\Common\Collections\Criteria;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;

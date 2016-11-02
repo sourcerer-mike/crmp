@@ -2,7 +2,7 @@ services:
   crmp_acquisition.menu:
     public: false
     class: Crmp\AcquisitionBundle\Menu\MenuDecorator
-    decorates: app.menu_builder
+    decorates: crmp.menu_builder
     arguments: ["@crmp_acquisition.menu.inner", "@service_container"]
 
   crmp_acquisition.config:

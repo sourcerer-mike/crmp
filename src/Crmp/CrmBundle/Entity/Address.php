@@ -2,7 +2,7 @@
 
 namespace Crmp\CrmBundle\Entity;
 
-use AppBundle\Entity\User;
+use Crmp\CrmBundle\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 
 /**

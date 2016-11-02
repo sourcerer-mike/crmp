@@ -2,7 +2,7 @@
 
 namespace Crmp\CrmBundle\Menu;
 
-use AppBundle\Menu\AbstractMenuDecorator;
+use Crmp\CrmBundle\Menu\AbstractMenuDecorator;
 use Crmp\CrmBundle\Entity\Address;
 use Crmp\CrmBundle\Entity\Customer;
 use Knp\Menu\MenuItem;

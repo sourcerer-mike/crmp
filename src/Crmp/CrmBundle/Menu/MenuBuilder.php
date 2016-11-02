@@ -1,10 +1,7 @@
 <?php
 
-namespace AppBundle\Menu;
+namespace Crmp\CrmBundle\Menu;
 
-use AppBundle\Event\Menu\ConfigureMainMenuEvent;
-use AppBundle\Event\Menu\ConfigureRelatedMenuEvent;
-use AppBundle\Event\Menu\ConfigureUserMenuEvent;
 use Knp\Menu\FactoryInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\Debug\TraceableEventDispatcherInterface;
@@ -52,11 +49,6 @@ class MenuBuilder implements MenuBuilderInterface
         $menu = $this->factory->createItem('root');
         $menu->setDisplay(false);
 
-        $this->eventDispatcher->dispatch(
-            ConfigureMainMenuEvent::NAME,
-            new ConfigureMainMenuEvent($this->factory, $menu)
-        );
-
         return $menu;
     }
 
@@ -72,11 +64,6 @@ class MenuBuilder implements MenuBuilderInterface
         $menu = $this->factory->createItem('root');
         $menu->setDisplay(false);
 
-        $this->eventDispatcher->dispatch(
-            ConfigureUserMenuEvent::NAME,
-            new ConfigureUserMenuEvent($this->factory, $menu)
-        );
-
         return $menu;
     }
 
@@ -91,11 +78,6 @@ class MenuBuilder implements MenuBuilderInterface
     {
         $menu = $this->factory->createItem('root');
         $menu->setDisplay(false);
-
-        $this->eventDispatcher->dispatch(
-            ConfigureRelatedMenuEvent::NAME,
-            new ConfigureRelatedMenuEvent($this->factory, $menu)
-        );
 
         return $menu;
     }

@@ -1,13 +1,13 @@
 <?php
 
-namespace AppBundle\Twig;
+namespace Crmp\CrmBundle\Twig;
 
 /**
- * The app itself extending Twig.
+ * Twig-Extension to render prices.
  *
- * @package AppBundle\Twig
+ * @package Crmp\CrmBundle\Twig
  */
-class AppExtension extends \Twig_Extension
+class PriceRenderer extends \Twig_Extension
 {
     /**
      * Register filters.
