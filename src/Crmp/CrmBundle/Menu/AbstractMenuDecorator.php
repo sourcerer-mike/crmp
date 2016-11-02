@@ -2,8 +2,6 @@
 
 namespace Crmp\CrmBundle\Menu;
 
-use AppBundle\Menu\MenuDecoratorInterface;
-use AppBundle\Menu\MenuInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
