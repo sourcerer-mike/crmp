@@ -3,11 +3,16 @@
 
 namespace Crmp\CrmBundle\CoreDomain\Config;
 
+use Crmp\CrmBundle\CoreDomain\Settings\SettingsRepository;
 use Crmp\CrmBundle\Repository\ConfigRepository as ConfigRepo;
 use Doctrine\Common\Collections\Criteria;
 
 /**
  * Adapter to the config storage.
+ *
+ * @deprecated 1.0.0 Use SettingRepository instead.
+ *
+ * @see SettingsRepository
  *
  * @package Crmp\CrmBundle\CoreDomain\Config
  */

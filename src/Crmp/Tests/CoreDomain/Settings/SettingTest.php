@@ -46,7 +46,7 @@ class SettingTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expectedValue, $setting->getId());
     }
 
-    public function testItHasAnValue()
+    public function testItHasAValue()
     {
         $setting = new Setting();
 
