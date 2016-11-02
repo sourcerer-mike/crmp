@@ -2,8 +2,6 @@
 
 namespace AppBundle\Menu;
 
-use AppBundle\Event\Menu\ConfigureMainMenuEvent;
-use AppBundle\Event\Menu\ConfigureRelatedMenuEvent;
 use Knp\Menu\FactoryInterface;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -52,11 +50,6 @@ class MenuBuilder implements MenuBuilderInterface
         $menu = $this->factory->createItem('root');
         $menu->setDisplay(false);
 
-        $this->eventDispatcher->dispatch(
-            ConfigureMainMenuEvent::NAME,
-            new ConfigureMainMenuEvent($this->factory, $menu)
-        );
-
         return $menu;
     }
 
@@ -71,11 +64,6 @@ class MenuBuilder implements MenuBuilderInterface
     {
         $menu = $this->factory->createItem('root');
         $menu->setDisplay(false);
-
-        $this->eventDispatcher->dispatch(
-            ConfigureRelatedMenuEvent::NAME,
-            new ConfigureRelatedMenuEvent($this->factory, $menu)
-        );
 
         return $menu;
     }
