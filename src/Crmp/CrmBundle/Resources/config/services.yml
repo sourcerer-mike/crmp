@@ -1,4 +1,22 @@
 services:
+  crmp.menu_builder:
+    class: AppBundle\Menu\MenuBuilder
+    arguments: ["@knp_menu.factory", "@service_container"]
+
+  crmp.menu.main:
+    class: Knp\Menu\MenuItem
+    factory: ["@crmp.menu_builder", createMainMenu]
+    arguments: ["@request_stack"]
+    tags:
+      - { name: knp_menu.menu, alias: main }
+
+  crmp.menu.related:
+    class: Knp\Menu\MenuItem
+    factory: ["@crmp.menu_builder", createRelatedMenu]
+    arguments: ["@request_stack"]
+    tags:
+      - { name: knp_menu.menu, alias: related }
+
   crmp_crm.address.related_panel:
     class: Crmp\CrmBundle\Twig\PanelGroup
     tags:
@@ -49,7 +67,7 @@ services:
   crmp_crm.menu:
     public: false
     class: Crmp\CrmBundle\Menu\MenuDecorator
-    decorates: app.menu_builder
+    decorates: crmp.menu_builder
     arguments: ["@crmp_crm.menu.inner", "@service_container"]
 
   crmp_crm.twig.panels:

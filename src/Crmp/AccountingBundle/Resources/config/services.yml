@@ -2,7 +2,7 @@ services:
   crmp_accounting.menu:
     public: false
     class: Crmp\AccountingBundle\Menu\MenuDecorator
-    decorates: app.menu_builder
+    decorates: crmp.menu_builder
     arguments: ["@crmp_accounting.menu.inner", "@service_container"]
 
   crmp_accounting.customer.related_panel.invoices:
