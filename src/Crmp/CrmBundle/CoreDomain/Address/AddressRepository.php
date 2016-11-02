@@ -29,6 +29,14 @@ class AddressRepository
         $this->entityManager      = $entityManager;
     }
 
+    /**
+     * Fetch all addresses.
+     *
+     * @param null $amount
+     * @param null $start
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
     public function findAll($amount = null, $start = null)
     {
         $criteria = Criteria::create();

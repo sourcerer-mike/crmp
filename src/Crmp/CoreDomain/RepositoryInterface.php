@@ -1,9 +1,12 @@
 <?php
 
-
 namespace Crmp\CoreDomain;
 
-
+/**
+ * Interface how to use repositories.
+ *
+ * @package Crmp\CoreDomain
+ */
 interface RepositoryInterface
 {
     /**

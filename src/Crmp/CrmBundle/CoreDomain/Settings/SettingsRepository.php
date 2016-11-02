@@ -22,6 +22,14 @@ class SettingsRepository extends AbstractRepository implements SettingRepository
      */
     protected $data = [];
 
+    /**
+     * Add or update setting.
+     *
+     * @param \Crmp\CoreDomain\Settings\Setting|object $setting
+     * @throws \InvalidArgumentException
+     *
+     * @return null
+     */
     public function add($setting)
     {
         /** @var Setting $existingSetting */

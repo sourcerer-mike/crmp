@@ -8,6 +8,11 @@ use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 
+/**
+ * Abstract capabilities of a repository.
+ *
+ * @package Crmp\CrmBundle\CoreDomain
+ */
 abstract class AbstractRepository implements RepositoryInterface
 {
     const ORDER_ASC  = Criteria::ASC;
