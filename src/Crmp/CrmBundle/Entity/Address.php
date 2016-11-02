@@ -2,7 +2,7 @@
 
 namespace Crmp\CrmBundle\Entity;
 
-use AppBundle\Entity\User;
+use Crmp\CrmBundle\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -80,7 +80,7 @@ class Address
      * you might want to ask a person why and what has changed.
      * To have someone responsible or keep a history of changes the last person is stored on every change.
      *
-     * @ORM\ManyToOne(targetEntity="\AppBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="\Crmp\CrmBundle\Entity\User")
      */
     private $updatedBy;
 
