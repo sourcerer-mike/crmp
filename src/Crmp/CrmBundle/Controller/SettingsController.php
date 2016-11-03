@@ -2,6 +2,7 @@
 
 namespace Crmp\CrmBundle\Controller;
 
+use Crmp\CoreDomain\Settings\SettingRepositoryInterface;
 use Crmp\CrmBundle\Entity\Setting;
 use Crmp\CrmBundle\Twig\AbstractSettingsPanel;
 use Doctrine\Common\Collections\Collection;
@@ -104,7 +105,7 @@ class SettingsController extends AbstractCrmpController
      * which is bound to the user NULL in the database.
      * Then the user settings override those defaults.
      *
-     * @param $settingsRepository
+     * @param SettingRepositoryInterface $settingsRepository
      *
      * @return array
      */
@@ -112,12 +113,12 @@ class SettingsController extends AbstractCrmpController
     {
         // get defaults / settings for user NULL as array
         $searchSettings  = new Setting();
-        $currentSettings = $this->flattenSettings($settingsRepository->findSimilar($searchSettings));
+        $currentSettings = $this->flattenSettings($settingsRepository->findAllSimilar($searchSettings));
 
         if ($this->getUser()) {
             // user is logged in => override default with the user settings
             $searchSettings->setUser($this->getUser());
-            $userSettings = $this->flattenSettings($settingsRepository->findSimilar($searchSettings));
+            $userSettings = $this->flattenSettings($settingsRepository->findAllSimilar($searchSettings));
 
             $currentSettings = array_merge($currentSettings, $userSettings);
         }
