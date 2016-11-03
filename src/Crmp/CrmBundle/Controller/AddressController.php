@@ -197,9 +197,4 @@ class AddressController extends AbstractCrmpController
                     ->setMethod('DELETE')
                     ->getForm();
     }
-
-    protected function getListLimit()
-    {
-        return $this->get('crmp.setting.repository')->get(General::LIST_LIMIT, $this->getUser());
-    }
 }

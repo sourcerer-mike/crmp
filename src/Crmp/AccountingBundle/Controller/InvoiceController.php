@@ -2,8 +2,8 @@
 
 namespace Crmp\AccountingBundle\Controller;
 
+use Crmp\CoreDomain\RepositoryInterface;
 use Crmp\CrmBundle\Controller\AbstractCrmpController;
-use Doctrine\Common\Collections\Criteria;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -22,34 +22,9 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class InvoiceController extends AbstractCrmpController
 {
-    /**
-     * Deletes an invoice.
-     *
-     * You should not delete invoices as this is needed for accounting.
-     * Anyways CRMP allows you to delete entities as if they never existed.
-     * Please be careful deleting things.
-     *
-     * @Route("/{id}", name="crmp_accounting_invoice_delete")
-     * @Method("DELETE")
-     *
-     * @param Request $request
-     * @param Invoice $invoice
-     *
-     * @return RedirectResponse
-     */
-    public function deleteAction(Request $request, Invoice $invoice)
-    {
-        $form = $this->createDeleteForm($invoice);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($invoice);
-            $em->flush();
-        }
-
-        return $this->redirectToRoute('crmp_accounting_invoice_index');
-    }
+    const ROUTE_DELETE = 'crmp_accounting_invoice_delete';
+    const ROUTE_INDEX  = 'crmp_accounting_invoice_index';
+    const ROUTE_SHOW   = 'crmp_accounting_invoice_show';
 
     /**
      * Change a single existing invoice.
@@ -58,9 +33,6 @@ class InvoiceController extends AbstractCrmpController
      * or the invoice needs more details than the contract offered.
      * In such cases you can edit the invoice.
      *
-     * @Route("/{id}/edit", name="crmp_accounting_invoice_edit")
-     * @Method({"GET", "POST"})
-     *
      * @param Request $request
      * @param Invoice $invoice
      *
@@ -68,16 +40,13 @@ class InvoiceController extends AbstractCrmpController
      */
     public function editAction(Request $request, Invoice $invoice)
     {
-        $deleteForm = $this->createDeleteForm($invoice);
-        $editForm   = $this->createForm('Crmp\AccountingBundle\Form\InvoiceType', $invoice);
+        $editForm = $this->createForm(InvoiceType::class, $invoice);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $repo = $this->get('crmp.invoice.repository');
+            $this->getMainRepository()->persist($invoice);
 
-            $repo->update($invoice);
-
-            return $this->redirectToRoute('crmp_accounting_invoice_show', array('id' => $invoice->getId()));
+            return $this->redirectToRoute(self::ROUTE_SHOW, array('id' => $invoice->getId()));
         }
 
         return $this->render(
@@ -85,7 +54,7 @@ class InvoiceController extends AbstractCrmpController
             array(
                 'invoice'     => $invoice,
                 'edit_form'   => $editForm->createView(),
-                'delete_form' => $deleteForm->createView(),
+                'delete_form' => $this->createDeleteForm($invoice)->createView(),
             )
         );
     }
@@ -96,30 +65,24 @@ class InvoiceController extends AbstractCrmpController
      * Control all invoices.
      * You can apply some filters here to get a better overview.
      *
-     * @Route("/", name="crmp_accounting_invoice_index")
-     * @Method("GET")
-     *
      * @param Request $request
      *
      * @return Response
      */
     public function indexAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $criteria = Criteria::create();
+        $searchInvoice = new Invoice();
 
         if ($request->get('customer')) {
-            $customer = $this->getDoctrine()->getRepository('CrmpCrmBundle:Customer')->find($request->get('customer'));
-            $criteria->andWhere(Criteria::expr()->eq('customer', $customer));
+            $searchInvoice->setCustomer(
+                $this->get('crmp.customer.repository')->find($request->get('customer'))
+            );
         }
-
-        $invoices = $em->getRepository('CrmpAccountingBundle:Invoice')->matching($criteria);
 
         return $this->render(
             'CrmpAccountingBundle:Invoice:index.html.twig',
             array(
-                'invoices' => $invoices,
+                'invoices' => $this->fetchSimilar($searchInvoice, $request),
             )
         );
     }
@@ -128,9 +91,6 @@ class InvoiceController extends AbstractCrmpController
      * Creating a new invoice.
      *
      * Invoices keep your business going especially the paid ones.
-     *
-     * @Route("/new", name="crmp_accounting_invoice_new")
-     * @Method({"GET", "POST"})
      *
      * @param Request $request
      *
@@ -142,7 +102,7 @@ class InvoiceController extends AbstractCrmpController
 
         if ($request->get('customer')) {
             $invoice->setCustomer(
-                $this->getDoctrine()->getRepository('CrmpCrmBundle:Customer')->find($request->get('customer'))
+                $this->get('crmp.customer.repository')->find($request->get('customer'))
             );
         }
 
@@ -150,15 +110,13 @@ class InvoiceController extends AbstractCrmpController
             $invoice->setValue((float) $request->get('value'));
         }
 
-        $form = $this->createForm('Crmp\AccountingBundle\Form\InvoiceType', $invoice);
+        $form = $this->createForm(InvoiceType::class, $invoice);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($invoice);
-            $em->flush();
+            $this->getMainRepository()->persist($invoice);
 
-            return $this->redirectToRoute('crmp_accounting_invoice_show', array('id' => $invoice->getId()));
+            return $this->redirectToRoute(self::ROUTE_SHOW, array('id' => $invoice->getId()));
         }
 
         return $this->render(
@@ -174,9 +132,6 @@ class InvoiceController extends AbstractCrmpController
      * Look at a single invoice.
      *
      * Recheck a single invoice calling "/invoice/{id}".
-     *
-     * @Route("/{id}", name="crmp_accounting_invoice_show")
-     * @Method("GET")
      *
      * @param Invoice $invoice
      *
@@ -195,18 +150,14 @@ class InvoiceController extends AbstractCrmpController
         );
     }
 
+
     /**
-     * Creates a form to delete a Invoice entity.
+     * Repository suitable for the controller.
      *
-     * @param Invoice $invoice The Invoice entity
-     *
-     * @return \Symfony\Component\Form\Form The form
+     * @return RepositoryInterface
      */
-    protected function createDeleteForm(Invoice $invoice)
+    protected function getMainRepository()
     {
-        return $this->createFormBuilder()
-                    ->setAction($this->generateUrl('crmp_accounting_invoice_delete', array('id' => $invoice->getId())))
-                    ->setMethod('DELETE')
-                    ->getForm();
+        return $this->get('crmp.invoice.repository');
     }
 }
