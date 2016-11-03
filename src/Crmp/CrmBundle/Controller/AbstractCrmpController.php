@@ -93,6 +93,7 @@ abstract class AbstractCrmpController extends Controller
      */
     public function editAction(Request $request)
     {
+        var_dump($object);
         if (! $request->get('id')) {
             throw new \InvalidArgumentException('Please provide an ID.');
         }

@@ -9,21 +9,20 @@ use Crmp\CrmBundle\Tests\Controller\AbstractShowActionTest;
 
 class ShowActionTest extends AbstractShowActionTest
 {
+    public function testUserCanAccessAnInvoice()
+    {
+        $invoice = new Invoice();
+        $invoice->setValue(14);
+
+        $this->expectRenderingWith('CrmpAccountingBundle:Invoice:show.html.twig', ['invoice' => $invoice]);
+
+        $this->controllerMock->showAction($invoice);
+    }
+
     protected function setUp()
     {
         $this->controllerClass = InvoiceController::class;
 
         parent::setUp();
-    }
-
-    public function testUserCanAccessAnInvoice()
-    {
-
-        $invoice = new Invoice();
-        $invoice->setValue(14);
-
-        $this->expectRendering('invoice', $invoice, 'CrmpAccountingBundle:Invoice:show.html.twig');
-
-        $this->controllerMock->showAction($invoice);
     }
 }

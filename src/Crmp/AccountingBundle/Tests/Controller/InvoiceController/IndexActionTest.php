@@ -4,7 +4,6 @@ namespace Crmp\AccountingBundle\Tests\Controller\InvoiceController;
 
 
 use Crmp\AccountingBundle\Controller\InvoiceController;
-use Crmp\AccountingBundle\CoreDomain\InvoiceRepository;
 use Crmp\AccountingBundle\Entity\Invoice;
 use Crmp\CrmBundle\CoreDomain\Customer\CustomerRepository;
 use Crmp\CrmBundle\Entity\Customer;
