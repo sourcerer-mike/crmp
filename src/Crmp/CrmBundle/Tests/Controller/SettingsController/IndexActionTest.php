@@ -109,7 +109,7 @@ class IndexActionTest extends AbstractControllerTestCase
         );
 
         $this->settingsRepositoryMock->expects($this->once())
-                                     ->method('add')
+                                     ->method('persist')
                                      ->with($expectedSetting);
 
         $this->controllerMock->indexAction(new Request([$key => $value]));
@@ -176,7 +176,7 @@ class IndexActionTest extends AbstractControllerTestCase
 
         $this->settingsRepositoryMock = $this->getMockBuilder(SettingsRepository::class)
                                              ->disableOriginalConstructor()
-                                             ->setMethods(['add', 'flush', 'findSimilar'])
+                                             ->setMethods(['persist', 'flush', 'findSimilar'])
                                              ->getMock();
 
         $this->settingsRepositoryMock->expects($this->any())

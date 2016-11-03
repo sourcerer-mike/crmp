@@ -45,11 +45,11 @@ abstract class AbstractRepository implements RepositoryInterface
     /**
      * Store a setting in the database.
      *
-     * @param Setting $entity
+     * @param object $entity
      *
      * @return mixed
      */
-    public function add($entity)
+    public function persist($entity)
     {
         $this->entityManager->persist($entity);
     }

@@ -30,7 +30,7 @@ class SettingsRepository extends AbstractRepository implements SettingRepository
      *
      * @return null
      */
-    public function add($setting)
+    public function persist($setting)
     {
         /** @var Setting $existingSetting */
         $existingSetting = null;
@@ -50,7 +50,7 @@ class SettingsRepository extends AbstractRepository implements SettingRepository
             $setting = $existingSetting;
         }
 
-        parent::add($setting);
+        parent::persist($setting);
     }
 
     /**
@@ -142,6 +142,6 @@ class SettingsRepository extends AbstractRepository implements SettingRepository
 
         $setting->setName($name)->setValue($value)->setUser($user);
 
-        $this->add($setting);
+        $this->persist($setting);
     }
 }

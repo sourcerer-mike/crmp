@@ -14,7 +14,7 @@ interface RepositoryInterface
      *
      * @param object $entity
      */
-    public function add($entity);
+    public function persist($entity);
 
     /**
      * Fetch a single entitiy by ID.

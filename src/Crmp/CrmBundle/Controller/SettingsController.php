@@ -66,7 +66,7 @@ class SettingsController extends AbstractCrmpController
                 $setting->setValue($value);
                 $setting->setUser($this->getUser());
 
-                $settingsRepository->add($setting);
+                $settingsRepository->persist($setting);
             }
 
             $settingsRepository->flush();
