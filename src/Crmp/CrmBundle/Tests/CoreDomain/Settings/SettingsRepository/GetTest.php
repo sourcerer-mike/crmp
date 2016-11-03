@@ -78,6 +78,8 @@ class GetTest extends AbstractRepositoryTestCase
         $setting->setName($name)->setValue($value);
 
         $repo = $this->getRepositoryMock(
+            null,
+            null,
             [
                 'findSimilar' => $setting,
             ]

@@ -98,13 +98,13 @@ abstract class AbstractRepositoryTestCase extends \PHPUnit_Framework_TestCase
      */
     abstract protected function getRepositoryClassName();
 
-    protected function getRepositoryMock($methodReturnMap = [])
+    protected function getRepositoryMock($repo = null, $entityManager = null, $methodReturnMap = [])
     {
         if ($this->repositoryMock) {
             return $this->repositoryMock;
         }
 
-        $settingsRepository = $this->createRepositoryMockBuilder();
+        $settingsRepository = $this->createRepositoryMockBuilder($repo, $entityManager);
 
         if ($methodReturnMap) {
             $settingsRepository->setMethods(array_keys($methodReturnMap));
