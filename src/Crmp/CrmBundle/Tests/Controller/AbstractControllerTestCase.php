@@ -43,6 +43,7 @@ abstract class AbstractControllerTestCase extends \PHPUnit_Framework_TestCase
         return [
             'createDeleteForm',
             'createForm',
+            'fetchAllSimilar',
             'get',
             'redirectToRoute',
             'render',
