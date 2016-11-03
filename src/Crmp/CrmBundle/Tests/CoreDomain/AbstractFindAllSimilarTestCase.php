@@ -70,4 +70,26 @@ abstract class AbstractFindAllSimilarTestCase extends AbstractRepositoryTestCase
         /** @var RepositoryInterface $repo */
         $repo->findAllSimilar($this->createEntity());
     }
+
+    /**
+     * Assert which filter must be used.
+     *
+     * @see RepositoryInterface::findAllSimilar()
+     *
+     * @param string $fieldName      Name that should be used within the WHERE criteria.
+     * @param object $expectedObject Expected entity that will be filtered by.
+     * @param object $targetEntity   The entity of the repository.
+     */
+    protected function assertFilteredBy($fieldName, $expectedObject, $targetEntity)
+    {
+        // Build expectations.
+        $entityRepoMock = $this->getEntitiyRepositoryMock();
+        $repo           = $this->getRepositoryMock($entityRepoMock);
+
+        $this->expectCriteria($entityRepoMock, $fieldName, $expectedObject);
+
+        // Check expectations by running filter.
+        /** @var InvoiceRepository $repo */
+        $repo->findAllSimilar($targetEntity);
+    }
 }

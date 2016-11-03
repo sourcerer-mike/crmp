@@ -32,6 +32,10 @@ class InvoiceRepository extends AbstractRepository implements RepositoryInterfac
             $criteria->andWhere($criteria->expr()->eq('customer', $entity->getCustomer()));
         }
 
+        if ($entity->getContract()) {
+            $criteria->andWhere($criteria->expr()->eq('contract', $entity->getContract()));
+        }
+
         return $this->repository->matching($criteria);
     }
 }

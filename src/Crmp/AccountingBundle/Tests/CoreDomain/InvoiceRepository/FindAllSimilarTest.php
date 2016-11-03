@@ -4,6 +4,7 @@ namespace Crmp\AccountingBundle\Tests\CoreDomain\InvoiceRepository;
 
 use Crmp\AccountingBundle\CoreDomain\InvoiceRepository;
 use Crmp\AccountingBundle\Entity\Invoice;
+use Crmp\AcquisitionBundle\Entity\Contract;
 use Crmp\CrmBundle\Entity\Customer;
 use Crmp\CrmBundle\Tests\CoreDomain\AbstractFindAllSimilarTestCase;
 
@@ -19,20 +20,24 @@ class FindAllSimilarTest extends AbstractFindAllSimilarTestCase
     public function testItCanFilterByCustomer()
     {
         // filter data
-        $invoice = new Invoice();
+        $entity = $this->createEntity();
 
-        $invoice->setCustomer($customer = new Customer());
+        $entity->setCustomer($customer = new Customer());
         $customer->setName(uniqid());
 
-        // expectations
-        $entityRepoMock = $this->getEntitiyRepositoryMock();
-        $repo           = $this->getRepositoryMock($entityRepoMock);
+        $this->assertFilteredBy('customer', $customer, $entity);
+    }
 
-        $this->expectCriteria($entityRepoMock, 'customer', $customer);
+    public function testItCanFilterByContract()
+    {
+        // filter data
+        $entity = $this->createEntity();
 
-        // Test
-        /** @var InvoiceRepository $repo */
-        $repo->findAllSimilar($invoice);
+        $contract = new Contract();
+        $entity->setContract($contract);
+        $contract->setTitle(uniqid());
+
+        $this->assertFilteredBy('contract', $contract, $entity);
     }
 
     protected function createEntity()
