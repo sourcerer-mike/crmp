@@ -4,5 +4,7 @@
         xsi:schemaLocation="http://symfony.com/schema/routing
         http://symfony.com/schema/routing/routing-1.0.xsd">
 
-    <import resource="routing.invoice.xml" prefix="accounting/invoice" />
+    <import resource="routing.contract.xml" prefix="acquisition/contract"/>
+    <import resource="routing.inquiry.xml" prefix="acquisition/inquiry"/>
+    <import resource="routing.offer.xml" prefix="acquisition/offer"/>
 </routes>

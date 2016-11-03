@@ -2,6 +2,7 @@
 
 namespace Crmp\CrmBundle\Controller;
 
+use Crmp\CoreDomain\RepositoryInterface;
 use Crmp\CrmBundle\Panels\Settings\General;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,71 +21,6 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class AddressController extends AbstractCrmpController
 {
-    /**
-     * Delete an address.
-     *
-     * An address shall never be deleted more disabled.
-     * Once you delete an address it is completely gone
-     * and related invoices, inquiries, offers or other entities will be hard to find.
-     * So think twice before deleting/disabling an address.
-     *
-     * @Route("/{id}", name="crmp_crm_address_delete")
-     * @Method("DELETE")
-     *
-     * @param Request $request
-     * @param Address $address
-     *
-     * @return RedirectResponse
-     */
-    public function deleteAction(Request $request, Address $address)
-    {
-        $form = $this->createDeleteForm($address);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($address);
-            $em->flush();
-        }
-
-        return $this->redirectToRoute('crmp_crm_address_index');
-    }
-
-    /**
-     * Displays a form to edit an existing Address entity.
-     *
-     * @Route("/{id}/edit", name="crmp_crm_address_edit")
-     * @Method({"GET", "POST"})
-     *
-     * @param Request $request
-     * @param Address $address
-     *
-     * @return RedirectResponse|Response
-     */
-    public function editAction(Request $request, Address $address)
-    {
-        $deleteForm = $this->createDeleteForm($address);
-        $editForm   = $this->createForm('Crmp\CrmBundle\Form\AddressType', $address);
-        $editForm->handleRequest($request);
-
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $address->setUpdatedBy($this->getUser());
-
-            $this->get('crmp.address.repository')->update($address);
-
-            return $this->redirectToRoute('crmp_crm_address_show', array('id' => $address->getId()));
-        }
-
-        return $this->render(
-            'CrmpCrmBundle:Address:edit.html.twig',
-            array(
-                'address'     => $address,
-                'edit_form'   => $editForm->createView(),
-                'delete_form' => $deleteForm->createView(),
-            )
-        );
-    }
-
     /**
      * Lists all addresses.
      *
@@ -161,40 +97,12 @@ class AddressController extends AbstractCrmpController
     }
 
     /**
-     * Finds and displays a Address entity.
+     * Repository suitable for the controller.
      *
-     * @Route("/{id}", name="crmp_crm_address_show")
-     * @Method("GET")
-     *
-     * @param Address $address
-     *
-     * @return Response
+     * @return RepositoryInterface
      */
-    public function showAction(Address $address)
+    protected function getMainRepository()
     {
-        $deleteForm = $this->createDeleteForm($address);
-
-        return $this->render(
-            'CrmpCrmBundle:Address:show.html.twig',
-            array(
-                'address'     => $address,
-                'delete_form' => $deleteForm->createView(),
-            )
-        );
-    }
-
-    /**
-     * Creates a form to delete a Address entity.
-     *
-     * @param Address $address The Address entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    protected function createDeleteForm(Address $address)
-    {
-        return $this->createFormBuilder()
-                    ->setAction($this->generateUrl('crmp_crm_address_delete', array('id' => $address->getId())))
-                    ->setMethod('DELETE')
-                    ->getForm();
+        return $this->get('crmp.address.repository');
     }
 }

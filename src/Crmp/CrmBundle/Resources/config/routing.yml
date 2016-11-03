@@ -1,4 +1,0 @@
-crmp_crm:
-  resource: "@CrmpCrmBundle/Controller/"
-  type:     annotation
-  prefix:   /crm/

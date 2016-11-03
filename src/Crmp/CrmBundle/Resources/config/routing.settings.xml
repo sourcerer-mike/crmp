@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<routes xmlns="http://symfony.com/schema/routing"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://symfony.com/schema/routing
+        http://symfony.com/schema/routing/routing-1.0.xsd">
+
+    <route id="crmp_crm_settings_delete" path="/{id}" methods="DELETE">
+        <default key="_controller">CrmpCrmBundle:Settings:delete</default>
+    </route>
+
+    <route id="crmp_crm_settings_show" path="/{id}" methods="GET">
+        <default key="_controller">CrmpCrmBundle:Settings:show</default>
+    </route>
+
+    <route id="crmp_crm_settings_edit" path="/{id}/edit" methods="GET,POST">
+        <default key="_controller">CrmpCrmBundle:Settings:edit</default>
+    </route>
+
+    <route id="crmp_crm_settings_index" path="/" methods="GET">
+        <default key="_controller">CrmpCrmBundle:Settings:index</default>
+    </route>
+
+    <route id="crmp_crm_settings_new" path="/new" methods="GET,POST">
+        <default key="_controller">CrmpCrmBundle:Settings:new</default>
+    </route>
+</routes>

@@ -3,6 +3,10 @@ crmp:
   common:
     show: Show %name%
   save: Save
+  none: None
+  form:
+    invalid: Whoops
+    pleaseFix: Please fix the problems shown below.
 crmp_crm:
   date_js: yyyy-dd-mm
   address:

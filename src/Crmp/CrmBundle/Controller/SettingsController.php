@@ -2,6 +2,7 @@
 
 namespace Crmp\CrmBundle\Controller;
 
+use Crmp\CoreDomain\RepositoryInterface;
 use Crmp\CoreDomain\Settings\SettingRepositoryInterface;
 use Crmp\CrmBundle\Entity\Setting;
 use Crmp\CrmBundle\Twig\AbstractSettingsPanel;
@@ -73,7 +74,7 @@ class SettingsController extends AbstractCrmpController
             $settingsRepository->flush();
 
             // form has been send => redirect to prevent additional save on reload
-            return $this->redirectToRoute('crmp_crm_settings');
+            return $this->redirectToRoute('crmp_crm_settings_index');
         }
 
 
@@ -124,5 +125,15 @@ class SettingsController extends AbstractCrmpController
         }
 
         return $currentSettings;
+    }
+
+    /**
+     * Repository suitable for the controller.
+     *
+     * @return RepositoryInterface
+     */
+    protected function getMainRepository()
+    {
+        $this->get('crmp.setting.repository');
     }
 }

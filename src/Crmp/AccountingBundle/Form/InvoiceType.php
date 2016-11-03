@@ -3,8 +3,10 @@
 namespace Crmp\AccountingBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\GreaterThan;
 
 /**
  * Form for invoices.
@@ -21,7 +23,19 @@ class InvoiceType extends AbstractType
     {
         $builder
             ->add('customer', null, ['label' => 'crmp_crm.customer.singular'])
-            ->add('value', null, ['label' => 'crmp_accounting.invoice.total']);
+            ->add(
+                'value',
+                NumberType::class,
+                [
+                    'label'       => 'crmp_accounting.invoice.total',
+                    'attr'        => [
+                        'min' => 0,
+                    ],
+                    'constraints' => [
+                        new GreaterThan(0),
+                    ],
+                ]
+            );
     }
 
     /**

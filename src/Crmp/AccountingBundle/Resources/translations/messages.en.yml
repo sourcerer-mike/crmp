@@ -1,0 +1,10 @@
+crmp_accounting:
+  invoice:
+    edit: Edit invoice
+    new: Create invoice
+    plural: Invoices
+    singular: Invoice
+    total: Invoice total
+    toLow: Invoice value is to low.
+  menu:
+    label: Accounting

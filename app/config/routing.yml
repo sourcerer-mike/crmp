@@ -3,13 +3,13 @@ app:
   type:     annotation
 
 crmp_accounting:
-  resource: "@CrmpAccountingBundle/Resources/config/routing.yml"
+  resource: "@CrmpAccountingBundle/Resources/config/routing.xml"
 
 crmp_acquisition:
-  resource: "@CrmpAcquisitionBundle/Resources/config/routing.yml"
+  resource: "@CrmpAcquisitionBundle/Resources/config/routing.xml"
 
 crmp_crm:
-  resource: "@CrmpCrmBundle/Resources/config/routing.yml"
+  resource: "@CrmpCrmBundle/Resources/config/routing.xml"
 
 fos_user:
   resource: "@FOSUserBundle/Resources/config/routing/all.xml"

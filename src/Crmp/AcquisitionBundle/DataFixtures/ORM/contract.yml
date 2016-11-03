@@ -1,5 +1,11 @@
 Crmp\AcquisitionBundle\Entity\Contract:
-  contractWithOffer{1..3}:
+  contractWithOffer{1}:
+    offer: '@offerWithInquiry<current()>'
+    title: '@offerWithInquiry<current()>->title'
+    value: 1337
+    content: '@offerWithInquiry<current()>->content'
+    customer: '@offerWithInquiry<current()>->customer'
+  contractWithOffer{2..3}:
     offer: '@offerWithInquiry<current()>'
     title: '@offerWithInquiry<current()>->title'
     value: '@offerWithInquiry<current()>->price'

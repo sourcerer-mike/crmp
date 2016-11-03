@@ -1,12 +1,12 @@
 {% extends '@CrmpAccounting/Invoice/base.html.twig' %}
 
-{% block title %}{{ invoice.value }}{% endblock %}
+{% block title %}{{ invoice.value|price }}{% endblock %}
 
 {% block breadcrumb %}
     {{ parent() }}
     <li>
         <a href="{{ path('crmp_accounting_invoice_show', {'id': invoice.id}) }}">
-            {{ invoice.value }}
+            {{ invoice.value|price }}
         </a>
     </li>
     <li class="active">
@@ -16,6 +16,12 @@
 
 {% block body %}
     <h1>{% trans %}Invoice edit{% endtrans %}</h1>
+
+    {% if not edit_form.vars.valid %}
+        <div class="alert alert-warning">
+        	<strong>{{ "crmp.form.invalid"|trans }}!</strong> {{ "crmp.form.pleaseFix"|trans }}
+        </div>
+    {% endif %}
 
     {{ form_start(edit_form) }}
     {{ form_widget(edit_form) }}

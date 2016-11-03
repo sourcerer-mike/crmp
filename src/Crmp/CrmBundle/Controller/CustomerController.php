@@ -2,6 +2,7 @@
 
 namespace Crmp\CrmBundle\Controller;
 
+use Crmp\CoreDomain\RepositoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -17,66 +18,6 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class CustomerController extends AbstractCrmpController
 {
-    /**
-     * Deletes a Customer entity.
-     *
-     * @Route("/{id}", name="crmp_crm_customer_delete")
-     * @Method("DELETE")
-     *
-     * @param Request  $request
-     * @param Customer $customer
-     *
-     * @return RedirectResponse
-     */
-    public function deleteAction(Request $request, Customer $customer)
-    {
-        $form = $this->createDeleteForm($customer);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($customer);
-            $em->flush();
-        }
-
-        return $this->redirectToRoute('crmp_crm_customer_index');
-    }
-
-    /**
-     * Displays a form to edit an existing Customer entity.
-     *
-     * @Route("/{id}/edit", name="crmp_crm_customer_edit")
-     * @Method({"GET", "POST"})
-     *
-     * @param Request  $request
-     * @param Customer $customer
-     *
-     * @return RedirectResponse|Response
-     */
-    public function editAction(Request $request, Customer $customer)
-    {
-        $deleteForm = $this->createDeleteForm($customer);
-        $editForm   = $this->createForm('Crmp\CrmBundle\Form\CustomerType', $customer);
-        $editForm->handleRequest($request);
-
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $customerRepository = $this->get('crmp.customer.repository');
-            $customerRepository->update($customer);
-            $customerRepository->flush();
-
-            return $this->redirectToRoute('crmp_crm_customer_show', array('id' => $customer->getId()));
-        }
-
-        return $this->render(
-            'CrmpCrmBundle:Customer:edit.html.twig',
-            array(
-                'customer'    => $customer,
-                'edit_form'   => $editForm->createView(),
-                'delete_form' => $deleteForm->createView(),
-            )
-        );
-    }
-
     /**
      * Lists all Customer entities.
      *
@@ -133,41 +74,12 @@ class CustomerController extends AbstractCrmpController
     }
 
     /**
-     * Finds and displays a Customer entity.
+     * Repository suitable for the controller.
      *
-     * @Route("/{id}", name="crmp_crm_customer_show")
-     * @Method("GET")
-     *
-     * @param Customer $customer
-     *
-     * @return Response
+     * @return RepositoryInterface
      */
-    public function showAction(Customer $customer)
+    protected function getMainRepository()
     {
-        $deleteForm = $this->createDeleteForm($customer);
-
-        return $this->render(
-            'CrmpCrmBundle:Customer:show.html.twig',
-            array(
-                'customer'     => $customer,
-                'delete_form'  => $deleteForm->createView(),
-                'inquiry_form' => $this->createFormBuilder()->getForm(),
-            )
-        );
-    }
-
-    /**
-     * Creates a form to delete a Customer entity.
-     *
-     * @param Customer $customer The Customer entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    protected function createDeleteForm(Customer $customer)
-    {
-        return $this->createFormBuilder()
-                    ->setAction($this->generateUrl('crmp_crm_customer_delete', array('id' => $customer->getId())))
-                    ->setMethod('DELETE')
-                    ->getForm();
+        return $this->get('crmp.customer.repository');
     }
 }

@@ -6,8 +6,6 @@ use Crmp\CoreDomain\RepositoryInterface;
 use Crmp\CrmBundle\Controller\AbstractCrmpController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Crmp\AccountingBundle\Entity\Invoice;
 use Crmp\AccountingBundle\Form\InvoiceType;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,46 +16,16 @@ use Symfony\Component\HttpFoundation\Response;
  * Manage invoices in the "/invoice" section.
  * Invoices keep your business going.
  *
- * @Route("/invoice")
  */
 class InvoiceController extends AbstractCrmpController
 {
+    const ENTITY_NAME  = 'invoice';
+    const FORM_TYPE    = InvoiceType::class;
     const ROUTE_DELETE = 'crmp_accounting_invoice_delete';
     const ROUTE_INDEX  = 'crmp_accounting_invoice_index';
     const ROUTE_SHOW   = 'crmp_accounting_invoice_show';
-
-    /**
-     * Change a single existing invoice.
-     *
-     * Sometimes a customer should pay more or less for a service
-     * or the invoice needs more details than the contract offered.
-     * In such cases you can edit the invoice.
-     *
-     * @param Request $request
-     * @param Invoice $invoice
-     *
-     * @return RedirectResponse|Response
-     */
-    public function editAction(Request $request, Invoice $invoice)
-    {
-        $editForm = $this->createForm(InvoiceType::class, $invoice);
-        $editForm->handleRequest($request);
-
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $this->getMainRepository()->persist($invoice);
-
-            return $this->redirectToRoute(self::ROUTE_SHOW, array('id' => $invoice->getId()));
-        }
-
-        return $this->render(
-            'CrmpAccountingBundle:Invoice:edit.html.twig',
-            array(
-                'invoice'     => $invoice,
-                'edit_form'   => $editForm->createView(),
-                'delete_form' => $this->createDeleteForm($invoice)->createView(),
-            )
-        );
-    }
+    const VIEW_EDIT    = 'CrmpAccountingBundle:Invoice:edit.html.twig';
+    const VIEW_SHOW    = 'CrmpAccountingBundle:Invoice:show.html.twig';
 
     /**
      * Lists all invoices.
@@ -80,7 +48,7 @@ class InvoiceController extends AbstractCrmpController
         }
 
         return $this->render(
-            'CrmpAccountingBundle:Invoice:index.html.twig',
+            '@CrmpAccounting/Invoice/index.html.twig',
             array(
                 'invoices' => $this->fetchSimilar($searchInvoice, $request),
             )
@@ -120,36 +88,13 @@ class InvoiceController extends AbstractCrmpController
         }
 
         return $this->render(
-            'CrmpAccountingBundle:Invoice:new.html.twig',
+            self::VIEW_NEW,
             array(
-                'invoice' => $invoice,
-                'form'    => $form->createView(),
+                self::ENTITY_NAME => $invoice,
+                'form'            => $form->createView(),
             )
         );
     }
-
-    /**
-     * Look at a single invoice.
-     *
-     * Recheck a single invoice calling "/invoice/{id}".
-     *
-     * @param Invoice $invoice
-     *
-     * @return Response
-     */
-    public function showAction(Invoice $invoice)
-    {
-        $deleteForm = $this->createDeleteForm($invoice);
-
-        return $this->render(
-            'CrmpAccountingBundle:Invoice:show.html.twig',
-            array(
-                'invoice'     => $invoice,
-                'delete_form' => $deleteForm->createView(),
-            )
-        );
-    }
-
 
     /**
      * Repository suitable for the controller.

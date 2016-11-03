@@ -2,6 +2,7 @@
 
 namespace Crmp\AcquisitionBundle\Controller;
 
+use Crmp\CoreDomain\RepositoryInterface;
 use Crmp\CrmBundle\Controller\AbstractCrmpController;
 use Doctrine\Common\Collections\Criteria;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -18,64 +19,6 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class InquiryController extends AbstractCrmpController
 {
-    /**
-     * Deletes a Inquiry entity.
-     *
-     * @Route("/{id}", name="crmp_acquisition_inquiry_delete")
-     * @Method("DELETE")
-     *
-     * @param Request $request
-     * @param Inquiry $inquiry
-     *
-     * @return RedirectResponse
-     */
-    public function deleteAction(Request $request, Inquiry $inquiry)
-    {
-        $form = $this->createDeleteForm($inquiry);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($inquiry);
-            $em->flush();
-        }
-
-        return $this->redirectToRoute('crmp_acquisition_inquiry_index');
-    }
-
-    /**
-     * Displays a form to edit an existing Inquiry entity.
-     *
-     * @param Request $request
-     * @param Inquiry $inquiry
-     *
-     * @Route("/{id}/edit", name="crmp_acquisition_inquiry_edit")
-     * @Method({"GET", "POST"})
-     *
-     * @return RedirectResponse|Response
-     */
-    public function editAction(Request $request, Inquiry $inquiry)
-    {
-        $deleteForm = $this->createDeleteForm($inquiry);
-        $editForm   = $this->createForm('Crmp\AcquisitionBundle\Form\InquiryType', $inquiry);
-        $editForm->handleRequest($request);
-
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $this->get('crmp.inquiry.repository')->update($inquiry);
-
-            return $this->redirectToRoute('crmp_acquisition_inquiry_show', array('id' => $inquiry->getId()));
-        }
-
-        return $this->render(
-            'CrmpAcquisitionBundle:Inquiry:edit.html.twig',
-            array(
-                'inquiry'     => $inquiry,
-                'edit_form'   => $editForm->createView(),
-                'delete_form' => $deleteForm->createView(),
-            )
-        );
-    }
-
     /**
      * Lists all Inquiry entities.
      *
@@ -153,40 +96,12 @@ class InquiryController extends AbstractCrmpController
     }
 
     /**
-     * Finds and displays a Inquiry entity.
+     * Repository suitable for the controller.
      *
-     * @param Inquiry $inquiry
-     *
-     * @Route("/{id}", name="crmp_acquisition_inquiry_show")
-     * @Method("GET")
-     *
-     * @return Response
+     * @return RepositoryInterface
      */
-    public function showAction(Inquiry $inquiry)
+    protected function getMainRepository()
     {
-        $deleteForm = $this->createDeleteForm($inquiry);
-
-        return $this->render(
-            'CrmpAcquisitionBundle:Inquiry:show.html.twig',
-            array(
-                'inquiry'     => $inquiry,
-                'delete_form' => $deleteForm->createView(),
-            )
-        );
-    }
-
-    /**
-     * Creates a form to delete a Inquiry entity.
-     *
-     * @param Inquiry $inquiry The Inquiry entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    protected function createDeleteForm(Inquiry $inquiry)
-    {
-        return $this->createFormBuilder()
-                    ->setAction($this->generateUrl('crmp_acquisition_inquiry_delete', array('id' => $inquiry->getId())))
-                    ->setMethod('DELETE')
-                    ->getForm();
+        return $this->get('crmp.inquiry.repository');
     }
 }

@@ -3,6 +3,7 @@
 namespace Crmp\CrmBundle\Controller;
 
 use Crmp\AccountingBundle\Controller\InvoiceController;
+use Crmp\AccountingBundle\Entity\Invoice;
 use Crmp\CoreDomain\RepositoryInterface;
 use Crmp\CrmBundle\Panels\Settings\General;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -20,6 +21,45 @@ use Symfony\Component\HttpFoundation\Response;
  */
 abstract class AbstractCrmpController extends Controller
 {
+    const ENTITY_NAME  = null;
+    const FORM_TYPE    = null;
+    const ROUTE_DELETE = null;
+    const ROUTE_INDEX  = null;
+    const ROUTE_SHOW   = null;
+    const VIEW_EDIT    = null;
+    const VIEW_SHOW    = null;
+
+    public function __construct()
+    {
+        if (! static::ENTITY_NAME) {
+            throw new \LogicException('Please define the '.get_class($this).'::ENTITY_NAME constant.');
+        }
+
+        if (! static::FORM_TYPE) {
+            throw new \LogicException('Please define the '.get_class($this).'::FORM_TYPE constant.');
+        }
+
+        if (! static::ROUTE_DELETE) {
+            throw new \LogicException('Please define the '.get_class($this).'::ROUTE_DELETE constant.');
+        }
+
+        if (! static::ROUTE_INDEX) {
+            throw new \LogicException('Please define the '.get_class($this).'::ROUTE_INDEX constant.');
+        }
+
+        if (! static::ROUTE_SHOW) {
+            throw new \LogicException('Please define the '.get_class($this).'::ROUTE_SHOW constant.');
+        }
+
+        if (! static::VIEW_EDIT) {
+            throw new \LogicException('Please define the '.get_class($this).'::VIEW_EDIT constant.');
+        }
+
+        if (! static::VIEW_SHOW) {
+            throw new \LogicException('Please define the '.get_class($this).'::VIEW_SHOW constant.');
+        }
+    }
+
     /**
      * Deletes an entity.
      *
@@ -41,20 +81,76 @@ abstract class AbstractCrmpController extends Controller
             $this->getMainRepository()->remove($entity);
         }
 
-        return $this->redirectToRoute(InvoiceController::ROUTE_INDEX);
+        return $this->redirectToRoute(static::ROUTE_INDEX);
     }
 
     /**
-     * Creates a form to delete a Invoice entity.
+     * Change a single existing entity.
      *
-     * @param object $invoice The Invoice entity
+     * @param Request $request
+     *
+     * @return RedirectResponse|Response
+     */
+    public function editAction(Request $request)
+    {
+        if (! $request->get('id')) {
+            throw new \InvalidArgumentException('Please provide an ID.');
+        }
+
+        $entity = $this->getMainRepository()->find($request->get('id'));
+
+        $editForm = $this->createForm(static::FORM_TYPE, $entity);
+        $editForm->handleRequest($request);
+
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $this->getMainRepository()->persist($entity);
+
+            return $this->redirectToRoute(static::ROUTE_SHOW, array('id' => $entity->getId()));
+        }
+
+        return $this->render(
+            static::VIEW_EDIT,
+            array(
+                static::ENTITY_NAME => $entity,
+                'edit_form'         => $editForm->createView(),
+                'delete_form'       => $this->createDeleteForm($entity)->createView(),
+            )
+        );
+    }
+
+    /**
+     * Look at a single invoice.
+     *
+     * Recheck a single invoice calling "/invoice/{id}".
+     *
+     * @param Invoice $invoice
+     *
+     * @return Response
+     */
+    public function showAction(Invoice $invoice)
+    {
+        $deleteForm = $this->createDeleteForm($invoice);
+
+        return $this->render(
+            InvoiceController::VIEW_SHOW,
+            array(
+                InvoiceController::ENTITY_NAME => $invoice,
+                'delete_form'                  => $deleteForm->createView(),
+            )
+        );
+    }
+
+    /**
+     * Creates a form to delete an entity.
+     *
+     * @param object $entity The entity which shall be deleted.
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    protected function createDeleteForm($invoice)
+    protected function createDeleteForm($entity)
     {
         return $this->createFormBuilder()
-                    ->setAction($this->generateUrl(InvoiceController::ROUTE_DELETE, array('id' => $invoice->getId())))
+                    ->setAction($this->generateUrl(static::ROUTE_DELETE, array('id' => $entity->getId())))
                     ->setMethod('DELETE')
                     ->getForm();
     }

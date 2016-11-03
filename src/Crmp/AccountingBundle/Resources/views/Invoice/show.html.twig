@@ -30,6 +30,20 @@
                 {{ invoice.value|price }}
             </td>
         </tr>
+        <tr>
+            <th>
+                {{ "crmp_acquisition.contract.singular"|trans }}
+            </th>
+            <td>
+                {% if invoice.contract %}
+                    <a href="{{ url('crmp_acquisition_contract_show', {id: invoice.contract.id}) }}">
+                        {{ invoice.contract.title }}
+                    </a>
+                {% else %}
+                    <em>{{ "crmp.none"|trans|lower }}</em>
+                {% endif %}
+            </td>
+        </tr>
         </tbody>
     </table>
 {% endblock %}
