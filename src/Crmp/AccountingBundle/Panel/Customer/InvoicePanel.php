@@ -33,12 +33,11 @@ class InvoicePanel extends AbstractPanel implements PanelInterface
         }
 
         /** @var Customer $customer */
-        $customer    = $this->data['customer'];
         $invoiceRepo = $this->container->get('crmp.invoice.repository');
 
         // filter
         $invoice = new Invoice();
-        $invoice->setCustomer($customer);
+        $invoice->setCustomer($this->data['customer']);
         $this->data['invoices'] = $invoiceRepo->findAllSimilar($invoice);
 
         return (array) $this->data;

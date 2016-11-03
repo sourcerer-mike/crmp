@@ -2,6 +2,7 @@
 
 namespace Crmp\AccountingBundle\Panel\Contract;
 
+use Crmp\AccountingBundle\Entity\Invoice;
 use Crmp\AcquisitionBundle\Entity\Contract;
 use Crmp\CrmBundle\Entity\Customer;
 use Crmp\CrmBundle\Twig\AbstractPanel;
@@ -28,21 +29,15 @@ class InvoicePanel extends AbstractPanel implements PanelInterface
         $this->data             = (array) $this->container->get('crmp.controller.render.parameters');
         $this->data['invoices'] = [];
 
-        if (! isset($this->data['contract']) || false == ( $this->data['contract'] instanceof Contract )) {
+        if (! isset($this->data['contract']) || false == ($this->data['contract'] instanceof Contract)) {
+            // Maybe wrong context => Show no invoice
             return $this->data;
         }
 
-        /** @var Contract $contract */
-        $contract    = $this->data['contract'];
-        $addressRepo = $this->container->get('doctrine')->getRepository('CrmpAccountingBundle:Invoice');
+        $searchInvoice = new Invoice();
+        $searchInvoice->setContract($this->data['contract']);
 
-        $this->data['invoices'] = $addressRepo->findBy(
-            [
-                'contract' => $contract,
-            ],
-            null,
-            10
-        );
+        $this->data['invoices'] = $this->container->get('crmp.invoice.repository')->findAllSimilar($searchInvoice);
 
         return (array) $this->data;
     }
