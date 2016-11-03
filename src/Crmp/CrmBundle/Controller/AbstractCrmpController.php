@@ -167,7 +167,7 @@ abstract class AbstractCrmpController extends Controller
      * @return \object[]
      *
      */
-    protected function fetchAllSimilar($searchEntity, $request = null)
+    protected function findAllSimilar($searchEntity, $request = null)
     {
         /** @var RepositoryInterface $repository */
         $repository = $this->getMainRepository();

@@ -43,7 +43,7 @@ abstract class AbstractControllerTestCase extends \PHPUnit_Framework_TestCase
         return [
             'createDeleteForm',
             'createForm',
-            'fetchAllSimilar',
+            'findAllSimilar',
             'get',
             'redirectToRoute',
             'render',
@@ -215,8 +215,13 @@ abstract class AbstractControllerTestCase extends \PHPUnit_Framework_TestCase
     {
         parent::setUp();
 
+        if (! $this->controllerClass) {
+            throw new \LogicException('Please define the controllerClass property for '.get_class($this));
+        }
+
         $this->controllerBuilder = $this->getMockBuilder($this->controllerClass)
                                         ->setMethods($this->getMockedMethods());
-        $this->controllerMock    = $this->controllerBuilder->getMock();
+
+        $this->controllerMock = $this->controllerBuilder->getMock();
     }
 }

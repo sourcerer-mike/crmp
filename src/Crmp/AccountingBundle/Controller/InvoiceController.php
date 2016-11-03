@@ -50,7 +50,7 @@ class InvoiceController extends AbstractCrmpController
         return $this->render(
             '@CrmpAccounting/Invoice/index.html.twig',
             array(
-                'invoices' => $this->fetchAllSimilar($searchInvoice, $request),
+                'invoices' => $this->findAllSimilar($searchInvoice, $request),
             )
         );
     }
