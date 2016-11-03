@@ -206,7 +206,7 @@ abstract class AbstractCrmpController extends Controller
 
     protected function render($view, array $parameters = array(), Response $response = null)
     {
-        $this->container->set('crmp.controller.render.parameters', new \ArrayObject($parameters));
+        $this->container->get('crmp.controller.render.parameters')->exchangeArray($parameters);
 
         return parent::render($view, $parameters, $response);
     }
