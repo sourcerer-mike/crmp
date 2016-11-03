@@ -48,7 +48,7 @@ class InvoiceController extends AbstractCrmpController
         }
 
         return $this->render(
-            '@CrmpAccounting/Invoice/index.html.twig',
+            'CrmpAccountingBundle:Invoice:index.html.twig',
             array(
                 'invoices' => $this->findAllSimilar($searchInvoice, $request),
             )
@@ -88,7 +88,7 @@ class InvoiceController extends AbstractCrmpController
         }
 
         return $this->render(
-            self::VIEW_NEW,
+            'CrmpAccountingBundle:Invoice:new.html.twig',
             array(
                 self::ENTITY_NAME => $invoice,
                 'form'            => $form->createView(),

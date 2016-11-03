@@ -55,7 +55,7 @@ class IndexActionTest extends AbstractControllerTestCase
 
     public function testItRendersAllInvoices()
     {
-        $this->expectRenderingWith('@CrmpAccounting/Invoice/index.html.twig');
+        $this->expectRenderingWith('CrmpAccountingBundle:Invoice:index.html.twig');
 
         $this->controllerMock->expects($this->once())->method('findAllSimilar')->with(new Invoice());
 
