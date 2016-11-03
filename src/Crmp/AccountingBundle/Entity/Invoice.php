@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * This entity keeps track of such invoices or helps creating them.
  *
  * @ORM\Table(name="invoice")
- * @ORM\Entity(repositoryClass="Crmp\AccountingBundle\Repository\InvoiceRepository")
+ * @ORM\Entity()
  */
 class Invoice
 {

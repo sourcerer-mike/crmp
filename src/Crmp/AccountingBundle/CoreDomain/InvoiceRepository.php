@@ -4,11 +4,8 @@
 namespace Crmp\AccountingBundle\CoreDomain;
 
 use Crmp\AccountingBundle\Entity\Invoice;
-use Crmp\AccountingBundle\Repository\InvoiceRepository as InvoiceRepo;
 use Crmp\CoreDomain\RepositoryInterface;
 use Crmp\CrmBundle\CoreDomain\AbstractRepository;
-use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\EntityRepository;
 
 /**
  * Adapter to the doctrine storage for invoices.
@@ -30,6 +27,10 @@ class InvoiceRepository extends AbstractRepository implements RepositoryInterfac
     public function findAllSimilar($entity, $amount = null, $start = null, $order = [])
     {
         $criteria = $this->createCriteria($amount, $start, $order);
+
+        if ($entity->getCustomer()) {
+            $criteria->andWhere($criteria->expr()->eq('customer', $entity->getCustomer()));
+        }
 
         return $this->repository->matching($criteria);
     }

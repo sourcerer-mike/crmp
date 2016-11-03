@@ -2,6 +2,7 @@
 
 namespace Crmp\AccountingBundle\Panel\Customer;
 
+use Crmp\AccountingBundle\Entity\Invoice;
 use Crmp\CrmBundle\Entity\Customer;
 use Crmp\CrmBundle\Twig\AbstractPanel;
 use Crmp\CrmBundle\Twig\PanelInterface;
@@ -33,15 +34,12 @@ class InvoicePanel extends AbstractPanel implements PanelInterface
 
         /** @var Customer $customer */
         $customer    = $this->data['customer'];
-        $addressRepo = $this->container->get('doctrine')->getRepository('CrmpAccountingBundle:Invoice');
+        $invoiceRepo = $this->container->get('crmp.invoice.repository');
 
-        $this->data['invoices'] = $addressRepo->findBy(
-            [
-                'customer' => $customer,
-            ],
-            null,
-            10
-        );
+        // filter
+        $invoice = new Invoice();
+        $invoice->setCustomer($customer);
+        $this->data['invoices'] = $invoiceRepo->findAllSimilar($invoice);
 
         return (array) $this->data;
     }

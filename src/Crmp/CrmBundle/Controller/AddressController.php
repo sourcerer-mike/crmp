@@ -100,7 +100,6 @@ class AddressController extends AbstractCrmpController
      */
     public function indexAction(Request $request)
     {
-
         $repo = $this->get('crmp.address.repository');
         $addresses = $repo->findAll($this->getListLimit());
 
