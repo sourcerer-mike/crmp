@@ -2,6 +2,7 @@
 
 namespace Crmp\CrmBundle\Twig;
 
+use Crmp\CoreDomain\RepositoryInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -9,8 +10,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *
  * Single panels can be put into a PanelGroup to enhance the information about entities or other views.
  *
- * @see PanelGroup
- * @see PanelInterface
+ * @see     PanelGroup
+ * @see     PanelInterface
  *
  * @package Crmp\CrmBundle\Twig
  */
@@ -23,10 +24,32 @@ abstract class AbstractPanel
     const STYLE_SUCCESS = 'success';
     const STYLE_WARNING = 'warning';
     /**
-     * @var ContainerInterface
+     * Data for the template.
+     *
+     * This data will be filled with the current context
+     * and given to the template as "data".
+     *
+     * @param
      */
-    protected $container;
-    protected $data = null;
+    protected $data;
+    /**
+     * @var RepositoryInterface
+     */
+    protected $repository;
+
+    /**
+     * Inject current context.
+     *
+     * @since 1.0.0 The constructor arguments are no longer optional.
+     *
+     * @param RepositoryInterface $repository   The main repository.
+     * @param \ArrayObject        $renderedData Current context / data given from controller to the view.
+     */
+    public function __construct(RepositoryInterface $repository = null, \ArrayObject $renderedData = null)
+    {
+        $this->repository = $repository;
+        $this->data       = $renderedData;
+    }
 
     /**
      * Body of the panel.

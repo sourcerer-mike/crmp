@@ -17,30 +17,27 @@ class InvoicePanel extends AbstractPanel implements PanelInterface
     /**
      * Gather invoices for the current customer.
      *
-     * @return array
+     * @return \ArrayObject
      */
     public function getData()
     {
-        if ($this->data) {
-            return (array) $this->data;
+        if (isset($this->data['invoices']) && count($this->data['invoices'])) {
+            // Seems like already fetched before => return cached data
+            return $this->data;
         }
 
-        $this->data             = $this->container->get('crmp.controller.render.parameters');
         $this->data['invoices'] = [];
 
         if (! isset($this->data['customer']) || false == ($this->data['customer'] instanceof Customer)) {
-            return (array) $this->data;
+            return $this->data;
         }
-
-        /** @var Customer $customer */
-        $invoiceRepo = $this->container->get('crmp.invoice.repository');
 
         // filter
         $invoice = new Invoice();
         $invoice->setCustomer($this->data['customer']);
-        $this->data['invoices'] = $invoiceRepo->findAllSimilar($invoice);
+        $this->data['invoices'] = $this->repository->findAllSimilar($invoice);
 
-        return (array) $this->data;
+        return $this->data;
     }
 
     /**

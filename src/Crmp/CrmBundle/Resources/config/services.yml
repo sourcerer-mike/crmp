@@ -1,6 +1,6 @@
 services:
   crmp.controller.render.parameters:
-    class: \ArrayObject
+    class: ArrayObject
 
   crmp.menu_builder:
     class: Crmp\CrmBundle\Menu\MenuBuilder

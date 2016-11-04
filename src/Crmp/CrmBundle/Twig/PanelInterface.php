@@ -78,6 +78,10 @@ interface PanelInterface
     public function isVisible();
 
     /**
+     * Inject the current context.
+     *
+     * @deprecated 1.0.0 Context will be injected via constructor instead.
+     *
      * @param ContainerInterface $container
      *
      * @return PanelInterface
