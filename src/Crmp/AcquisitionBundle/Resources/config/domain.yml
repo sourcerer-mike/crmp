@@ -1,4 +1,10 @@
 services:
+  crmp.contract.repository:
+    class: Crmp\AcquisitionBundle\CoreDomain\Contract\ContractRepository
+    arguments:
+      - '@crmp_acquisition.doctrine.contract_repository'
+      - '@doctrine.orm.entity_manager'
+
   crmp.inquiry.repository:
     class: Crmp\AcquisitionBundle\CoreDomain\Inquiry\InquiryRepository
     arguments:

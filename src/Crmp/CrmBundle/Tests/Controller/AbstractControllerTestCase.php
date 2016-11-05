@@ -202,6 +202,15 @@ abstract class AbstractControllerTestCase extends \PHPUnit_Framework_TestCase
         );
     }
 
+    protected function mockMethodGetUser()
+    {
+        $user = new User();
+
+        $this->controllerMock->expects($this->any())
+                             ->method('getUser')
+                             ->willReturn($user);
+    }
+
     /**
      * Replace an service with an mock.
      *
@@ -230,15 +239,6 @@ abstract class AbstractControllerTestCase extends \PHPUnit_Framework_TestCase
         if (false !== $return) {
             $this->serviceMap[$serviceName] = $return;
         }
-    }
-
-    protected function mockMethodGetUser()
-    {
-        $user = new User();
-
-        $this->controllerMock->expects(PHPUnit_Framework_TestCase->any())
-                             ->method('getUser')
-        ->willReturn($user);
     }
 
     protected function setUp()

@@ -3,12 +3,70 @@
 namespace Crmp\AcquisitionBundle\Tests\Controller\ContractController;
 
 
-use Crmp\CrmBundle\Tests\Controller\AuthTestCase;
+use Crmp\AcquisitionBundle\Controller\ContractController;
+use Crmp\AcquisitionBundle\Entity\Contract;
+use Crmp\AcquisitionBundle\Entity\Offer;
+use Crmp\AcquisitionBundle\Repository\OfferRepository;
+use Crmp\CrmBundle\CoreDomain\Customer\CustomerRepository;
+use Crmp\CrmBundle\Entity\Customer;
+use Crmp\CrmBundle\Tests\Controller\AbstractIndexActionTestCase;
+use Symfony\Component\HttpFoundation\Request;
 
-class IndexActionTest extends AuthTestCase
+class IndexActionTest extends AbstractIndexActionTestCase
 {
-    public function testUserCanAccessTheList()
+    protected $controllerClass = ContractController::class;
+
+    public function testItCanFilterByCustomer()
     {
-        $this->markTestSkipped('fails since User is an crmp entity. needs refactoring to proper unit tests');
+        $relatedEntity = new Customer();
+        $relatedEntity->setName(uniqid());
+
+        $contract = new Contract();
+        $contract->setCustomer($relatedEntity);
+
+        $this->assertFiltering(
+            $relatedEntity,
+            CustomerRepository::class,
+            'crmp.customer.repository',
+            $contract,
+            'CrmpAcquisitionBundle:Contract:index.html.twig',
+            'contracts',
+            'customer'
+        );
+    }
+
+    public function testItCanFilterByOffer()
+    {
+        $offer = new Offer();
+        $offer->setPrice('0815');
+
+        $contract = new Contract();
+        $contract->setOffer($offer);
+
+        $this->assertFiltering(
+            $offer,
+            OfferRepository::class,
+            'crmp.offer.repository',
+            $contract,
+            'CrmpAcquisitionBundle:Contract:index.html.twig',
+            'contracts',
+            'offer'
+        );
+    }
+
+    public function testItShowsAllContracts()
+    {
+        $expectedSet = [uniqid()];
+
+        $this->expectFindAllSimilar(new Contract())->willReturn($expectedSet);
+
+        $this->expectRenderingWith(
+            'CrmpAcquisitionBundle:Contract:index.html.twig',
+            [
+                'contracts' => $expectedSet,
+            ]
+        );
+
+        $this->controllerMock->indexAction(new Request([]));
     }
 }

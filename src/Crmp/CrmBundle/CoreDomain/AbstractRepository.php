@@ -33,12 +33,12 @@ abstract class AbstractRepository implements RepositoryInterface
     /**
      * SettingsRepository constructor.
      *
-     * @param EntityRepository $settingRepository
+     * @param EntityRepository $entityRepository
      * @param EntityManager    $entityManager
      */
-    public function __construct(EntityRepository $settingRepository, EntityManager $entityManager)
+    public function __construct(EntityRepository $entityRepository, EntityManager $entityManager)
     {
-        $this->repository    = $settingRepository;
+        $this->repository    = $entityRepository;
         $this->entityManager = $entityManager;
     }
 

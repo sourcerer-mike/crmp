@@ -19,25 +19,45 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class ContractController extends AbstractCrmpController
 {
+    const ENTITY_NAME  = 'contract';
+    const FORM_TYPE    = ContractType::class;
+    const ROUTE_DELETE = 'crmp_acquisition_contract_delete';
+    const ROUTE_INDEX  = 'crmp_acquisition_contract_index';
+    const ROUTE_SHOW   = 'crmp_acquisition_contract_show';
+    const VIEW_EDIT    = 'CrmpAcquisitionBundle:Contract:edit.html.twig';
+    const VIEW_SHOW    = 'CrmpAcquisitionBundle:Contract:show.html.twig';
+
     /**
      * Lists all Contract entities.
      *
      * @Route("/", name="crmp_acquisition_contract_index")
      * @Method("GET")
      *
+     * @param Request $request
+     *
      * @return Response
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
+        $contract = new Contract();
 
-        $contracts = $em->getRepository('CrmpAcquisitionBundle:Contract')->findAll();
+        if ($request->get('customer')) {
+            $contract->setCustomer(
+                $this->get('crmp.customer.repository')->find($request->get('customer'))
+            );
+        }
+
+        if ($request->get('offer')) {
+            $contract->setOffer(
+                $this->get('crmp.offer.repository')->find($request->get('offer'))
+            );
+        }
 
         return $this->render(
             'CrmpAcquisitionBundle:Contract:index.html.twig',
-            array(
-                'contracts' => $contracts,
-            )
+            [
+                'contracts' => $this->findAllSimilar($contract),
+            ]
         );
     }
 
@@ -55,30 +75,33 @@ class ContractController extends AbstractCrmpController
     {
         $contract = new Contract();
 
-        if ($request->get('offer')) {
-            // customer given: pre-fill form
-            $offer = $this->getDoctrine()->getRepository('CrmpAcquisitionBundle:Offer')->find($request->get('offer'));
-
-            $contract->setOffer($offer);
+        if ($request->get('customer')) {
+            $contract->setCustomer(
+                $this->get('crmp.customer.repository')->find($request->get('customer'))
+            );
         }
 
-        $form = $this->createForm('Crmp\AcquisitionBundle\Form\ContractType', $contract);
+        if ($request->get('offer')) {
+            // customer given: pre-fill form
+            $contract->setOffer(
+                $this->get('crmp.offer.repository')->find($request->get('offer'))
+            );
+        }
+
+        $form = $this->createForm(ContractType::class, $contract);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($contract);
-            $em->flush();
+            $this->getMainRepository()->persist($contract);
 
             return $this->redirectToRoute('crmp_acquisition_contract_show', array('id' => $contract->getId()));
         }
 
         return $this->render(
             'CrmpAcquisitionBundle:Contract:new.html.twig',
-            array(
-                'contract' => $contract,
-                'form'     => $form->createView(),
-            )
+            [
+                'form' => $form->createView(),
+            ]
         );
     }
 
@@ -89,6 +112,6 @@ class ContractController extends AbstractCrmpController
      */
     protected function getMainRepository()
     {
-        return null;
+        return $this->get('crmp.contract.repository');
     }
 }
