@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * This part helps you to keep track of your duties and apply some controlling.
  *
  * @ORM\Table(name="contract")
- * @ORM\Entity(repositoryClass="Crmp\AcquisitionBundle\Repository\ContractRepository")
+ * @ORM\Entity(repositoryClass="Doctrine\ORM\EntityRepository")
  */
 class Contract
 {
