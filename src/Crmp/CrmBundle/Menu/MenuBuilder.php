@@ -4,7 +4,6 @@ namespace Crmp\CrmBundle\Menu;
 
 use Knp\Menu\FactoryInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\EventDispatcher\Debug\TraceableEventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
@@ -14,11 +13,6 @@ use Symfony\Component\HttpFoundation\RequestStack;
  */
 class MenuBuilder implements MenuBuilderInterface
 {
-    /**
-     * @var TraceableEventDispatcherInterface
-     */
-    protected $eventDispatcher;
-
     /**
      * @var FactoryInterface
      */
@@ -34,7 +28,6 @@ class MenuBuilder implements MenuBuilderInterface
     {
         $this->factory         = $factory;
         $this->container       = $serviceContainer;
-        $this->eventDispatcher = $serviceContainer->get('event_dispatcher');
     }
 
     /**
