@@ -79,6 +79,7 @@ class AddressController extends AbstractCrmpController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $address->setUpdatedBy($this->getUser());
             $this->getMainRepository()->persist($address);
 
             return $this->redirectToRoute('crmp_crm_address_show', array('id' => $address->getId()));
@@ -87,7 +88,6 @@ class AddressController extends AbstractCrmpController
         return $this->render(
             'CrmpCrmBundle:Address:new.html.twig',
             array(
-                'address' => $address,
                 'form'    => $form->createView(),
             )
         );

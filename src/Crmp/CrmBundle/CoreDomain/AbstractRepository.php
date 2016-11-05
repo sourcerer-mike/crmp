@@ -52,6 +52,7 @@ abstract class AbstractRepository implements RepositoryInterface
     public function persist($entity)
     {
         $this->entityManager->persist($entity);
+        $this->entityManager->flush($entity);
     }
 
     /**

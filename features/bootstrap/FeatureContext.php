@@ -24,20 +24,16 @@ class FeatureContext extends MinkContext implements SnippetAcceptingContext
     }
 
     /**
-     * @Given /^I click on "([^"]*)"$/
+     * @Given /^fill in "([^"]*)" with some email$/
      */
-    public function iClickOn($title)
+    public function fillInWithSomeEmail($field)
     {
-        $link = $this->fixStepArgument($title);
-        $page = $this->getSession()->getPage();
+        /** @var \Faker\Generator $faker */
+        $faker = $this->getContainer()->get('hautelook_alice.faker');
 
-        $link = $page->find('named', array('link_or_button', $title));
-
-        if (null === $link) {
-            throw new \DomainException('ElementNotFound '.$title);
-        }
-
-        $link->click();
+        $field = $this->fixStepArgument($field);
+        $value = $this->fixStepArgument($faker->email);
+        $this->getSession()->getPage()->fillField($field, $value);
     }
 
     /**
@@ -46,7 +42,7 @@ class FeatureContext extends MinkContext implements SnippetAcceptingContext
     public function iAmLoggedInAs($username)
     {
         $container = $this->getContainer();
-        $session = $container->get('session');
+        $session   = $container->get('session');
 
         /** @var $userManager \FOS\UserBundle\Doctrine\UserManager */
         $userManager = $container->get('fos_user.user_manager');
@@ -71,6 +67,23 @@ class FeatureContext extends MinkContext implements SnippetAcceptingContext
     }
 
     /**
+     * @Given /^I click on "([^"]*)"$/
+     */
+    public function iClickOn($title)
+    {
+        $link = $this->fixStepArgument($title);
+        $page = $this->getSession()->getPage();
+
+        $link = $page->find('named', array('link_or_button', $title));
+
+        if (null === $link) {
+            throw new \DomainException('ElementNotFound '.$title);
+        }
+
+        $link->click();
+    }
+
+    /**
      * Check a select and option pair by label.
      *
      * @Given /^the "([^"]*)" option is set to "([^"]*)"$/
@@ -82,17 +95,28 @@ class FeatureContext extends MinkContext implements SnippetAcceptingContext
             throw new ElementNotFoundException($this->getSession(), 'select field', 'id|name|label|value', $select);
         }
 
-        $optionField = $selectField->find('named', array(
-            'option',
-            $option,
-        ));
+        $optionField = $selectField->find(
+            'named',
+            array(
+                'option',
+                $option,
+            )
+        );
 
         if (null === $optionField) {
-            throw new ElementNotFoundException($this->getSession(), 'select option field', 'id|name|label|value', $option);
+            throw new ElementNotFoundException(
+                $this->getSession(),
+                'select option field',
+                'id|name|label|value',
+                $option
+            );
         }
 
-        if (!$optionField->isSelected()) {
-            throw new ExpectationException('Select option field with value|text "'.$option.'" is not selected in the select "'.$select.'"', $this->getSession());
+        if (! $optionField->isSelected()) {
+            throw new ExpectationException(
+                'Select option field with value|text "'.$option.'" is not selected in the select "'.$select.'"',
+                $this->getSession()
+            );
         }
     }
 }

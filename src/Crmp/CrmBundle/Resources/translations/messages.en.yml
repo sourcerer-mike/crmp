@@ -1,4 +1,6 @@
 crmp:
+  abort: Abort
+  create: Create
   empty: No entries.
   common:
     show: Show %name%
