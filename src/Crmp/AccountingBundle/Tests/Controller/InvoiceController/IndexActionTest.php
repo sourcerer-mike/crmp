@@ -39,6 +39,7 @@ class IndexActionTest extends AbstractControllerTestCase
                                    ->disableOriginalConstructor()
                                    ->setMethods(['find'])
                                    ->getMock();
+
         $customerRepository
             ->expects($this->once())
             ->method('find')
@@ -47,7 +48,7 @@ class IndexActionTest extends AbstractControllerTestCase
 
         $this->mockService('crmp.customer.repository', $customerRepository);
 
-        $this->controllerMock->expects($this->once())->method('findAllSimilar')->with($invoice);
+        $this->expectFindAllSimilar($invoice);
 
         $this->controllerMock->indexAction(new Request(['customer' => 42]));
     }
@@ -56,7 +57,7 @@ class IndexActionTest extends AbstractControllerTestCase
     {
         $this->expectRenderingWith('CrmpAccountingBundle:Invoice:index.html.twig');
 
-        $this->controllerMock->expects($this->once())->method('findAllSimilar')->with(new Invoice());
+        $this->expectFindAllSimilar(new Invoice());
 
         $this->controllerMock->indexAction(new Request([]));
     }

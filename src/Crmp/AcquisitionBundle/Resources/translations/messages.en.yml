@@ -13,6 +13,7 @@ crmp_acquisition:
     edit: Edit inquiry
     list: Inquiry
     new: New inquiry
+    open: Open inquiry
     plural: Inquiries
     predictedValue: Predicted value
     singular: Inquiry

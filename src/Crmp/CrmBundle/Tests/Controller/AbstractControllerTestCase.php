@@ -77,6 +77,25 @@ abstract class AbstractControllerTestCase extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Assertion that ::findAllSimilar is called correctly.
+     *
+     * @param object                                                  $entity
+     * @param null|\PHPUnit_Framework_MockObject_Matcher_InvokedCount $invokedCount
+     *
+     * @return \PHPUnit_Framework_MockObject_Builder_InvocationMocker
+     */
+    protected function expectFindAllSimilar($entity, $invokedCount = null)
+    {
+        if (null === $invokedCount) {
+            $invokedCount = $this->once();
+        }
+
+        return $this->controllerMock->expects($invokedCount)
+                                    ->method('findAllSimilar')
+                                    ->with($entity);
+    }
+
+    /**
      * Mock and check if ::createForm has been called correctly.
      *
      * @param AbstractType $expectedClass  Some kind of form.

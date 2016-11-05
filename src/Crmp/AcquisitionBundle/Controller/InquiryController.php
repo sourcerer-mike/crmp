@@ -2,12 +2,11 @@
 
 namespace Crmp\AcquisitionBundle\Controller;
 
+use Crmp\AcquisitionBundle\Form\InquiryType;
 use Crmp\CoreDomain\RepositoryInterface;
 use Crmp\CrmBundle\Controller\AbstractCrmpController;
-use Doctrine\Common\Collections\Criteria;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Crmp\AcquisitionBundle\Entity\Inquiry;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,34 +18,40 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class InquiryController extends AbstractCrmpController
 {
+    const ENTITY_NAME  = 'inquiry';
+    const FORM_TYPE    = InquiryType::class;
+    const ROUTE_DELETE = 'crmp_acquisition_inquiry_delete';
+    const ROUTE_INDEX  = 'crmp_acquisition_inquiry_index';
+    const ROUTE_SHOW   = 'crmp_acquisition_inquiry_show';
+    const VIEW_EDIT    = 'CrmpAcquisitionBundle:Inquiry:edit.html.twig';
+    const VIEW_SHOW    = 'CrmpAcquisitionBundle:Inquiry:show.html.twig';
+
     /**
-     * Lists all Inquiry entities.
+     * Lists all inquiry entities.
      *
      * @param Request $request
-     *
-     * @Route("/", name="crmp_acquisition_inquiry_index")
-     * @Method("GET")
      *
      * @return Response
      */
     public function indexAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $criteria = Criteria::create();
+        $inquiry = new Inquiry();
 
         if ($request->get('customer')) {
-            $customer = $this->getDoctrine()->getRepository('CrmpCrmBundle:Customer')->find($request->get('customer'));
-            $criteria->andWhere(Criteria::expr()->eq('customer', $customer));
+            $inquiry->setCustomer(
+                $this->get('crmp.customer.repository')->find($request->get('customer'))
+            );
         }
 
-        $inquiries = $em->getRepository('CrmpAcquisitionBundle:Inquiry')->matching($criteria);
+        if ($request->get('status')) {
+            $inquiry->setStatus($request->get('status'));
+        }
 
         return $this->render(
             'CrmpAcquisitionBundle:Inquiry:index.html.twig',
-            array(
-                'inquiries' => $inquiries,
-            )
+            [
+                'inquiries' => $this->findAllSimilar($inquiry),
+            ]
         );
     }
 
@@ -55,9 +60,6 @@ class InquiryController extends AbstractCrmpController
      *
      * @param Request $request
      *
-     * @Route("/new", name="crmp_acquisition_inquiry_new")
-     * @Method({"GET", "POST"})
-     *
      * @return RedirectResponse|Response
      */
     public function newAction(Request $request)
@@ -65,21 +67,19 @@ class InquiryController extends AbstractCrmpController
         $inquiry = new Inquiry();
 
         if ($request->get('customer')) {
-            // customer given: pre-fill form
-            $customer = $this->getDoctrine()->getRepository('CrmpCrmBundle:Customer')->find($request->get('customer'));
-
-            $inquiry->setCustomer($customer);
+            // customer given => pre-fill form
+            $inquiry->setCustomer(
+                $this->get('crmp.customer.repository')->find($request->get('customer'))
+            );
         }
 
         $inquiry->setInquiredAt(new \DateTime());
 
-        $form = $this->createForm('Crmp\AcquisitionBundle\Form\InquiryType', $inquiry);
+        $form = $this->createForm(InquiryType::class, $inquiry);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($inquiry);
-            $em->flush();
+            $this->getMainRepository()->persist($inquiry);
 
             return $this->redirectToRoute('crmp_acquisition_inquiry_show', array('id' => $inquiry->getId()));
         }
@@ -88,10 +88,9 @@ class InquiryController extends AbstractCrmpController
 
         return $this->render(
             'CrmpAcquisitionBundle:Inquiry:new.html.twig',
-            array(
-                'inquiry' => $inquiry,
+            [
                 'form'    => $form->createView(),
-            )
+            ]
         );
     }
 

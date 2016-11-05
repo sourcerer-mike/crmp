@@ -4,6 +4,10 @@
         xsi:schemaLocation="http://symfony.com/schema/routing
         http://symfony.com/schema/routing/routing-1.0.xsd">
 
+    <route id="crmp_acquisition_inquiry_new" path="/new" methods="GET,POST">
+        <default key="_controller">CrmpAcquisitionBundle:Inquiry:new</default>
+    </route>
+
     <route id="crmp_acquisition_inquiry_delete" path="/{id}" methods="DELETE">
         <default key="_controller">CrmpAcquisitionBundle:Inquiry:delete</default>
     </route>
@@ -18,9 +22,5 @@
 
     <route id="crmp_acquisition_inquiry_index" path="/" methods="GET">
         <default key="_controller">CrmpAcquisitionBundle:Inquiry:index</default>
-    </route>
-
-    <route id="crmp_acquisition_inquiry_new" path="/new" methods="GET,POST">
-        <default key="_controller">CrmpAcquisitionBundle:Inquiry:new</default>
     </route>
 </routes>

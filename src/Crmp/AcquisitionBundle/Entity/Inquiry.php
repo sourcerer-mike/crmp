@@ -15,7 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
  * CRMP offers a pool where you can just throw the inquiry in, keep track of them and generate offers or contracts.
  *
  * @ORM\Table(name="inquiry")
- * @ORM\Entity(repositoryClass="Crmp\AcquisitionBundle\Repository\InquiryRepository")
+ * @ORM\Entity(repositoryClass="Doctrine\ORM\EntityRepository")
  */
 class Inquiry
 {
