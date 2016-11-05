@@ -7,14 +7,18 @@ crmp:
   form:
     invalid: Whoops
     pleaseFix: Please fix the problems shown below.
+  updatedAt: Updated at
+  updatedBy: Updated by
 crmp_crm:
   date_js: yyyy-dd-mm
   address:
     create: New address
+    edit: Edit address
     list: Addresses
     mail: Mail
     name: Name
     new: New address
+    open: Open address
     plural: Addresses
     related: Related addresses
     singular: Address

@@ -124,19 +124,22 @@ abstract class AbstractCrmpController extends Controller
      *
      * Recheck a single invoice calling "/invoice/{id}".
      *
-     * @param Invoice $invoice
+     * @param Request $request
      *
      * @return Response
+     *
      */
-    public function showAction(Invoice $invoice)
+    public function showAction(Request $request)
     {
-        $deleteForm = $this->createDeleteForm($invoice);
+        $entity = $this->getMainRepository()->find($request->get('id'));
+
+        $deleteForm = $this->createDeleteForm($entity);
 
         return $this->render(
-            InvoiceController::VIEW_SHOW,
+            static::VIEW_SHOW,
             array(
-                InvoiceController::ENTITY_NAME => $invoice,
-                'delete_form'                  => $deleteForm->createView(),
+                static::ENTITY_NAME => $entity,
+                'delete_form'       => $deleteForm->createView(),
             )
         );
     }

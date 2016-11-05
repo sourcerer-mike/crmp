@@ -5,7 +5,7 @@
                           http://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
 
     <entity name="Crmp\CrmBundle\Entity\Customer"
-            repository-class="Crmp\CrmBundle\Repository\CustomerRepository"
+            repository-class="Doctrine\ORM\EntityRepository"
             table="customer">
 
         <id name="id" type="integer">

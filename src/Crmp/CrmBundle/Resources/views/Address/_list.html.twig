@@ -32,10 +32,12 @@
             <td>
                 <div class="btn-group">
                     <a href="{{ path('crmp_crm_address_show', { 'id': address.id }) }}"
+                       title="{{ "crmp_crm.address.open"|trans }}"
                             class="btn btn-default">
                         <i class="fa fa-eye"></i>
                     </a>
                     <a href="{{ path('crmp_crm_address_edit', { 'id': address.id }) }}"
+                       title="{{ "crmp_crm.address.edit"|trans }}"
                             class="btn btn-default">
                         <i class="fa fa-pencil"></i>
                     </a>

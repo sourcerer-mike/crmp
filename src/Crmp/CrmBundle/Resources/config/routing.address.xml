@@ -4,12 +4,16 @@
         xsi:schemaLocation="http://symfony.com/schema/routing
         http://symfony.com/schema/routing/routing-1.0.xsd">
 
-    <route id="crmp_crm_address_delete" path="/{id}" methods="DELETE">
-        <default key="_controller">CrmpCrmBundle:Address:delete</default>
+    <route id="crmp_crm_address_new" path="/new" methods="GET,POST">
+        <default key="_controller">CrmpCrmBundle:Address:new</default>
     </route>
 
     <route id="crmp_crm_address_show" path="/{id}" methods="GET">
         <default key="_controller">CrmpCrmBundle:Address:show</default>
+    </route>
+
+    <route id="crmp_crm_address_delete" path="/{id}" methods="DELETE">
+        <default key="_controller">CrmpCrmBundle:Address:delete</default>
     </route>
 
     <route id="crmp_crm_address_edit" path="/{id}/edit" methods="GET,POST">
@@ -20,7 +24,4 @@
         <default key="_controller">CrmpCrmBundle:Address:index</default>
     </route>
 
-    <route id="crmp_crm_address_new" path="/new" methods="GET,POST">
-        <default key="_controller">CrmpCrmBundle:Address:new</default>
-    </route>
 </routes>

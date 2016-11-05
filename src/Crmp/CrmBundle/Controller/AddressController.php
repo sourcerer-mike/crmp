@@ -21,14 +21,19 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class AddressController extends AbstractCrmpController
 {
+    const ENTITY_NAME  = 'address';
+    const FORM_TYPE    = AddressType::class;
+    const ROUTE_DELETE = 'crmp_crm_address_delete';
+    const ROUTE_INDEX  = 'crmp_crm_address_index';
+    const ROUTE_SHOW   = 'crmp_crm_address_show';
+    const VIEW_EDIT    = 'CrmpCrmBundle:Address:edit.html.twig';
+    const VIEW_SHOW    = 'CrmpCrmBundle:Address:show.html.twig';
+
     /**
      * Lists all addresses.
      *
      * To list all addresses go to the address overview.
      * Addresses can be filtered by customer.
-     *
-     * @Route("/", name="crmp_crm_address_index")
-     * @Method("GET")
      *
      * @param Request $request
      *
@@ -36,30 +41,24 @@ class AddressController extends AbstractCrmpController
      */
     public function indexAction(Request $request)
     {
-        $repo = $this->get('crmp.address.repository');
-        $addresses = $repo->findAll($this->getListLimit());
+        $address = new Address();
 
         if ($request->get('customer')) {
-            $addresses = $repo->findBy(
-                [
-                    'customer' => $request->get('customer'),
-                ]
+            $address->setCustomer(
+                $this->get('crmp.customer.repository')->find($request->get('customer'))
             );
         }
 
         return $this->render(
             'CrmpCrmBundle:Address:index.html.twig',
             array(
-                'addresses' => $addresses,
+                'addresses' => $this->findAllSimilar($address),
             )
         );
     }
 
     /**
      * Creates a new Address entity.
-     *
-     * @Route("/new", name="crmp_crm_address_new")
-     * @Method({"GET", "POST"})
      *
      * @param Request $request
      *
@@ -70,19 +69,17 @@ class AddressController extends AbstractCrmpController
         $address = new Address();
 
         if ($request->get('customer')) {
-            // customer given: pre-fill form
-            $customer = $this->getDoctrine()->getRepository('CrmpCrmBundle:Customer')->find($request->get('customer'));
-
-            $address->setCustomer($customer);
+            // customer given => pre-fill form
+            $address->setCustomer(
+                $this->get('crmp.customer.repository')->find($request->get('customer'))
+            );
         }
 
-        $form = $this->createForm('Crmp\CrmBundle\Form\AddressType', $address);
+        $form = $this->createForm(AddressType::class, $address);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($address);
-            $em->flush();
+            $this->getMainRepository()->persist($address);
 
             return $this->redirectToRoute('crmp_crm_address_show', array('id' => $address->getId()));
         }

@@ -4,7 +4,7 @@
         xsi:schemaLocation="http://symfony.com/schema/routing
         http://symfony.com/schema/routing/routing-1.0.xsd">
 
-    <import resource="routing.address.xml" prefix="address" />
-    <import resource="routing.customer.xml" prefix="customer" />
-    <import resource="routing.settings.xml" prefix="settings" />
+    <import resource="routing.address.xml" prefix="crm/address" />
+    <import resource="routing.customer.xml" prefix="crm/customer" />
+    <import resource="routing.settings.xml" prefix="crm/settings" />
 </routes>

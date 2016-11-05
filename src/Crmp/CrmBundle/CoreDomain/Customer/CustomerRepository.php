@@ -6,6 +6,7 @@ namespace Crmp\CrmBundle\CoreDomain\Customer;
 use Crmp\CrmBundle\Entity\Customer;
 use Crmp\CrmBundle\Repository\CustomerRepository as CustomerRepo;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityRepository;
 
 /**
  * Adapter to the storage of customer data.
@@ -17,10 +18,10 @@ class CustomerRepository
     /**
      * Injects the repository and entity manager.
      *
-     * @param CustomerRepo  $customerRepository Final storage for data in doctrine.
-     * @param EntityManager $entityManager      Doctrine adapter to storage, needed for updates.
+     * @param EntityRepository $customerRepository Final storage for data in doctrine.
+     * @param EntityManager    $entityManager      Doctrine adapter to storage, needed for updates.
      */
-    public function __construct(CustomerRepo $customerRepository, EntityManager $entityManager)
+    public function __construct(EntityRepository $customerRepository, EntityManager $entityManager)
     {
         $this->customerRepository = $customerRepository;
         $this->entityManager      = $entityManager;
@@ -31,7 +32,7 @@ class CustomerRepository
      *
      * @param int $id ID of the customer.
      *
-     * @return null|Customer
+     * @return null|object|Customer
      */
     public function find($id)
     {

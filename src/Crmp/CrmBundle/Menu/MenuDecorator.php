@@ -75,7 +75,7 @@ class MenuDecorator extends AbstractMenuDecorator
 
         if (isset($params['address']) && $params['address'] instanceof Address) {
             $menuItem->addChild(
-                'crmp.edit',
+                'crmp_crm.address.edit',
                 [
                     'route'           => 'crmp_crm_address_edit',
                     'routeParameters' => [
