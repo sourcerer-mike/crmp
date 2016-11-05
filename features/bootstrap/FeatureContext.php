@@ -32,12 +32,12 @@ class FeatureContext extends MinkContext implements SnippetAcceptingContext
         $faker = $this->getContainer()->get('hautelook_alice.faker');
 
         $field = $this->fixStepArgument($field);
-        $value = $this->fixStepArgument(uniqid('behat') . $faker->email);
+        $value = $this->fixStepArgument(uniqid('behat').$faker->email);
         $this->getSession()->getPage()->fillField($field, $value);
     }
 
     /**
-     * @Given /I am logged in as "(?P<page>[^"]+)"/
+     * @Given /I am logged in as "(?P<username>[^"]+)"/
      */
     public function iAmLoggedInAs($username)
     {
@@ -81,6 +81,18 @@ class FeatureContext extends MinkContext implements SnippetAcceptingContext
         }
 
         $link->click();
+    }
+
+    /**
+     * @Given /the choice "([^"]*)" should be checked/
+     */
+    public function theCheckboxForShouldBeSelected($checkboxLabel)
+    {
+        $field = $this->getSession()->getPage()->findField($checkboxLabel);
+
+        if (! $field->isChecked()) {
+            throw new Exception('Checkbox with label '.$checkboxLabel.' is not checked');
+        }
     }
 
     /**

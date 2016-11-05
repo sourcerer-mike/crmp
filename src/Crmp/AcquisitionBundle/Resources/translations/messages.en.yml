@@ -9,7 +9,7 @@ crmp_acquisition:
     content: Contract description
   inquiry:
     content: Inquiry description
-    date: Inquiried at
+    date: Inquired at
     edit: Edit inquiry
     list: Inquiry
     new: New inquiry

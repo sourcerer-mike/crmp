@@ -65,6 +65,7 @@ class InquiryController extends AbstractCrmpController
     public function newAction(Request $request)
     {
         $inquiry = new Inquiry();
+        $inquiry->setStatus(0);
 
         if ($request->get('customer')) {
             // customer given => pre-fill form
