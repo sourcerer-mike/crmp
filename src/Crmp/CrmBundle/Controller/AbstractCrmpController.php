@@ -29,6 +29,9 @@ abstract class AbstractCrmpController extends Controller
     const VIEW_EDIT    = null;
     const VIEW_SHOW    = null;
 
+    /**
+     * Assert that all constants are given.
+     */
     public function __construct()
     {
         if (! static::ENTITY_NAME) {
