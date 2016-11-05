@@ -84,6 +84,14 @@ class FeatureContext extends MinkContext implements SnippetAcceptingContext
     }
 
     /**
+     * @Given /^text for "([^"]*)" should be:$/
+     */
+    public function textForShouldBe($field, \Behat\Gherkin\Node\PyStringNode $string)
+    {
+        $this->assertFieldContains($field, $string->getRaw());
+    }
+
+    /**
      * @Given /the choice "([^"]*)" should be checked/
      */
     public function theCheckboxForShouldBeSelected($checkboxLabel)
