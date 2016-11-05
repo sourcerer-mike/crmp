@@ -109,6 +109,15 @@ abstract class AbstractRepository implements RepositoryInterface
         $this->entityManager->remove($entity);
     }
 
+    /**
+     * Create a new search criteria.
+     *
+     * @param int   $amount
+     * @param int   $start
+     * @param array $order
+     *
+     * @return Criteria
+     */
     protected function createCriteria($amount = null, $start = null, $order = [])
     {
         $criteria = Criteria::create();

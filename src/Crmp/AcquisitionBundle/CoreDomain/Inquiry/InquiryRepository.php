@@ -5,6 +5,7 @@ namespace Crmp\AcquisitionBundle\CoreDomain\Inquiry;
 
 use Crmp\AcquisitionBundle\Entity\Inquiry;
 use Crmp\AcquisitionBundle\Repository\InquiryRepository as InquiryRepo;
+use Crmp\CrmBundle\CoreDomain\AbstractRepository;
 use Doctrine\ORM\EntityManager;
 
 /**
@@ -12,39 +13,30 @@ use Doctrine\ORM\EntityManager;
  *
  * @package Crmp\AcquisitionBundle\CoreDomain\Inquiry
  */
-class InquiryRepository
+class InquiryRepository extends AbstractRepository
 {
     /**
-     * Inject interfaces to doctrine.
-     *
-     * @param InquiryRepo   $inquiryRepository Storage with inquirys.
-     * @param EntityManager $entityManager     Entity manager to persist inquirys in it.
-     */
-    public function __construct(InquiryRepo $inquiryRepository, EntityManager $entityManager)
-    {
-        $this->inquiryRepository = $inquiryRepository;
-        $this->entitiyManager    = $entityManager;
-    }
-
-    /**
-     * Change inquiry data in the storage.
+     * Fetch entities similar to the given one.
      *
      * @param Inquiry $inquiry
+     * @param int     $amount
+     * @param int     $start
+     * @param array   $order
+     *
+     * @return \object[]
      */
-    public function update(Inquiry $inquiry)
+    public function findAllSimilar($inquiry, $amount = null, $start = null, $order = [])
     {
-        $this->entitiyManager->persist($inquiry);
-    }
+        $criteria = $this->createCriteria($amount, $start, $order);
 
-    /**
-     * Fetch one specific inquiry.
-     *
-     * @param int $inquiryId ID of the inquiry.
-     *
-     * @return null|Inquiry The found inquiry, otherwise null.
-     */
-    public function find($inquiryId)
-    {
-        return $this->inquiryRepository->find($inquiryId);
+        if ($inquiry->getCustomer()) {
+            $criteria->where($criteria->expr()->eq('customer', $inquiry->getCustomer()));
+        }
+
+        if ($inquiry->getStatus()) {
+            $criteria->where($criteria->expr()->eq('status', $inquiry->getStatus()));
+        }
+
+        return $this->repository->matching($criteria);
     }
 }
