@@ -4,6 +4,7 @@
 namespace Crmp\CrmBundle\Tests\Controller;
 
 
+use Crmp\CrmBundle\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Response;
@@ -229,6 +230,15 @@ abstract class AbstractControllerTestCase extends \PHPUnit_Framework_TestCase
         if (false !== $return) {
             $this->serviceMap[$serviceName] = $return;
         }
+    }
+
+    protected function mockMethodGetUser()
+    {
+        $user = new User();
+
+        $this->controllerMock->expects(PHPUnit_Framework_TestCase->any())
+                             ->method('getUser')
+        ->willReturn($user);
     }
 
     protected function setUp()

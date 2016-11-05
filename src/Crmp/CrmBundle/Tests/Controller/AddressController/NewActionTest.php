@@ -7,6 +7,7 @@ use Crmp\CrmBundle\CoreDomain\Address\AddressRepository;
 use Crmp\CrmBundle\CoreDomain\Customer\CustomerRepository;
 use Crmp\CrmBundle\Entity\Address;
 use Crmp\CrmBundle\Entity\Customer;
+use Crmp\CrmBundle\Entity\User;
 use Crmp\CrmBundle\Form\AddressType;
 use Crmp\CrmBundle\Tests\Controller\AbstractControllerTestCase;
 use Symfony\Component\HttpFoundation\Request;
@@ -72,6 +73,8 @@ class NewActionTest extends AbstractControllerTestCase
         $this->controllerMock->expects($this->once())
                              ->method('getMainRepository')
                              ->willReturn($addressRepository);
+
+        $this->mockMethodGetUser();
 
         $this->expectRedirectToRoute(AddressController::ROUTE_SHOW, ['id' => null]);
 
