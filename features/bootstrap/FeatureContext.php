@@ -32,12 +32,12 @@ class FeatureContext extends MinkContext implements SnippetAcceptingContext
         $faker = $this->getContainer()->get('hautelook_alice.faker');
 
         $field = $this->fixStepArgument($field);
-        $value = $this->fixStepArgument($faker->email);
+        $value = $this->fixStepArgument(uniqid('behat') . $faker->email);
         $this->getSession()->getPage()->fillField($field, $value);
     }
 
     /**
-     * @Given I am logged in as :arg1
+     * @Given /I am logged in as "(?P<page>[^"]+)"/
      */
     public function iAmLoggedInAs($username)
     {

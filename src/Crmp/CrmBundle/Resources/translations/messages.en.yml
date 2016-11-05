@@ -1,9 +1,10 @@
 crmp:
   abort: Abort
-  create: Create
-  empty: No entries.
   common:
     show: Show %name%
+  create: Create
+  delete: Delete
+  empty: No entries.
   save: Save
   none: None
   form:

@@ -71,13 +71,14 @@ abstract class AbstractCrmpController extends Controller
      * Please be careful deleting things.
      *
      * @param Request $request
-     * @param object  $entity
      *
      * @return RedirectResponse
      */
-    public function deleteAction(Request $request, $entity)
+    public function deleteAction(Request $request)
     {
-        $form = $this->createDeleteForm($entity);
+        $entity = $this->getMainRepository()->find($request->get('id'));
+
+        $form   = $this->createDeleteForm($entity);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -96,7 +97,6 @@ abstract class AbstractCrmpController extends Controller
      */
     public function editAction(Request $request)
     {
-        var_dump($object);
         if (! $request->get('id')) {
             throw new \InvalidArgumentException('Please provide an ID.');
         }
