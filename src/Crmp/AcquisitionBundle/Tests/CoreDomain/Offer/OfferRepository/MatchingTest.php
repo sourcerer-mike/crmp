@@ -56,4 +56,21 @@ class MatchingTest extends AbstractRepositoryTestCase
                     ->setMethods(['matching'])
                     ->getMock();
     }
+
+    protected function createEntity()
+    {
+        new Offer();
+    }
+
+    /**
+     * Get the current class name.
+     *
+     * With 1.0.0 this method will become so that every test have to implement it.
+     *
+     * @return string
+     */
+    protected function getRepositoryClassName()
+    {
+        return OfferRepository::class;
+    }
 }

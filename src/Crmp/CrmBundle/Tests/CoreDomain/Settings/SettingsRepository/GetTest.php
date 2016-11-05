@@ -95,4 +95,18 @@ class GetTest extends AbstractRepositoryTestCase
         $this->assertEquals($expectedValue, $repo->get($name, null));
     }
 
+    protected function createEntity()
+    {
+        return new Setting();
+    }
+
+    /**
+     * Get the current class name.
+     *
+     * @return string
+     */
+    protected function getRepositoryClassName()
+    {
+        return SettingsRepository::class;
+    }
 }

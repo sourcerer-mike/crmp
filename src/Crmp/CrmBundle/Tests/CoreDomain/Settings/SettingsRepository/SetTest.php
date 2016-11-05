@@ -66,21 +66,20 @@ class SetTest extends AbstractRepositoryTestCase
         return $this->createMock(EntityManager::class);
     }
 
-    /**
-     * Get current mock for the repository.
-     *
-     * @deprecated 1.0.0 This needs to be a ::createRepositoryMockBuilder used by ::getRepositoryMock.
-     *
-     * @param null $repo
-     * @param null $entityManager
-     *
-     * @return \PHPUnit_Framework_MockObject_MockObject
-     */
-    protected function getRepositoryMock($repo = null, $entityManager = null)
+    protected function createEntity()
     {
+        return new Setting();
+    }
 
-        $settingsRepository = $this->createRepositoryMockBuilder($repo, $entityManager);
-
-        return $settingsRepository->getMock();
+    /**
+     * Get the current class name.
+     *
+     * With 1.0.0 this method will become so that every test have to implement it.
+     *
+     * @return string
+     */
+    protected function getRepositoryClassName()
+    {
+        return SettingsRepository::class;
     }
 }

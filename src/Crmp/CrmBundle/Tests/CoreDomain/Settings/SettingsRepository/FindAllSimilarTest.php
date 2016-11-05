@@ -5,6 +5,7 @@ namespace Crmp\CrmBundle\Tests\CoreDomain\Settings\SettingsRepository;
 
 
 use Crmp\CrmBundle\CoreDomain\Settings\SettingsRepository;
+use Crmp\CrmBundle\Entity\Setting;
 use Crmp\CrmBundle\Tests\CoreDomain\AbstractRepositoryTestCase;
 
 /**
@@ -36,5 +37,20 @@ class FindAllSimilarTest extends AbstractRepositoryTestCase
     public function testItCanOrderBySomeField()
     {
         $this->markTestIncomplete();
+    }
+
+    protected function createEntity()
+    {
+        return new Setting();
+    }
+
+    /**
+     * Get the current class name.
+     *
+     * @return string
+     */
+    protected function getRepositoryClassName()
+    {
+        return SettingsRepository::class;
     }
 }
