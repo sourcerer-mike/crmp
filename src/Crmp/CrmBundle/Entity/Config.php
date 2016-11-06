@@ -10,8 +10,10 @@ use Doctrine\ORM\Mapping as ORM;
  * The general configuration is manages with the Config-Entity.
  * It provides a flat structure for simple data.
  *
+ * @deprecated 1.0.0 Use settings instead.
+ *
  * @ORM\Table(name="config")
- * @ORM\Entity(repositoryClass="Crmp\CrmBundle\Repository\ConfigRepository")
+ * @ORM\Entity(repositoryClass="Doctrine\ORM\EntityRepository")
  */
 class Config
 {
