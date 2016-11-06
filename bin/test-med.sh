@@ -24,7 +24,7 @@ done
 assert vendor/bin/phpunit
 
 # behat tests
-assert vendor/bin/behat
+assert vendor/bin/behat -f progress
 
 
 exit ${finalStatus}
