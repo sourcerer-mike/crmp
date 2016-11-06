@@ -8,103 +8,63 @@ use Crmp\AcquisitionBundle\CoreDomain\Inquiry\InquiryRepository;
 use Crmp\AcquisitionBundle\CoreDomain\Offer\OfferRepository;
 use Crmp\AcquisitionBundle\Entity\Inquiry;
 use Crmp\AcquisitionBundle\Entity\Offer;
+use Crmp\CrmBundle\CoreDomain\Customer\CustomerRepository;
 use Crmp\CrmBundle\Entity\Customer;
-use Crmp\CrmBundle\Repository\CustomerRepository;
 use Crmp\CrmBundle\Tests\Controller\AbstractControllerTestCase;
 use Symfony\Component\HttpFoundation\Request;
 
 class IndexActionTest extends AbstractControllerTestCase
 {
     protected $controllerClass = OfferController::class;
-    /**
-     * @var \PHPUnit_Framework_MockObject_MockObject|OfferController
-     */
-    protected $controllerMock;
 
     public function testItCanFilterByCustomer()
     {
-        $expectedOffer = new Offer();
-
-        $expectedOffer->setCustomer($expectedCustomer = new Customer());
-
+        $customerId       = mt_rand(42, 1337);
+        $expectedCustomer = new Customer();
         $expectedCustomer->setName(uniqid());
 
-        $customerRepository = $this->getMockBuilder(CustomerRepository::class)
-                                  ->disableOriginalConstructor()
-                                  ->setMethods(['find'])
-                                  ->getMock();
+        $expectedOffer = new Offer();
+        $expectedOffer->setCustomer($expectedCustomer);
 
-        $customerRepository->expects($this->once())
-                          ->method('find')
-                          ->with(42)
-                          ->willReturn($expectedCustomer);
+        $mock = $this->mockRepositoryService('crmp.customer.repository', CustomerRepository::class);
 
-        $offerRepository = $this->getMockBuilder(OfferRepository::class)
-                                ->disableOriginalConstructor()
-                                ->setMethods(['findSimilar'])
-                                ->getMock();
+        $mock->expects($this->once())
+             ->method('find')
+             ->with($customerId)
+             ->willReturn($expectedCustomer);
 
-        $this->mockService('crmp.customer.repository', $customerRepository);
+        $this->expectFindAllSimilar($expectedOffer);
 
-        // Assert that there is no filter.
-        $offerRepository->expects($this->once())
-                        ->method('findSimilar')
-                        ->with($expectedOffer);
-
-        $this->mockService('crmp.offer.repository', $offerRepository);
-
-        $this->controllerMock->indexAction(new Request(['customer' => 42]));
+        $this->controllerMock->indexAction(new Request(['customer' => $customerId]));
     }
 
     public function testItCanFilterByInquiry()
     {
+        $inquiryId = mt_rand(42, 1337);
+        $inquiry   = new Inquiry();
+        $inquiry->setTitle(uniqid());
+
         $expectedOffer = new Offer();
+        $expectedOffer->setInquiry($inquiry);
 
-        $expectedOffer->setInquiry($expectedInquiry = new Inquiry());
+        $mock = $this->mockRepositoryService('crmp.inquiry.repository', InquiryRepository::class);
 
-        $expectedInquiry->setTitle(uniqid());
+        $mock->expects($this->once())
+             ->method('find')
+             ->with($inquiryId)
+             ->willReturn($inquiry);
 
-        $inquiryRepository = $this->getMockBuilder(InquiryRepository::class)
-                                  ->disableOriginalConstructor()
-                                  ->setMethods(['find'])
-                                  ->getMock();
+        $this->expectFindAllSimilar($expectedOffer);
 
-        $inquiryRepository->expects($this->once())
-                          ->method('find')
-                          ->with(42)
-                          ->willReturn($expectedInquiry);
-
-        $offerRepository = $this->getMockBuilder(OfferRepository::class)
-                                ->disableOriginalConstructor()
-                                ->setMethods(['findSimilar'])
-                                ->getMock();
-
-        $this->mockService('crmp.inquiry.repository', $inquiryRepository);
-
-        // Assert that there is no filter.
-        $offerRepository->expects($this->once())
-                        ->method('findSimilar')
-                        ->with($expectedOffer);
-
-        $this->mockService('crmp.offer.repository', $offerRepository);
-
-        $this->controllerMock->indexAction(new Request(['inquiry' => 42]));
+        $this->controllerMock->indexAction(new Request(['inquiry' => $inquiryId]));
     }
 
-    public function testItListsAllOffers()
+    public function testItListsCustomers()
     {
-        $offerRepository = $this->getMockBuilder(OfferRepository::class)
-                                ->disableOriginalConstructor()
-                                ->setMethods(['findSimilar'])
-                                ->getMock();
+        $this->expectRenderingWith('CrmpAcquisitionBundle:Offer:index.html.twig');
 
-        // Assert that there is no filter.
-        $offerRepository->expects($this->once())
-                        ->method('findSimilar')
-                        ->with(new Offer());
+        $this->expectFindAllSimilar(new Offer());
 
-        $this->mockService('crmp.offer.repository', $offerRepository);
-
-        $this->controllerMock->indexAction($this->createMock(Request::class));
+        $this->controllerMock->indexAction(new Request([]));
     }
 }
