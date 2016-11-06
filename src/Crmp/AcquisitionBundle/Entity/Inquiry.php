@@ -110,25 +110,13 @@ class Inquiry
     /**
      * Title of the inquiry as string.
      *
+     * @deprecated 1.0.0 Use proper labeling in forms instead.
+     *
      * @return string
      */
     public function __toString()
     {
         return $this->getTitle();
-    }
-
-    /**
-     * Add offer
-     *
-     * @param Offer $offer
-     *
-     * @return Inquiry
-     */
-    public function addOffer(Offer $offer)
-    {
-        $this->offers[] = $offer;
-
-        return $this;
     }
 
     /**
@@ -337,15 +325,5 @@ class Inquiry
         }
 
         return false;
-    }
-
-    /**
-     * Remove offer
-     *
-     * @param Offer $offer
-     */
-    public function removeOffer(Offer $offer)
-    {
-        $this->offers->removeElement($offer);
     }
 }
