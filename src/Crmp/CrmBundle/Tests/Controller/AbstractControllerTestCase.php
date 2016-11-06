@@ -17,14 +17,12 @@ abstract class AbstractControllerTestCase extends \PHPUnit_Framework_TestCase
      * @var \PHPUnit_Framework_MockObject_MockBuilder
      */
     protected $controllerBuilder;
-
     /**
      * Class name of the test subject.
      *
      * @var string
      */
     protected $controllerClass = '';
-
     /**
      * CustomerController mocking some functions.
      *
@@ -209,6 +207,18 @@ abstract class AbstractControllerTestCase extends \PHPUnit_Framework_TestCase
         $this->controllerMock->expects($this->any())
                              ->method('getUser')
                              ->willReturn($user);
+    }
+
+    protected function mockRepositoryService($serviceName, $repositoryName)
+    {
+        $repoMock = $this->getMockBuilder($repositoryName)
+                         ->disableOriginalConstructor()
+                         ->setMethods(['find'])
+                         ->getMock();
+
+        $this->mockService($serviceName, $repoMock);
+
+        return $repoMock;
     }
 
     /**

@@ -81,16 +81,4 @@ class NewActionTest extends AbstractControllerTestCase
 
         $this->controllerMock->newAction(new Request());
     }
-
-    protected function mockRepositoryService($serviceName, $repositoryName)
-    {
-        $repoMock = $this->getMockBuilder($repositoryName)
-                         ->disableOriginalConstructor()
-                         ->setMethods(['find'])
-                         ->getMock();
-
-        $this->mockService($serviceName, $repoMock);
-
-        return $repoMock;
-    }
 }
