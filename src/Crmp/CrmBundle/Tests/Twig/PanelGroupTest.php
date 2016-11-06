@@ -25,7 +25,6 @@ class PanelGroupTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(1, $panelGroup->count());
 
-        var_dump(iterator_to_array($panelGroup->getIterator()));
         $this->assertEquals(
             [$panelMock->getId() => $panelMock],
             iterator_to_array($panelGroup->getIterator())
