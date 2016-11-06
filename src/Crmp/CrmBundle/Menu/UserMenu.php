@@ -26,7 +26,7 @@ class UserMenu extends AbstractMenuDecorator
         /** @var User $user */
         $user = $this->getUser();
 
-        if ('anon.' == $user) {
+        if (! $user || 'anon.' == $user) {
             // not logged in, skip
             return $menu;
         }
