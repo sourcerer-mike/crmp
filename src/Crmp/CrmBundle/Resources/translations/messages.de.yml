@@ -25,6 +25,10 @@ crmp:
     collapse: Auf-/Zuklappen
   profile: Profil
   save: Speichern
+  none: -
+  form:
+    invalid: Huch
+    pleaseFix: Bitte beheben Sie diese Fehler:
   updatedAt: Aktualisiert am
   updatedBy: Aktualisiert von
   user:
@@ -33,15 +37,16 @@ crmp:
     password: Passwort
     register: Neu registrieren
   view: Anzeigen
-
 crmp_crm:
   date_js: dd.mm.yy
   address:
     create: Neue Adresse
+    edit: Adresse bearbeiten
     list: Adressen
     mail: Mail
     name: Name
     new: Neue Adresse
+    open: Adresse öffnen
     plural: Addressen
     related: Zugehörige Adressen
     singular: Adresse

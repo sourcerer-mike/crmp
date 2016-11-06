@@ -3,8 +3,27 @@ crmp:
   common:
     show: Show %name%
   create: Create
+  createdAt: Created at
+  dashboard: Dashboard
   delete: Delete
+  edit: Edit
   empty: No entries.
+  entit:
+    metaInformation: Other informations
+    related:
+      more: Show list
+    relatedInformations: Related informations
+  helloWorld: Please choose from the menu.
+  logout: Logout
+  mail:
+    send: Send a mail
+  menu:
+    related:
+      label: Actions
+  more: More
+  panel:
+    collapse: Collapse/Unfold
+  profile: Profile
   save: Save
   none: None
   form:
@@ -12,6 +31,12 @@ crmp:
     pleaseFix: Please fix the problems shown below.
   updatedAt: Updated at
   updatedBy: Updated by
+  user:
+    login: Login
+    name: Username
+    password: Password
+    register: Register
+  view: Show
 crmp_crm:
   date_js: yyyy-dd-mm
   address:
