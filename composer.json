@@ -17,6 +17,9 @@
         "issues": "https://github.com/sourcerer-mike/crmp/issues",
         "source": "https://github.com/sourcerer-mike/crmp"
     },
+    "config": {
+        "sort-packages": true
+    },
     "autoload": {
         "psr-4": {
             "": "src/"
