@@ -54,7 +54,7 @@ class MenuDecorator extends AbstractMenuDecorator
      */
     public function buildAcquisitionInquiryShowRelatedMenu(MenuItem $menuItem)
     {
-        $params = $this->container->get('crmp.controller.render.parameters');
+        $params = $this->getRenderParams();
 
         if (isset($params['inquiry']) && $params['inquiry'] instanceof Inquiry) {
             $menuItem->addChild(
@@ -118,7 +118,7 @@ class MenuDecorator extends AbstractMenuDecorator
      */
     public function buildAcquisitionContractShowRelatedMenu(MenuItem $menuItem)
     {
-        $params = $this->container->get('crmp.controller.render.parameters');
+        $params = $this->getRenderParams();
 
         if (isset($params['contract']) && $params['contract'] instanceof Contract) {
             /** @var Contract $contract */
@@ -173,7 +173,7 @@ class MenuDecorator extends AbstractMenuDecorator
      */
     public function buildAcquisitionOfferShowRelatedMenu(MenuItem $menuItem)
     {
-        $params = $this->container->get('crmp.controller.render.parameters');
+        $params = $this->getRenderParams();
 
         if (! isset($params['offer']) || false == $params['offer'] instanceof Offer) {
             // no offer set or not an offer => incorrect context
@@ -245,7 +245,7 @@ class MenuDecorator extends AbstractMenuDecorator
      */
     public function buildCrmCustomerShowRelatedMenu(MenuItem $menuItem)
     {
-        $params = $this->container->get('crmp.controller.render.parameters');
+        $params = $this->getRenderParams();
 
         if (isset($params['customer']) && $params['customer'] instanceof Customer) {
             $menuItem->addChild(
@@ -280,7 +280,7 @@ class MenuDecorator extends AbstractMenuDecorator
     {
         $menu = parent::createMainMenu($requestStack);
 
-        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        $user = $this->getUser();
 
         if ('anon.' == $user) {
             // not logged in, skip

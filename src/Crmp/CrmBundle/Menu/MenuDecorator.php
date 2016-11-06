@@ -71,7 +71,7 @@ class MenuDecorator extends AbstractMenuDecorator
      */
     public function buildCrmAddressShowRelatedMenu(MenuItem $menuItem)
     {
-        $params = $this->container->get('crmp.controller.render.parameters');
+        $params = $this->getRenderParams();
 
         if (isset($params['address']) && $params['address'] instanceof Address) {
             $menuItem->addChild(
@@ -123,7 +123,7 @@ class MenuDecorator extends AbstractMenuDecorator
      */
     public function buildCrmCustomerShowRelatedMenu(MenuItem $menuItem)
     {
-        $params = $this->container->get('crmp.controller.render.parameters');
+        $params = $this->getRenderParams();
 
         if (isset($params['customer']) && $params['customer'] instanceof Customer) {
             $menuItem->addChild(
@@ -194,7 +194,7 @@ class MenuDecorator extends AbstractMenuDecorator
     {
         $menu = parent::createMainMenu($requestStack);
 
-        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        $user = $this->getUser();
 
         if ('anon.' == $user) {
             // not logged in, skip

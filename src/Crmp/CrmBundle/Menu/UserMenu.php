@@ -24,7 +24,7 @@ class UserMenu extends AbstractMenuDecorator
         $menu = parent::createUserMenu($requestStack);
 
         /** @var User $user */
-        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        $user = $this->getUser();
 
         if ('anon.' == $user) {
             // not logged in, skip

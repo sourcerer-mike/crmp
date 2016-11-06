@@ -2,8 +2,9 @@
 
 namespace Crmp\CrmBundle\Menu;
 
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use FOS\UserBundle\Model\User;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 
 /**
  * Interface for other bundles to enhance a menu tree.
@@ -14,11 +15,6 @@ use Symfony\Component\HttpFoundation\RequestStack;
  */
 abstract class AbstractMenuDecorator implements MenuDecoratorInterface
 {
-    /**
-     * @var ContainerInterface
-     */
-    protected $container;
-
     /**
      * @var MenuBuilder
      */
@@ -33,16 +29,23 @@ abstract class AbstractMenuDecorator implements MenuDecoratorInterface
     protected $renderParams;
 
     /**
+     * Storage with user inside.
+     *
+     * @var TokenStorage
+     */
+    protected $user;
+
+    /**
      * MenuBuilder constructor.
      *
-     * @param MenuInterface      $menu         The menu to decorate.
-     * @param ContainerInterface $container    DI container.
-     * @param \ArrayObject       $renderParams Parameters that are given to the current view.
+     * @param MenuInterface $menu         The menu to decorate.
+     * @param User          $user         Current user
+     * @param \ArrayObject  $renderParams Parameters that are given to the current view.
      */
-    public function __construct(MenuInterface $menu, ContainerInterface $container, \ArrayObject $renderParams = null)
+    public function __construct(MenuInterface $menu, User $user = null, \ArrayObject $renderParams = null)
     {
         $this->menuBuilder  = $menu;
-        $this->container    = $container;
+        $this->user         = $user;
         $this->renderParams = $renderParams;
     }
 
@@ -106,5 +109,13 @@ abstract class AbstractMenuDecorator implements MenuDecoratorInterface
     protected function getRenderParams()
     {
         return $this->renderParams;
+    }
+
+    /**
+     * @return null|User
+     */
+    protected function getUser()
+    {
+        return $this->user;
     }
 }

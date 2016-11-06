@@ -3,7 +3,10 @@ services:
     public: false
     class: Crmp\AccountingBundle\Menu\MenuDecorator
     decorates: crmp.menu_builder
-    arguments: ["@crmp_accounting.menu.inner", "@service_container", "@crmp.controller.render.parameters"]
+    arguments:
+      - "@crmp_accounting.menu.inner"
+      - "@=service('security.token_storage').getToken().getUser()"
+      - "@crmp.controller.render.parameters"
 
   crmp_accounting.customer.related_panel.invoices:
     class: Crmp\AccountingBundle\Panel\Customer\InvoicePanel

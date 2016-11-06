@@ -39,36 +39,6 @@ class MenuDecorator extends AbstractMenuDecorator
     }
 
     /**
-     * Add context menu while creating an invoice.
-     *
-     * Related actions:
-     *
-     * - Abort creation.
-     *
-     * @param MenuItem $menu
-     */
-    public function buildAccountingInvoiceNewRelatedMenu(MenuItem $menu)
-    {
-        // abort and go back to contract
-        $request = $this->container->get('request_stack')->getCurrentRequest();
-
-        $contract = $request->get('contract');
-
-        if ($contract && is_numeric($contract)) {
-            $menu->addChild(
-                'crmp.abort',
-                [
-                    'route'           => 'crmp_acquisition_contract_show',
-                    'routeParameters' => ['id' => $contract],
-                    'labelAttributes' => [
-                        'icon' => 'fa fa-ban',
-                    ],
-                ]
-            );
-        }
-    }
-
-    /**
      * Add context menu when viewing an invoice.
      *
      * Related actions:
@@ -79,7 +49,7 @@ class MenuDecorator extends AbstractMenuDecorator
      */
     public function buildAccountingInvoiceShowRelatedMenu(MenuItem $menuItem)
     {
-        $params = $this->container->get('crmp.controller.render.parameters');
+        $params = $this->getRenderParams();
 
         if (isset($params['invoice']) && $params['invoice'] instanceof Invoice) {
             /** @var Invoice $invoice */
@@ -111,7 +81,7 @@ class MenuDecorator extends AbstractMenuDecorator
      */
     public function buildAcquisitionContractShowRelatedMenu(MenuItem $menu)
     {
-        $params = $this->container->get('crmp.controller.render.parameters');
+        $params = $this->getRenderParams();
 
         // Create invoice based on current contract
         $routeParameters = [];
@@ -153,7 +123,7 @@ class MenuDecorator extends AbstractMenuDecorator
      */
     public function buildCrmCustomerShowRelatedMenu(MenuItem $menuItem)
     {
-        $params = $this->container->get('crmp.controller.render.parameters');
+        $params = $this->getRenderParams();
 
         if (isset($params['customer']) && $params['customer'] instanceof Customer) {
             /** @var Customer $customer */
@@ -185,7 +155,7 @@ class MenuDecorator extends AbstractMenuDecorator
     {
         $menu = parent::createMainMenu($requestStack);
 
-        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        $user = $this->getUser();
 
         if ('anon.' == $user) {
             // not logged in, skip
