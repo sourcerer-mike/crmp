@@ -11,6 +11,9 @@ services:
 
   crmp_crm.customer.panel.address:
     class: Crmp\CrmBundle\Twig\AddressPanel
+    arguments:
+      - '@crmp.address.repository'
+      - '@crmp.controller.render.parameters'
     tags:
       - { name: 'crmp.panel', target: 'customer_related' }
 

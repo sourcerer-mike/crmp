@@ -2,6 +2,7 @@
 
 namespace Crmp\CrmBundle\Twig;
 
+use Crmp\CrmBundle\Entity\Address;
 use Crmp\CrmBundle\Entity\Customer;
 
 /**
@@ -18,28 +19,20 @@ class AddressPanel extends AbstractPanel implements PanelInterface
      */
     public function getData()
     {
-        if ($this->data) {
+        if (isset($this->data['addresses'])) {
             return (array) $this->data;
         }
 
-        $this->data              = $this->container->get('crmp.controller.render.parameters');
-        $this->data['addresses'] = [1];
+        $this->data['addresses'] = [];
 
         if (! isset($this->data['customer']) || false == ($this->data['customer'] instanceof Customer)) {
             return $this->data;
         }
 
-        /** @var Customer $customer */
-        $customer    = $this->data['customer'];
-        $addressRepo = $this->container->get('doctrine')->getRepository('CrmpCrmBundle:Address');
+        $address = new Address();
+        $address->setCustomer($this->data['customer']);
 
-        $this->data['addresses'] = $addressRepo->findBy(
-            [
-                'customer' => $customer,
-            ],
-            null,
-            10
-        );
+        $this->data['addresses'] = $this->repository->findAllSimilar($address);
 
         return $this->data;
     }
@@ -71,6 +64,6 @@ class AddressPanel extends AbstractPanel implements PanelInterface
      */
     public function getTitle()
     {
-        return $this->container->get('translator')->trans('crmp_crm.address.plural');
+        return 'crmp_crm.address.plural';
     }
 }
