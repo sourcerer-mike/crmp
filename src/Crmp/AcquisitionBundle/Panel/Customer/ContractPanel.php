@@ -2,6 +2,7 @@
 
 namespace Crmp\AcquisitionBundle\Panel\Customer;
 
+use Crmp\AcquisitionBundle\Entity\Contract;
 use Crmp\CrmBundle\Entity\Customer;
 use Crmp\CrmBundle\Twig\AbstractPanel;
 use Crmp\CrmBundle\Twig\PanelInterface;
@@ -20,30 +21,23 @@ class ContractPanel extends AbstractPanel implements PanelInterface
      */
     public function getData()
     {
-        if ($this->data) {
-            return (array) $this->data;
+        if (isset($this->data['contracts'])) {
+            // seems like already pushed before => reuse cached data
+            return $this->data->getArrayCopy();
         }
 
-        $this->data           = (array) $this->container->get('crmp.controller.render.parameters');
         $this->data['contracts'] = [];
 
         if (! isset($this->data['customer']) || false == ( $this->data['customer'] instanceof Customer )) {
             return (array) $this->data;
         }
 
-        /** @var Customer $customer */
-        $customer    = $this->data['customer'];
-        $addressRepo = $this->container->get('doctrine')->getRepository('CrmpAcquisitionBundle:Contract');
+        $contract = new Contract();
+        $contract->setCustomer($this->data['customer']);
 
-        $this->data['contracts'] = $addressRepo->findBy(
-            [
-                'customer' => $customer,
-            ],
-            null,
-            10
-        );
+        $this->data['contracts'] = $this->repository->findAllSimilar($contract);
 
-        return (array) $this->data;
+        return (array) $this->data->getArrayCopy();
     }
 
     /**
