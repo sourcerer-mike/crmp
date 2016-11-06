@@ -209,11 +209,8 @@ class MenuDecorator extends AbstractMenuDecorator
             ]
         );
 
-        /** @var ConfigRepository $config */
-        $config = $this->container->get('crmp_acquisition.config');
-
         // Status buttons
-        $configValue = (array) $config->get('crmp_acquisition.offer.states');
+        $configValue = ['Pending' => 0, 'Done' => 1, 'Canceled' => 2];
 
         foreach ($configValue as $label => $stateId) {
             if ($offer->getStatus() == $stateId) {

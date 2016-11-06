@@ -26,37 +26,6 @@ class PutActionTest extends AbstractControllerTestCase
     protected $controllerMock;
     private   $mainView = 'CrmpAcquisitionBundle:Offer:show.html.twig';
 
-    public function testItUpdatesTheStatusOfAnOffer()
-    {
-        $offer = new Offer();
-        $offer->setTitle(uniqid());
-
-        $expectedStatus = mt_rand(42, 1337);
-
-        $expectedOffer = clone $offer;
-        $expectedOffer->setStatus($expectedStatus);
-
-        $repoMock = $this->getMockBuilder(OfferRepository::class)
-                         ->disableOriginalConstructor()
-                         ->setMethods(['find', 'update'])
-                         ->getMock();
-
-        $repoMock->expects($this->once())
-                 ->method('find')
-                 ->with(42)
-                 ->willReturn($offer);
-
-        $repoMock->expects($this->once())
-                 ->method('update')
-                 ->with($expectedOffer);
-
-        $this->mockService('crmp.offer.repository', $repoMock);
-
-        $this->expectRedirectToRoute('crmp_acquisition_offer_show', ['id' => null]);
-
-        $this->controllerMock->putAction(new Request(['id' => 42, 'status' => $expectedStatus]));
-    }
-
     public function testDoesNothingWhenNoStatusGiven()
     {
         $offer = new Offer();
@@ -69,7 +38,7 @@ class PutActionTest extends AbstractControllerTestCase
 
         $repoMock = $this->getMockBuilder(OfferRepository::class)
                          ->disableOriginalConstructor()
-                         ->setMethods(['find', 'update'])
+                         ->setMethods(['find', 'persist'])
                          ->getMock();
 
         $repoMock->expects($this->once())
@@ -78,10 +47,12 @@ class PutActionTest extends AbstractControllerTestCase
                  ->willReturn($offer);
 
         $repoMock->expects($this->never())
-                 ->method('update')
+                 ->method('persist')
                  ->with($expectedOffer);
 
-        $this->mockService('crmp.offer.repository', $repoMock);
+        $this->controllerMock->expects($this->any())
+                             ->method('getMainRepository')
+                             ->willReturn($repoMock);
 
         $this->expectRedirectToRoute('crmp_acquisition_offer_show', ['id' => null]);
 
@@ -100,10 +71,45 @@ class PutActionTest extends AbstractControllerTestCase
                  ->with(42)
                  ->willReturn(null);
 
-        $this->mockService('crmp.offer.repository', $repoMock);
+        $this->controllerMock->expects($this->any())
+                             ->method('getMainRepository')
+                             ->willReturn($repoMock);
 
         $response = $this->controllerMock->putAction(new Request(['id' => 42]));
 
         $this->assertEquals(500, $response->getStatusCode());
+    }
+
+    public function testItUpdatesTheStatusOfAnOffer()
+    {
+        $offer = new Offer();
+        $offer->setTitle(uniqid());
+
+        $expectedStatus = mt_rand(42, 1337);
+
+        $expectedOffer = clone $offer;
+        $expectedOffer->setStatus($expectedStatus);
+
+        $repoMock = $this->getMockBuilder(OfferRepository::class)
+                         ->disableOriginalConstructor()
+                         ->setMethods(['find', 'persist'])
+                         ->getMock();
+
+        $repoMock->expects($this->once())
+                 ->method('find')
+                 ->with(42)
+                 ->willReturn($offer);
+
+        $repoMock->expects($this->once())
+                 ->method('persist')
+                 ->with($expectedOffer);
+
+        $this->controllerMock->expects($this->any())
+                             ->method('getMainRepository')
+                             ->willReturn($repoMock);
+
+        $this->expectRedirectToRoute('crmp_acquisition_offer_show', ['id' => null]);
+
+        $this->controllerMock->putAction(new Request(['id' => 42, 'status' => $expectedStatus]));
     }
 }

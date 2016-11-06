@@ -4,7 +4,6 @@ namespace Crmp\AcquisitionBundle\Controller;
 
 use Crmp\CoreDomain\RepositoryInterface;
 use Crmp\CrmBundle\Controller\AbstractCrmpController;
-use Doctrine\Common\Collections\Criteria;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -21,6 +20,14 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class OfferController extends AbstractCrmpController
 {
+    const ENTITY_NAME  = 'offer';
+    const FORM_TYPE    = OfferType::class;
+    const ROUTE_DELETE = 'crmp_acquisition_offer_delete';
+    const ROUTE_INDEX  = 'crmp_acquisition_offer_index';
+    const ROUTE_SHOW   = 'crmp_acquisition_offer_show';
+    const VIEW_EDIT    = 'CrmpAcquisitionBundle:Offer:edit.html.twig';
+    const VIEW_SHOW    = 'CrmpAcquisitionBundle:Offer:show.html.twig';
+
     /**
      * Lists all offers.
      *
@@ -52,7 +59,7 @@ class OfferController extends AbstractCrmpController
         return $this->render(
             'CrmpAcquisitionBundle:Offer:index.html.twig',
             array(
-                'offers' => $this->get('crmp.offer.repository')->findSimilar($offerTemplate),
+                'offers' => $this->findAllSimilar($offerTemplate),
             )
         );
     }
@@ -116,14 +123,11 @@ class OfferController extends AbstractCrmpController
      *
      * @param Request $request
      *
-     * @Route("/{id}/put", name="crmp_acquisition_offer_put")
-     * @Method("GET")
-     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function putAction(Request $request)
     {
-        $offerRepository = $this->get('crmp.offer.repository');
+        $offerRepository = $this->getMainRepository();
 
         /** @var Offer $offer */
         $offer = $offerRepository->find($request->get('id'));
@@ -136,7 +140,7 @@ class OfferController extends AbstractCrmpController
         if (null !== $request->get('status')) {
             // received value for status => update offer status
             $offer->setStatus($request->get('status'));
-            $offerRepository->update($offer);
+            $this->getMainRepository()->persist($offer);
         }
 
         return $this->redirectToRoute('crmp_acquisition_offer_show', ['id' => $offer->getId()]);
