@@ -4,6 +4,7 @@ namespace Crmp\CrmBundle\Controller;
 
 use Crmp\CrmBundle\Panels\Settings\General;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * General controller layer for CRMP.
