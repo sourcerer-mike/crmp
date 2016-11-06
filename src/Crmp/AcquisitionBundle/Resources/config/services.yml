@@ -3,7 +3,7 @@ services:
     public: false
     class: Crmp\AcquisitionBundle\Menu\MenuDecorator
     decorates: crmp.menu_builder
-    arguments: ["@crmp_acquisition.menu.inner", "@service_container"]
+    arguments: ["@crmp_acquisition.menu.inner", "@service_container", "@crmp.controller.render.parameters"]
 
   crmp_acquisition.config:
     class: Crmp\AcquisitionBundle\CoreDomain\Config\ConfigRepositoryDecorator

@@ -23,17 +23,27 @@ abstract class AbstractMenuDecorator implements MenuDecoratorInterface
      * @var MenuBuilder
      */
     protected $menuBuilder;
+    /**
+     * Current context.
+     *
+     * Those variables were given to the view.
+     *
+     * @var \ArrayObject
+     */
+    protected $renderParams;
 
     /**
      * MenuBuilder constructor.
      *
-     * @param MenuInterface      $menu      The menu to decorate.
-     * @param ContainerInterface $container DI container.
+     * @param MenuInterface      $menu         The menu to decorate.
+     * @param ContainerInterface $container    DI container.
+     * @param \ArrayObject       $renderParams Parameters that are given to the current view.
      */
-    public function __construct(MenuInterface $menu, ContainerInterface $container)
+    public function __construct(MenuInterface $menu, ContainerInterface $container, \ArrayObject $renderParams = null)
     {
-        $this->menuBuilder = $menu;
-        $this->container   = $container;
+        $this->menuBuilder  = $menu;
+        $this->container    = $container;
+        $this->renderParams = $renderParams;
     }
 
     /**
@@ -46,18 +56,6 @@ abstract class AbstractMenuDecorator implements MenuDecoratorInterface
     public function createMainMenu(RequestStack $requestStack)
     {
         return $this->menuBuilder->createMainMenu($requestStack);
-    }
-
-    /**
-     * Decorate the user menu.
-     *
-     * @param RequestStack $requestStack
-     *
-     * @return \Knp\Menu\ItemInterface|mixed
-     */
-    public function createUserMenu(RequestStack $requestStack)
-    {
-        return $this->menuBuilder->createUserMenu($requestStack);
     }
 
     /**
@@ -93,8 +91,20 @@ abstract class AbstractMenuDecorator implements MenuDecoratorInterface
         return $menu;
     }
 
+    /**
+     * Decorate the user menu.
+     *
+     * @param RequestStack $requestStack
+     *
+     * @return \Knp\Menu\ItemInterface|mixed
+     */
+    public function createUserMenu(RequestStack $requestStack)
+    {
+        return $this->menuBuilder->createUserMenu($requestStack);
+    }
+
     protected function getRenderParams()
     {
-        return $this->container->get('crmp.controller.render.parameters');
+        return $this->renderParams;
     }
 }

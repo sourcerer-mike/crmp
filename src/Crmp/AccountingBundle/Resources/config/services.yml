@@ -3,7 +3,7 @@ services:
     public: false
     class: Crmp\AccountingBundle\Menu\MenuDecorator
     decorates: crmp.menu_builder
-    arguments: ["@crmp_accounting.menu.inner", "@service_container"]
+    arguments: ["@crmp_accounting.menu.inner", "@service_container", "@crmp.controller.render.parameters"]
 
   crmp_accounting.customer.related_panel.invoices:
     class: Crmp\AccountingBundle\Panel\Customer\InvoicePanel

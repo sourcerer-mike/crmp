@@ -64,13 +64,13 @@ services:
     public: false
     class: Crmp\CrmBundle\Menu\MenuDecorator
     decorates: crmp.menu_builder
-    arguments: ["@crmp_crm.menu.inner", "@service_container"]
+    arguments: ["@crmp_crm.menu.inner", "@service_container", "@crmp.controller.render.parameters"]
 
   crmp_crm.menu.user:
     public: false
     class: Crmp\CrmBundle\Menu\UserMenu
     decorates: crmp.menu_builder
-    arguments: ["@crmp_crm.menu.user.inner", "@service_container"]
+    arguments: ["@crmp_crm.menu.user.inner", "@service_container", "@crmp.controller.render.parameters"]
 
   crmp_crm.twig.panels:
     class: Crmp\CrmBundle\Twig\PanelsRenderer

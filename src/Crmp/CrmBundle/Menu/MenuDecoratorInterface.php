@@ -18,6 +18,7 @@ interface MenuDecoratorInterface extends MenuInterface
      *
      * @param MenuInterface      $menu
      * @param ContainerInterface $container
+     * @param \ArrayObject       $context
      */
-    public function __construct(MenuInterface $menu, ContainerInterface $container);
+    public function __construct(MenuInterface $menu, ContainerInterface $container, \ArrayObject $context = null);
 }
