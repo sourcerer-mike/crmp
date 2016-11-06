@@ -58,7 +58,7 @@ class CustomerController extends AbstractRepositoryController
     public function newAction(Request $request)
     {
         $customer = new Customer();
-        $form     = $this->createForm('Crmp\CrmBundle\Form\CustomerType', $customer);
+        $form     = $this->createForm(CustomerType::class, $customer);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
