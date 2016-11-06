@@ -54,9 +54,12 @@ services:
       - { name: 'crmp.panel_group', alias: 'inquiry_related' }
 
   crmp_acquisition.inquiry.related_panel.offer:
-      class: Crmp\AcquisitionBundle\Panel\Inquiry\OfferPanel
-      tags:
-        - {name: 'crmp.panel', target: 'inquiry_related' }
+    class: Crmp\AcquisitionBundle\Panel\Inquiry\OfferPanel
+    arguments:
+      - '@crmp.offer.repository'
+      - '@crmp.controller.render.parameters'
+    tags:
+      - {name: 'crmp.panel', target: 'inquiry_related' }
 
   crmp_acquisition.offer.related_panel:
     class: Crmp\CrmBundle\Twig\PanelGroup
@@ -64,9 +67,12 @@ services:
       - { name: 'crmp.panel_group', alias: 'offer_related' }
 
   crmp_acquisition.offer.dashboard_panel:
-      class: Crmp\AcquisitionBundle\Panel\Dashboard\OfferPanel
-      tags:
-        - { name: 'crmp.panel', target: 'dashboard' }
+    class: Crmp\AcquisitionBundle\Panel\Dashboard\OfferPanel
+    arguments:
+      - '@crmp.offer.repository'
+      - '@crmp.controller.render.parameters'
+    tags:
+      - { name: 'crmp.panel', target: 'dashboard' }
 
   crmp_acquisition.offer.related_panel.contract:
     class: Crmp\AcquisitionBundle\Panel\Offer\ContractPanel

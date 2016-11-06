@@ -16,42 +16,24 @@ class OfferPanel extends AbstractPanel implements PanelInterface
     /**
      * Gather undetermined offers.
      *
-     * @return array
+     * @return \ArrayObject
      */
     public function getData()
     {
-        if ($this->data) {
+        if (isset($this->data['offers'])) {
+            // seems like already fetched before => reuse cached data
             return $this->data;
         }
 
-        $repository = $this->container->get('doctrine.orm.entity_manager')
-                                      ->getRepository('CrmpAcquisitionBundle:Offer');
+        $this->data['offers'] = [];
 
-        $offers = $repository->findBy(
-            [
-                'status' => 0, // Offers without any state are undetermined.
-            ],
-            null,
-            3
-        );
+        $offer = new Offer();
+        $offer->setStatus(0);
 
-        return [
-            'offers' => $offers,
-        ];
+        $this->data['offers'] = $this->repository->findAllSimilar($offer, 3);
+
+        return $this->data;
     }
-
-    /**
-     * Not visible when no open offer is found.
-     *
-     * @return bool
-     */
-    public function isVisible()
-    {
-        $data = $this->getData();
-
-        return (bool) $data['offers'];
-    }
-
 
     /**
      * Return a unique identifier among all known boardlets.
@@ -70,6 +52,7 @@ class OfferPanel extends AbstractPanel implements PanelInterface
      */
     public function getTemplate()
     {
+        // override your mama
         return 'CrmpAcquisitionBundle:Offer:_panel-dashboard.html.twig';
     }
 
@@ -81,5 +64,17 @@ class OfferPanel extends AbstractPanel implements PanelInterface
     public function getTitle()
     {
         return $this->container->get('translator')->trans('crmp_acquisition.offer.open');
+    }
+
+    /**
+     * Not visible when no open offer is found.
+     *
+     * @return bool
+     */
+    public function isVisible()
+    {
+        $data = $this->getData();
+
+        return (bool) $data['offers'];
     }
 }
