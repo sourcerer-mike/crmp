@@ -74,7 +74,8 @@ class InquiryController extends AbstractRepositoryController
             );
         }
 
-        $inquiry->setInquiredAt(new \DateTime());
+        $inquiredAt = new \DateTime();
+        $inquiry->setInquiredAt($inquiredAt->format('Y-m-d'));
 
         $form = $this->createForm(InquiryType::class, $inquiry);
         $form->handleRequest($request);
