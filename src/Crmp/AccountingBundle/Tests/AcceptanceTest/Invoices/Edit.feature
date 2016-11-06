@@ -9,7 +9,7 @@ Feature: Edit details for a single invoice
 
   Scenario: No change
     Given the "Invoice total" field should contain "1337"
-    And the "Customer" option is set to "John Doe"
+    And the "Customer" option is set to "John Doe (1)"
     
     When I click on "Save"
 

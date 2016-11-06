@@ -14,4 +14,5 @@ Feature: List all invoices
   Scenario: Open invoice
     When I click on "1.337,00 EUR"
 
-    Then I should see "1.337,00 EUR John Doe"
+    Then the response status code should be 200
+    And I should see "1.337,00 EUR John Doe"
