@@ -2,6 +2,7 @@
 
 namespace Crmp\CrmBundle\Form;
 
+use Crmp\CrmBundle\Entity\Address;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -41,10 +42,6 @@ class AddressType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(
-            array(
-                'data_class' => 'Crmp\CrmBundle\Entity\Address',
-            )
-        );
+        $resolver->setDefaults(['data_class' => Address::class]);
     }
 }

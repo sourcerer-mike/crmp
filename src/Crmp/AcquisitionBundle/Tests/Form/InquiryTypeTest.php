@@ -5,14 +5,16 @@ namespace Crmp\AcquisitionBundle\Tests\Form;
 
 
 use Crmp\AcquisitionBundle\Entity\Inquiry;
-use Crmp\AcquisitionBundle\Entity\Offer;
 use Crmp\AcquisitionBundle\Form\InquiryType;
-use Crmp\AcquisitionBundle\Form\OfferType;
+use Symfony\Component\Form\Extension\Validator\ValidatorExtension;
 use Symfony\Component\Form\Test\TypeTestCase;
-use Symfony\Component\Validator\Constraints\DateTime;
+use Symfony\Component\Validator\ConstraintViolationList;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class InquiryTypeTest extends TypeTestCase
 {
+    protected $validator;
+
     public function testSubmitValidData()
     {
         $dateTime = new \DateTime();
