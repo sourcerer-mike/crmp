@@ -2,6 +2,7 @@
 
 namespace Crmp\AcquisitionBundle\Form;
 
+use Crmp\AcquisitionBundle\Entity\Offer;
 use Crmp\CrmBundle\Entity\Config;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -59,7 +60,7 @@ class OfferType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Crmp\AcquisitionBundle\Entity\Offer',
+                'data_class' => Offer::class,
             )
         );
     }
