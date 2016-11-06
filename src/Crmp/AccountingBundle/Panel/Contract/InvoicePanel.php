@@ -18,15 +18,15 @@ class InvoicePanel extends AbstractPanel implements PanelInterface
     /**
      * Gather all invoices for current contract.
      *
-     * @return array
+     * @return \ArrayObject
      */
     public function getData()
     {
-        if ($this->data) {
-            return (array) $this->data;
+        if (isset($this->data['invoices'])) {
+            // Something already happend here => do not fetch another time
+            return $this->data;
         }
 
-        $this->data             = (array) $this->container->get('crmp.controller.render.parameters');
         $this->data['invoices'] = [];
 
         if (! isset($this->data['contract']) || false == ($this->data['contract'] instanceof Contract)) {
@@ -37,9 +37,9 @@ class InvoicePanel extends AbstractPanel implements PanelInterface
         $searchInvoice = new Invoice();
         $searchInvoice->setContract($this->data['contract']);
 
-        $this->data['invoices'] = $this->container->get('crmp.invoice.repository')->findAllSimilar($searchInvoice);
+        $this->data['invoices'] = $this->repository->findAllSimilar($searchInvoice);
 
-        return (array) $this->data;
+        return $this->data;
     }
 
     /**
@@ -69,6 +69,6 @@ class InvoicePanel extends AbstractPanel implements PanelInterface
      */
     public function getTitle()
     {
-        return $this->container->get('translator')->trans('crmp_accounting.invoice.plural');
+        return 'crmp_accounting.invoice.plural';
     }
 }

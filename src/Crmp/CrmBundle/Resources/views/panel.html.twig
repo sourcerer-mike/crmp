@@ -1,6 +1,6 @@
 <div class="panel panel-{{ panel.style }}">
 	{% block heading %}
-        <div class="panel-heading"><h3 class="panel-title">{{ panel.title }}</h3></div>
+        <div class="panel-heading"><h3 class="panel-title">{{ panel.title|trans }}</h3></div>
     {% endblock %}
 
     {% block body %}

@@ -45,8 +45,10 @@ abstract class AbstractPanel
      * @param RepositoryInterface $repository   The main repository.
      * @param \ArrayObject        $renderedData Current context / data given from controller to the view.
      */
-    public function __construct(RepositoryInterface $repository = null, \ArrayObject $renderedData = null)
-    {
+    public function __construct(
+        RepositoryInterface $repository = null,
+        \ArrayObject $renderedData = null
+    ) {
         $this->repository = $repository;
         $this->data       = $renderedData;
     }

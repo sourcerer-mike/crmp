@@ -21,6 +21,6 @@ vendor/bin/phpcs --config-set installed_paths vendor/escapestudios/symfony2-codi
 assert vendor/bin/phpcs --standard=phpcs.xml src
 
 # unit tests
-assert vendor/bin/phpunit --colors=never
+assert vendor/bin/phpunit --colors=never > /dev/null
 
 exit $finalStatus
