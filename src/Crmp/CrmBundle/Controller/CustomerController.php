@@ -18,6 +18,14 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class CustomerController extends AbstractRepositoryController
 {
+    const ENTITY_NAME  = 'customer';
+    const FORM_TYPE    = CustomerType::class;
+    const ROUTE_DELETE = 'crmp_crm_customer_delete';
+    const ROUTE_INDEX  = 'crmp_crm_customer_index';
+    const ROUTE_SHOW   = 'crmp_crm_customer_show';
+    const VIEW_EDIT    = 'CrmpCrmBundle:Customer:edit.html.twig';
+    const VIEW_SHOW    = 'CrmpCrmBundle:Customer:show.html.twig';
+
     /**
      * Lists all Customer entities.
      *
@@ -57,9 +65,7 @@ class CustomerController extends AbstractRepositoryController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($customer);
-            $em->flush();
+            $this->getMainRepository()->persist($customer);
 
             return $this->redirectToRoute('crmp_crm_customer_show', array('id' => $customer->getId()));
         }
@@ -67,7 +73,6 @@ class CustomerController extends AbstractRepositoryController
         return $this->render(
             'CrmpCrmBundle:Customer:new.html.twig',
             array(
-                'customer' => $customer,
                 'form'     => $form->createView(),
             )
         );

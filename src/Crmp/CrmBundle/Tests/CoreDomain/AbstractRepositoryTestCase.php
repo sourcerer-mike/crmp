@@ -92,8 +92,6 @@ abstract class AbstractRepositoryTestCase extends \PHPUnit_Framework_TestCase
     /**
      * Get the current class name.
      *
-     * With 1.0.0 this method will become abstract so that every test have to implement it.
-     *
      * @return string
      */
     abstract protected function getRepositoryClassName();
