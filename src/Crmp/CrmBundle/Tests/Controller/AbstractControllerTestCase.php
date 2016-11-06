@@ -77,6 +77,34 @@ abstract class AbstractControllerTestCase extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Mock and check if ::createDeleteForm has been called correctly.
+     *
+     * @param object $expectedObject The entity with all its data.
+     *
+     * @return \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected function expectDeleteForm($expectedObject)
+    {
+        $formMock = $this->getMockBuilder(Form::class)
+                         ->disableOriginalConstructor()
+                         ->setMethods(
+                             [
+                                 'createView',
+                                 'handleRequest',
+                                 'isSubmitted',
+                                 'isValid',
+                             ]
+                         )->getMock();
+
+        $this->controllerMock->expects($this->atLeastOnce())
+                             ->method('createDeleteForm')
+                             ->with($expectedObject)
+                             ->willReturn($formMock);
+
+        return $formMock;
+    }
+
+    /**
      * Assertion that ::findAllSimilar is called correctly.
      *
      * @param object                                                  $entity
