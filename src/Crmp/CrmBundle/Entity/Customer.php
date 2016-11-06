@@ -11,19 +11,9 @@ use Doctrine\ORM\Mapping as ORM;
  * The mostly used entity referring to plenty others is the customer itself.
  *
  */
-class Customer
+class Customer extends \Crmp\CrmBundle\CoreDomain\Customer\Customer
 {
 
-    /**
-     * Related addresses.
-     *
-     * Each customer can have none or more addresses attached to them.
-     * The address itself refer to a single customer.
-     * Thus it is not possible for an address to match on two customers at once.
-     * It might become handy for a person working for two or more companies.
-     * In this case please create the single address multiple times or only once for the one major customer.
-     */
-    private $addresses;
 
     /**
      * Timestamp when this customer has been created.
@@ -32,27 +22,6 @@ class Customer
      */
     private $createdAt;
 
-    /**
-     * @var int
-     */
-    private $id;
-
-    /**
-     * @var Invoice[]
-     */
-    private $invoices;
-
-    /**
-     * Firm of the company.
-     *
-     * Companies usually have a title/name/firm that they are known by.
-     * The "name" field is mend for the full title of a company as registered by the state.
-     * A name can be 255 chars long and are treated as unique.
-     * So when you try to store a company that already exists an error might be thrown.
-     *
-     * @var string
-     */
-    private $name;
 
     /**
      * Timestamp when the customer has been edited.
@@ -67,49 +36,13 @@ class Customer
     /**
      * Name and ID of customer as string representation.
      *
+     * @deprecated 1.0.0 This was meant for forms. Back in the days when I were to stupid to use them. Cheers!
+     *
      * @return string
      */
     public function __toString()
     {
         return $this->getName().' ('.$this->getId().')';
-    }
-
-    /**
-     * Add address
-     *
-     * @param Address $address
-     *
-     * @return Customer
-     */
-    public function addAddress(Address $address)
-    {
-        $this->addresses[] = $address;
-
-        return $this;
-    }
-
-    /**
-     * Add invoice
-     *
-     * @param Invoice $invoice
-     *
-     * @return Customer
-     */
-    public function addInvoice(Invoice $invoice)
-    {
-        $this->invoices[] = $invoice;
-
-        return $this;
-    }
-
-    /**
-     * Get addresses
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getAddresses()
-    {
-        return $this->addresses;
     }
 
     /**
@@ -136,49 +69,6 @@ class Customer
         return $this;
     }
 
-    /**
-     * Get id
-     *
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Get invoices
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getInvoices()
-    {
-        return $this->invoices;
-    }
-
-    /**
-     * Get name
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * Set name
-     *
-     * @param string $name
-     *
-     * @return Customer
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
 
     /**
      * Get updatedAt
@@ -219,25 +109,5 @@ class Customer
     public function preUpdate()
     {
         $this->setUpdatedAt(new \DateTime());
-    }
-
-    /**
-     * Remove address
-     *
-     * @param Address $address
-     */
-    public function removeAddress(Address $address)
-    {
-        $this->addresses->removeElement($address);
-    }
-
-    /**
-     * Remove invoice
-     *
-     * @param Invoice $invoice
-     */
-    public function removeInvoice(Invoice $invoice)
-    {
-        $this->invoices->removeElement($invoice);
     }
 }

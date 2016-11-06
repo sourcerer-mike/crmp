@@ -5,7 +5,7 @@ namespace Crmp\CrmBundle\CoreDomain\Customer;
 
 use Crmp\CoreDomain\RepositoryInterface;
 use Crmp\CrmBundle\CoreDomain\AbstractRepository;
-use Crmp\CrmBundle\Entity\Customer;
+use Crmp\CrmBundle\Entity\Customer as DoctrineCustomer;
 use Crmp\CrmBundle\Repository\CustomerRepository as CustomerRepo;
 
 /**
@@ -18,10 +18,10 @@ class CustomerRepository extends AbstractRepository implements RepositoryInterfa
     /**
      * Fetch entities similar to the given one.
      *
-     * @param Customer $entity
-     * @param int      $amount
-     * @param int      $start
-     * @param array    $order
+     * @param DoctrineCustomer $entity
+     * @param int              $amount
+     * @param int              $start
+     * @param array            $order
      *
      * @return \object[]
      */

@@ -1,6 +1,6 @@
 <?php
 
-namespace Crmp\CrmBundle\Tests\CoreDomain\Customer;
+namespace Crmp\CrmBundle\Tests\CoreDomain\Customer\CustomerRepository;
 
 use Crmp\CrmBundle\CoreDomain\Customer\CustomerRepository;
 use Crmp\CrmBundle\Entity\Customer;
