@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  * An entity to manage your quotes and track them for each customer.
  *
  * @ORM\Table(name="offer")
- * @ORM\Entity(repositoryClass="Crmp\AcquisitionBundle\Repository\OfferRepository")
+ * @ORM\Entity(repositoryClass="Doctrine\ORM\EntityRepository")
  */
 class Offer
 {

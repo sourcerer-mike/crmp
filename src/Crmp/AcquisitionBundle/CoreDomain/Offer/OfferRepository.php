@@ -4,7 +4,6 @@
 namespace Crmp\AcquisitionBundle\CoreDomain\Offer;
 
 use Crmp\AcquisitionBundle\Entity\Offer;
-use Crmp\AcquisitionBundle\Repository\OfferRepository as OfferRepo;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManager;
 
