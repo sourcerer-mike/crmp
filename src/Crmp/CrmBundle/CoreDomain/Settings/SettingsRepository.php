@@ -50,6 +50,8 @@ class SettingsRepository extends AbstractRepository implements SettingRepository
             $setting = $existingSetting;
         }
 
+        $this->data[$setting->getName()] = $setting->getValue();
+
         parent::persist($setting);
     }
 
