@@ -3,7 +3,11 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://symfony.com/schema/routing
         http://symfony.com/schema/routing/routing-1.0.xsd">
-    
+
+    <route id="crmp_accounting_invoice_new" path="/new" methods="GET,POST">
+        <default key="_controller">CrmpAccountingBundle:Invoice:new</default>
+    </route>
+
     <route id="crmp_accounting_invoice_delete" path="/{id}" methods="DELETE">
         <default key="_controller">CrmpAccountingBundle:Invoice:delete</default>
     </route>
@@ -15,12 +19,8 @@
     <route id="crmp_accounting_invoice_edit" path="/{id}/edit" methods="GET,POST">
         <default key="_controller">CrmpAccountingBundle:Invoice:edit</default>
     </route>
-    
+
     <route id="crmp_accounting_invoice_index" path="/" methods="GET">
         <default key="_controller">CrmpAccountingBundle:Invoice:index</default>
-    </route>
-
-    <route id="crmp_accounting_invoice_new" path="/new" methods="GET,POST">
-        <default key="_controller">CrmpAccountingBundle:Invoice:new</default>
     </route>
 </routes>
