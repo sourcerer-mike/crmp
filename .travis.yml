@@ -4,6 +4,11 @@ php:
   - '7.0'
   - '7.1'
 
+env:
+  - ENV=dev
+  - ENV=prod
+  - ENV=test
+
 services:
   - mysql
 
@@ -11,9 +16,9 @@ before_script:
   - cp app/config/parameters.yml.travis app/config/parameters.yml
   - mysql -e 'create database crmp;'
   - composer install
-  - bin/console doctrine:schema:create --env=test
+  - bin/console doctrine:schema:create --env=$ENV
   - bin/console cache:warmup
-  - bin/console server:run 127.0.0.1:8000 &
+  - bin/console server:run 127.0.0.1:8000 --env=$ENV &
   - bin/populate.sh
 
 script:
