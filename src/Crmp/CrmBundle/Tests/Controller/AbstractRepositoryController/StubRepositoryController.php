@@ -15,7 +15,7 @@ class StubRepositoryController extends AbstractRepositoryController
     const ROUTE_INDEX  = 'none';
     const ROUTE_SHOW   = 'none';
     const VIEW_EDIT    = 'view:edit';
-    const VIEW_SHOW    = 'none';
+    const VIEW_SHOW    = 'view:show';
 
     /**
      * Repository suitable for the controller.
