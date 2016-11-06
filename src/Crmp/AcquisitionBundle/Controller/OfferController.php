@@ -3,7 +3,7 @@
 namespace Crmp\AcquisitionBundle\Controller;
 
 use Crmp\CoreDomain\RepositoryInterface;
-use Crmp\CrmBundle\Controller\AbstractCrmpController;
+use Crmp\CrmBundle\Controller\AbstractRepositoryController;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -18,7 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * @Route("/offer")
  */
-class OfferController extends AbstractCrmpController
+class OfferController extends AbstractRepositoryController
 {
     const ENTITY_NAME  = 'offer';
     const FORM_TYPE    = OfferType::class;

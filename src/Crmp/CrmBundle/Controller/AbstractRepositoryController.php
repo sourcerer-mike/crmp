@@ -2,11 +2,8 @@
 
 namespace Crmp\CrmBundle\Controller;
 
-use Crmp\AccountingBundle\Controller\InvoiceController;
-use Crmp\AccountingBundle\Entity\Invoice;
 use Crmp\CoreDomain\RepositoryInterface;
 use Crmp\CrmBundle\Panels\Settings\General;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,7 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * @package Crmp\CrmBundle\Controller
  */
-abstract class AbstractCrmpController extends Controller
+abstract class AbstractRepositoryController extends AbstractController
 {
     const ENTITY_NAME  = null;
     const FORM_TYPE    = null;
@@ -198,22 +195,10 @@ abstract class AbstractCrmpController extends Controller
         return $repository->findAllSimilar($searchEntity, $this->getListLimit(), $start, $order);
     }
 
-    protected function getListLimit()
-    {
-        return $this->get('crmp.setting.repository')->get(General::LIST_LIMIT, $this->getUser());
-    }
-
     /**
      * Repository suitable for the controller.
      *
      * @return RepositoryInterface
      */
     abstract protected function getMainRepository();
-
-    protected function render($view, array $parameters = array(), Response $response = null)
-    {
-        $this->container->get('crmp.controller.render.parameters')->exchangeArray($parameters);
-
-        return parent::render($view, $parameters, $response);
-    }
 }

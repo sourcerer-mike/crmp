@@ -19,7 +19,7 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * @Route("/address")
  */
-class AddressController extends AbstractCrmpController
+class AddressController extends AbstractRepositoryController
 {
     const ENTITY_NAME  = 'address';
     const FORM_TYPE    = AddressType::class;

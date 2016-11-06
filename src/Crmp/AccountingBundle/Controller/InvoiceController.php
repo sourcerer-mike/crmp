@@ -3,7 +3,7 @@
 namespace Crmp\AccountingBundle\Controller;
 
 use Crmp\CoreDomain\RepositoryInterface;
-use Crmp\CrmBundle\Controller\AbstractCrmpController;
+use Crmp\CrmBundle\Controller\AbstractRepositoryController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Crmp\AccountingBundle\Entity\Invoice;
@@ -17,7 +17,7 @@ use Symfony\Component\HttpFoundation\Response;
  * Invoices keep your business going.
  *
  */
-class InvoiceController extends AbstractCrmpController
+class InvoiceController extends AbstractRepositoryController
 {
     const ENTITY_NAME  = 'invoice';
     const FORM_TYPE    = InvoiceType::class;

@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * @Route("/customer")
  */
-class CustomerController extends AbstractCrmpController
+class CustomerController extends AbstractRepositoryController
 {
     /**
      * Lists all Customer entities.

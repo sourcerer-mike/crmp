@@ -3,7 +3,7 @@
 namespace Crmp\AcquisitionBundle\Controller;
 
 use Crmp\CoreDomain\RepositoryInterface;
-use Crmp\CrmBundle\Controller\AbstractCrmpController;
+use Crmp\CrmBundle\Controller\AbstractRepositoryController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -17,7 +17,7 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * @Route("/contract")
  */
-class ContractController extends AbstractCrmpController
+class ContractController extends AbstractRepositoryController
 {
     const ENTITY_NAME  = 'contract';
     const FORM_TYPE    = ContractType::class;

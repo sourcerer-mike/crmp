@@ -18,7 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
  *
  * @package Crmp\CrmBundle\Controller
  */
-class SettingsController extends AbstractCrmpController
+class SettingsController extends AbstractController
 {
     /**
      * Show common settings.

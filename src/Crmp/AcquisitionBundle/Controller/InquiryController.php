@@ -4,7 +4,7 @@ namespace Crmp\AcquisitionBundle\Controller;
 
 use Crmp\AcquisitionBundle\Form\InquiryType;
 use Crmp\CoreDomain\RepositoryInterface;
-use Crmp\CrmBundle\Controller\AbstractCrmpController;
+use Crmp\CrmBundle\Controller\AbstractRepositoryController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * @Route("/inquiry")
  */
-class InquiryController extends AbstractCrmpController
+class InquiryController extends AbstractRepositoryController
 {
     const ENTITY_NAME  = 'inquiry';
     const FORM_TYPE    = InquiryType::class;
