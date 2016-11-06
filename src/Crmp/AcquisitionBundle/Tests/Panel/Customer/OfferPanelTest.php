@@ -4,60 +4,63 @@ namespace Crmp\AcquisitionBundle\Tests\Panel\Customer;
 
 use Crmp\AcquisitionBundle\CoreDomain\Contract\ContractRepository;
 use Crmp\AcquisitionBundle\CoreDomain\Inquiry\InquiryRepository;
+use Crmp\AcquisitionBundle\CoreDomain\Offer\OfferRepository;
 use Crmp\AcquisitionBundle\Entity\Contract;
 use Crmp\AcquisitionBundle\Entity\Inquiry;
 use Crmp\AcquisitionBundle\Entity\Offer;
 use Crmp\AcquisitionBundle\Panel\Customer\ContractPanel;
 use Crmp\AcquisitionBundle\Panel\Customer\InquiryPanel;
+use Crmp\AcquisitionBundle\Panel\Customer\OfferPanel;
 use Crmp\CrmBundle\Entity\Customer;
 use Crmp\CrmBundle\Tests\Panels\AbstractPanelTestCase;
+use Nelmio\Alice\Instances\Populator\Methods\Custom;
 
 /**
  * OfferPanelTest
  *
- * @see     OfferPanel
+ * @see OfferPanel
  *
  * @package Crmp\AcquisitionBundle\Tests\Panell\Dashboard
  */
-class InquiryPanelTest extends AbstractPanelTestCase
+class OfferPanelTest extends AbstractPanelTestCase
 {
     public function testItGathersSomeOpenOffers()
     {
-        $inquiry = new Inquiry();
+        $offer = new Offer();
 
         $customer = new Customer();
         $customer->setName(uniqid());
 
-        $inquiry->setCustomer($customer);
+        $offer->setCustomer($customer);
 
         $expectedSet = new \ArrayObject([uniqid()]);
 
-        $repo = $this->mockRepository(InquiryRepository::class);
+        $repo = $this->mockRepository(OfferRepository::class);
 
         $repo->expects($this->atLeastOnce())
              ->method('findAllSimilar')
-             ->with($inquiry)
+             ->with($offer)
              ->willReturn($expectedSet);
 
-        $panel = new InquiryPanel($repo, new \ArrayObject(['customer' => $customer]));
+        $panel = new OfferPanel($repo, new \ArrayObject(['customer' => $customer]));
 
-        $this->assertArraySubset(['inquiries' => $expectedSet], $panel->getData());
+        $this->assertArraySubset(['offers' => $expectedSet], $panel->getData());
     }
 
     public function testItReusesAlreadyGatheredData()
     {
-        $inquiry = new Inquiry();
-        $inquiry->setTitle(uniqid());
+        $offer = new Offer();
+        $offer->setTitle(uniqid());
 
         $expectedSet = new \ArrayObject([uniqid()]);
 
-        $repo = $this->mockRepository(InquiryRepository::class);
+        $repo = $this->mockRepository(OfferRepository::class);
 
         $repo->expects($this->never())
              ->method('findAllSimilar');
 
-        $panel = new InquiryPanel($repo, new \ArrayObject(['inquiries' => $expectedSet, 'customer' => new Customer()]));
+        $panel = new OfferPanel($repo, new \ArrayObject(['offers' => $expectedSet, 'customer' => new Customer()]));
 
-        $this->assertArraySubset(['inquiries' => $expectedSet], (array) $panel->getData());
+        $this->assertArraySubset(['offers' => $expectedSet], (array) $panel->getData());
     }
 }

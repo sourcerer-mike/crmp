@@ -2,6 +2,7 @@
 
 namespace Crmp\AcquisitionBundle\Panel\Customer;
 
+use Crmp\AcquisitionBundle\Entity\Offer;
 use Crmp\CrmBundle\Entity\Customer;
 use Crmp\CrmBundle\Twig\AbstractPanel;
 use Crmp\CrmBundle\Twig\PanelInterface;
@@ -20,30 +21,23 @@ class OfferPanel extends AbstractPanel implements PanelInterface
      */
     public function getData()
     {
-        if ($this->data) {
-            return (array) $this->data;
+        if (isset($this->data['offers'])) {
+            // seems like already fetched => reuse cached data
+            return $this->data->getArrayCopy();
         }
 
-        $this->data           = (array) $this->container->get('crmp.controller.render.parameters');
         $this->data['offers'] = [];
 
         if (! isset($this->data['customer']) || false == ( $this->data['customer'] instanceof Customer )) {
-            return $this->data;
+            return $this->data->getArrayCopy();
         }
 
-        /** @var Customer $customer */
-        $customer    = $this->data['customer'];
-        $addressRepo = $this->container->get('doctrine')->getRepository('CrmpAcquisitionBundle:Offer');
+        $offer = new Offer();
+        $offer->setCustomer($this->data['customer']);
 
-        $this->data['offers'] = $addressRepo->findBy(
-            [
-                'customer' => $customer,
-            ],
-            null,
-            10
-        );
+        $this->data['offers'] = $this->repository->findAllSimilar($offer);
 
-        return (array) $this->data;
+        return $this->data->getArrayCopy();
     }
 
     /**
