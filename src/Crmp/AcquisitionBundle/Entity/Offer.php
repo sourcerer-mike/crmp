@@ -127,25 +127,13 @@ class Offer
      *
      * Usually the title.
      *
+     * @deprecated 1.0.0 This were used in forms and needs to be removed. Use proper labels in the form.
+     *
      * @return string
      */
     public function __toString()
     {
         return $this->getTitle();
-    }
-
-    /**
-     * Add contract
-     *
-     * @param Contract $contract
-     *
-     * @return Offer
-     */
-    public function addContract(Contract $contract)
-    {
-        $this->contracts[] = $contract;
-
-        return $this;
     }
 
     /**
@@ -291,16 +279,6 @@ class Offer
     public function isOrdered()
     {
         return ! $this->getContracts()->isEmpty();
-    }
-
-    /**
-     * Remove contract
-     *
-     * @param Contract $contract
-     */
-    public function removeContract(Contract $contract)
-    {
-        $this->contracts->removeElement($contract);
     }
 
     /**
