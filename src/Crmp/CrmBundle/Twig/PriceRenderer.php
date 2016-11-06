@@ -30,7 +30,7 @@ class PriceRenderer extends \Twig_Extension
      */
     public function getName()
     {
-        return 'app_extension';
+        return 'crmp_crm_price';
     }
 
     /**
