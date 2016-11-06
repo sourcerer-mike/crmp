@@ -14,7 +14,7 @@ class StubRepositoryController extends AbstractRepositoryController
     const ROUTE_DELETE = 'none';
     const ROUTE_INDEX  = 'none';
     const ROUTE_SHOW   = 'none';
-    const VIEW_EDIT    = 'none';
+    const VIEW_EDIT    = 'view:edit';
     const VIEW_SHOW    = 'none';
 
     /**

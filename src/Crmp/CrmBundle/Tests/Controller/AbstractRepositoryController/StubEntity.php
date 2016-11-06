@@ -16,6 +16,11 @@ class StubEntity
         return $this->something;
     }
 
+    public function getId()
+    {
+        return -42;
+    }
+
     /**
      * @param mixed $something
      */
