@@ -19,16 +19,25 @@ services:
 
   crmp_acquisition.customer.related_panel.contract:
     class: Crmp\AcquisitionBundle\Panel\Customer\ContractPanel
+    arguments:
+      - '@crmp.contract.repository'
+      - '@crmp.controller.render.parameters'
     tags:
       - {name: 'crmp.panel', target: 'customer_related' }
 
   crmp_acquisition.customer.related_panel.inquiry:
     class: Crmp\AcquisitionBundle\Panel\Customer\InquiryPanel
+    arguments:
+      - '@crmp.inquiry.repository'
+      - '@crmp.controller.render.parameters'
     tags:
       - {name: 'crmp.panel', target: 'customer_related' }
 
   crmp_acquisition.customer.related_panel.offer:
     class: Crmp\AcquisitionBundle\Panel\Customer\OfferPanel
+    arguments:
+      - '@crmp.offer.repository'
+      - '@crmp.controller.render.parameters'
     tags:
       - {name: 'crmp.panel', target: 'customer_related' }
 
