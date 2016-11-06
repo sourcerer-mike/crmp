@@ -45,7 +45,6 @@ class IndexActionTest extends AbstractControllerTestCase
     {
         $mockedMethods = parent::getMockedMethods();
 
-        $mockedMethods[] = 'getUser';
         $mockedMethods[] = 'getCurrentSettings';
 
         return $mockedMethods;
@@ -66,7 +65,7 @@ class IndexActionTest extends AbstractControllerTestCase
 
         $this->createFormMock($panelMock, ['isSubmitted' => true, 'isValid' => true]);
 
-        $this->expectRedirectToRoute('crmp_crm_settings');
+        $this->expectRedirectToRoute('crmp_crm_settings_index');
 
         $this->controllerMock->indexAction(new Request());
     }

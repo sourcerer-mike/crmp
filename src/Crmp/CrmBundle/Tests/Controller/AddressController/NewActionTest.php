@@ -74,6 +74,11 @@ class NewActionTest extends AbstractControllerTestCase
                              ->method('getMainRepository')
                              ->willReturn($addressRepository);
 
+        // user will be logged
+        $this->controllerMock->expects($this->once())
+                             ->method('getUser')
+                             ->willReturn(new User());
+
         $this->mockMethodGetUser();
 
         $this->expectRedirectToRoute(AddressController::ROUTE_SHOW, ['id' => null]);

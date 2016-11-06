@@ -44,6 +44,7 @@ abstract class AbstractControllerTestCase extends \PHPUnit_Framework_TestCase
             'createForm',
             'findAllSimilar',
             'get',
+            'getUser',
             'getMainRepository',
             'redirectToRoute',
             'render',

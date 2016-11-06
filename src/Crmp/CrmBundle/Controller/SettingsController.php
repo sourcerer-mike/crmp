@@ -23,8 +23,6 @@ class SettingsController extends AbstractController
     /**
      * Show common settings.
      *
-     * @Route("/", name="crmp_crm_settings")
-     *
      * @param Request $request
      *
      * @return Response

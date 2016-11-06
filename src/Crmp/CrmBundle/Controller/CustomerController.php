@@ -29,22 +29,19 @@ class CustomerController extends AbstractRepositoryController
     /**
      * Lists all Customer entities.
      *
-     * @Route("/", name="crmp_crm_customer_index")
-     * @Method("GET")
+     * @param Request $request
      *
      * @return Response
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $customers = $em->getRepository('CrmpCrmBundle:Customer')->findAll();
+        $customer = new Customer();
 
         return $this->render(
             'CrmpCrmBundle:Customer:index.html.twig',
-            array(
-                'customers' => $customers,
-            )
+            [
+                'customers' => $this->findAllSimilar($customer),
+            ]
         );
     }
 

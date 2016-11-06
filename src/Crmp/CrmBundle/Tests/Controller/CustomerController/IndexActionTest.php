@@ -3,12 +3,21 @@
 namespace Crmp\CrmBundle\Tests\Controller\CustomerController;
 
 
+use Crmp\CrmBundle\Controller\CustomerController;
+use Crmp\CrmBundle\Entity\Customer;
+use Crmp\CrmBundle\Tests\Controller\AbstractControllerTestCase;
 use Crmp\CrmBundle\Tests\Controller\AuthTestCase;
+use Symfony\Component\HttpFoundation\Request;
 
-class IndexActionTest extends AuthTestCase
+class IndexActionTest extends AbstractControllerTestCase
 {
-    public function testUserCanAccessTheList()
+    protected $controllerClass = CustomerController::class;
+    public function testItListsCustomers()
     {
-        $this->markTestSkipped('fails since User is an crmp entity. needs refactoring to proper unit tests');
+        $this->expectRenderingWith('CrmpCrmBundle:Customer:index.html.twig');
+
+        $this->expectFindAllSimilar(new Customer());
+
+        $this->controllerMock->indexAction(new Request([]));
     }
 }
