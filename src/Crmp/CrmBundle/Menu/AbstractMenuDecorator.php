@@ -3,8 +3,8 @@
 namespace Crmp\CrmBundle\Menu;
 
 use FOS\UserBundle\Model\User;
+use FOS\UserBundle\Model\UserInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 
 /**
  * Interface for other bundles to enhance a menu tree.
@@ -31,7 +31,7 @@ abstract class AbstractMenuDecorator implements MenuDecoratorInterface
     /**
      * Storage with user inside.
      *
-     * @var TokenStorage
+     * @var UserInterface|string
      */
     protected $user;
 
@@ -42,7 +42,7 @@ abstract class AbstractMenuDecorator implements MenuDecoratorInterface
      * @param User          $user         Current user
      * @param \ArrayObject  $renderParams Parameters that are given to the current view.
      */
-    public function __construct(MenuInterface $menu, User $user = null, \ArrayObject $renderParams = null)
+    public function __construct(MenuInterface $menu, $user = null, \ArrayObject $renderParams = null)
     {
         $this->menuBuilder  = $menu;
         $this->user         = $user;
