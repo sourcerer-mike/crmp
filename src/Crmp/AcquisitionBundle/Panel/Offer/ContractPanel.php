@@ -2,6 +2,7 @@
 
 namespace Crmp\AcquisitionBundle\Panel\Offer;
 
+use Crmp\AcquisitionBundle\Entity\Contract;
 use Crmp\AcquisitionBundle\Entity\Offer;
 use Crmp\CrmBundle\Twig\AbstractPanel;
 use Crmp\CrmBundle\Twig\PanelInterface;
@@ -20,30 +21,23 @@ class ContractPanel extends AbstractPanel implements PanelInterface
      */
     public function getData()
     {
-        if ($this->data) {
-            return (array) $this->data;
+        if (isset($this->data['contracts'])) {
+            // seems like already fetched => reuse cached data
+            return $this->data->getArrayCopy();
         }
 
-        $this->data           = (array) $this->container->get('crmp.controller.render.parameters');
         $this->data['contracts'] = [];
 
-        if (! isset($this->data['offer']) || false == ( $this->data['offer'] instanceof Offer )) {
+        if (! isset($this->data['offer']) || false == ($this->data['offer'] instanceof Offer)) {
             return (array) $this->data;
         }
 
-        /** @var Offer $offer */
-        $offer    = $this->data['offer'];
-        $addressRepo = $this->container->get('doctrine')->getRepository('CrmpAcquisitionBundle:Contract');
+        $contract = new Contract();
+        $contract->setOffer($this->data['offer']);
 
-        $this->data['contracts'] = $addressRepo->findBy(
-            [
-                'offer' => $offer,
-            ],
-            null,
-            10
-        );
+        $this->data['contracts'] = $this->repository->findAllSimilar($contract);
 
-        return (array) $this->data;
+        return $this->data->getArrayCopy();
     }
 
     /**
@@ -73,6 +67,6 @@ class ContractPanel extends AbstractPanel implements PanelInterface
      */
     public function getTitle()
     {
-        return $this->container->get('translator')->trans('crmp_acquisition.contract.plural');
+        return 'crmp_acquisition.contract.plural';
     }
 }
