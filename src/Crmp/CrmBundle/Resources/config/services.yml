@@ -32,11 +32,6 @@ services:
     tags:
       - { name: 'crmp.panel_group', alias: 'address_related' }
 
-  crmp_crm.command.update_docs:
-    class: Crmp\CrmBundle\Command\UpdateDocsCommand
-    tags:
-      - { name: console.command }
-
   crmp_crm.config:
     class: Crmp\CrmBundle\CoreDomain\Config\ConfigRepository
     arguments: ['@crmp_crm.doctrine.config_repository']
