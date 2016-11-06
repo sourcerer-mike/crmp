@@ -5,7 +5,7 @@ Feature: Edit details for a single invoice
 
   Background:
     Given I am logged in as "Mike"
-    And I am on "accounting/invoice/1/edit"
+    And I am on "/accounting/invoice/1/edit"
 
   Scenario: No change
     Given the "Invoice total" field should contain "1337"

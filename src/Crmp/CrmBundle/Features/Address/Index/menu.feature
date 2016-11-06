@@ -6,10 +6,10 @@ Feature: Menu
   Scenario: Add new address
     Given I am logged in as "Mike"
     And I am on "/crm/address"
-    And I should see "Aktionen"
+    And I should see "Actions"
 
     When I click on "New address"
 
     Then I am on "/crm/address/new"
     And I should see "New address"
-    And I should see "Erstellen"
+    And I should see "Create"

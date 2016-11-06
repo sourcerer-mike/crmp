@@ -5,7 +5,7 @@ Feature: List all invoices
 
   Background: Logged in as accountant
     Given I am logged in as "Mike"
-    And I am on "accounting/invoice"
+    And I am on "/accounting/invoice"
 
   Scenario: Simple list
     Then I should see "Invoices"
