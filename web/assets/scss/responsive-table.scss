@@ -44,19 +44,8 @@ table.responsive {
   }
 
   th, td {
-    text-align: left;
-
     @media (min-width: $screen-md) {
       display: table-cell;
-      padding: .25em .5em;
-
-      &:first-child {
-        padding-left: 0;
-      }
-
-      &:last-child {
-        padding-right: 0;
-      }
     }
   }
 

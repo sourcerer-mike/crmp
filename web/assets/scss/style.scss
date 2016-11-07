@@ -46,3 +46,14 @@ div.panel > div > table {
 }
 
 @import "responsive-table";
+
+body .so-cold,
+body .so-cold img
+{
+  @media (max-width: 131px) {
+    & {
+      width: 100%;
+      display: block !important;
+    }
+  }
+}
