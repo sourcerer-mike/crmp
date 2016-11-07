@@ -53,6 +53,13 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 crmp-related">
+            {% if app.environment == 'test' %}
+                <div class="alert alert-warning visible-xs visible-sm">
+                    <strong>Just a demo.</strong>
+                    Feel free to change anything you want.
+                    This instance will clean up every 15 minutes.
+                </div>
+            {% endif %}
             <ol class="breadcrumb visible-xs visible-sm">
                 {% block breadcrumb %}
                     <li>
@@ -71,10 +78,17 @@
             </ul>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
-            <div>
-                    <ol class="breadcrumb visible-md visible-lg">
-                        {{ block('breadcrumb') }}
-                    </ol>
+            <div class="visible-md visible-lg">
+                {% if app.environment == 'test' %}
+                    <div class="alert alert-warning">
+                        <strong>Just a demo.</strong>
+                        Feel free to change anything you want.
+                        This instance will clean up every 15 minutes.
+                    </div>
+                {% endif %}
+                <ol class="breadcrumb">
+                    {{ block('breadcrumb') }}
+                </ol>
             </div>
             {% block body %}{% endblock %}
         </div>
