@@ -1,0 +1,86 @@
+table.responsive {
+  margin: 1em 0;
+
+  @media (max-width: $screen-md) {
+    &.table-striped > tbody > tr:nth-of-type(odd) {
+      background: none;
+    }
+
+    tr {
+      border-top: 2px solid lighten($table-bg-accent, 10%);
+      border-bottom: 2px solid lighten($table-bg-accent, 10%);
+    }
+  }
+
+  th {
+    display: none; // for accessibility, use a visually hidden method here instead! Thanks, reddit!
+  }
+
+  td {
+    display: block;
+
+    @media (max-width: $screen-md) {
+      font-size: 1.5em;
+    }
+
+    &:first-child {
+      padding-top: .5em;
+    }
+    &:last-child {
+      padding-bottom: .5em;
+    }
+
+    &:before {
+      content: attr(data-th) ""; // who knew you could do this? The internet, that's who.
+      font-weight: bold;
+
+      display: block;
+      // end options
+
+      @media (min-width: $screen-md) {
+        display: none;
+      }
+    }
+  }
+
+  th, td {
+    text-align: left;
+
+    @media (min-width: $screen-md) {
+      display: table-cell;
+      padding: .25em .5em;
+
+      &:first-child {
+        padding-left: 0;
+      }
+
+      &:last-child {
+        padding-right: 0;
+      }
+    }
+  }
+
+  @media (max-width: $screen-md) {
+    td .btn-group {
+      display: flex;
+      flex-direction: row;
+      margin-left: -$table-cell-padding;
+      margin-right: -$table-cell-padding;
+
+      a.btn {
+
+        &:first-of-type {
+          margin-left: 0;
+        }
+
+        &:last-of-type {
+          margin-right: 0;
+        }
+
+        margin: 0 0.5em;
+        flex-grow: 1;
+        flex-basis: 0;
+      }
+    }
+  }
+}
