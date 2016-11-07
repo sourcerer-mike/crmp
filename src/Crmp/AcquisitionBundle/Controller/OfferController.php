@@ -100,11 +100,12 @@ class OfferController extends AbstractRepositoryController
 
         $offer->setStatus(0);
 
+
         $form = $this->createForm(OfferType::class, $offer);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->get('crmp.offer.repository')->update($offer);
+            $this->getMainRepository()->persist($offer);
 
             return $this->redirectToRoute('crmp_acquisition_offer_show', array('id' => $offer->getId()));
         }

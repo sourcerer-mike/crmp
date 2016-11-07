@@ -28,7 +28,6 @@ class NewActionTest extends AbstractControllerTestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject|OfferController
      */
-    protected $controllerMock;
     private   $mainView = 'CrmpAcquisitionBundle:Offer:new.html.twig';
 
     public function testItFetchesQueriedCustomers()
@@ -120,14 +119,16 @@ class NewActionTest extends AbstractControllerTestCase
     {
         $offerRepoMock = $this->getMockBuilder(OfferRepository::class)
                               ->disableOriginalConstructor()
-                              ->setMethods(['update'])
+                              ->setMethods(['persist'])
                               ->getMock();
 
         $offerRepoMock->expects($this->once())
-                      ->method('update')
+                      ->method('persist')
                       ->with(new Offer());
 
-        $this->mockService('crmp.offer.repository', $offerRepoMock);
+        $this->controllerMock->expects($this->atLeastOnce())
+                             ->method('getMainRepository')
+                             ->willReturn($offerRepoMock);
 
         $this->expectRedirectToRoute('crmp_acquisition_offer_show', array('id' => null));
 

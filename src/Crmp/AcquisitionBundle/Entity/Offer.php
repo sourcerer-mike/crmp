@@ -14,6 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="offer")
  * @ORM\Entity(repositoryClass="Doctrine\ORM\EntityRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Offer
 {
@@ -149,6 +150,7 @@ class Offer
         }
 
         $this->setCreatedAt(new \DateTime());
+        $this->setUpdatedAt(new \DateTime());
     }
 
     /**
