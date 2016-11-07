@@ -17,6 +17,19 @@
 
 
 {% block body %}
+    {% if app.environment == 'test' %}
+        <div class="alert alert-info">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <p>
+                <strong>Please try this credentials:</strong>
+            </p>
+            <p>
+                User: Mike <br/>
+                Pass: letmein
+            </p>
+        </div>
+    {% endif %}
+
     {% if error %}
         <div class="alert alert-danger">
             {{ error.messageKey|trans(error.messageData, 'security') }}
@@ -24,15 +37,15 @@
     {% endif %}
 
     <form action="{{ path("fos_user_security_check") }}" class="form-horizontal" method="post">
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}"/>
         <div class="form-group">
             <label for="username" class="col-sm-2 control-label">
-            {{ "crmp.user.name"|trans }}
-</label>
+                {{ "crmp.user.name"|trans }}
+            </label>
             <div class="col-sm-3">
                 <input type="text" id="username" name="_username"
                        value="{{ last_username }}" required="required" class="form-control"
-                        placeholder="{{ "crmp.user.name"|trans }}"/>
+                       placeholder="{{ "crmp.user.name"|trans }}"/>
             </div>
         </div>
 
@@ -51,7 +64,7 @@
             <div class="col-sm-offset-2 col-sm-10">
                 <div class="checkbox">
                     <label for="remember_me">
-                        <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+                        <input type="checkbox" id="remember_me" name="_remember_me" value="on"/>
                         {{ 'security.login.remember_me'|trans }}
                     </label>
                 </div>
