@@ -132,6 +132,6 @@ class SettingsController extends AbstractController
      */
     protected function getMainRepository()
     {
-        $this->get('crmp.setting.repository');
+        return $this->get('crmp.setting.repository');
     }
 }
