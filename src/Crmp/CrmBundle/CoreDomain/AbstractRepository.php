@@ -93,7 +93,7 @@ abstract class AbstractRepository implements RepositoryInterface
      */
     public function findSimilar($entity)
     {
-        $this->findAllSimilar($entity, 1)->first();
+        return $this->findAllSimilar($entity, 1)->first();
     }
 
     /**
