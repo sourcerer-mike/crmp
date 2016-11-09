@@ -18,9 +18,6 @@ class Invoice
     /**
      * @var int
      *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
@@ -33,17 +30,16 @@ class Invoice
      *
      * @var string
      *
-     * @ORM\Column(name="value", type="decimal", precision=16, scale=4)
      */
     private $value;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Crmp\CrmBundle\Entity\Customer")
+     *
      */
     private $customer;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Crmp\AcquisitionBundle\Entity\Contract")
+     *
      */
     private $contract;
 

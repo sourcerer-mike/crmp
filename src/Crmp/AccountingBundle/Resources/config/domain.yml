@@ -1,4 +1,19 @@
+doctrine:
+  orm:
+    mappings:
+      CrmpAccountingBundle:
+        type: xml
+        dir: Resources/config
+
 services:
+  crmp_accounting.doctrine.invoice_repository:
+    class: Doctrine\ORM\EntityRepository
+    factory: ['@doctrine.orm.entity_manager', getRepository]
+    arguments:
+      - Crmp\AccountingBundle\Entity\Invoice
+
   crmp.invoice.repository:
     class: Crmp\AccountingBundle\CoreDomain\InvoiceRepository
-    arguments: ['@crmp_accounting.doctrine.invoice_repository', '@doctrine.orm.entity_manager']
+    arguments:
+      - '@crmp_accounting.doctrine.invoice_repository'
+      - '@doctrine.orm.entity_manager'

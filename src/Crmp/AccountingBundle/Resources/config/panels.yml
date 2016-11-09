@@ -1,0 +1,14 @@
+services:
+  crmp_accounting.customer.related_panel.invoices:
+    class: Crmp\AccountingBundle\Panel\Customer\InvoicePanel
+    arguments: ["@crmp.invoice.repository", "@crmp.controller.render.parameters"]
+    tags:
+      - { name: 'crmp.panel', target: 'customer_related' }
+
+  crmp_accounting.contract.related_panel.invoices:
+    class: Crmp\AccountingBundle\Panel\Contract\InvoicePanel
+    arguments:
+      - '@crmp.invoice.repository'
+      - '@crmp.controller.render.parameters'
+    tags:
+      - { name: 'crmp.panel', target: 'contract_related' }

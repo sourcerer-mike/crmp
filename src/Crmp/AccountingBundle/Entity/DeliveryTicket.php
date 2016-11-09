@@ -9,5 +9,10 @@ namespace Crmp\AccountingBundle\Entity;
  */
 class DeliveryTicket extends \Crmp\AccountingBundle\CoreDomain\DeliveryTicket\DeliveryTicket
 {
-
+    /**
+     * Identifier
+     *
+     * @var int
+     */
+    protected $id;
 }
