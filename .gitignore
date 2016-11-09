@@ -1,5 +1,6 @@
 # Project
 
+web/.htaccess
 web/**/*.css
 web/**/*.css.map
 web/css/.sass-cache
