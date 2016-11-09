@@ -15,4 +15,14 @@ class DeliveryTicket extends \Crmp\AccountingBundle\CoreDomain\DeliveryTicket\De
      * @var int
      */
     protected $id;
+
+    /**
+     * Identifier to the ticket.
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 }
