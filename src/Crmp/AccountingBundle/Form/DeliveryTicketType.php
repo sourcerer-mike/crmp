@@ -2,14 +2,16 @@
 
 namespace Crmp\AccountingBundle\Form;
 
+use Crmp\AccountingBundle\Entity\DeliveryTicket;
+use Crmp\AccountingBundle\Entity\Invoice;
+use Crmp\AcquisitionBundle\Entity\Contract;
 use Crmp\AcquisitionBundle\Form\ContractType;
-use Doctrine\DBAL\Types\StringType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\GreaterThan;
 
 /**
  * Form for deliveryTickets.
@@ -26,29 +28,41 @@ class DeliveryTicketType extends AbstractType
     {
         $builder
             ->add(
+                'invoice',
+                EntityType::class,
+                [
+                    'class'        => Invoice::class,
+                    'choice_label' => 'customer',
+                    'choice_value' => 'id',
+                    'label'        => 'crmp_accounting.invoice.singular',
+                    'placeholder'  => 'crmp.pleaseChoose',
+                    'disabled'     => true,
+                ]
+            )->add(
                 'title',
                 TextType::class,
                 [
-                    'label' => 'crmp_accounting.delivery_ticket.title',
+                    'label'    => 'crmp_accounting.delivery_ticket.title',
+                    'required' => true,
                 ]
             )
             ->add(
                 'value',
                 NumberType::class,
                 [
-                    'label' => 'crmp_accounting.delivery_ticket.total',
+                    'label'    => 'crmp_accounting.delivery_ticket.total',
+                    'required' => true,
                 ]
             )->add(
                 'contract',
-                null,
+                EntityType::class,
                 [
-                    'label' => 'crmp_acquisition.contract.singular',
-                ]
-            )->add(
-                'invoice',
-                null,
-                [
-                    'label' => 'crmp_accounting.invoice.singular',
+                    'class'        => Contract::class,
+                    'choice_label' => 'title',
+                    'choice_value' => 'id',
+                    'label'        => 'crmp_acquisition.contract.singular',
+                    'placeholder'  => 'crmp.pleaseChoose',
+                    'required'     => true,
                 ]
             );
     }
@@ -60,7 +74,7 @@ class DeliveryTicketType extends AbstractType
     {
         $resolver->setDefaults(
             [
-                'data_class' => 'Crmp\AccountingBundle\Entity\DeliveryTicket',
+                'data_class' => DeliveryTicket::class,
             ]
         );
     }

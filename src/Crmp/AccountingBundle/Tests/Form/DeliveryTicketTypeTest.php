@@ -7,12 +7,10 @@ namespace Crmp\AccountingBundle\Tests\Form;
 use Crmp\AccountingBundle\Entity\DeliveryTicket;
 use Crmp\AccountingBundle\Entity\Invoice;
 use Crmp\AccountingBundle\Form\DeliveryTicketType;
-use Crmp\AccountingBundle\Form\InvoiceType;
 use Crmp\AcquisitionBundle\Entity\Contract;
-use Crmp\CrmBundle\Entity\Customer;
-use Symfony\Component\Form\Extension\Validator\ValidatorExtension;
+use Crmp\CrmBundle\Tests\UnitTests\Util;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Test\TypeTestCase;
-use Symfony\Component\Validator\Validation;
 
 class DeliveryTicketTypeTest extends TypeTestCase
 {
@@ -31,11 +29,24 @@ class DeliveryTicketTypeTest extends TypeTestCase
             'value'    => (float) mt_rand(42, 1337),
         );
 
-        $form = $this->factory->create(DeliveryTicketType::class);
+        $this->builder = $this->factory->createBuilder(DeliveryTicketType::class);
+        $this->buildForm();
+
+        $this->mockField(
+            'invoice',
+            ChoiceType::class,
+            ['choices' => ['6' => $invoice], 'choice_label' => null, 'choice_value' => null, 'disabled' => null]
+        );
+
+        $this->mockField(
+            'contract',
+            ChoiceType::class,
+            ['choices' => ['5' => $contract], 'choice_label' => null, 'choice_value' => null]
+        );
+
+        $form = $this->builder->getForm();
 
         $object = new DeliveryTicket();
-        $object->setContract($formData['contract']);
-        $object->setInvoice($formData['invoice']);
         $object->setTitle($formData['title']);
         $object->setValue($formData['value']);
 
@@ -54,13 +65,49 @@ class DeliveryTicketTypeTest extends TypeTestCase
     }
 
     /**
-     * Load the ValidatorExtension so RepeatedType can resolve 'invalid_message'
+     * Invoice automatically filled
      *
-     * @return array
+     * The invoice field is disabled because the user will come from an invoice context.
+     * From there the invoice will be transferred via URL
+     * and automatically filled in.
+     * This field is just for internal storage
+     * and a visual review what the user is about to do.
+     *
      */
-    protected function getExtensions()
+    public function testTheInvoiceFieldIsDisabled()
     {
-        return [new ValidatorExtension(Validation::createValidator())];
+        $this->assertTrue($this->builder->get('invoice')->getDisabled());
     }
+
+    protected function buildForm($options = [])
+    {
+        $type = new DeliveryTicketType();
+        $type->buildForm($this->builder, $options);
+
+        $this->mockField('invoice', ChoiceType::class);
+        $this->mockField('contract', ChoiceType::class);
+    }
+
+    protected function mockField($fieldName, $type, $options = [])
+    {
+        $unresolved = Util::get($this->builder, 'unresolvedChildren');
+
+        // exchange EntityType with ChoiceType
+        $invoiceOptions = $unresolved[$fieldName]['options'];
+
+        unset($invoiceOptions['class']);
+
+        $invoiceOptions = array_filter(array_merge($invoiceOptions, $options));
+
+        $this->builder->add($fieldName, $type, $invoiceOptions);
+    }
+
+    protected function setUp()
+    {
+        parent::setUp();
+
+        $this->buildForm();
+    }
+
 
 }
